@@ -1,0 +1,39 @@
+{
+  "name": "koperasi-astra",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest": "^23.4.1",
+    "jest-react-native": "^18.0.0",
+    "react-native-debugger-open": "^0.3.17",
+    "react-test-renderer": "16.3.1"
+  },
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "jest",
+    "postinstall": "rndebugger-open"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "react": "16.3.1",
+    "react-native": "~0.55.2",
+    "react-native-auto-height-image": "^1.0.1",
+    "react-native-easy-grid": "^0.2.0",
+    "react-native-image-picker": "^0.26.10",
+    "react-native-snap-carousel": "^3.7.2",
+    "react-native-star-rating": "^1.0.9",
+    "react-native-swiper": "^1.5.13",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.7.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "tai-password-strength": "^1.1.1",
+    "validatorjs": "^3.14.2"
+  }
+}
