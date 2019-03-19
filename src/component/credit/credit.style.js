@@ -32,5 +32,34 @@ export const styles = StyleSheet.create({
         marginBottom: 15,
         overflow:'hidden',
         ...Variable.boxShadow
+    },
+
+    // Circle Item Detail Pinjaman
+    circleDetail:{
+        width:50,
+        height:50,
+        borderWidth:3,
+        borderColor: '#dfdfdf',
+        borderRadius:25,
+        textAlign:'center',
+        backgroundColor: '#fff',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: 10,
+        opacity: 0.5,
+        ...Variable.boxShadow
+    },
+    circleDetailText: {
+        textAlign: 'center',
+        top: 12,
+        fontFamily: Variable.fontBold,
+        color: Variable.colorTitle
+    },
+    wrapDetailDescPinjaman: {
+        padding: 15,
+        backgroundColor: '#fff',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: '#dfdfdf'
     }
 });

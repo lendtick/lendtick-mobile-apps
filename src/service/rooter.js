@@ -40,6 +40,7 @@ import MicroloanComponent from '../component/personal-attr/microloan.component';
 // Credit
 // ========================== //
 import CreditComponent from '../component/credit/credit.component';
+import CreditDetailComponent from '../component/credit/credit.detail.component';
 
 // Services
 // ========================== //
@@ -121,6 +122,7 @@ const Home = createStackNavigator({
 
 const Credit = createStackNavigator({
     main: CreditComponent,
+    CreditDetail: CreditDetailComponent
 },{
     initialRouteName: 'main',
     mode: 'modal'

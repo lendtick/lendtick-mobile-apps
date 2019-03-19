@@ -17,7 +17,7 @@ class CreditComponent extends React.Component {
                 <ScrollView style={{padding: 30}}>
                     <Grid style={{paddingBottom:30}}>
                         <Col style={{paddingRight:15}}>
-                            <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail')} underlayColor="transparent">
                                 <View style={styles.itemLoan}>
                                     <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/credit/loan.png')} />
                                     <Text style={styles.textMenuLoan}>Loan</Text>
@@ -25,7 +25,7 @@ class CreditComponent extends React.Component {
                             </TouchableHighlight>
                         </Col>
                         <Col style={{paddingLeft:15}}>
-                            <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail')} underlayColor="transparent">
                                 <View style={styles.itemLoan}>
                                     <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/credit/middleloan.png')} />
                                     <Text style={styles.textMenuLoan}>Middle Loan</Text>
