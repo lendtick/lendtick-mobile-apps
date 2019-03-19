@@ -20,15 +20,15 @@ class ProductDetailComponent extends React.Component {
         super(props);
         this.state = { 
             entries:[
-                {id: "01", title: "coba 1", src:require("../../../assets/img/product/detail/img01.png"), link:""},
-                {id: "02", title: "coba 2", src:require("../../../assets/img/product/detail/img02.png"), link:""},
-                {id: "03", title: "coba 3", src:require("../../../assets/img/product/detail/img03.png"), link:""},
+                {id: "01", title: "coba 1", src:require("@assets/img/product/detail/img01.png"), link:""},
+                {id: "02", title: "coba 2", src:require("@assets/img/product/detail/img02.png"), link:""},
+                {id: "03", title: "coba 3", src:require("@assets/img/product/detail/img03.png"), link:""},
             ],
             selectedLink: 'produk',
             productsRecomended: [
-                {id: "01", title: "Tas Wanita", category:"Bag", price: 14500, src:require("../../../assets/img/product/img04.jpg")},
-                {id: "02", title: "Sepati Anti Paku", category:"Shoes", price: 15000, src:require("../../../assets/img/product/img05.jpg")},
-                {id: "03", title: "Tas Wanita Coklat", category:"Bag", price: 14500, src:require("../../../assets/img/product/img06.jpg")},
+                {id: "01", title: "Tas Wanita", category:"Bag", price: 14500, src:require("@assets/img/product/img04.jpg")},
+                {id: "02", title: "Sepati Anti Paku", category:"Shoes", price: 15000, src:require("@assets/img/product/img05.jpg")},
+                {id: "03", title: "Tas Wanita Coklat", category:"Bag", price: 14500, src:require("@assets/img/product/img06.jpg")},
             ],
         };
     }

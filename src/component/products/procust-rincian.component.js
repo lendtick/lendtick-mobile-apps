@@ -17,7 +17,7 @@ class ProductRincianComponent extends React.Component {
                     <View style={{borderWidth:1,borderColor:'#efefef',backgroundColor:'#ffffff',borderRadius:4,...Variable.boxShadow}}>
                         <Grid>
                             <Col style={{width:100}}>
-                                <Image style={styles.imgThumb} source={require('../../../assets/img/product/img07.jpg')} />
+                                <Image style={styles.imgThumb} source={require('@assets/img/product/img07.jpg')} />
                             </Col>
                             <Col style={{padding:15}}>
                                 <Text style={Typography.heading6}>Jam pria Alexandre Christie Model number AC999 Silver Black</Text>

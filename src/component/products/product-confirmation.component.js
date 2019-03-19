@@ -38,7 +38,7 @@ class ProductConfirmationComponent extends React.Component {
                     <View style={[Main.container,{paddingTop:30,paddingBottom:15}]}>
                         <Grid>
                             <Col style={{width:115}}>
-                                <Image style={styles.imgThumb} source={require('../../../assets/img/product/img07.jpg')} />
+                                <Image style={styles.imgThumb} source={require('@assets/img/product/img07.jpg')} />
                             </Col>
                             <Col>
                                 <Text style={Typography.heading6}>Jam pria Alexandre Christie Model number AC999 Silver Black</Text>
@@ -65,7 +65,7 @@ class ProductConfirmationComponent extends React.Component {
                         </Grid>
                     </View>
 
-                    <Image style={[styles.line,{marginTop:15}]} source={require('../../../assets/img/bg/line.png')} />
+                    <Image style={[styles.line,{marginTop:15}]} source={require('@assets/img/bg/line.png')} />
 
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15}]}>
                         <Grid>

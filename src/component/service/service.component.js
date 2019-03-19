@@ -16,9 +16,9 @@ class ServiceComponent extends React.Component {
         super(props);
         this.state = { 
             entries:[
-                {id: "01", title: "coba 1", src:require("../../../assets/img/banner/img01.jpg"), link:""},
-                {id: "02", title: "coba 2", src:require("../../../assets/img/banner/img01.jpg"), link:""},
-                {id: "03", title: "coba 3", src:require("../../../assets/img/banner/img01.jpg"), link:""},
+                {id: "01", title: "coba 1", src:require("@assets/img/banner/img01.jpg"), link:""},
+                {id: "02", title: "coba 2", src:require("@assets/img/banner/img01.jpg"), link:""},
+                {id: "03", title: "coba 3", src:require("@assets/img/banner/img01.jpg"), link:""},
             ],
         };
     }
@@ -43,51 +43,51 @@ class ServiceComponent extends React.Component {
                             <Row>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('Pulsa')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item9.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item9.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('PaketData')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item2.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item2.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item3.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item4.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item5.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item5.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item7.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item7.png')} />
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item8.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item8.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item1.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item1.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('../../../assets/img/icon-service/item10.png')} />
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item10.png')} />
                                     </TouchableHighlight>
                                 </Col>
                             </Row>

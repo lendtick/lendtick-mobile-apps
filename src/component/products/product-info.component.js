@@ -117,21 +117,21 @@ class ProductInfoComponent extends React.Component {
                 {/* ====== START INFO ====== */}
                 <Grid style={{backgroundColor:'white',borderTopWidth:1,borderColor:'#efefef'}}>
                     <Col style={{borderRightWidth:1,borderColor:'#efefef',padding:15, width:'33.3%'}}>
-                        <Image style={{width:50,height:50,left:'50%',marginLeft:-25}} source={require('../../../assets/img/product/features/img01.png')} />
+                        <Image style={{width:50,height:50,left:'50%',marginLeft:-25}} source={require('@assets/img/product/features/img01.png')} />
                         <Text style={[Typography.singleText,{textAlign:'center',marginTop:10}]}>Retur Mudah</Text>
                     </Col>
                     <Col style={{borderRightWidth:1,borderColor:'#efefef',padding:15, width:'33.3%'}}>
-                        <Image style={{width:50,height:50,left:'50%',marginLeft:-25}} source={require('../../../assets/img/product/features/img02.png')} />
+                        <Image style={{width:50,height:50,left:'50%',marginLeft:-25}} source={require('@assets/img/product/features/img02.png')} />
                         <Text style={[Typography.singleText,{textAlign:'center',marginTop:10}]}>Pembayaran Aman</Text>
                     </Col>
                     <Col style={{padding:15, width:'33.3%'}}>
-                        <Image style={{width:50,height:50,left:'50%',marginLeft:-25}} source={require('../../../assets/img/product/features/img03.png')} />
+                        <Image style={{width:50,height:50,left:'50%',marginLeft:-25}} source={require('@assets/img/product/features/img03.png')} />
                         <Text style={[Typography.singleText,{textAlign:'center',marginTop:10}]}>Kualitas Terjamin</Text>
                     </Col>
                 </Grid>
                 {/* ====== END INFO ====== */}    
                 
-                <Image style={[styles.line,{marginBottom:-15}]} source={require('../../../assets/img/bg/line.png')} />
+                <Image style={[styles.line,{marginBottom:-15}]} source={require('@assets/img/bg/line.png')} />
 
                 {/* ====== START RECOMENDED PRODUCT ====== */}
                 <View style={{marginTop: 30, paddingLeft: 15, marginBottom:15}}>

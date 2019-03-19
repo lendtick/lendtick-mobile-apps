@@ -33,7 +33,7 @@ class PinjamanComponent extends React.Component {
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Pembayaran bulan ini</Text>
                     </View>
-                    <Image style={{width:'100%',height:10}} source={require('../../../assets/img/bg/line.png')} />
+                    <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
 
                     <View style={{padding:15}}>
                         <TouchableHighlight onPress={()=> this.props.navigation.navigate('Microloan')} underlayColor="transparent">

@@ -62,7 +62,7 @@ class ListrikComponent extends React.Component {
                     </View>
                     {/* ====== END INPUT PHONE NUMBER ====== */}
                 </View>
-                <Image style={styles.line} source={require('../../../../assets/img/bg/line.png')} />
+                <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
 
                 <ScrollView style={{backgroundColor: Variable.backgroundGray}}>
                     <View style={{paddingTop:15,paddingBottom:15,paddingLeft:7.5,paddingRight:7.5}}>

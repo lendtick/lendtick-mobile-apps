@@ -16,9 +16,9 @@ class InitComponent extends React.Component {
         // Load Font
         // ======================================== //
         await Font.loadAsync({
-            'font-bold': require('../../../assets/font/Poppins/Poppins-Bold.ttf'),
-            'font-medium': require('../../../assets/font/Poppins/Poppins-Medium.ttf'),
-            'font-regular': require('../../../assets/font/Poppins/Poppins-Regular.ttf'),
+            'font-bold': require('@assets/font/Poppins/Poppins-Bold.ttf'),
+            'font-medium': require('@assets/font/Poppins/Poppins-Medium.ttf'),
+            'font-regular': require('@assets/font/Poppins/Poppins-Regular.ttf'),
         });
 
         // Direct Page as token & status isNew user
@@ -27,8 +27,8 @@ class InitComponent extends React.Component {
             if(result){
                 switch(Number(result)){
                     case 0 :
-                        this.props.navigation.navigate('Credit');
-                        // this.props.navigation.navigate('Home');
+                        // this.props.navigation.navigate('Credit');
+                        this.props.navigation.navigate('Home');
                     break;
                     case 1 :
                         this.props.navigation.navigate('LoginFirst');

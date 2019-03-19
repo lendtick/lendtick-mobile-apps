@@ -105,7 +105,7 @@ class PaketDataComponent extends React.Component {
                         {/* ====== END INPUT PHONE NUMBER ====== */}
                     </View>
                 </View>
-                <Image style={styles.line} source={require('../../../../assets/img/bg/line.png')} />
+                <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
 
                 {/* ====== START LIST ====== */}
                 <ScrollView style={{backgroundColor: Variable.backgroundGray}}>

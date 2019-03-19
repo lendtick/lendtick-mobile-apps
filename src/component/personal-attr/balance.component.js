@@ -24,11 +24,11 @@ class BalanceComponent extends React.Component {
                 <View style={{height:160}}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
                         <View style={styles.itemLoan}>
-                            <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('../../../assets/img/balance/img01.png')} />
+                            <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/balance/img01.png')} />
                             <Text style={styles.textMenuLoan}>Microloan Balance</Text>
                         </View>
                         <View style={[[styles.itemLoan,{marginLeft:30}]]}>
-                            <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('../../../assets/img/balance/img02.png')} />
+                            <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/balance/img02.png')} />
                             <Text style={styles.textMenuLoan}>Middle Loan Balance</Text>
                         </View>
                     </View>

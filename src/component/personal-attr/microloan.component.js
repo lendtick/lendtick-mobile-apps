@@ -33,7 +33,7 @@ class MicroloanComponent extends React.Component {
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Tagihan bulan ini</Text>
                     </View>
-                    <Image style={{width:'100%',height:10}} source={require('../../../assets/img/bg/line.png')} />
+                    <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
 
                     {/* ====== START KETERANGAN ====== */}
                     <Grid style={{padding:15,marginTop:15}}>

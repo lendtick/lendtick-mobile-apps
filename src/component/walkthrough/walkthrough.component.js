@@ -31,7 +31,7 @@ class walkThroughComponent extends Component {
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
-                            source={require('../../../assets/img/walktrough/walkt1.png')} />
+                            source={require('@assets/img/walktrough/walkt1.png')} />
                         <Text style={Typography.heading5}>Terpercaya</Text>
                         <Text style={styles.text}>
                             Lorem mamat dolor sit amet, agam nullam mea no, cetero omittam at his Aperiri senserit ne per. No audire vivendo nominati eam.
@@ -40,7 +40,7 @@ class walkThroughComponent extends Component {
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
-                            source={require('../../../assets/img/walktrough/walkt2.png')} />
+                            source={require('@assets/img/walktrough/walkt2.png')} />
                         <Text style={Typography.heading5}>Mempermudah</Text>
                         <Text style={styles.text}>
                             Lorem ipsum dolor sit amet, agam nullam mea no, cetero omittam at his Aperiri senserit ne per. No audire vivendo nominati eam.
@@ -49,7 +49,7 @@ class walkThroughComponent extends Component {
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
-                            source={require('../../../assets/img/walktrough/walkt3.png')} />
+                            source={require('@assets/img/walktrough/walkt3.png')} />
                         <Text style={Typography.heading5}>Mewujudkan</Text>
                         <Text style={styles.text}>
                             Lorem ipsum dolor sit amet, agam nullam mea no, cetero omittam at his Aperiri senserit ne per. No audire vivendo nominati eam.

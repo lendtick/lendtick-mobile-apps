@@ -29,13 +29,13 @@ class PinjamanTunaiComponent extends React.Component {
                             <Row>
                                 <Col style={{paddingRight:7.5}}>
                                     <View style={styles.itemPinjaman}>
-                                        <Image style={styles.imgItem} source={require('../../../../assets/img/icons/pinjaman-tunai/img01.png')} />
+                                        <Image style={styles.imgItem} source={require('@assets/img/icons/pinjaman-tunai/img01.png')} />
                                         <Text style={styles.textPinjaman}>Multi Guna</Text>
                                     </View>
                                 </Col>
                                 <Col style={{paddingLeft:7.5}}>
                                     <View style={styles.itemPinjaman}>
-                                        <Image style={styles.imgItem} source={require('../../../../assets/img/icons/pinjaman-tunai/img02.png')} />
+                                        <Image style={styles.imgItem} source={require('@assets/img/icons/pinjaman-tunai/img02.png')} />
                                         <Text style={styles.textPinjaman}>Multi Griya</Text>
                                     </View>
                                 </Col>
@@ -43,20 +43,20 @@ class PinjamanTunaiComponent extends React.Component {
                             <Row>
                                 <Col style={{paddingRight:7.5}}>
                                     <View style={styles.itemPinjaman}>
-                                        <Image style={styles.imgItem} source={require('../../../../assets/img/icons/pinjaman-tunai/img03.png')} />
+                                        <Image style={styles.imgItem} source={require('@assets/img/icons/pinjaman-tunai/img03.png')} />
                                         <Text style={styles.textPinjaman}>Darurat</Text>
                                     </View>
                                 </Col>
                                 <Col style={{paddingLeft:7.5}}>
                                     <View style={styles.itemPinjaman}>
-                                        <Image style={styles.imgItem} source={require('../../../../assets/img/icons/pinjaman-tunai/img04.png')} />
+                                        <Image style={styles.imgItem} source={require('@assets/img/icons/pinjaman-tunai/img04.png')} />
                                         <Text style={styles.textPinjaman}>Usaha</Text>
                                     </View>
                                 </Col>
                             </Row>
                         </Grid>
                     </View>
-                    <Image style={styles.line} source={require('../../../../assets/img/bg/line.png')} />
+                    <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
 
                     <View style={[Main.container,{paddingTop:15}]}>
                         <Text style={Typography.singleTitle}>Jumlah Pinjaman</Text>

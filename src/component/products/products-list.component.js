@@ -19,17 +19,17 @@ class ListProductComponent extends React.Component {
         super(props);
         this.state = { 
             entries:[
-                {id: "01", title: "coba 1", src:require("../../../assets/img/banner/img01.jpg"), link:""},
-                {id: "02", title: "coba 2", src:require("../../../assets/img/banner/img01.jpg"), link:""},
-                {id: "03", title: "coba 3", src:require("../../../assets/img/banner/img01.jpg"), link:""},
+                {id: "01", title: "coba 1", src:require("@assets/img/banner/img01.jpg"), link:""},
+                {id: "02", title: "coba 2", src:require("@assets/img/banner/img01.jpg"), link:""},
+                {id: "03", title: "coba 3", src:require("@assets/img/banner/img01.jpg"), link:""},
             ],
             products:[
-                {id: "01", title: "Jaket merah", category:"Jacket", price: 14500, src:require("../../../assets/img/product/img01.jpg")},
-                {id: "02", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("../../../assets/img/product/img02.jpg")},
-                {id: "03", title: "Kemeja Putih Kondangan", category:"Baju", price: 14500, src:require("../../../assets/img/product/img03.jpg")},
-                {id: "04", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("../../../assets/img/product/img02.jpg")},
-                {id: "05", title: "Jaket merah", category:"Jacket", price: 14500, src:require("../../../assets/img/product/img01.jpg")},
-                {id: "06", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("../../../assets/img/product/img02.jpg")},
+                {id: "01", title: "Jaket merah", category:"Jacket", price: 14500, src:require("@assets/img/product/img01.jpg")},
+                {id: "02", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("@assets/img/product/img02.jpg")},
+                {id: "03", title: "Kemeja Putih Kondangan", category:"Baju", price: 14500, src:require("@assets/img/product/img03.jpg")},
+                {id: "04", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("@assets/img/product/img02.jpg")},
+                {id: "05", title: "Jaket merah", category:"Jacket", price: 14500, src:require("@assets/img/product/img01.jpg")},
+                {id: "06", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("@assets/img/product/img02.jpg")},
 
             ],
             data: [],

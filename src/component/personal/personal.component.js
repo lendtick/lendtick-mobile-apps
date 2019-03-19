@@ -82,7 +82,7 @@ class personalComponent extends React.Component {
                             colors={['#25c4fd', '#aad95a']}
                             start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                             style={{ padding: 15, borderRadius: 4, width: '100%', marginBottom: 15 }}>
-                            <AutoHeightImage width={150} source={require('../../../assets/img/koperasi-astra.png')} />
+                            <AutoHeightImage width={150} source={require('@assets/img/koperasi-astra.png')} />
 
                             {this.state.loading ? <Text style={[Typography.singleText,{marginTop:15, color:'white'}]}>Loading...</Text> :
                             <View>
