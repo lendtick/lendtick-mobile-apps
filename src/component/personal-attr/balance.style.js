@@ -13,13 +13,11 @@ export const styles = StyleSheet.create({
         padding: 30
     },
     itemLoan: {
-        width: (Dimensions.get('window').width / 2) - 45,
+        width: (Dimensions.get('window').width / 2) - 30,
         borderWidth: 1,
         borderColor: '#dfdfdf',
         backgroundColor: '#ffffff',
-        borderRadius: Variable.borderRadius,
         padding: 15,
-        borderStyle: 'dashed',
         ...Variable.boxShadow
     },
     textMenuLoan:{
