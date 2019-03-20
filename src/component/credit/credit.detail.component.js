@@ -2,8 +2,8 @@ import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,Image } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
-import { InputComponent,InputDropdown } from '@directives';
-import { Variable,Typography } from '@styles';
+import { InputComponent,InputDropdown,ButtonComponent } from '@directives';
+import { Variable,Typography,Input } from '@styles';
 import { styles } from './credit.style';
 
 class CreditDetailComponent extends React.Component {
@@ -159,6 +159,14 @@ class CreditDetailComponent extends React.Component {
                             value={this.state.jumlahSisaAngsuran}
                             onChange={(jumlahSisaAngsuran) => this.setState({jumlahSisaAngsuran})}/>
                     </View>
+
+                    <View style={{marginTop: 15, marginBottom: 15}}>
+                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Credit')} underlayColor="transparent">
+                            <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
+                        </TouchableHighlight>
+                    </View>
+                    
+                    <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.props.navigation.navigate('CreditTerm')}/>
 
                 </View>
                 {/* ====== START INPUT ====== */}

@@ -41,7 +41,7 @@ base64MimeType = (encoded) => {
 }
 
 async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
     const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
     if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
         return true;
@@ -136,10 +136,9 @@ class Register2Component extends Component {
         })
     }
 
-    pickupImage = async (param,type) => {
+    pickupImage = async (param) => {
         if(checkAllowCamera()){
             let response = await ImagePicker.launchImageLibraryAsync({
-                cameraType: type,
                 allowsEditing: true,
                 base64: true,
                 storageOptions: {
@@ -359,7 +358,7 @@ class Register2Component extends Component {
                                 value={this.state.identityPhoto != null ? this.state.identityPhoto.uri.replace(/^.*[\\\/]/, '') : null}
                                 isButton={true}
                                 topIcon={2}
-                                onClickBtn={()=> this.pickupImage('identityPhoto','front')}/>
+                                onClickBtn={()=> this.pickupImage('identityPhoto')}/>
                             {this.state.identityPhoto != null ? <AutoHeightImage source={{uri: `data:${this.state.identityPhoto.type};base64,${this.state.identityPhoto.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
 
                             <InputComponent 
@@ -385,7 +384,7 @@ class Register2Component extends Component {
                                 value={this.state.companyIdentityPhoto != null ? this.state.companyIdentityPhoto.uri.replace(/^.*[\\\/]/, '') : null}
                                 isButton={true}
                                 topIcon={2}
-                                onClickBtn={()=> this.pickupImage('companyIdentityPhoto','front')}/>
+                                onClickBtn={()=> this.pickupImage('companyIdentityPhoto')}/>
                             {this.state.companyIdentityPhoto != null ? <AutoHeightImage source={{uri: `data:${this.state.companyIdentityPhoto.type};base64,${this.state.companyIdentityPhoto.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
 
                             <InputComponent 
@@ -395,7 +394,7 @@ class Register2Component extends Component {
                                 value={this.state.personalPhoto != null ? this.state.personalPhoto.uri.replace(/^.*[\\\/]/, '') : null}
                                 isButton={true}
                                 topIcon={2}
-                                onClickBtn={()=> this.pickupImage('personalPhoto','front')}/>
+                                onClickBtn={()=> this.pickupImage('personalPhoto')}/>
                             {this.state.personalPhoto != null ? <AutoHeightImage source={{uri: `data:${this.state.personalPhoto.type};base64,${this.state.personalPhoto.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}             
 
                             <InputComponent 

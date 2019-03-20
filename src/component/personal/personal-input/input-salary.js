@@ -39,7 +39,7 @@ base64MimeType = (encoded) => {
 }
 
 async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
     const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
     if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
         return true;

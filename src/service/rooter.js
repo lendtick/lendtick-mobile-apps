@@ -41,6 +41,9 @@ import MicroloanComponent from '../component/personal-attr/microloan.component';
 // ========================== //
 import CreditComponent from '../component/credit/credit.component';
 import CreditDetailComponent from '../component/credit/credit.detail.component';
+import CreditTermComponent from '../component/credit/credit-term.component';
+import CreditDocumentComponent from '../component/credit/credit-document.component';
+import CreditCompleteComponent from '../component/credit/credit-complete.component';
 
 // Services
 // ========================== //
@@ -122,7 +125,10 @@ const Home = createStackNavigator({
 
 const Credit = createStackNavigator({
     main: CreditComponent,
-    CreditDetail: CreditDetailComponent
+    CreditDetail: CreditDetailComponent,
+    CreditTerm: CreditTermComponent,
+    CreditDocument: CreditDocumentComponent,
+    CreditComplete: CreditCompleteComponent
 },{
     initialRouteName: 'main',
     mode: 'modal'
