@@ -73,7 +73,7 @@ class CreditCompleteComponent extends Component {
 
                         <View style={{marginBottom: 15}} />
                         
-                        <ButtonComponent type="primary" text="Kembali ke dashboard" onClick={()=> this.props.navigation.navigate('Home')}  disabled={false} isSubmit={false}/>
+                        <ButtonComponent type="primary" text="Kembali" onClick={()=> this.props.navigation.popToTop()}  disabled={false} isSubmit={false}/>
                     </View>
                 
                 </ScrollView>
