@@ -160,6 +160,33 @@ class CreditDetailComponent extends React.Component {
                             onChange={(jumlahSisaAngsuran) => this.setState({jumlahSisaAngsuran})}/>
                     </View>
 
+                    <View style={{
+                        marginTop:15,
+                        padding:15,
+                        borderTopLeftRadius:Variable.borderRadius,
+                        borderTopRightRadius:Variable.borderRadius,
+                        borderBottomWidth: 1,
+                        borderColor: '#efefef',
+                        backgroundColor: '#f8f8ff'}}>
+                        <ButtonComponent type="default" text="Simulasikan Kredit" onClick={()=> console.log("asd")}/>
+                    </View>
+                    <Grid style={{
+                        padding:15,
+                        borderBottomWidth: 1,
+                        borderColor: '#efefef',
+                        backgroundColor: '#f8f8ff'}}>
+                        <Col><Text style={Typography.label}>Rp 1.250.000</Text></Col>
+                        <Col><Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary}]}>x10 bulan</Text></Col>
+                    </Grid>
+                    <View style={{
+                        padding:15,
+                        borderBottomLeftRadius:Variable.borderRadius,
+                        borderBottomRightRadius:Variable.borderRadius,
+                        backgroundColor: '#f8f8ff'}}>
+                        <Text style={[Typography.heading6,{marginBottom:0}]}>Rp 12.500.000</Text>
+                    </View>
+
+
                     <View style={{marginTop: 15, marginBottom: 15}}>
                         <TouchableHighlight onPress={()=> this.props.navigation.navigate('Credit')} underlayColor="transparent">
                             <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
