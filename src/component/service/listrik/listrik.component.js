@@ -123,7 +123,7 @@ class ListrikComponent extends React.Component {
                 </ScrollView>
 
                 {/* ====== START FOOTER ====== */}
-                {this.state.selectedLink == "token" ? <FooterButton text= "Rp 100,000" textButton="Continue" onClick={()=> this.props.navigation.navigate('PaketDataConfirmation')}/> : null}
+                {this.state.selectedLink == "token" ? <FooterButton text= "Rp 100,000" textButton="Continue" onClick={()=> this.props.navigation.navigate('ListrikConfirmation')}/> : null}
                 {/* ====== END FOOTER ====== */}
             </View>
         );

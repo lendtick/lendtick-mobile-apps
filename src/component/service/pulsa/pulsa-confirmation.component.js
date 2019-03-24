@@ -30,10 +30,6 @@ class PulsaConfirmation extends React.Component {
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Phone Number</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>089876567865</Text>
                         </View>
-                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.singleText,{marginBottom:5}]}>Paket Data</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>Pulsa Internet Telkomsel Rp. 500,000</Text>
-                        </View>
                         <View>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Harga</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>Rp 500,000</Text>
@@ -77,7 +73,7 @@ class PulsaConfirmation extends React.Component {
                 </ScrollView>
 
                 {/* ====== START FOOTER ====== */}
-                <FooterButton text="Rp 100.000" textButton="Konfirmasi" onClick={()=> console.log("asdasd")}/>
+                <FooterButton text="Rp 500.000" textButton="Konfirmasi" onClick={()=> console.log("asdasd")}/>
                 {/* ====== END FOOTER ====== */}
             </View>
         );

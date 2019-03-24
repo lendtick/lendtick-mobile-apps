@@ -29,12 +29,14 @@ export default homeService = {
             })
             .then(response => response.json())
             .then(json => {
-                if(json.data.token == undefined){
-                    resolve(json);
-                }else{
-                    AsyncStorage.setItem('token', json.data.token);
-                    token = json.data.token;
-                    personalService.getInfoUser();
+                if(json.data){
+                    if(json.data.token){
+                        AsyncStorage.setItem('token', json.data.token);
+                        token = json.data.token;
+                        personalService.getInfoUser();
+                    }else{
+                        resolve(json);                        
+                    }
                 }
             })
             .catch(err => reject(err));

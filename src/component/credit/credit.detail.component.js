@@ -175,16 +175,17 @@ class CreditDetailComponent extends React.Component {
                         borderBottomWidth: 1,
                         borderColor: '#efefef',
                         backgroundColor: '#f8f8ff'}}>
-                        <Col><Text style={Typography.label}>Rp 1.250.000</Text></Col>
-                        <Col><Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary}]}>x10 bulan</Text></Col>
+                        <Col><Text style={[Typography.singleText,{color:Variable.colorPrimary}]}>10 bulan</Text></Col>
+                        <Col><Text style={[Typography.label,{textAlign:'right'}]}>Rp 1.250.000</Text></Col>
                     </Grid>
-                    <View style={{
+                    <Grid style={{
                         padding:15,
                         borderBottomLeftRadius:Variable.borderRadius,
                         borderBottomRightRadius:Variable.borderRadius,
                         backgroundColor: '#f8f8ff'}}>
-                        <Text style={[Typography.heading6,{marginBottom:0}]}>Rp 12.500.000</Text>
-                    </View>
+                        <Col><Text style={Typography.singleText}>Total :</Text></Col>
+                        <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>Rp 12.500.000</Text></Col>
+                    </Grid>
 
 
                     <View style={{marginTop: 15, marginBottom: 15}}>

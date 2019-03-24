@@ -54,6 +54,7 @@ import PulsaConfirmation from '../component/service/pulsa/pulsa-confirmation.com
 import ListrikComponent from '../component/service/listrik/listrik.component';
 import PinjamanTunaiComponent from '../component/service/pinjaman-tunai/pinjaman-tunai.component';
 import PaketDataConfirmation from '../component/service/paket-data/paket-data-confirmasi.component';
+import ListrikConfirmation from '../component/service/listrik/listrik-comfirm.component';
 
 // Home
 // ========================== //
@@ -141,7 +142,8 @@ const Service = createStackNavigator({
     Pulsa: PulsaCompnent,
     PulsaConfirmation: PulsaConfirmation,
     Listrik: ListrikComponent,
-    PinjamanTunai: PinjamanTunaiComponent
+    PinjamanTunai: PinjamanTunaiComponent,
+    ListrikConfirmation: ListrikConfirmation,
 },{
     initialRouteName: 'main',
     mode: 'modal'
