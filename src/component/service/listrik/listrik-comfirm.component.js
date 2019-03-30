@@ -36,14 +36,14 @@ class ListrikConfirmation extends React.Component {
                         </View>
                         <View>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Harga</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>Rp 500,000</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>Rp 50,000</Text>
                         </View>
                     </View>
                     {/* ====== END INFORMASI ====== */}
                 </ScrollView>
 
                 {/* ====== START FOOTER ====== */}
-                <FooterButton text="Rp 500.000" textButton="Konfirmasi" onClick={()=> console.log("asdasd")}/>
+                <FooterButton text="Rp 50.000" textButton="Konfirmasi" onClick={()=> console.log("asdasd")}/>
                 {/* ====== END FOOTER ====== */}
             </View>
         );

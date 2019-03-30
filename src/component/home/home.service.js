@@ -20,6 +20,7 @@ export default homeService = {
     // ======================= //
     getInfoUser: () =>{
         const promiseObj = new Promise(function(resolve, reject){
+            console.log(token,urlGetProfile);
             fetch(urlGetProfile,{
                 method: 'GET',
                 headers: new Headers({
@@ -29,6 +30,7 @@ export default homeService = {
             })
             .then(response => response.json())
             .then(json => {
+                console.log(json);
                 if(json.data){
                     if(json.data.token){
                         AsyncStorage.setItem('token', json.data.token);

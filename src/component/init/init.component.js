@@ -27,7 +27,6 @@ class InitComponent extends React.Component {
             if(result){
                 switch(Number(result)){
                     case 0 :
-                        // this.props.navigation.navigate('Credit');
                         this.props.navigation.navigate('Home');
                     break;
                     case 1 :

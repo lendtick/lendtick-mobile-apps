@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView,View,Image,TouchableHighlight,Text } from 'react-native';
+import { ScrollView,View,Image,Text,Dimensions } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
-import { ButtonComponent, InputCheckbox, AlertBox } from '@directives';
-import { Main,Variable,Input,Typography } from '@styles';
+import AutoHeightImage from 'react-native-auto-height-image';
+
+import { ButtonComponent, InputComponent } from '@directives';
+import { Main,Variable,Typography } from '@styles';
 import { styles } from './credit.style';
 
 class CreditCompleteComponent extends Component {
@@ -16,6 +18,10 @@ class CreditCompleteComponent extends Component {
         super(props);
         this.state = { 
             checked: false,
+            loanType: 'Microloan',
+            jumlah: 'Rp 5.000.000',
+            time: '22 Juni 2020',
+            jmlTagihan: 'Rp 500.000'
         };
     }
 
@@ -66,10 +72,47 @@ class CreditCompleteComponent extends Component {
                     <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
                 
                     <View style={[Main.container,{marginTop: 15,paddingTop:5,paddingBottom: 30}]}>
-                        <Text style={Typography.heading5}>Selesai</Text>
-                        <Text style={[Typography.singleText,{marginBottom:15}]}>
-                            Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex. Nec id tritani iuvaret, commodo qualisque iudicabit ei nam. Ea pericula intellegat usu, in erat tritani qui.
-                        </Text>
+                        <Text style={Typography.heading5}>Summary</Text>
+                        <View style={{position:'relative'}}>
+                            <InputComponent 
+                                label="Tipe Pinjaman"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder=""
+                                value={this.state.loanType}/>
+
+                            <InputComponent 
+                                label="Jumlah"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder=""
+                                value={this.state.jumlah}/>
+
+                            <InputComponent 
+                                label="Jangka waktu"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder=""
+                                value={this.state.time}/>
+
+                            <InputComponent 
+                                label="Tagihan Perbulan"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder=""
+                                value={this.state.jmlTagihan}/>
+                            <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
+                        </View> 
+
+                        <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                            <AutoHeightImage source={{uri: 'https://data2.unhcr.org/images/documents/big_ce41a5548be1a9bf770a61532e851c61188f78d6.jpg'}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/> 
+                        </View>
+                        <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                            <AutoHeightImage source={{uri: 'https://elonka.com/kryptos/sanborn/KGBCyrillic.jpg'}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/> 
+                        </View>
+                        <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                            <AutoHeightImage source={{uri: 'https://www.dgassistant.com/images/screenshots/en/full/transport-document-shipping-note.png'}} width={Dimensions.get('window').width - 62}/> 
+                        </View>
 
                         <View style={{marginBottom: 15}} />
                         
