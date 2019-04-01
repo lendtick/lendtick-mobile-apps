@@ -21,7 +21,7 @@ class ButtonComponent extends React.Component {
             break;
             case "default" :
                 elem =  <TouchableHighlight style={[this.props.disabled ? Input.btnDisabled : Input.btnDefault]} onPress={this.props.onClick} underlayColor={this.props.disabled ? '#999' : '#fff'}>
-                            <Text style={[Input.btnTextDefaul,this.props.disabled ? {color:'#fff'} : null]}>{this.props.text}</Text>
+                            {this.props.isSubmit ?  <ActivityIndicator size="small" color="#fff" /> : <Text style={[Input.btnTextDefaul,this.props.disabled ? {color:'#fff'} : null]}>{this.props.text}</Text>}
                         </TouchableHighlight>;
             break;
         }

@@ -158,7 +158,6 @@ class InputPersonal extends React.Component {
             isSubmit: true,
             isSuccess: false
         });
-        console.log(data);
         personalService.putUpdateProfile(data).then(res =>{
             this.setState({
                 isSubmit: false,

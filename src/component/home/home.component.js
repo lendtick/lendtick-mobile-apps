@@ -56,14 +56,11 @@ class HomeComponent extends React.Component {
     }
 
     fetchUser(){
-        console.log('masuk');
         this.setState({loading: true});
         homeService.getInfoUser().then(res =>{
             this.props.setGetData(res.data);
             this.setState({loading: false});
-            console.log(res);
         }, err =>{
-            console.log(err);
             this.setState({loading: false});
         });
     }

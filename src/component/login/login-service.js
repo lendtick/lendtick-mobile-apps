@@ -9,15 +9,6 @@ var urlLogin = API.auth + '/auth',
     urlPostMigrate = API.auth + '/reg/migrate',
     urlGetInfoUser = API.auth + '/profile/get';
 
-var token;
-setInterval(()=>{
-    AsyncStorage.getItem('token').then((result)=>{
-        if(result != null){
-            token = result;
-        }
-    });
-},1000);
-
 // Reservation Service
 export default loginService = {
     // ======================= //
@@ -79,25 +70,27 @@ export default loginService = {
     // ==================================== //
     putPassword: (body) =>{
         const promiseObj = new Promise(function(resolve, reject){
-            fetch(urlUpdatePassword, {
-                method: 'PUT',
-                body: JSON.stringify(body),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-				    'Authorization': token
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlUpdatePassword, {
+                    method: 'PUT',
+                    body: JSON.stringify(body),
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(json => {
-                if(json.data.token == undefined){
-                    resolve(json);
-                }else{
-                    AsyncStorage.setItem('token', json.data.token);
-                    token = json.data.token;
-                    loginService.putPassword(body);
-                }
-            })
-            .catch(err => reject(err));
+                .then(response => response.json())
+                .then(json => {
+                    if(json.data.token == undefined){
+                        resolve(json);
+                    }else{
+                        AsyncStorage.setItem('token', json.data.token);
+                        token = json.data.token;
+                        loginService.putPassword(body);
+                    }
+                })
+                .catch(err => reject(err));
+            });
         });
         return promiseObj;
     },
@@ -126,24 +119,26 @@ export default loginService = {
     // ==================================== //
     getInfoUser: () =>{
         const promiseObj = new Promise(function(resolve, reject){
-            fetch(urlGetInfoUser,{
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-				    'Authorization': token
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlGetInfoUser,{
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(json => {
-                if(json.data.token == undefined){
-                    resolve(json);
-                }else{
-                    AsyncStorage.setItem('token', json.data.token);
-                    token = json.data.token;
-                    loginService.getInfoUser();
-                }
-            })
-            .catch(err => reject(err));
+                .then(response => response.json())
+                .then(json => {
+                    if(json.data.token == undefined){
+                        resolve(json);
+                    }else{
+                        AsyncStorage.setItem('token', json.data.token);
+                        token = json.data.token;
+                        loginService.getInfoUser();
+                    }
+                })
+                .catch(err => reject(err));
+            });
         });
         return promiseObj;
     },

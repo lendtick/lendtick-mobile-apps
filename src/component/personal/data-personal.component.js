@@ -6,6 +6,7 @@ import InputPersonal from './personal-input/input-personal';
 import InputBank from './personal-input/input-bank';
 import InputEmployee from './personal-input/input-employee';
 import InputSallary from './personal-input/input-salary';
+import InputDocument from './personal-input/input-document';
 
 import { Panel } from '@directives';
 import { Variable } from '@styles';
@@ -46,10 +47,11 @@ class DataPersonalComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapse1: true,
+            collapse1: false,
             collapse2: false,
             collapse3: false,
             collapse4: false,
+            collapse5: true,
             imageProfile: null
         };
     }
@@ -82,9 +84,9 @@ class DataPersonalComponent extends React.Component {
                         <InputPersonal />
                         {/* End Data Personal */}
                     </Panel>    
-                    {/* <Panel title="Data Pegawai" onClick={() => this.setState({collapse2: !this.state.collapse2})} collapse={this.state.collapse2}>
+                    <Panel title="Data Pegawai" onClick={() => this.setState({collapse5: !this.state.collapse5})} collapse={this.state.collapse5}>
                         <InputEmployee />
-                    </Panel> */}
+                    </Panel>
                     <Panel title="Data Gaji" onClick={() => this.setState({collapse3: !this.state.collapse3})} collapse={this.state.collapse3}>
                         {/* Start Data Sallary */}
                         <InputSallary />
@@ -95,6 +97,12 @@ class DataPersonalComponent extends React.Component {
                         <InputBank />
                         {/* End Data Bank */}
                     </Panel>    
+                    <Panel title="Informasi Dokumen" onClick={() => this.setState({collapse2: !this.state.collapse2})} collapse={this.state.collapse2}>
+                        {/* Start Data Bank */}
+                        <InputDocument />
+                        {/* End Data Bank */}
+                    </Panel>  
+                    
                 </ScrollView>
             </View>
         ) 

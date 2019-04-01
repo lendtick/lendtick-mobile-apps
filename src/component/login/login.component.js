@@ -128,7 +128,7 @@ class LoginComponent extends Component {
                                 <ButtonComponent type="primary" text="LOGIN" onClick={()=> this.onSubmit()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
                             </Col>
                             <Col style={{paddingLeft:7.5}}>
-                                <ButtonComponent type="default" text="REGISTER" onClick={()=> this.props.navigation.navigate('Register')} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
+                                <ButtonComponent type="default" text="REGISTER" onClick={()=> this.props.navigation.navigate('Register')} disabled={this.state.isSubmit} isSubmit={false}/>
                             </Col>
                         </Grid>
                     </View>

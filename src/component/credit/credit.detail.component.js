@@ -1,9 +1,11 @@
 import React from 'react';
-import { View,Text,TouchableHighlight,ScrollView,Image,Dimensions } from 'react-native';
+import { View,Text,TouchableHighlight,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { InputComponent,ButtonComponent,Modal,InputCheckbox } from '@directives';
 import { Variable,Typography,Input } from '@styles';
+import * as _ from 'lodash';
 import { styles } from './credit.style';
+import creditService from './credit.service';
 
 class CreditDetailComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -20,12 +22,76 @@ class CreditDetailComponent extends React.Component {
             checked2: false,
             openPopup: false,
             showSimulation: false,
-            arrOffset: [
-                {label: "Tipe Pinjaman No Pinjaman (jumlah pinjaman  tenor)", value: 'item1'},
-                {label: "Multi Guna 123456412  (50.0000.000, 60 bulan)", value: 'item2'},
-                {label: "Middle Loan 123456412  (50.0000.000, 60 bulan)", value: 'item3'}
-            ]
+            loading: false,
+            arrOffset: [],
+            selectedOffset: [],
+            arrSelectedOffset: [],
+            voucher: null
         };
+    }
+
+    componentDidMount(){
+        this.fetchMstLoanType(this.props.navigation.getParam('id'));
+        this.fetchGetOffset();
+    }
+
+    fetchMstLoanType(id){
+        this.setState({loading: true});
+        creditService.getMstLoanType(id).then(res =>{
+            this.setState(res.data);
+            this.setState({loading: false});
+        }, err =>{
+            this.setState({loading: false});
+        });
+    }
+
+    fetchGetOffset(){
+        this.setState({loading: true});
+        creditService.getOffset().then(res =>{
+            _.map(res.data,(x)=>{
+                x.checked = false;
+                x.installments = "Rp " + x.installments.toLocaleString();
+                x.loan_approved = "Rp " + x.loan_approved.toLocaleString();
+                x.paid_installment = "Rp " + x.paid_installment.toLocaleString();
+                x.unpaid_installment = "Rp " + x.unpaid_installment.toLocaleString();
+            })
+            this.setState({
+                loading: false,
+                arrOffset: res.data
+            });
+        }, err =>{
+            this.setState({loading: false});
+        });
+    }
+
+    selectOffset(e){
+        e.checked = !e.checked;
+        this.setState({arrOffset: this.state.arrOffset});
+
+        let selectedOffset = [];
+        let arrSelectedOffset = [];
+        _.map(this.state.arrOffset, (x)=>{
+            if(x.checked){
+                selectedOffset.push(x.loan_type);
+                arrSelectedOffset.push(x);
+            }
+        });
+        this.setState({
+            selectedOffset: selectedOffset,
+            arrSelectedOffset: arrSelectedOffset
+        });
+    }
+
+    submitVoucher(){
+        let obj ={
+            voucher_code: this.state.voucher,
+            id_loan: this.props.navigation.getParam('id')
+        };
+        creditService.reedemVoucher(obj).then(res =>{
+            console.log(res);
+        }, err =>{
+            console.log(err);
+        })
     }
 
 
@@ -75,6 +141,11 @@ class CreditDetailComponent extends React.Component {
                     <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
 
                     {/* ====== START INPUT ====== */}
+                    {this.state.loading ? 
+                    <View style={{padding:30}}>  
+                        <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
+                    </View>
+                    : 
                     <View style={{padding:15,paddingTop:20}}>
                         <View style={{position:'relative'}}>
                             <InputComponent 
@@ -109,7 +180,7 @@ class CreditDetailComponent extends React.Component {
                                 label="Bunga"
                                 iconName={null}
                                 keyboardType="default"
-                                value="10%"/>
+                                value={this.state.is_flat ? this.state.interest_flat + "%" : this.state.interest_effective + "%"}/>
 
                             <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.5}} />
                         </View>
@@ -118,54 +189,66 @@ class CreditDetailComponent extends React.Component {
                             label="Offset"
                             iconName={null}
                             placeholder="List Pinjaman (multiple select)"
-                            value={null}
+                            value={this.state.selectedOffset.join()}
                             isButton={true}
                             onClickBtn={()=>this.setState({openPopup: true})}/>
 
-                        <View style={{padding:15,paddingBottom:0,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed'}}>
-                            <InputComponent 
-                                label="No Pinjaman"
-                                iconName={null}
-                                keyboardType="numeric"
-                                placeholder=""
-                                value={this.state.nopinjaman}
-                                onChange={(nopinjaman) => this.setState({nopinjaman})}/>        
+                        {this.state.arrSelectedOffset.map((x,i)=>(
+                            <View key={i} style={{padding:15,marginBottom:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed'}}>
+                                <View style={{position:'relative'}}>
+                                    <InputComponent 
+                                        label="No Pinjaman"
+                                        iconName={null}
+                                        keyboardType="numeric"
+                                        placeholder=""
+                                        value={x.id_loan}
+                                        onChange={(val1) => this.setState({val1})}/>
 
-                            <View style={{position:'relative'}}>
-                                <InputComponent 
-                                    label="Tipe Pinjaman"
-                                    iconName={null}
-                                    keyboardType="default"
-                                    placeholder=""
-                                    value={this.state.loanType}/>
+                                    <InputComponent 
+                                        label="Tipe Pinjaman"
+                                        iconName={null}
+                                        keyboardType="default"
+                                        placeholder=""
+                                        value={x.loan_type}
+                                        onChange={(val2) => this.setState({val2})}/>   
 
-                                <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.5}} />
-                            </View> 
-                            <InputComponent 
-                                label="Jumlah"
+                                    <InputComponent 
+                                        label="Jumlah Pinjaman"
+                                        iconName={null}
+                                        keyboardType="default"
+                                        placeholder=""
+                                        value={"Rp " + x.loan_approved}
+                                        onChange={(val3) => this.setState({val3})}/>    
+
+                                    <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
+                                        <Col>
+                                            <Text style={Typography.singleText}>Jumlah Pinjaman</Text>
+                                            <Text style={[Typography.heading6,{marginBottom:0}]}>{x.paid_installment}</Text>
+                                        </Col>
+                                        <Col>
+                                            <Text style={[Typography.singleText,{textAlign:'right'}]}>Sisa Angsuran</Text>
+                                            <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>{x.unpaid_installment}</Text>
+                                        </Col>
+                                    </Grid>
+                                    <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
+                                </View>               
+                            </View>
+                        ))}
+
+                        {/* ====== START REDEEM VOUCHER ====== */}
+                        <View style={{padding:15,marginBottom:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed'}}>
+                             <InputComponent 
+                                label="Kode Voucher"
                                 iconName={null}
-                                keyboardType="numeric"
-                                placeholder="Masukan jumlah nominal"
-                                value={this.state.jumlah2}
-                                onChange={(jumlah2) => this.setState({jumlah2})}/>
-                            <InputComponent 
-                                label="Jumlah Angsuran"
-                                iconName={null}
-                                keyboardType="numeric"
-                                placeholder="Masukan jumlah angsuran"
-                                value={this.state.jumlahAngsuran}
-                                onChange={(jumlahAngsuran) => this.setState({jumlahAngsuran})}/>
-                            <InputComponent 
-                                label="Sisa Angsuran"
-                                iconName={null}
-                                keyboardType="numeric"
-                                placeholder="Masukan jumlah sisa angsuran"
-                                value={this.state.jumlahSisaAngsuran}
-                                onChange={(jumlahSisaAngsuran) => this.setState({jumlahSisaAngsuran})}/>
+                                keyboardType="default"
+                                placeholder="Masukan kode voucher"
+                                value={this.state.voucher}
+                                onChange={(voucher) => this.setState({voucher})}/>
+                            <ButtonComponent type="default" text="Reedem Voucher" onClick={()=> this.submitVoucher()}/>
                         </View>
+                        {/* ====== END REDEEM VOUCHER ====== */}
 
                         <View style={{
-                            marginTop:15,
                             padding:15,
                             borderTopLeftRadius:Variable.borderRadius,
                             borderTopRightRadius:Variable.borderRadius,
@@ -205,6 +288,7 @@ class CreditDetailComponent extends React.Component {
                         <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.props.navigation.navigate('CreditTerm')}/>
 
                     </View>
+                    }
                     {/* ====== START INPUT ====== */}
                 </ScrollView>
                 {/* ====== Take Camera ====== */}
@@ -216,100 +300,57 @@ class CreditDetailComponent extends React.Component {
                     height={Dimensions.get('window').height - 360}
                     width={Dimensions.get('window').width - 30}
                     textLeft={null}>
-                    <View style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
-                        <View style={{position:'relative'}}>
-                            <InputComponent 
-                                label="No Pinjaman"
-                                iconName={null}
-                                keyboardType="numeric"
-                                placeholder=""
-                                value="123123"
-                                onChange={(val1) => this.setState({val1})}/>
+                    {this.state.arrOffset.map((x,i)=>(
+                        <View key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                            <View style={{position:'relative'}}>
+                                <InputComponent 
+                                    label="No Pinjaman"
+                                    iconName={null}
+                                    keyboardType="numeric"
+                                    placeholder=""
+                                    value={x.id_loan}
+                                    onChange={(val1) => this.setState({val1})}/>
 
-                            <InputComponent 
-                                label="Tipe Pinjaman"
-                                iconName={null}
-                                keyboardType="default"
-                                placeholder=""
-                                value="Loan"
-                                onChange={(val2) => this.setState({val2})}/>   
+                                <InputComponent 
+                                    label="Tipe Pinjaman"
+                                    iconName={null}
+                                    keyboardType="default"
+                                    placeholder=""
+                                    value={x.loan_type}
+                                    onChange={(val2) => this.setState({val2})}/>   
 
-                            <InputComponent 
-                                label="Jumlah Pinjaman"
-                                iconName={null}
-                                keyboardType="default"
-                                placeholder=""
-                                value="Rp 5.000.000"
-                                onChange={(val3) => this.setState({val3})}/>    
+                                <InputComponent 
+                                    label="Jumlah Pinjaman"
+                                    iconName={null}
+                                    keyboardType="default"
+                                    placeholder=""
+                                    value={"Rp " + x.loan_approved}
+                                    onChange={(val3) => this.setState({val3})}/>    
 
-                            <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
-                                <Col>
-                                    <Text style={[Typography.heading6,{marginBottom:0}]}>Rp 500.000</Text>
-                                </Col>
-                                <Col>
-                                    <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>x 12</Text>
-                                </Col>
-                            </Grid>
+                                <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
+                                    <Col>
+                                        <Text style={Typography.singleText}>Jumlah Pinjaman</Text>
+                                        <Text style={[Typography.heading6,{marginBottom:0}]}>{x.paid_installment}</Text>
+                                    </Col>
+                                    <Col>
+                                        <Text style={[Typography.singleText,{textAlign:'right'}]}>Sisa Angsuran</Text>
+                                        <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>{x.unpaid_installment}</Text>
+                                    </Col>
+                                </Grid>
 
-                            <Grid style={{marginTop:15,position:'relative',zIndex:10}}>
-                                <Col style={{width:30}}>
-                                    <InputCheckbox onChange={()=> this.setState({checked1: !this.state.checked1})} checked={this.state.checked1}/>
-                                </Col>
-                                <Col>
-                                    <Text style={Typography.singleText}>Pilih tipe Loan</Text>
-                                </Col>
-                            </Grid>
+                                <Grid style={{marginTop:15,position:'relative',zIndex:10}}>
+                                    <Col style={{width:30}}>
+                                        <InputCheckbox onChange={()=> this.selectOffset(x)} checked={x.checked }/>
+                                    </Col>
+                                    <Col>
+                                        <Text style={Typography.singleText}>Pilih {x.loan_type}</Text>
+                                    </Col>
+                                </Grid>
 
-                            <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
-                        </View>               
-                    </View>
-                    <View style={{padding:15}}>
-                        <View style={{position:'relative'}}>
-                            <InputComponent 
-                                label="No Pinjaman"
-                                iconName={null}
-                                keyboardType="numeric"
-                                placeholder=""
-                                value="123123"
-                                onChange={(val1) => this.setState({val1})}/>
-
-                            <InputComponent 
-                                label="Tipe Pinjaman"
-                                iconName={null}
-                                keyboardType="default"
-                                placeholder=""
-                                value="Microloan"
-                                onChange={(val2) => this.setState({val2})}/>   
-
-                            <InputComponent 
-                                label="Jumlah Pinjaman"
-                                iconName={null}
-                                keyboardType="default"
-                                placeholder=""
-                                value="Rp 5.000.000"
-                                onChange={(val3) => this.setState({val3})}/>    
-
-                            <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
-                                <Col>
-                                    <Text style={[Typography.heading6,{marginBottom:0}]}>Rp 500.000</Text>
-                                </Col>
-                                <Col>
-                                    <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>x 12</Text>
-                                </Col>
-                            </Grid>
-
-                            <Grid style={{marginTop:15,position:'relative',zIndex:10}}>
-                                <Col style={{width:30}}>
-                                    <InputCheckbox onChange={()=> this.setState({checked2: !this.state.checked2})} checked={this.state.checked2}/>
-                                </Col>
-                                <Col>
-                                    <Text style={Typography.singleText}>Pilih tipe Loan</Text>
-                                </Col>
-                            </Grid>
-
-                            <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
-                        </View>               
-                    </View>
+                                <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
+                            </View>               
+                        </View>
+                    ))}
                 </Modal>
                 {/* ====== Take Camera ====== */}
             </View>
