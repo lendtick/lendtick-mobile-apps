@@ -26,7 +26,12 @@ class CreditDetailComponent extends React.Component {
             arrOffset: [],
             selectedOffset: [],
             arrSelectedOffset: [],
-            voucher: null
+            voucher: null,
+            isSubmitVoucher: false,
+            isSubmitSimulation: false,
+            installments: 0,
+            term: 0,
+            total_loan: 0
         };
     }
 
@@ -50,6 +55,7 @@ class CreditDetailComponent extends React.Component {
         creditService.getOffset().then(res =>{
             _.map(res.data,(x)=>{
                 x.checked = false;
+                x.origin_unpaid_installment = x.unpaid_installment;
                 x.installments = "Rp " + x.installments.toLocaleString();
                 x.loan_approved = "Rp " + x.loan_approved.toLocaleString();
                 x.paid_installment = "Rp " + x.paid_installment.toLocaleString();
@@ -83,21 +89,50 @@ class CreditDetailComponent extends React.Component {
     }
 
     submitVoucher(){
-        let obj ={
-            voucher_code: this.state.voucher,
-            id_loan: this.props.navigation.getParam('id')
-        };
-        creditService.reedemVoucher(obj).then(res =>{
-            console.log(res);
+        // this.setState({isSubmitVoucher: true});
+        creditService.getValidateVoucher(this.state.voucher,this.props.navigation.getParam('id')).then(res =>{
+            console.log('res',res);
         }, err =>{
-            console.log(err);
-        })
+            console.log('err',err);
+        });
+    }
+
+    checkSimulation(){
+        let obj = {
+            id_loan_type: this.props.navigation.getParam('id'),
+            principal: Number(this.state.jumlah),
+            period: Number(this.state.waktu),
+            is_offset: this.state.arrSelectedOffset.length != 0,
+            loan_offsets: []
+        }
+        _.map(this.state.arrSelectedOffset,(x)=>{
+            let objOffset = {
+                id_loan: x.id_loan,
+                unpaid_installment: x.origin_unpaid_installment,
+                group: x.group
+            };
+            obj.loan_offsets.push(objOffset);
+        });
+
+        this.setState({isSubmitSimulation: true});
+        creditService.postSimulation(obj).then(res =>{
+            console.log(res);
+            this.setState({
+                isSubmitSimulation: false,
+                showSimulation: true,
+                installments: 'Rp ' + res.data.installments.toLocaleString(),
+                term: res.data.term,
+                total_loan: 'Rp ' + res.data.total_loan.toLocaleString()
+            });
+        }, err =>{
+            this.setState({isSubmitSimulation: false});
+        });
     }
 
 
     render() { 
         return(
-            <View>
+            <View style={{backgroundColor:'#fff'}}>
                 <ScrollView style={{backgroundColor:'#fff'}}>
                     {/* ====== START STEP ====== */}
                     <View style={{padding:15,paddingBottom:30,paddingTop:30,backgroundColor: '#f8f8ff'}}>
@@ -169,9 +204,8 @@ class CreditDetailComponent extends React.Component {
                         <InputComponent 
                             label="Jangka Waktu"
                             iconName={null}
-                            keyboardType="default"
+                            keyboardType="numeric"
                             placeholder="Atur jangka waktu"
-                            isDate={true}
                             value={this.state.waktu}
                             onChange={(waktu) => this.setState({waktu})}/>
 
@@ -244,7 +278,7 @@ class CreditDetailComponent extends React.Component {
                                 placeholder="Masukan kode voucher"
                                 value={this.state.voucher}
                                 onChange={(voucher) => this.setState({voucher})}/>
-                            <ButtonComponent type="default" text="Reedem Voucher" onClick={()=> this.submitVoucher()}/>
+                            <ButtonComponent type="default" text="Reedem Voucher" onClick={()=> this.submitVoucher()} disabled={this.state.isSubmitVoucher} isSubmit={this.state.isSubmitVoucher} />
                         </View>
                         {/* ====== END REDEEM VOUCHER ====== */}
 
@@ -255,7 +289,7 @@ class CreditDetailComponent extends React.Component {
                             borderBottomWidth: 1,
                             borderColor: '#efefef',
                             backgroundColor: '#f8f8ff'}}>
-                            <ButtonComponent type="default" text="Simulasikan Kredit" onClick={()=> this.setState({showSimulation: !this.state.showSimulation})}/>
+                            <ButtonComponent type="default" text="Simulasikan Kredit" onClick={()=> this.checkSimulation()} disabled={this.state.isSubmitSimulation} isSubmit={this.state.isSubmitSimulation}/>
                         </View>
                         {this.state.showSimulation ? 
                         <View>
@@ -264,8 +298,8 @@ class CreditDetailComponent extends React.Component {
                                 borderBottomWidth: 1,
                                 borderColor: '#efefef',
                                 backgroundColor: '#f8f8ff'}}>
-                                <Col><Text style={[Typography.singleText,{color:Variable.colorPrimary}]}>10 bulan</Text></Col>
-                                <Col><Text style={[Typography.label,{textAlign:'right'}]}>Rp 1.250.000</Text></Col>
+                                <Col><Text style={[Typography.singleText,{color:Variable.colorPrimary}]}>{this.state.term} bulan</Text></Col>
+                                <Col><Text style={[Typography.label,{textAlign:'right'}]}>{this.state.installments}</Text></Col>
                             </Grid>
                             <Grid style={{
                                 padding:15,
@@ -273,7 +307,7 @@ class CreditDetailComponent extends React.Component {
                                 borderBottomRightRadius:Variable.borderRadius,
                                 backgroundColor: '#f8f8ff'}}>
                                 <Col><Text style={Typography.singleText}>Total :</Text></Col>
-                                <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>Rp 12.500.000</Text></Col>
+                                <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>{this.state.total_loan}</Text></Col>
                             </Grid>
                         </View>
                         : null }
