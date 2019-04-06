@@ -96,7 +96,7 @@ class InputPersonal extends React.Component {
         // ===================== //
         let arrGender = [];
         personalService.getMasterGender().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_gender, label: x.name_gender};
                 arrGender.push(obj);
             });
@@ -110,7 +110,7 @@ class InputPersonal extends React.Component {
         // ===================== //
         let arrDomicile = [];
         personalService.getMasterDomicile().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_domicile_address_status, label: x.name_domicile_address_status};
                 arrDomicile.push(obj);
             });
@@ -124,7 +124,7 @@ class InputPersonal extends React.Component {
         // ===================== //
         let arrMarriage = [];
         personalService.getMasterMarriage().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_marriage_status, label: x.marriage_status_name};
                 arrMarriage.push(obj);
             });
@@ -138,7 +138,7 @@ class InputPersonal extends React.Component {
         // ===================== //
         let arrReligion = [];
         personalService.getMasterReligion().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_religion, label: x.name_religion};
                 arrReligion.push(obj);
             });

@@ -27,10 +27,37 @@ var urlGetProfile = API.auth + '/profile/get',
     urlGetAddress = API.auth + '/profile/get-address-by-user',
     urlPostAddress = API.auth + '/profile/create-address-by-user',
     urlPutAddress = API.auth + '/profile/update-address-by-user',
-    urlDeleteAddress = API.auth + '/profile/delete-address-by-user';
+    urlDeleteAddress = API.auth + '/profile/delete-address-by-user',
+
+    urlPutEmployee = API.auth + '/profile/company/update';
 
 // Reservation Service
 export default personalService = {
+    // ======================= //
+    // Update Data Employee
+    // ======================= //
+    updateDataEmployee: (data) =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlPutEmployee, {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                .then(response => response.json())
+                .then(json => resolve(json))
+                .catch(err => {
+                    reject(err);
+                });
+            });
+        });
+        return promiseObj;
+    },
+
+
     // ======================= //
     // Get List Company
     // ======================= //

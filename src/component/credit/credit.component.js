@@ -31,9 +31,10 @@ class CreditComponent extends React.Component {
     fetchInfoUser(){
         this.setState({loading: true});
         creditService.getInfoUserFullfillment(this.props.personal.data.id_user).then(res =>{
-            if(res.data.validasi.length){
+            console.log(res);
+            if(res['data'].validasi.length){
                 let arrVaidation = [];
-                res.data.validasi.map((x,i)=>{
+                res['data'].validasi.map((x,i)=>{
                     arrVaidation.push(x);
                 });
                 this.setState({
@@ -99,14 +100,7 @@ const mapStateToProps = (state) => {
 	}
 }
 const mapDispatchToProps = (dispatch) => {
-	return {
-		setGetData: (e) => {
-			dispatch({
-				type: 'UPDATE_DATA_PERSONAL',
-				data: e
-			})
-        },
-	}
+	return {}
 }
 
 export default connect(

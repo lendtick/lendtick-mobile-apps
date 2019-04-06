@@ -32,7 +32,7 @@ class InputBank extends React.Component {
     // ========================= //
     fetchBankProfile(){
         personalService.getBankProfile().then(res => {
-            this.setState(res.data);
+            this.setState(res['data']);
             this.fetchMaster();
         });
     }
@@ -42,7 +42,7 @@ class InputBank extends React.Component {
     fetchMaster(){
         let arrBank = [];
         personalService.getBank().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_bank, label: x.name_bank};
                 arrBank.push(obj);
             });

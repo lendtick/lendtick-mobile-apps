@@ -47,52 +47,55 @@ class InputComponent extends Component {
     
     render() {
         return (
-            <View style={this.props.label != null ? Input.wrapInput : [Input.wrapInput,{marginBottom:0}]}>
-                {this.props.label != null ? <Text style={Typography.label}>{this.props.label}</Text> : null}
-                {this.props.showIcon ? <Feather name={this.props.iconName} size={18} color={this.props.iconColor} style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}/> : null}
-                {this.props.isDate ? 
+            <View style={{position:'relative'}}>
+                <View style={this.props.label != null ? Input.wrapInput : [Input.wrapInput,{marginBottom:0}]}>
+                    {this.props.label != null ? <Text style={Typography.label}>{this.props.label}</Text> : null}
+                    {this.props.showIcon ? <Feather name={this.props.iconName} size={18} color={this.props.iconColor} style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}/> : null}
+                    {this.props.isDate ? 
 
-                <DatePicker
-                    style={{width: '100%', marginTop:5,marginBottom:0, height:15}}
-                    date={this.props.value}
-                    mode="date"
-                    placeholder={this.props.placeholder}
-                    format="DD MMM YYYY"
-                    minDate="1990-01-01"
-                    maxDate="2019-01-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            display: 'none'
-                        },
-                        dateInput: {
-                            marginLeft: 0,
-                            padding:0,
-                            borderWidth:0,
-                            justifyContent: 'flex-start',
-                            alignItems: 'flex-start',
-                        }
-                    }}
-                    onDateChange={this.props.onChange}
-                />
+                    <DatePicker
+                        style={{width: '100%', marginTop:5,marginBottom:0, height:15}}
+                        date={this.props.value}
+                        mode="date"
+                        placeholder={this.props.placeholder}
+                        format="DD MMM YYYY"
+                        minDate="1990-01-01"
+                        maxDate="2019-01-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                display: 'none'
+                            },
+                            dateInput: {
+                                marginLeft: 0,
+                                padding:0,
+                                borderWidth:0,
+                                justifyContent: 'flex-start',
+                                alignItems: 'flex-start',
+                            }
+                        }}
+                        onDateChange={this.props.onChange}
+                    />
 
-                :
-                <TextInput
-                    underlineColorAndroid="transparent"
-                    placeholder={this.props.placeholder}
-                    placeholderTextColor="#9f9f9f"
-                    style={Input.inputText}
-                    onFocus={() => this.props.onFocus(true)}
-                    onBlur={() => this.props.onFocus(false)}
-                    onChangeText={this.props.onChange}
-                    value={this.props.value}
-                    keyboardType={this.props.keyboardType}
-                    isButton={this.props.isButton}
-                    secureTextEntry={this.props.secureTextEntry}
-                />
-                }
-                {this.props.isButton ? <TouchableHighlight style={Input.highlight} onPress={this.props.onClickBtn} underlayColor="transparent"><Text></Text></TouchableHighlight> : null}
+                    :
+                    <TextInput
+                        underlineColorAndroid="transparent"
+                        placeholder={this.props.placeholder}
+                        placeholderTextColor="#9f9f9f"
+                        style={Input.inputText}
+                        onFocus={() => this.props.onFocus(true)}
+                        onBlur={() => this.props.onFocus(false)}
+                        onChangeText={this.props.onChange}
+                        value={this.props.value}
+                        keyboardType={this.props.keyboardType}
+                        isButton={this.props.isButton}
+                        secureTextEntry={this.props.secureTextEntry}
+                    />
+                    }
+                    {this.props.isButton ? <TouchableHighlight style={Input.highlight} onPress={this.props.onClickBtn} underlayColor="transparent"><Text></Text></TouchableHighlight> : null}
+                </View>
+                {this.props.disabled ? <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.7}} /> : null}
             </View>
         );
     }
@@ -111,7 +114,8 @@ InputComponent.propTypes = {
     isButton: PropTypes.bool,
     isDate: PropTypes.bool,
     keyboardType: PropTypes.string,
-    topIcon: PropTypes.number
+    topIcon: PropTypes.number,
+    disabled: PropTypes.bool
 };
 
 InputComponent.defaultProps = {
@@ -125,7 +129,8 @@ InputComponent.defaultProps = {
     isButton: false,
     isDate: false,
     keyboardType: 'default',
-    topIcon: 0
+    topIcon: 0,
+    disabled: false
 }
 
 

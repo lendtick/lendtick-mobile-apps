@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView,View,Image,Text,Dimensions } from 'react-native';
+import { ScrollView,View,Image,Text,Dimensions,TouchableHighlight } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
-
-import { ButtonComponent, InputComponent } from '@directives';
-import { Main,Variable,Typography } from '@styles';
+import { connect } from 'react-redux';
+import { ButtonComponent, InputComponent , AlertBox} from '@directives';
+import { Main,Variable,Typography,Input } from '@styles';
 import { styles } from './credit.style';
+import creditService from './credit.service';
 
 class CreditCompleteComponent extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -18,11 +19,34 @@ class CreditCompleteComponent extends Component {
         super(props);
         this.state = { 
             checked: false,
-            loanType: 'Microloan',
-            jumlah: 'Rp 5.000.000',
-            time: '22 Juni 2020',
-            jmlTagihan: 'Rp 500.000'
+            isSubmit: false,
+            message: null,
+            status: null
         };
+    }
+
+    componentDidMount(){
+        console.log(this.props.credit.document1);
+    }
+
+    submitLoan(){
+        let moment = require("moment");
+        let obj = {
+            id_loan: this.props.credit.data.id_loan,
+            wf_status: "MLTSTS01",
+            request_date: moment().format("YYYY-MM-DD"),
+        };
+
+        this.setState({
+            isSubmit: true,
+            message: null
+        });
+        creditService.postReqLoan(obj).then(res =>{
+            this.setState({isSubmit: false});
+            this.props.navigation.navigate('CreditFinish');
+        }, err =>{
+            this.setState({isSubmit: false});
+        });
     }
 
     render() {
@@ -70,7 +94,6 @@ class CreditCompleteComponent extends Component {
                     {/* ====== END STEP ====== */}
 
                     <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
-                
                     <View style={[Main.container,{marginTop: 15,paddingTop:5,paddingBottom: 30}]}>
                         <Text style={Typography.heading5}>Summary</Text>
                         <View style={{position:'relative'}}>
@@ -79,44 +102,61 @@ class CreditCompleteComponent extends Component {
                                 iconName={null}
                                 keyboardType="default"
                                 placeholder=""
-                                value={this.state.loanType}/>
+                                disabled={true}
+                                value={this.props.credit.data.loanType}/>
 
                             <InputComponent 
                                 label="Jumlah"
                                 iconName={null}
                                 keyboardType="default"
                                 placeholder=""
-                                value={this.state.jumlah}/>
+                                disabled={true}
+                                value={this.props.credit.data.jumlah}/>
 
                             <InputComponent 
                                 label="Jangka waktu"
                                 iconName={null}
                                 keyboardType="default"
                                 placeholder=""
-                                value={this.state.time}/>
+                                disabled={true}
+                                value={this.props.credit.data.waktu}/>
 
                             <InputComponent 
-                                label="Tagihan Perbulan"
+                                label="Tagihan per bulan"
                                 iconName={null}
                                 keyboardType="default"
                                 placeholder=""
-                                value={this.state.jmlTagihan}/>
-                            <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
+                                disabled={true}
+                                value={this.props.credit.data.installments}/>
                         </View> 
 
-                        <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
-                            <AutoHeightImage source={{uri: 'https://data2.unhcr.org/images/documents/big_ce41a5548be1a9bf770a61532e851c61188f78d6.jpg'}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/> 
-                        </View>
-                        <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
-                            <AutoHeightImage source={{uri: 'https://elonka.com/kryptos/sanborn/KGBCyrillic.jpg'}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/> 
-                        </View>
-                        <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
-                            <AutoHeightImage source={{uri: 'https://www.dgassistant.com/images/screenshots/en/full/transport-document-shipping-note.png'}} width={Dimensions.get('window').width - 62}/> 
-                        </View>
+                        {this.props.credit.document1 != null ?
+                            <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                                <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document1.type}</Text>
+                                <AutoHeightImage source={{uri: this.props.credit.document1.uri}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/>
+                            </View>
+                        : null}
+
+                        {this.props.credit.document2 != null ?
+                            <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                                <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document2.type}</Text>
+                                <AutoHeightImage source={{uri: this.props.credit.document2.uri}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/>
+                            </View>
+                        : null}
+
+                        {this.props.credit.document3 != null ?
+                            <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                                <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document3.type}</Text>
+                                <AutoHeightImage source={{uri: this.props.credit.document3.uri}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/>
+                            </View>
+                        : null} 
 
                         <View style={{marginBottom: 15}} />
+                            
+                        {this.state.message ? <View style={{marginBottom:15}}><AlertBox  type={this.state.status == 1 ? 'success' : 'danger'} title={null} text={this.state.message}/></View> : null }
+                       
+                        <ButtonComponent type="primary" text="Ajukan" onClick={()=> this.submitLoan()}  disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
                         
-                        <ButtonComponent type="primary" text="Kembali" onClick={()=> this.props.navigation.popToTop()}  disabled={false} isSubmit={false}/>
                     </View>
                 
                 </ScrollView>
@@ -126,4 +166,16 @@ class CreditCompleteComponent extends Component {
     }
 }
 
-export default CreditCompleteComponent 
+const mapStateToProps = (state) => {
+	return {
+        credit: state.credit
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+    return {}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreditCompleteComponent)

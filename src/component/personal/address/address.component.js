@@ -43,9 +43,9 @@ class AddressComponent extends React.Component {
             if(res.status){
                 this.setState({
                     isloading: false,
-                    data: res.data
+                    data: res['data']
                 });
-                if(res.data.length == 0) this.props.navigation.navigate('AddressForm');
+                if(res['data'].length == 0) this.props.navigation.navigate('AddressForm');
             }else{
                 alert(res.message);
             }

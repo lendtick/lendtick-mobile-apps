@@ -31,7 +31,7 @@ class TermComponent extends Component {
             console.log(res);
             if(res.status){
                 this.setState({isSubmit: false});
-                this.props.setRegister(res.data);
+                this.props.setRegister(res['data']);
                 this.props.navigation.navigate('Otp');
             }else{
                 this.setState({

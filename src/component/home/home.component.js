@@ -58,7 +58,7 @@ class HomeComponent extends React.Component {
     fetchUser(){
         this.setState({loading: true});
         homeService.getInfoUser().then(res =>{
-            this.props.setGetData(res.data);
+            this.props.setGetData(res['data']);
             this.setState({loading: false});
         }, err =>{
             this.setState({loading: false});

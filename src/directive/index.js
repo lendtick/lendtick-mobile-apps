@@ -1,6 +1,7 @@
 import AlertBox from './alert-box.component';
 import ButtonComponent from './button.component';
 import InputCheckbox from './input-checkbox';
+import InputMask from './input-mask';
 import BlockLogo from './block-logo';
 import InputComponent from './input.component';
 import InputDropdown from './input-dropdown';
@@ -23,5 +24,6 @@ export {
     ItemProduct,
     Modal,
     InputDropdown,
-    FooterButton
+    FooterButton,
+    InputMask
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
-import { InputComponent,ButtonComponent,Modal,InputCheckbox } from '@directives';
+import { connect } from 'react-redux';
+import { InputComponent,ButtonComponent,Modal,InputCheckbox,AlertBox,InputMask,InputDropdown } from '@directives';
 import { Variable,Typography,Input } from '@styles';
 import * as _ from 'lodash';
 import { styles } from './credit.style';
@@ -27,33 +28,62 @@ class CreditDetailComponent extends React.Component {
             selectedOffset: [],
             arrSelectedOffset: [],
             voucher: null,
+            statusVoucher: 0,
+            msgVoucher: null,
             isSubmitVoucher: false,
             isSubmitSimulation: false,
+            isSubmitEligible: false,
             installments: 0,
+            installmentsOrigin: 0,
             term: 0,
-            total_loan: 0
+            total_loan: 0,
+            msgEligible: null,
+            statusEligible: 0,
+            showBtnContinue: true,
+            arrTerm: [],
+            waktu: null,
+            jumlah: '0'
         };
     }
 
     componentDidMount(){
         this.fetchMstLoanType(this.props.navigation.getParam('id'));
         this.fetchGetOffset();
+        this.fetchLoanTerm();
     }
 
+    // Fetch Master Loan Type
+    // ====================== //
     fetchMstLoanType(id){
         this.setState({loading: true});
         creditService.getMstLoanType(id).then(res =>{
-            this.setState(res.data);
+            this.setState(res['data']);
             this.setState({loading: false});
         }, err =>{
             this.setState({loading: false});
         });
     }
 
+    // Fetch Loan Term
+    // ======================== //
+    fetchLoanTerm(){
+        let arrTerm = [];
+        creditService.getLoanTerm().then(res =>{
+            _.map(res['data'],(x)=>{
+                x.count_term = x.count_term.toString();
+                let obj = {value:x.count_term, label:x.name_term};
+                arrTerm.push(obj);
+            });
+            this.setState({arrTerm: arrTerm});
+        });
+    }
+
+    // Fetch Get Offset
+    // ====================== //
     fetchGetOffset(){
         this.setState({loading: true});
         creditService.getOffset().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;
                 x.installments = "Rp " + x.installments.toLocaleString();
@@ -63,13 +93,15 @@ class CreditDetailComponent extends React.Component {
             })
             this.setState({
                 loading: false,
-                arrOffset: res.data
+                arrOffset: res['data']
             });
         }, err =>{
             this.setState({loading: false});
         });
     }
 
+    // Select Offset
+    // ====================== //
     selectOffset(e){
         e.checked = !e.checked;
         this.setState({arrOffset: this.state.arrOffset});
@@ -88,19 +120,30 @@ class CreditDetailComponent extends React.Component {
         });
     }
 
+    // Submit Voucher
+    // ====================== //
     submitVoucher(){
-        // this.setState({isSubmitVoucher: true});
+        this.setState({
+            isSubmitVoucher: true,
+            msgVoucher: null
+        });
         creditService.getValidateVoucher(this.state.voucher,this.props.navigation.getParam('id')).then(res =>{
-            console.log('res',res);
+            this.setState({
+                isSubmitVoucher: false,
+                statusVoucher: res.status,
+                msgVoucher: res.message
+            });
         }, err =>{
-            console.log('err',err);
+            this.setState({isSubmitVoucher: false});
         });
     }
 
+    // Check Simulation
+    // ====================== //
     checkSimulation(){
         let obj = {
             id_loan_type: this.props.navigation.getParam('id'),
-            principal: Number(this.state.jumlah),
+            principal: creditService.convertFormatNumber(this.state.jumlah),
             period: Number(this.state.waktu),
             is_offset: this.state.arrSelectedOffset.length != 0,
             loan_offsets: []
@@ -115,25 +158,99 @@ class CreditDetailComponent extends React.Component {
         });
 
         this.setState({isSubmitSimulation: true});
+
+        console.log(obj);
         creditService.postSimulation(obj).then(res =>{
             console.log(res);
             this.setState({
                 isSubmitSimulation: false,
                 showSimulation: true,
-                installments: 'Rp ' + res.data.installments.toLocaleString(),
-                term: res.data.term,
-                total_loan: 'Rp ' + res.data.total_loan.toLocaleString()
+                installmentsOrigin: res['data'].installments,
+                installments: 'Rp ' + res['data'].installments.toLocaleString(),
+                term: res['data'].term,
+                total_loan: 'Rp ' + res['data'].total_loan.toLocaleString()
             });
+            this.scrollView.scrollToEnd({ animated: true }); 
         }, err =>{
             this.setState({isSubmitSimulation: false});
         });
     }
 
+    // Check Eligibitlity
+    // ====================== //
+    postEligibility(e){
+        let obj ={
+            installment: this.state.installmentsOrigin
+        };
+
+        this.setState({
+            isSubmitEligible: true,
+            showBtnContinue: false,
+            msgEligible: null
+        });
+        creditService.postEligibility(obj).then(res =>{
+            this.setState({
+                msgEligible: res.message,
+                statusEligible: res.status,
+                showBtnContinue: true
+            });
+            if(res.status){
+                this.postSaveDraft(e);
+            }else{
+                this.setState({isSubmitEligible: false});
+            }
+        }, err =>{
+            this.setState({isSubmitEligible: false});
+        });
+    }
+
+    // Save to Draft
+    // ========================= //
+    postSaveDraft(e){
+        let moment = require("moment");
+        let obj = {
+            id_loan_type: this.props.navigation.getParam('id'),
+            request_date: moment().format("YYYY-MM-DD"),
+            loan_request: creditService.convertFormatNumber(this.state.jumlah),
+            term_monthly: this.state.waktu,
+            installments: this.state.installmentsOrigin,
+            is_offset: this.state.selectedOffset.length ? true : false,
+            loan_offsets: []
+        };
+
+        _.map(this.state.arrSelectedOffset,(x)=>{
+            let objOffset = {
+                id_loan: x.id_loan,
+                unpaid_installment: x.origin_unpaid_installment,
+                group: x.group
+            };
+            obj.loan_offsets.push(objOffset);
+        });
+
+        creditService.postLoanDraft(obj).then(res => {
+            this.setState({showBtnContinue: false});
+            setTimeout(()=>{
+                if(e == 1){
+                    this.props.setGetData({
+                        id: this.props.navigation.getParam('id'),
+                        id_loan: res.data.id_loan,
+                        jumlah: this.state.jumlah,
+                        waktu: this.state.waktu,
+                        installments: this.state.installments,
+                        loanType: this.state.loanType
+                    });
+                    this.props.navigation.navigate('CreditTerm');
+                }else{
+                    this.props.navigation.navigate('Credit')
+                }
+             }, 1000);
+        });
+    }
 
     render() { 
         return(
             <View style={{backgroundColor:'#fff'}}>
-                <ScrollView style={{backgroundColor:'#fff'}}>
+                <ScrollView style={{backgroundColor:'#fff'}} ref={(view) => {this.scrollView = view;}}>
                     {/* ====== START STEP ====== */}
                     <View style={{padding:15,paddingBottom:30,paddingTop:30,backgroundColor: '#f8f8ff'}}>
                         <Grid>
@@ -177,23 +294,20 @@ class CreditDetailComponent extends React.Component {
 
                     {/* ====== START INPUT ====== */}
                     {this.state.loading ? 
-                    <View style={{padding:30}}>  
+                    <View style={{padding:30,height: Dimensions.get('window').height - 150}}>  
                         <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
                     </View>
                     : 
                     <View style={{padding:15,paddingTop:20}}>
-                        <View style={{position:'relative'}}>
-                            <InputComponent 
-                                label="Tipe Pinjaman"
-                                iconName={null}
-                                keyboardType="default"
-                                placeholder=""
-                                value={this.state.loanType}/>
-
-                            <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.5}} />
-                        </View>
-
                         <InputComponent 
+                            label="Tipe Pinjaman"
+                            iconName={null}
+                            keyboardType="default"
+                            placeholder=""
+                            disabled={true}
+                            value={this.state.loanType}/>
+
+                        <InputMask 
                             label="Jumlah"
                             iconName={null}
                             keyboardType="numeric"
@@ -201,76 +315,24 @@ class CreditDetailComponent extends React.Component {
                             value={this.state.jumlah}
                             onChange={(jumlah) => this.setState({jumlah})}/>
 
-                        <InputComponent 
+                        <InputDropdown 
                             label="Jangka Waktu"
                             iconName={null}
-                            keyboardType="numeric"
-                            placeholder="Atur jangka waktu"
+                            placeholder="Pilih tipe waktu"
                             value={this.state.waktu}
+                            items={this.state.arrTerm}
                             onChange={(waktu) => this.setState({waktu})}/>
-
-                        <View style={{position:'relative'}}>
-                            <InputComponent 
-                                label="Bunga"
-                                iconName={null}
-                                keyboardType="default"
-                                value={this.state.is_flat ? this.state.interest_flat + "%" : this.state.interest_effective + "%"}/>
-
-                            <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.5}} />
-                        </View>
 
                         <InputComponent 
                             label="Offset"
                             iconName={null}
                             placeholder="List Pinjaman (multiple select)"
-                            value={this.state.selectedOffset.join()}
+                            value={this.state.arrSelectedOffset.length + ' Pinjaman'}
                             isButton={true}
                             onClickBtn={()=>this.setState({openPopup: true})}/>
 
-                        {this.state.arrSelectedOffset.map((x,i)=>(
-                            <View key={i} style={{padding:15,marginBottom:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed'}}>
-                                <View style={{position:'relative'}}>
-                                    <InputComponent 
-                                        label="No Pinjaman"
-                                        iconName={null}
-                                        keyboardType="numeric"
-                                        placeholder=""
-                                        value={x.id_loan}
-                                        onChange={(val1) => this.setState({val1})}/>
-
-                                    <InputComponent 
-                                        label="Tipe Pinjaman"
-                                        iconName={null}
-                                        keyboardType="default"
-                                        placeholder=""
-                                        value={x.loan_type}
-                                        onChange={(val2) => this.setState({val2})}/>   
-
-                                    <InputComponent 
-                                        label="Jumlah Pinjaman"
-                                        iconName={null}
-                                        keyboardType="default"
-                                        placeholder=""
-                                        value={"Rp " + x.loan_approved}
-                                        onChange={(val3) => this.setState({val3})}/>    
-
-                                    <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
-                                        <Col>
-                                            <Text style={Typography.singleText}>Jumlah Pinjaman</Text>
-                                            <Text style={[Typography.heading6,{marginBottom:0}]}>{x.paid_installment}</Text>
-                                        </Col>
-                                        <Col>
-                                            <Text style={[Typography.singleText,{textAlign:'right'}]}>Sisa Angsuran</Text>
-                                            <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>{x.unpaid_installment}</Text>
-                                        </Col>
-                                    </Grid>
-                                    <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
-                                </View>               
-                            </View>
-                        ))}
-
                         {/* ====== START REDEEM VOUCHER ====== */}
-                        <View style={{padding:15,marginBottom:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed'}}>
+                        <View style={{padding:15,marginBottom:15,borderWidth:2,borderColor:Variable.colorPrimary,borderRadius:Variable.borderRadius}}>
                              <InputComponent 
                                 label="Kode Voucher"
                                 iconName={null}
@@ -278,6 +340,10 @@ class CreditDetailComponent extends React.Component {
                                 placeholder="Masukan kode voucher"
                                 value={this.state.voucher}
                                 onChange={(voucher) => this.setState({voucher})}/>
+                            
+                            {this.state.msgVoucher && this.state.statusVoucher == 0 ? <View style={{marginBottom:15}}><AlertBox  type="danger" title={null} text={this.state.msgVoucher}/></View> : null }
+                            {this.state.msgVoucher && this.state.statusVoucher == 1 ? <View style={{marginBottom:15}}><AlertBox  type="success" title={null} text={this.state.msgVoucher}/></View> : null }
+                            
                             <ButtonComponent type="default" text="Reedem Voucher" onClick={()=> this.submitVoucher()} disabled={this.state.isSubmitVoucher} isSubmit={this.state.isSubmitVoucher} />
                         </View>
                         {/* ====== END REDEEM VOUCHER ====== */}
@@ -289,7 +355,12 @@ class CreditDetailComponent extends React.Component {
                             borderBottomWidth: 1,
                             borderColor: '#efefef',
                             backgroundColor: '#f8f8ff'}}>
-                            <ButtonComponent type="default" text="Simulasikan Kredit" onClick={()=> this.checkSimulation()} disabled={this.state.isSubmitSimulation} isSubmit={this.state.isSubmitSimulation}/>
+                            <ButtonComponent 
+                                type="default" 
+                                text="Simulasikan Kredit" 
+                                onClick={()=> this.checkSimulation()} 
+                                disabled={this.state.isSubmitSimulation || this.state.jumlah == '0' || this.state.waktu == null} 
+                                isSubmit={this.state.isSubmitSimulation}/>
                         </View>
                         {this.state.showSimulation ? 
                         <View>
@@ -309,17 +380,24 @@ class CreditDetailComponent extends React.Component {
                                 <Col><Text style={Typography.singleText}>Total :</Text></Col>
                                 <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>{this.state.total_loan}</Text></Col>
                             </Grid>
+
+                            {this.state.msgEligible && this.state.statusEligible == 0 ? <View style={{marginTop:15}}><AlertBox  type="danger" title={null} text={this.state.msgEligible}/></View> : null }
+                            {this.state.msgEligible && this.state.statusEligible == 1 ? <View style={{marginTop:15}}><AlertBox  type="success" title={null} text={this.state.msgEligible}/></View> : null }
+
+                            {this.state.showBtnContinue ? 
+                                <View>
+                                    <TouchableHighlight onPress={()=> this.postEligibility(0)} underlayColor="transparent" style={{marginTop: 15, marginBottom: 15}}>
+                                        <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
+                                    </TouchableHighlight>
+                                    <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.postEligibility(1)}  disabled={this.state.isSubmitEligible} isSubmit={this.state.isSubmitEligible}/>
+                                </View>
+                                :
+                                <View style={{marginTop: 15, marginBottom: 15}}>
+                                    <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/> 
+                                </View>
+                            }
                         </View>
                         : null }
-
-
-                        <View style={{marginTop: 15, marginBottom: 15}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('Credit')} underlayColor="transparent">
-                                <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
-                            </TouchableHighlight>
-                        </View>
-                        
-                        <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.props.navigation.navigate('CreditTerm')}/>
 
                     </View>
                     }
@@ -342,8 +420,8 @@ class CreditDetailComponent extends React.Component {
                                     iconName={null}
                                     keyboardType="numeric"
                                     placeholder=""
-                                    value={x.id_loan}
-                                    onChange={(val1) => this.setState({val1})}/>
+                                    value={x.loan_number}
+                                    onChange={() => console.log("a")}/>
 
                                 <InputComponent 
                                     label="Tipe Pinjaman"
@@ -393,5 +471,23 @@ class CreditDetailComponent extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+	return {
+        credit: state.credit
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setGetData: (e) => {
+			dispatch({
+				type: 'FILL_LOAN',
+				data: e
+			})
+        },
+	}
+}
 
-export default CreditDetailComponent;
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreditDetailComponent)

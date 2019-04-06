@@ -70,15 +70,15 @@ class InputSallary extends React.Component {
     // ======================= //
     fetchProfileSalary(){
         personalService.getProfileSalary().then(res =>{
-            this.setState(res.data);
+            this.setState(res['data']);
             this.fetchMaster();
 
-            toDataUrl(res.data.salary_photo, (e) => {
+            toDataUrl(res['data'].salary_photo, (e) => {
                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                 let obj = {
                     type: base64MimeType(e),
                     base64: imgData,
-                    uri:res.data.salary_photo
+                    uri:res['data'].salary_photo
                 }
                 this.setState({salaryPhoto:obj});
             });
@@ -90,7 +90,7 @@ class InputSallary extends React.Component {
     fetchMaster(){  
         let arrGrade  = [];
         personalService.getMasterGrade().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_grade , label: x.name_grade };
                 arrGrade .push(obj);
             });

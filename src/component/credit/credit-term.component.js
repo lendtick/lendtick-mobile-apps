@@ -88,12 +88,6 @@ class CreditTermComponent extends Component {
 
                         {this.state.isFailed ? <View style={{marginTop: 15}}><AlertBox type="danger" text={this.state.message}/></View> : null}
 
-                        <View style={{marginTop: 15}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditTerm')} underlayColor="transparent">
-                                <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
-                            </TouchableHighlight>
-                        </View>
-
                         <View style={{marginBottom: 15}} />
                         
                         <ButtonComponent type="primary" text="Menyetujui" onClick={()=> this.props.navigation.navigate('CreditDocument')} disabled={!this.state.checked} isSubmit={false}/>

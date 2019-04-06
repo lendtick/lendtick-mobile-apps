@@ -65,7 +65,7 @@ class personalComponent extends React.Component {
     fetchAddress(){
         personalService.getUserAddress().then(res =>{
             this.setState({loadingAddress: false});
-            if(res.data.length){
+            if(res['data'].length){
                 this.setState({pageAddress: "Address"});
             }else{
                 this.setState({pageAddress: "AddressForm"});

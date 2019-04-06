@@ -93,7 +93,7 @@ class Register2Component extends Component {
     fetchListCompany(){
         this.setState({ arrCompany: []});
         loginService.getListCompany().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_company, label: x.name_company};
                 this.state.arrCompany.push(obj);
             });
@@ -108,25 +108,25 @@ class Register2Component extends Component {
     fetchInfoUser(){
         this.setState({isloading: true});
         loginService.getInfoUser().then(res =>{
-            this.setState(res.data);
+            this.setState(res['data']);
             this.setState({isloading: false});
             
-            toDataUrl(res.data.personal_identity_path, (e) => {
+            toDataUrl(res['data'].personal_identity_path, (e) => {
                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                 let obj = {
                     type: base64MimeType(e),
                     base64: imgData,
-                    uri:res.data.personal_identity_path
+                    uri:res['data'].personal_identity_path
                 }
                 this.setState({identityPhoto:obj});
             });
 
-            toDataUrl(res.data.personal_photo, (e) => {
+            toDataUrl(res['data'].personal_photo, (e) => {
                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                 let obj = {
                     type: base64MimeType(e),
                     base64: imgData,
-                    uri:res.data.personal_photo
+                    uri:res['data'].personal_photo
                 }
                 this.setState({personalPhoto:obj});
             });

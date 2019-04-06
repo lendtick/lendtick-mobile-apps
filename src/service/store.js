@@ -3,14 +3,16 @@ import { inputReducer } from '../directive/input.component';
 import { signReducer } from '../component/login/sign.reducer';
 import { registerReducer } from '../component/register/register.reducer';
 import { personalReducer } from '../component/personal/personal.reducer';
-import { addressReducer } from '../component/personal/address/address-reducer'
+import { addressReducer } from '../component/personal/address/address-reducer';
+import { creditReducer } from '../component/credit/credit.reducer';
 
 const reducers = combineReducers({
 	login: signReducer,
 	input: inputReducer,
 	register: registerReducer,
 	personal: personalReducer,
-	address: addressReducer
+	address: addressReducer,
+	credit: creditReducer
 });
 const store = createStore(
 	reducers,

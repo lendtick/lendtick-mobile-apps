@@ -44,6 +44,7 @@ import CreditDetailComponent from '../component/credit/credit.detail.component';
 import CreditTermComponent from '../component/credit/credit-term.component';
 import CreditDocumentComponent from '../component/credit/credit-document.component';
 import CreditCompleteComponent from '../component/credit/credit-complete.component';
+import CreditFinishComponent from '../component/credit/credit-finish.component';
 
 // Services
 // ========================== //
@@ -129,7 +130,8 @@ const Credit = createStackNavigator({
     CreditDetail: CreditDetailComponent,
     CreditTerm: CreditTermComponent,
     CreditDocument: CreditDocumentComponent,
-    CreditComplete: CreditCompleteComponent
+    CreditComplete: CreditCompleteComponent,
+    CreditFinish: CreditFinishComponent
 },{
     initialRouteName: 'main',
     mode: 'modal'

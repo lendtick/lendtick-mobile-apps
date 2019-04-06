@@ -78,7 +78,7 @@ class InputDocument extends React.Component {
     fetchProfileDocument(){
         let arrDocumentList = [];
         personalService.getProfileDocument().then(res =>{
-            _.map(res.data, (x)=>{
+            _.map(res['data'], (x)=>{
                 x.document_type_name = _.find(this.state.arrDocumentType, {value: x.id_document_type}).label;
                 x.isloading = false
                 arrDocumentList.push(x);
@@ -99,7 +99,7 @@ class InputDocument extends React.Component {
         let arrDocumentType  = [];
         this.setState({loading: true});
         personalService.getDocumentType().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_document_type , label: x.document_name };
                 arrDocumentType .push(obj);
             });
@@ -219,7 +219,7 @@ class InputDocument extends React.Component {
                     label="Unggah Dokumen"
                     iconName="upload"
                     placeholder="Unggah dokumen"
-                    value={this.state.fileDocument != null ? this.state.fileDocument.uri.replace(/^.*[\\\/]/, '') : null}
+                    value={this.state.fileDocument ? this.state.fileDocument.uri.replace(/^.*[\\\/]/, '') : null}
                     isButton={true}
                     topIcon={2}
                     onClickBtn={()=> this.pickupImage()}/>

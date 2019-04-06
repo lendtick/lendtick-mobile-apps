@@ -15,9 +15,10 @@ class InputEmployee extends React.Component {
             id_employee: null,
             arrCompany: [],
             id_company: null,
-            join_date: null,
+            employee_starting_date: null,
             division: null,
-            position: null
+            position: null,
+            message: null
         };
     }
 
@@ -28,14 +29,16 @@ class InputEmployee extends React.Component {
 
     fetchProfileCompany(){
         personalService.getProfileCompany().then(res =>{
-            this.setState(res.data);
+            let moment = require("moment");
+            res['data'].employee_starting_date = moment(res['data'].employee_starting_date).format('DD MMM YYYY');
+            this.setState(res['data']);
         });
     }
 
     fetchMasterCompany(){
         let arrCompany = [];
         personalService.getCompany().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value:x.id_company, label:x.name_company};
                 arrCompany.push(obj);
             });
@@ -47,17 +50,11 @@ class InputEmployee extends React.Component {
     // ======================== //
     validationSubmit(){
         let data = {
-            id_employee: this.state.id_employee,
-            id_company: this.state.id_company,
-            join_date: this.state.join_date,
             division: this.state.division,
             position: this.state.position
         };
 
         let rules = {
-            id_employee: 'required',
-            id_company: 'required',
-            join_date: 'required',
             division: 'required',
             position: 'required',
         };
@@ -79,7 +76,28 @@ class InputEmployee extends React.Component {
             isSubmit: true,
             isSuccess: false
         });
-        console.log(data);
+        personalService.updateDataEmployee(data).then(res =>{
+            if(res.status == 1){
+                this.setState({
+                    message: res.message,
+                    isSuccess: true,
+                    isSubmit: false
+                });
+                this.fetchProfileCompany();
+            }else{
+                this.setState({
+                    message: res.message,
+                    isFailed: true,
+                    isSubmit: false
+                });
+            }
+        }, err =>{
+            this.setState({
+                message: "Server error",
+                isFailed: true,
+                isSubmit: false
+            });
+        });
     }
 
     render() { 
@@ -91,6 +109,7 @@ class InputEmployee extends React.Component {
                     keyboardType="numeric"
                     placeholder="Masukan nomor NRP"
                     value={this.state.id_employee}
+                    disabled={true}
                     onChange={(id_employee) => this.setState({id_employee})}/>
 
                 <InputDropdown 
@@ -99,6 +118,7 @@ class InputEmployee extends React.Component {
                     placeholder="Pilih perusahaan"
                     value={this.state.id_company}
                     items={this.state.arrCompany}
+                    disabled={true}
                     onChange={(id_company) => this.setState({id_company})}/> 
 
                 <InputComponent 
@@ -107,8 +127,9 @@ class InputEmployee extends React.Component {
                     keyboardType="default"
                     placeholder="Masukan tanggal masuk"
                     isDate={true}
-                    value={this.state.join_date}
-                    onChange={(join_date) => this.setState({join_date})}/>
+                    value={this.state.employee_starting_date}
+                    disabled={true}
+                    onChange={(employee_starting_date) => this.setState({employee_starting_date})}/>
 
                 <InputComponent 
                     label="Divisi"
@@ -126,12 +147,12 @@ class InputEmployee extends React.Component {
                     value={this.state.position}
                     onChange={(position) => this.setState({position})}/>    
 
-                {this.state.isInvalid ? <View style={{marginBottom:15}}><AlertBox type="warning" text="Masukan data dengan benar"/></View>: null}
-                {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="danger" text="Update data pegawai gagal"/></View>: null}
-                {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update data pegawai berhasil"/></View>: null}
+                {this.state.isInvalid ? <View style={{marginBottom:15}}><AlertBox type="warning" text={this.state.message}/></View>: null}
+                {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="danger" text={this.state.message}/></View>: null}
+                {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text={this.state.message}/></View>: null}
 
 
-                <ButtonComponent type="primary" text="Update data pegawai" onClick={()=> this.validationSubmit()} disabled={false} isSubmit={false}/>
+                <ButtonComponent type="primary" text="Update data pegawai" onClick={()=> this.validationSubmit()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
             </View>
         )
     }

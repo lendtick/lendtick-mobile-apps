@@ -55,14 +55,14 @@ class LoginComponent extends Component {
         loginService.postLogin(this.state.username,this.state.password).then(res =>{
             this.setState({isSubmit: false});
             if(res.status){
-                AsyncStorage.setItem('token', res.data.token);
-                AsyncStorage.setItem('isNew', res.data.is_new_user.toString());
+                AsyncStorage.setItem('token', res['data'].token);
+                AsyncStorage.setItem('isNew', res['data'].is_new_user.toString());
                 AsyncStorage.setItem('username', this.state.username);
                 this.props.setLogin(true);
 
                 registerNotification();
 
-                switch(Number(res.data.is_new_user)){
+                switch(Number(res['data'].is_new_user)){
                     case 0 :
                         this.props.navigation.navigate('Home');
                     break;

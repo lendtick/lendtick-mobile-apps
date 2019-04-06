@@ -56,7 +56,7 @@ class RegisterComponent extends Component {
     fetchListCompany(){
         this.setState({ arrCompany: []});
         registerService.getListCompany().then(res =>{
-            _.map(res.data,(x)=>{
+            _.map(res['data'],(x)=>{
                 let obj = {value: x.id_company, label: x.name_company};
                 this.state.arrCompany.push(obj);
             });
