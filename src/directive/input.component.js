@@ -48,7 +48,7 @@ class InputComponent extends Component {
     render() {
         return (
             <View style={{position:'relative'}}>
-                <View style={this.props.label != null ? Input.wrapInput : [Input.wrapInput,{marginBottom:0}]}>
+                <View style={[Input.wrapInput,{backgroundColor:this.props.disabled ? '#f8f8ff' : '#ffffff'}]}>
                     {this.props.label != null ? <Text style={Typography.label}>{this.props.label}</Text> : null}
                     {this.props.showIcon ? <Feather name={this.props.iconName} size={18} color={this.props.iconColor} style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}/> : null}
                     {this.props.isDate ? 
@@ -95,7 +95,7 @@ class InputComponent extends Component {
                     }
                     {this.props.isButton ? <TouchableHighlight style={Input.highlight} onPress={this.props.onClickBtn} underlayColor="transparent"><Text></Text></TouchableHighlight> : null}
                 </View>
-                {this.props.disabled ? <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.7}} /> : null}
+                {this.props.disabled ? <View style={{position:'absolute',left:0,top:0,width:'100%',height: '100%', opacity:0.5,backgroundColor:'#ffffff'}} /> : null}
             </View>
         );
     }

@@ -19,7 +19,6 @@ class CreditComponent extends React.Component {
         this.state = { 
             titleError: null,
             arrError: [],
-            directPage: 'CreditDetail',
             loading: false
         };
     }
@@ -50,16 +49,28 @@ class CreditComponent extends React.Component {
 
     render() { 
         return(
-            <ScrollView style={{padding: 30,  backgroundColor: '#f8f8ff'}}>
+            <ScrollView style={{padding: 15,  backgroundColor: '#f8f8ff'}}>
                 {this.state.loading ? 
                     <View style={{padding:30}}>  
                         <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
                     </View>
                 : 
-                <View >
+                <View>
+                    {this.state.arrError.length ? 
+                    <View>
+                        <AlertBox 
+                            type="warning" 
+                            title={this.state.titleError}
+                            text={this.state.arrError}
+                        />
+                        <View style={{marginTop:15}} />
+                        <ButtonComponent type="primary" text="Masuk ke Halaman Personal" onClick={()=> this.props.navigation.navigate('User')}/>
+                        <View style={{height:60}}/>
+                    </View>
+                    : 
                     <Grid style={{paddingBottom:30}}>
-                        <Col style={{paddingRight:15}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate(this.state.directPage,{
+                        <Col style={{paddingRight:7.5}}>
+                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail',{
                                 id: "LOAN0001"
                             })} underlayColor="transparent">
                                 <View style={styles.itemLoan}>
@@ -68,7 +79,7 @@ class CreditComponent extends React.Component {
                                 </View>
                             </TouchableHighlight>
                         </Col>
-                        <Col style={{paddingLeft:15}}>
+                        <Col style={{paddingLeft:7.5}}>
                             <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail')} underlayColor="transparent">
                                 <View style={styles.itemLoan}>
                                     <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/credit/middleloan.png')} />
@@ -77,15 +88,7 @@ class CreditComponent extends React.Component {
                             </TouchableHighlight>
                         </Col>
                     </Grid>
-                    <AlertBox 
-                        type="warning" 
-                        title={this.state.titleError}
-                        text={this.state.arrError}
-                    />
-                    
-                    <View style={{marginTop:15}} />
-                    <ButtonComponent type="primary" text="Masuk ke Halaman Personal" onClick={()=> this.props.navigation.navigate('User')}/>
-                    <View style={{height:60}}/>
+                    }
                 </View>
                 }
             </ScrollView>

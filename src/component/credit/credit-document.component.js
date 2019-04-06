@@ -58,7 +58,9 @@ class CreditDocumentComponent extends React.Component {
             document1: null,
             document2: null,
             document3: null,
-            loading: false
+            loading1: false,
+            loading2: false,
+            loading3: false,
         };
     }
 
@@ -66,6 +68,11 @@ class CreditDocumentComponent extends React.Component {
         Permissions.askAsync(Permissions.CAMERA);
         Permissions.askAsync(Permissions.CAMERA_ROLL);
         this.fetchDocument();
+        this.setState({
+            loading1: true,
+            loading2: true,
+            loading3: true
+        });
     }
 
     pickupImage = async (param) => {
@@ -84,15 +91,24 @@ class CreditDocumentComponent extends React.Component {
                 switch(param){
                     case 'document1' : 
                         document_type = 'DOC001';
-                        this.setState({document1: response});
+                        this.setState({
+                            loading1: true,
+                            document1: response
+                        });
                     break;
                     case 'document2' : 
                         document_type = 'DOC002';
-                        this.setState({document2: response});
+                        this.setState({
+                            loading2: true,
+                            document2: response
+                        });
                     break;
                     case 'document3' : 
                         document_type = 'DOC003';
-                        this.setState({document3: response});
+                        this.setState({
+                            loading3: true,
+                            document3: response
+                        });
                     break;
                 };
             }
@@ -102,7 +118,6 @@ class CreditDocumentComponent extends React.Component {
                 id_document_type: document_type,
                 doc_photo: `data:image/png;base64,${response.base64}`
             }
-            this.setState({loading: true});
             creditService.postDocument(obj).then(res =>{  
                 this.fetchDocument();
             });
@@ -118,7 +133,6 @@ class CreditDocumentComponent extends React.Component {
                 if(x.path){
                     switch(x.id_document_type){
                         case "DOC001" :
-                            this.setState({loading: true});
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                                 let obj = {
@@ -126,7 +140,7 @@ class CreditDocumentComponent extends React.Component {
                                     base64: imgData,
                                     uri: x.path
                                 }
-                                this.setState({document1:obj,loading:false});
+                                this.setState({document1:obj,loading1:false});
                                 this.props.updateDoc1({
                                     uri: obj.uri,
                                     type: 'KTP'
@@ -134,7 +148,6 @@ class CreditDocumentComponent extends React.Component {
                             });
                         break;
                         case "DOC002" :
-                            this.setState({loading: true});
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                                 let obj = {
@@ -142,7 +155,7 @@ class CreditDocumentComponent extends React.Component {
                                     base64: imgData,
                                     uri: x.path
                                 }
-                                this.setState({document2:obj,loading:false});
+                                this.setState({document2:obj,loading2:false});
                                 this.props.updateDoc3({
                                     uri: obj.uri,
                                     type: 'ID CARD'
@@ -150,7 +163,6 @@ class CreditDocumentComponent extends React.Component {
                             });
                         break;
                         case "DOC003" :
-                            this.setState({loading: true});
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                                 let obj = {
@@ -158,7 +170,7 @@ class CreditDocumentComponent extends React.Component {
                                     base64: imgData,
                                     uri: x.path
                                 }
-                                this.setState({document3:obj,loading:false});
+                                this.setState({document3:obj,loading3:false});
                                 this.props.updateDoc2({
                                     uri: obj.uri,
                                     type: 'NPWP'
@@ -214,46 +226,64 @@ class CreditDocumentComponent extends React.Component {
                 </View>
                 {/* ====== END STEP ====== */}
 
-                <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />                
-                {this.state.loading ? 
-                    <View style={{padding:30}}>  
-                        <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
-                    </View>
-                :
+                <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />     
                 <View style={[Main.container,{marginTop: 15,paddingTop:10,paddingBottom: 30}]}>
-                    <InputComponent 
-                        label="KTP"
-                        iconName="upload"
-                        placeholder="Unggah KTP"
-                        value={this.state.document1 != null ? this.state.document1.uri.replace(/^.*[\\\/]/, '') : null}
-                        isButton={true}
-                        topIcon={2}
-                        onClickBtn={()=> this.pickupImage('document1')}/>
-                    {this.state.document1 != null ? <AutoHeightImage source={{uri: `data:${this.state.document1.type};base64,${this.state.document1.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                    {this.state.loading1 ? 
+                        <View style={{padding:30}}>  
+                            <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
+                        </View>
+                    :
+                        <View>
+                            <InputComponent 
+                            label="KTP"
+                            iconName="upload"
+                            placeholder="Unggah KTP"
+                            value={this.state.document1 != null ? this.state.document1.uri.replace(/^.*[\\\/]/, '') : null}
+                            isButton={true}
+                            topIcon={2}
+                            onClickBtn={()=> this.pickupImage('document1')}/>
+                        {this.state.document1 != null ? <AutoHeightImage source={{uri: `data:${this.state.document1.type};base64,${this.state.document1.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                        </View>
+                    }
 
-                    <InputComponent 
-                        label="ID CARD"
-                        iconName="upload"
-                        placeholder="Unggah ID CARD"
-                        value={this.state.document2 != null ? this.state.document2.uri.replace(/^.*[\\\/]/, '') : null}
-                        isButton={true}
-                        topIcon={2}
-                        onClickBtn={()=> this.pickupImage('document2')}/>
-                    {this.state.document2 != null ? <AutoHeightImage source={{uri: `data:${this.state.document2.type};base64,${this.state.document2.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                    {this.state.loading2 ? 
+                        <View style={{padding:30}}>  
+                            <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
+                        </View>
+                    :
+                        <View>
+                            <InputComponent 
+                                label="ID CARD"
+                                iconName="upload"
+                                placeholder="Unggah ID CARD"
+                                value={this.state.document2 != null ? this.state.document2.uri.replace(/^.*[\\\/]/, '') : null}
+                                isButton={true}
+                                topIcon={2}
+                                onClickBtn={()=> this.pickupImage('document2')}/>
+                            {this.state.document2 != null ? <AutoHeightImage source={{uri: `data:${this.state.document2.type};base64,${this.state.document2.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                        </View>
+                    }
 
-                    <InputComponent 
-                        label="NPWP"
-                        iconName="upload"
-                        placeholder="Unggah NPWP"
-                        value={this.state.document3 != null ? this.state.document3.uri.replace(/^.*[\\\/]/, '') : null}
-                        isButton={true}
-                        topIcon={2}
-                        onClickBtn={()=> this.pickupImage('document3')}/>
-                    {this.state.document3 != null ? <AutoHeightImage source={{uri: `data:${this.state.document3.type};base64,${this.state.document3.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                    {this.state.loading3 ? 
+                        <View style={{padding:30}}>  
+                            <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
+                        </View>
+                        :
+                        <View>
+                            <InputComponent 
+                                label="NPWP"
+                                iconName="upload"
+                                placeholder="Unggah NPWP"
+                                value={this.state.document3 != null ? this.state.document3.uri.replace(/^.*[\\\/]/, '') : null}
+                                isButton={true}
+                                topIcon={2}
+                                onClickBtn={()=> this.pickupImage('document3')}/>
+                            {this.state.document3 != null ? <AutoHeightImage source={{uri: `data:${this.state.document3.type};base64,${this.state.document3.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                        </View>
+                    }
 
-                    <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.props.navigation.navigate('CreditComplete')} disabled={false} isSubmit={false}/>
+                {!this.state.loading1 && !this.state.loading2 &&!this.state.loading3 ? <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.props.navigation.navigate('CreditComplete')} disabled={false} isSubmit={false}/> : null }
                 </View>
-                }
 
             </ScrollView>
         ) 

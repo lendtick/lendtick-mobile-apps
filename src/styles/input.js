@@ -6,7 +6,10 @@ export default InputStyle = {
         position: "relative",
         marginBottom: 15,
         padding: 15,
-        backgroundColor: '#f8f8ff'
+        backgroundColor: '#ffffff',
+        borderWidth: 1,
+        borderColor: '#dfdfdf',
+        borderRadius: Variable.borderRadius
     },
     icon: {
         position:'absolute',
