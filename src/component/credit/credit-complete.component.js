@@ -133,21 +133,21 @@ class CreditCompleteComponent extends Component {
                         {this.props.credit.document1 != null ?
                             <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
                                 <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document1.type}</Text>
-                                <AutoHeightImage source={{uri: this.props.credit.document1.uri}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/>
+                                <AutoHeightImage source={{uri: this.props.credit.document1.uri}} width={Dimensions.get('window').width - 62}/>
                             </View>
                         : null}
 
                         {this.props.credit.document2 != null ?
                             <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
                                 <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document2.type}</Text>
-                                <AutoHeightImage source={{uri: this.props.credit.document2.uri}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/>
+                                <AutoHeightImage source={{uri: this.props.credit.document2.uri}} width={Dimensions.get('window').width - 62}/>
                             </View>
                         : null}
 
                         {this.props.credit.document3 != null ?
                             <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
                                 <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document3.type}</Text>
-                                <AutoHeightImage source={{uri: this.props.credit.document3.uri}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/>
+                                <AutoHeightImage source={{uri: this.props.credit.document3.uri}} width={Dimensions.get('window').width - 62}/>
                             </View>
                         : null} 
 
