@@ -79,7 +79,8 @@ class InputDocument extends React.Component {
         let arrDocumentList = [];
         personalService.getProfileDocument().then(res =>{
             _.map(res['data'], (x)=>{
-                x.document_type_name = _.find(this.state.arrDocumentType, {value: x.id_document_type}).label;
+                let find = _.find(this.state.arrDocumentType, {value: x.id_document_type});
+                x.document_type_name = find ? find.label : null;
                 x.isloading = false
                 arrDocumentList.push(x);
             });
@@ -89,7 +90,6 @@ class InputDocument extends React.Component {
                 loading: false
             });
 
-            console.log(arrDocumentList);
         });
     }
 
