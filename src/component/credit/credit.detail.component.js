@@ -179,15 +179,27 @@ class CreditDetailComponent extends React.Component {
     // Check Eligibitlity
     // ====================== //
     postEligibility(e){
-        let obj ={
-            installment: this.state.installmentsOrigin
-        };
-
         this.setState({
             isSubmitEligible: true,
             showBtnContinue: false,
             msgEligible: null
         });
+
+        let obj ={
+            installment: this.state.installmentsOrigin,
+            voucher_code: this.state.voucher,
+            loan_offsets: []
+        };
+        _.map(this.state.arrSelectedOffset,(x)=>{
+            let objOffset = {
+                id_loan: x.id_loan,
+                unpaid_installment: x.origin_unpaid_installment,
+                group: x.group
+            };
+            obj.loan_offsets.push(objOffset);
+        });
+
+        console.log(obj);
         creditService.postEligibility(obj).then(res =>{
             this.setState({
                 msgEligible: res.message,
