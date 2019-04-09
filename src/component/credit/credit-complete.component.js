@@ -32,16 +32,24 @@ class CreditCompleteComponent extends Component {
     submitLoan(){
         let moment = require("moment");
         let obj = {
-            id_loan: this.props.credit.data.id_loan,
-            wf_status: "MLTSTS01",
+            id_loan_type: this.props.credit.data.id,
+            loan_request: this.props.credit.data.loan_request,
+            term_monthly: Number(this.props.credit.data.waktu),
+            installments: this.props.credit.data.installmentsOrigin,
+            is_offset: this.props.credit.data.is_offset,
+            voucher_code: this.props.credit.data.voucher_code,
             request_date: moment().format("YYYY-MM-DD"),
+            loan_offsets: this.props.credit.data.loan_offsets,
         };
 
         this.setState({
             isSubmit: true,
             message: null
         });
+
+        console.log(obj);
         creditService.postReqLoan(obj).then(res =>{
+            console.log(res);
             this.setState({isSubmit: false});
             this.props.navigation.navigate('CreditFinish');
         }, err =>{

@@ -200,16 +200,36 @@ class CreditDetailComponent extends React.Component {
         });
 
         creditService.postEligibility(obj).then(res =>{
+            console.log(res);
             this.setState({
                 msgEligible: res.message,
                 statusEligible: res.status,
-                showBtnContinue: true
+                showBtnContinue: true,
+                isSubmitEligible: false
             });
-            if(res.status){
-                this.postSaveDraft(e);
-            }else{
-                this.setState({isSubmitEligible: false});
-            }
+
+            let loan_offsets = [];
+            _.map(this.state.arrSelectedOffset,(x)=>{
+                let objOffset = {
+                    id_loan: x.id_loan,
+                    unpaid_installment: x.origin_unpaid_installment,
+                    group: x.group
+                };
+                loan_offsets.push(objOffset);
+            });
+            this.props.setGetData({
+                id: this.props.navigation.getParam('id'),
+                jumlah: this.state.jumlah,
+                waktu: this.state.waktu,
+                installments: this.state.installments,
+                installmentsOrigin: this.state.installmentsOrigin,
+                loanType: this.state.loanType,
+                voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : null,
+                is_offset: this.state.arrSelectedOffset.length ? true : false,
+                loan_offsets: loan_offsets,
+                loan_request: 1
+            });
+            this.props.navigation.navigate('CreditTerm');
         }, err =>{
             this.setState({isSubmitEligible: false});
         });
@@ -242,15 +262,7 @@ class CreditDetailComponent extends React.Component {
             this.setState({showBtnContinue: false});
             setTimeout(()=>{
                 if(e == 1){
-                    this.props.setGetData({
-                        id: this.props.navigation.getParam('id'),
-                        id_loan: res.data.id_loan,
-                        jumlah: this.state.jumlah,
-                        waktu: this.state.waktu,
-                        installments: this.state.installments,
-                        loanType: this.state.loanType
-                    });
-                    this.props.navigation.navigate('CreditTerm');
+                    
                 }else{
                     this.props.navigation.navigate('Credit')
                 }
@@ -400,10 +412,10 @@ class CreditDetailComponent extends React.Component {
 
                             {this.state.showBtnContinue ? 
                                 <View>
-                                    <TouchableHighlight onPress={()=> this.postEligibility(0)} underlayColor="transparent" style={{marginTop: 15, marginBottom: 15}}>
+                                    <TouchableHighlight onPress={()=> this.props.navigation.popToTop()} underlayColor="transparent" style={{marginTop: 15, marginBottom: 15}}>
                                         <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
                                     </TouchableHighlight>
-                                    <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.postEligibility(1)}  disabled={this.state.isSubmitEligible} isSubmit={this.state.isSubmitEligible}/>
+                                    <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.postEligibility()}  disabled={this.state.isSubmitEligible} isSubmit={this.state.isSubmitEligible}/>
                                 </View>
                                 :
                                 <View style={{marginTop: 15, marginBottom: 15}}>

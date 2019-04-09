@@ -61,6 +61,7 @@ class CreditDocumentComponent extends React.Component {
             loading1: false,
             loading2: false,
             loading3: false,
+            arrDcument: []
         };
     }
 
@@ -129,6 +130,7 @@ class CreditDocumentComponent extends React.Component {
 
     fetchDocument(){
         creditService.getLoanDocument(this.props.credit.data.id).then(res =>{
+            this.setState({arrDcument:[]});
             _.map(res['data'], (x)=>{
                 switch(x.id_document_type){
                     case "DOC001" :
@@ -140,7 +142,12 @@ class CreditDocumentComponent extends React.Component {
                                     base64: imgData,
                                     uri: x.path
                                 }
-                                this.setState({document1:obj,loading1:false});
+                                this.state.arrDcument.push(1);
+                                this.setState({
+                                    document1:obj,
+                                    loading1:false,
+                                    arrDcument: this.state.arrDcument
+                                });
                                 this.props.updateDoc1({
                                     uri: obj.uri,
                                     type: 'KTP'
@@ -159,8 +166,13 @@ class CreditDocumentComponent extends React.Component {
                                     base64: imgData,
                                     uri: x.path
                                 }
-                                this.setState({document2:obj,loading2:false});
-                                this.props.updateDoc3({
+                                this.state.arrDcument.push(1);
+                                this.setState({
+                                    document2:obj,
+                                    loading2:false,
+                                    arrDcument: this.state.arrDcument
+                                });
+                                this.props.updateDoc2({
                                     uri: obj.uri,
                                     type: 'ID CARD'
                                 });
@@ -178,8 +190,13 @@ class CreditDocumentComponent extends React.Component {
                                     base64: imgData,
                                     uri: x.path
                                 }
-                                this.setState({document3:obj,loading3:false});
-                                this.props.updateDoc2({
+                                this.state.arrDcument.push(1);
+                                this.setState({
+                                    document3:obj,
+                                    loading3:false,
+                                    arrDcument: this.state.arrDcument
+                                });
+                                this.props.updateDoc3({
                                     uri: obj.uri,
                                     type: 'NPWP'
                                 });
@@ -292,7 +309,14 @@ class CreditDocumentComponent extends React.Component {
                         </View>
                     }
 
-                {!this.state.loading1 && !this.state.loading2 &&!this.state.loading3 ? <ButtonComponent type="primary" text="Lanjutkan" onClick={()=> this.props.navigation.navigate('CreditComplete')} disabled={false} isSubmit={false}/> : null }
+                {!this.state.loading1 && !this.state.loading2 &&!this.state.loading3 ? 
+                    <ButtonComponent 
+                        type="primary" 
+                        text="Lanjutkan" 
+                        onClick={()=> this.props.navigation.navigate('CreditComplete')} 
+                        disabled={this.state.arrDcument.length != 3} 
+                        isSubmit={false}/> 
+                : null }
                 </View>
 
             </ScrollView>
