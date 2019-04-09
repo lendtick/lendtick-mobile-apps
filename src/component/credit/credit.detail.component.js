@@ -187,7 +187,7 @@ class CreditDetailComponent extends React.Component {
 
         let obj ={
             installment: this.state.installmentsOrigin,
-            voucher_code: this.state.voucher,
+            voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : null,
             loan_offsets: []
         };
         _.map(this.state.arrSelectedOffset,(x)=>{
@@ -356,7 +356,7 @@ class CreditDetailComponent extends React.Component {
                             {this.state.msgVoucher && this.state.statusVoucher == 0 ? <View style={{marginBottom:15}}><AlertBox  type="danger" title={null} text={this.state.msgVoucher}/></View> : null }
                             {this.state.msgVoucher && this.state.statusVoucher == 1 ? <View style={{marginBottom:15}}><AlertBox  type="success" title={null} text={this.state.msgVoucher}/></View> : null }
                             
-                            <ButtonComponent type="default" text="Reedem Voucher" onClick={()=> this.submitVoucher()} disabled={this.state.isSubmitVoucher} isSubmit={this.state.isSubmitVoucher} />
+                            <ButtonComponent type="primary" text="Reedem Voucher" onClick={()=> this.submitVoucher()} disabled={this.state.isSubmitVoucher} isSubmit={this.state.isSubmitVoucher} />
                         </View>
                         {/* ====== END REDEEM VOUCHER ====== */}
 
@@ -368,7 +368,7 @@ class CreditDetailComponent extends React.Component {
                             borderColor: '#efefef',
                             backgroundColor: '#f8f8ff'}}>
                             <ButtonComponent 
-                                type="default" 
+                                type="primary" 
                                 text="Simulasikan Kredit" 
                                 onClick={()=> this.checkSimulation()} 
                                 disabled={this.state.isSubmitSimulation || this.state.jumlah == '0' || this.state.waktu == null} 
@@ -384,6 +384,8 @@ class CreditDetailComponent extends React.Component {
                                 <Col><Text style={[Typography.singleText,{color:Variable.colorPrimary}]}>{this.state.term} bulan</Text></Col>
                                 <Col><Text style={[Typography.label,{textAlign:'right'}]}>{this.state.installments}</Text></Col>
                             </Grid>
+
+                            {this.state.arrSelectedOffset.length ? 
                             <Grid style={{
                                 padding:15,
                                 borderBottomLeftRadius:Variable.borderRadius,
@@ -392,6 +394,7 @@ class CreditDetailComponent extends React.Component {
                                 <Col><Text style={Typography.singleText}>Total :</Text></Col>
                                 <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>{this.state.total_loan}</Text></Col>
                             </Grid>
+                            : null}
 
                             {this.state.msgEligible && this.state.statusEligible == 0 ? <View style={{marginTop:15}}><AlertBox  type="danger" title={null} text={this.state.msgEligible}/></View> : null }
                             {this.state.msgEligible && this.state.statusEligible == 1 ? <View style={{marginTop:15}}><AlertBox  type="success" title={null} text={this.state.msgEligible}/></View> : null }
