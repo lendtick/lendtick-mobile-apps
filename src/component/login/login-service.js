@@ -30,6 +30,7 @@ export default loginService = {
     // Post Login
     // ======================= //
     postLogin: (username,password) =>{
+        console.log(urlLogin);
         const promiseObj = new Promise(function(resolve, reject){
             fetch(urlLogin, {
                 method: 'POST',
@@ -40,7 +41,10 @@ export default loginService = {
                 headers: {"Content-type": "application/json"}
             })
             .then(response => response.json())
-            .then(json => resolve(json))
+            .then(json => {
+                console.log(json);
+                resolve(json);
+            })
             .catch(err => reject(err));
         });
         return promiseObj;

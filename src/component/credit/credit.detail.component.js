@@ -199,7 +199,6 @@ class CreditDetailComponent extends React.Component {
             obj.loan_offsets.push(objOffset);
         });
 
-        console.log(obj);
         creditService.postEligibility(obj).then(res =>{
             this.setState({
                 msgEligible: res.message,

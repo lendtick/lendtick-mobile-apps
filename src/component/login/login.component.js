@@ -53,6 +53,7 @@ class LoginComponent extends Component {
     onSubmit(){
         this.setState({isSubmit: true, isFailed: false});
         loginService.postLogin(this.state.username,this.state.password).then(res =>{
+            console.log(res);
             this.setState({isSubmit: false});
             if(res.status){
                 AsyncStorage.setItem('token', res['data'].token);
@@ -81,6 +82,7 @@ class LoginComponent extends Component {
                 });
             }
         }, err =>{
+            console.log(err);
             this.setState({
                 isFailed: true,
                 isSubmit: false

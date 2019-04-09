@@ -130,9 +130,9 @@ class CreditDocumentComponent extends React.Component {
     fetchDocument(){
         creditService.getLoanDocument(this.props.credit.data.id).then(res =>{
             _.map(res['data'], (x)=>{
-                if(x.path){
-                    switch(x.id_document_type){
-                        case "DOC001" :
+                switch(x.id_document_type){
+                    case "DOC001" :
+                        if(x.path){
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                                 let obj = {
@@ -146,8 +146,12 @@ class CreditDocumentComponent extends React.Component {
                                     type: 'KTP'
                                 });
                             });
-                        break;
-                        case "DOC002" :
+                        }else{
+                            this.setState({loading1:false});
+                        }
+                    break;
+                    case "DOC002" :
+                        if(x.path){
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                                 let obj = {
@@ -161,8 +165,12 @@ class CreditDocumentComponent extends React.Component {
                                     type: 'ID CARD'
                                 });
                             });
-                        break;
-                        case "DOC003" :
+                        }else{
+                            this.setState({loading2:false});
+                        }
+                    break;
+                    case "DOC003" :
+                        if(x.path){
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
                                 let obj = {
@@ -176,8 +184,10 @@ class CreditDocumentComponent extends React.Component {
                                     type: 'NPWP'
                                 });
                             });
-                        break;
-                    }
+                        }else{
+                            this.setState({loading3:false});
+                        }
+                    break;
                 }
             });
         });
