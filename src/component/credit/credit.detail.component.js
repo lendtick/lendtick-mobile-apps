@@ -227,7 +227,7 @@ class CreditDetailComponent extends React.Component {
                 voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : null,
                 is_offset: this.state.arrSelectedOffset.length ? true : false,
                 loan_offsets: loan_offsets,
-                loan_request: 1
+                loan_request: creditService.convertFormatNumber(this.state.jumlah),
             });
             this.props.navigation.navigate('CreditTerm');
         }, err =>{
