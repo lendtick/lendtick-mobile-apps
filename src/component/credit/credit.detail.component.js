@@ -83,6 +83,7 @@ class CreditDetailComponent extends React.Component {
     fetchGetOffset(){
         this.setState({loading: true});
         creditService.getOffset().then(res =>{
+            console.log(res);
             _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;
@@ -200,7 +201,6 @@ class CreditDetailComponent extends React.Component {
         });
 
         creditService.postEligibility(obj).then(res =>{
-            console.log(res);
             this.setState({
                 msgEligible: res.message,
                 statusEligible: res.status,
@@ -458,21 +458,21 @@ class CreditDetailComponent extends React.Component {
                                     onChange={(val2) => this.setState({val2})}/>   
 
                                 <InputComponent 
-                                    label="Jumlah Pinjaman"
+                                    label="Angsuran per bulan"
                                     iconName={null}
                                     keyboardType="default"
                                     placeholder=""
-                                    value={"Rp " + x.loan_approved}
+                                    value={x.installments}
                                     onChange={(val3) => this.setState({val3})}/>    
 
                                 <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
                                     <Col>
-                                        <Text style={Typography.singleText}>Jumlah Pinjaman</Text>
-                                        <Text style={[Typography.heading6,{marginBottom:0}]}>{x.paid_installment}</Text>
+                                        <Text style={Typography.singleText}>Angsuran per bulan</Text>
+                                        <Text style={[Typography.heading6,{marginBottom:0}]}>{x.loan_approved}</Text>
                                     </Col>
                                     <Col>
                                         <Text style={[Typography.singleText,{textAlign:'right'}]}>Sisa Angsuran</Text>
-                                        <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>{x.unpaid_installment}</Text>
+                                        <Text style={[Typography.singleText,{textAlign:'right',color:Variable.colorPrimary,fontFamily:Variable.fontBold}]}>{x.unpaid_term}</Text>
                                     </Col>
                                 </Grid>
 
