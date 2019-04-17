@@ -392,8 +392,36 @@ class CreditDetailComponent extends React.Component {
                                 borderBottomWidth: 1,
                                 borderColor: '#efefef',
                                 backgroundColor: '#f8f8ff'}}>
-                                <Col><Text style={[Typography.singleText,{color:Variable.colorPrimary}]}>{this.state.term} bulan</Text></Col>
-                                <Col><Text style={[Typography.label,{textAlign:'right'}]}>{this.state.installments}</Text></Col>
+                                <Col>
+                                    <Text style={Typography.singleText}>Total Pinjaman :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.label,{textAlign:'right'}]}>{this.state.jumlah}</Text>
+                                </Col>
+                            </Grid>
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Lama Angsuran :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.term} bulan</Text>
+                                </Col>
+                            </Grid>
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Angsuran per bulan :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.label,{textAlign:'right'}]}>{this.state.installments}</Text>
+                                </Col>
                             </Grid>
 
                             {this.state.arrSelectedOffset.length ? 
