@@ -265,7 +265,7 @@ class CreditDocumentComponent extends React.Component {
                             label="KTP"
                             iconName="upload"
                             placeholder="Unggah KTP"
-                            value={this.state.document1 != null ? this.state.document1.uri.replace(/^.*[\\\/]/, '') : null}
+                            value={this.state.document1 != null ? this.state.document1.uri.replace(/^.*[\\\/]/, '').substring(this.state.document1.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document1.uri.replace(/^.*[\\\/]/, '').length) : null}
                             isButton={true}
                             topIcon={2}
                             onClickBtn={()=> this.pickupImage('document1')}/>
@@ -283,7 +283,7 @@ class CreditDocumentComponent extends React.Component {
                                 label="ID CARD"
                                 iconName="upload"
                                 placeholder="Unggah ID CARD"
-                                value={this.state.document2 != null ? this.state.document2.uri.replace(/^.*[\\\/]/, '') : null}
+                                value={this.state.document2 != null ? this.state.document2.uri.replace(/^.*[\\\/]/, '').substring(this.state.document2.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document2.uri.replace(/^.*[\\\/]/, '').length) : null}
                                 isButton={true}
                                 topIcon={2}
                                 onClickBtn={()=> this.pickupImage('document2')}/>
@@ -301,7 +301,7 @@ class CreditDocumentComponent extends React.Component {
                                 label="NPWP"
                                 iconName="upload"
                                 placeholder="Unggah NPWP"
-                                value={this.state.document3 != null ? this.state.document3.uri.replace(/^.*[\\\/]/, '') : null}
+                                value={this.state.document3 != null ? this.state.document3.uri.replace(/^.*[\\\/]/, '').substring(this.state.document3.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document3.uri.replace(/^.*[\\\/]/, '').length) : null}
                                 isButton={true}
                                 topIcon={2}
                                 onClickBtn={()=> this.pickupImage('document3')}/>

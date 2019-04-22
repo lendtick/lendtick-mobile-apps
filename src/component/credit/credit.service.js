@@ -14,7 +14,9 @@ var urlGetProfileFullfillment = API.auth + '/profile/fullfillment',
     urlVoucherValidate = API.hostLoan + '/loan/voucher/validate',
     urlReedemVoucher = API.hostLoan + '/loan/voucher/redeem',
     urlPostEligibility = API.hostLoan + '/loan/eligibility',
-    urlPostLoanDraft = API.hostLoan + '/loan/draft';
+    urlPostLoanDraft = API.hostLoan + '/loan/draft',
+
+    urlGetMasterLoan = API.hostLoan + '/master/loan/type'
 
 // Reservation Service
 export default creditService = {
@@ -23,6 +25,37 @@ export default creditService = {
     // ======================= //
     convertFormatNumber(e){
         return Number(e.replace(/,/g, '').replace('Rp ', ''));
+    },
+
+    // ======================= //
+    // Get Master Loan
+    // ======================= //
+    getMasterLoan: () =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlGetMasterLoan,{
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    })
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if(json.data){
+                        if(json.data.token){
+                            AsyncStorage.setItem('token', json.data.token);
+                            token = json.data.token;
+                            personalService.getInfoUser();
+                        }else{
+                            resolve(json);                        
+                        }
+                    }
+                })
+                .catch(err => reject(err));
+            });
+        });
+        return promiseObj;
     },
 
     // ======================= //

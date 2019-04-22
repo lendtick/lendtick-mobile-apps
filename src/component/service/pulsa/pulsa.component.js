@@ -10,6 +10,8 @@ import { Main,Typography,Variable } from '@styles';
 import { FooterButton,Modal } from '@directives';
 import { styles } from './pulsa.style';
 
+import pulseService from './pulse.service';
+
 class PulsaCompnent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pulsa",
@@ -23,7 +25,8 @@ class PulsaCompnent extends React.Component {
             listContact: [],
             listContactFilter: [],
             popupContacts: false,
-            loadingContact: false
+            loadingContact: false,
+            providerName: null
         };
     }
 
@@ -31,8 +34,18 @@ class PulsaCompnent extends React.Component {
        this.setMyNumber();
     }
 
+    checkPhone(phone){
+        if(phone.length > 4){
+            pulseService.getInfoPhone(phone.substring(0,4)).then(res =>{
+                console.log(res);
+                this.setState({providerName: res.data[0].provider_phone_name})
+            });
+        }
+    }
+
     setMyNumber(){
         this.setState({phoneNumber: this.props.personal.data.phone_number});
+        this.checkPhone(this.props.personal.data.phone_number);
     }
 
     selectContact(e){
@@ -40,6 +53,7 @@ class PulsaCompnent extends React.Component {
             phoneNumber: e,
             popupContacts: false
         });
+        this.checkPhone(e);
     }
 
     changePhone(e){
@@ -68,15 +82,18 @@ class PulsaCompnent extends React.Component {
                     <View style={Main.container}>
                         {/* ====== START INPUT PHONE NUMBER ====== */}
                         <View style={styles.wrapPhoneNumber}>
-                            <TouchableHighlight onPress={()=> console.log('asd')} underlayColor="transparent" style={styles.iconPhoneNumber}>
-                                <Feather name="arrow-right" size={20} color="#9f9f9f" />
-                            </TouchableHighlight>
+                            <View style={styles.iconPhoneNumber}>
+                                <Text style={Typography.singleText}>{this.state.providerName}</Text>
+                            </View>
                             <TextInput
                                 style={[Typography.singleText,styles.inputSinglePhoneNumber]}
                                 placeholder="Enter phone number"
                                 underlineColorAndroid="transparent"
                                 dataDetectorTypes="phoneNumber"
-                                onChangeText={(phoneNumber) => this.setState({phoneNumber})}
+                                onChangeText={(phoneNumber) => {
+                                    this.setState({phoneNumber});
+                                    this.checkPhone(phoneNumber)
+                                }}
                                 value={this.state.phoneNumber}
                             />
                         </View>

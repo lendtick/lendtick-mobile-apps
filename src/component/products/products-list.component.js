@@ -62,7 +62,6 @@ class ListProductComponent extends React.Component {
 
 
                     {/* ====== START PRODUCTS ====== */}
-                    
                     <View style={styles.wrapProducts}>
                         {this.state.data.map((x,index) => (
                             <Grid key={index} style={{marginBottom: 15}}>

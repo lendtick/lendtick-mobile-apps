@@ -180,6 +180,7 @@ class InputPersonal extends React.Component {
                     keyboardType="numeric"
                     placeholder="Masukan nomor anggota"
                     value={this.state.id_koperasi}
+                    disabled={true}
                     onChange={(id_koperasi) => this.setState({id_koperasi})}/>
                 
                 <InputComponent 

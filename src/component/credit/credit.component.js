@@ -7,6 +7,7 @@ import { Variable } from '@styles';
 import { styles } from './credit.style';
 import { connect } from 'react-redux';
 import creditService from './credit.service';
+import * as _ from 'lodash';
 
 class CreditComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -19,12 +20,24 @@ class CreditComponent extends React.Component {
         this.state = { 
             titleError: null,
             arrError: [],
-            loading: false
+            loading: false,
+            arrLoan: []
         };
     }
 
     componentDidMount(){
         this.fetchInfoUser();
+    }
+
+    fetchMasterLoan(){
+        creditService.getMasterLoan().then(res =>{
+            console.log(res);
+            let data = _.chunk(res.data,2);
+            this.setState({
+                arrLoan: data,
+                loading: false
+            });
+        });
     }
 
     fetchInfoUser(){
@@ -38,10 +51,12 @@ class CreditComponent extends React.Component {
                 });
                 this.setState({
                     titleError: res.message,
-                    arrError: arrVaidation
+                    arrError: arrVaidation,
+                    loading: false
                 });
+            }else{
+                this.fetchMasterLoan();            
             }
-            this.setState({loading: false});
         }, err =>{
             this.setState({loading: false});
         });
@@ -68,26 +83,37 @@ class CreditComponent extends React.Component {
                         <View style={{height:60}}/>
                     </View>
                     : 
-                    <Grid style={{paddingBottom:30}}>
-                        <Col style={{paddingRight:7.5}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail',{
-                                id: "LOAN0001"
-                            })} underlayColor="transparent">
-                                <View style={styles.itemLoan}>
-                                    <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/credit/loan.png')} />
-                                    <Text style={styles.textMenuLoan}>Loan</Text>
-                                </View>
-                            </TouchableHighlight>
-                        </Col>
-                        <Col style={{paddingLeft:7.5}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail')} underlayColor="transparent">
-                                <View style={styles.itemLoan}>
-                                    <AutoHeightImage width={80} style={{left:'50%',marginLeft:-40,margin: 5}} source={require('@assets/img/credit/middleloan.png')} />
-                                    <Text style={styles.textMenuLoan}>Middle Loan</Text>
-                                </View>
-                            </TouchableHighlight>
-                        </Col>
-                    </Grid>
+                    <View>
+                        {this.state.arrLoan.map((x,index) => (
+                            <Grid key={index} style={{marginBottom: 15}}>
+                                {x.map((item,i) => {
+                                    if(i == 0){
+                                        return (<Col style={{paddingRight:7.5}} key={i}>
+                                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail',{
+                                                id: item.id_loan_type
+                                            })} underlayColor="transparent">
+                                                <View style={styles.itemLoan}>
+                                                    <AutoHeightImage source={{uri: item.icon_loan_type}} width={80} style={{left:'50%',marginLeft:-40,margin: 5}}/>
+                                                    <Text style={styles.textMenuLoan}>{item.name_loan_type}</Text>
+                                                </View>
+                                            </TouchableHighlight>
+                                        </Col>);
+                                    }else{
+                                        return (<Col style={{paddingRight:7.5}} key={i}>
+                                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail',{
+                                                id: item.id_loan_type
+                                            })} underlayColor="transparent">
+                                                <View style={styles.itemLoan}>
+                                                    <AutoHeightImage source={{uri: item.icon_loan_type}} width={80} style={{left:'50%',marginLeft:-40,margin: 5}}/>
+                                                    <Text style={styles.textMenuLoan}>{item.name_loan_type}</Text>
+                                                </View>
+                                            </TouchableHighlight>
+                                        </Col>);
+                                    }
+                                })}
+                            </Grid>
+                        ))}
+                    </View>
                     }
                 </View>
                 }

@@ -3,7 +3,7 @@ import { View,Text,ScrollView,TouchableHighlight,ActivityIndicator,Platform } fr
 import { Col,Row,Grid } from "react-native-easy-grid";
 
 import { Main,Variable,Typography,Input } from '@styles';
-import { InputCheckbox,ButtonComponent } from '@directives';
+import { InputCheckbox,ButtonComponent,AlertBox } from '@directives';
 import { styles } from './address.style';
 
 import { connect } from 'react-redux';
@@ -18,7 +18,9 @@ class AddressDetailComponent extends React.Component {
         super(props);
         this.state = {
             checked: false,
-            isSubmit: false
+            isSubmit: false,
+            message: null,
+            isFailed: false
         };
     }
 
@@ -29,14 +31,31 @@ class AddressDetailComponent extends React.Component {
     }
 
     deleteAddressna(){
-        this.setState({isSubmit: true});
+        this.setState({
+            isSubmit: true,
+            isFailed: false
+        });
         let obj = {id_user_address: this.state.id_user_address};
         personalService.deleteAddress(obj).then(res =>{
-            this.setState({isSubmit: false});
-            this.props.setAddress(true);
-            this.props.navigation.goBack();
+            console.log(res);
+            
+            if(res.status == 0){
+                this.setState({
+                    isSubmit: false,
+                    isFailed: true,
+                    message: res.message
+                })
+            }else{
+                this.setState({isSubmit: false});
+                this.props.setAddress(true);
+                this.props.navigation.goBack();
+            }
         }, err =>{
-            this.setState({isSubmit: false});
+            this.setState({
+                isFailed: true,
+                message: 'Gagal menghapus, silakan coba lagi',
+                isSubmit: false
+            });
         })
     }
 
@@ -126,6 +145,9 @@ class AddressDetailComponent extends React.Component {
                     <View style={{marginBottom: 20,position:'relative',zIndex:2}}><ActivityIndicator size="small" color="#333"/></View>
                     :
                     <View style={{marginBottom: 20,position:'relative',zIndex:2}}>
+
+                        {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="danger" text={this.state.message}/></View> : null}
+                        
                         <ButtonComponent type="primary" text="Ubah alamat" onClick={() => this.props.navigation.navigate('AddressForm',this.state)} disabled={false} isSubmit={false}/>
                         
                         <TouchableHighlight style={{marginTop:15,marginBottom:15}} onPress={()=> this.deleteAddressna()} underlayColor="transparent">
