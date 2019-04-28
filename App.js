@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from './src/service/store';
-import { rooter } from './src/service/rooter';
+import { store } from '@services/store';
+import { rooter } from '@services/rooter';
 import { createSwitchNavigator } from 'react-navigation';
 
 export default class App extends React.Component {

@@ -169,7 +169,9 @@ class InputDocument extends React.Component {
             if(res.status){
                 this.setState({
                     isSubmit: false,
-                    isSuccess: true
+                    isSuccess: true,
+                    id_document_type: null,
+                    fileDocument: null
                 });
                 this.fetchProfileDocument();
             }else{

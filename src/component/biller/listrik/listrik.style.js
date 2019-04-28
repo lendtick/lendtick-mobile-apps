@@ -13,42 +13,9 @@ export const styles = StyleSheet.create({
         marginBottom: -12
     },
 
-    // Phone Number
-    // ===================== //
-    wrapPhoneNumber:{
-        position: 'relative',
-        borderWidth: 1,
-        borderColor: '#efefef',
-        backgroundColor: '#ffffff',
-        paddingLeft: 15,
-        paddingRight: 45,
-        height: 45,
-        marginBottom: 15,
-        borderRadius: Variable.borderRadius,
-        ...Variable.boxShadow
-    },
-    iconPhoneNumber: {
-        position: 'absolute',
-        top: 10,
-        right: 15
-    },
-    inputSinglePhoneNumber:{
-        height: 45
-    },
-
-    centerTextPhone:{
-        textAlign:'center',
-        marginTop:20,
-        marginBottom:20,
-        fontStyle:'italic',
-        fontSize:12,
-        color: '#999999'
-    },
-
     wrapSelect:{
         height: 50,
         borderBottomWidth: 1,
-        marginBottom: 15,
         borderColor: '#efefef',
         backgroundColor: '#ffffff',
         ...Variable.boxShadow
@@ -68,6 +35,38 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         color: Variable.colorPrimary,
         fontWeight: '700'
+    },
+
+    // White Box
+    // ===================== //
+    whiteBox:{
+        borderWidth: 1,
+        borderColor: '#efefef',
+        borderRadius: Variable.borderRadius,
+        backgroundColor: '#ffffff',
+        padding: 20,
+        marginBottom: 15,
+        ...Variable.boxShadow
+    },
+    whiteBoxActive:{
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderColor: Variable.colorPrimary,
+        borderRadius: Variable.borderRadius,
+        backgroundColor: '#ffffff',
+        padding: 20,
+        marginBottom: 15,
+        ...Variable.boxShadow
+    },
+    titleWhiteBox:{
+        fontWeight: '700',
+        color: Variable.colorTitle,
+        marginBottom: 5,
+        fontSize: 14
+    },
+    descWhiteBox:{
+        color: Variable.colorContent,
+        fontSize: 14,
     },
 
     // Pulsa

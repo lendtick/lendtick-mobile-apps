@@ -5,6 +5,9 @@ import { registerReducer } from '../component/register/register.reducer';
 import { personalReducer } from '../component/personal/personal.reducer';
 import { addressReducer } from '../component/personal/address/address-reducer';
 import { creditReducer } from '../component/credit/credit.reducer';
+import { pulsaReducer } from '../component/biller/pulsa/pulsa.reducer';
+import { paketDataReducer } from '../component/biller/paket-data/paket-data.reducer';
+import { listrikReducer } from '../component/biller/listrik/listrik.reducer';
 
 const reducers = combineReducers({
 	login: signReducer,
@@ -12,7 +15,10 @@ const reducers = combineReducers({
 	register: registerReducer,
 	personal: personalReducer,
 	address: addressReducer,
-	credit: creditReducer
+	credit: creditReducer,
+	pulsa: pulsaReducer,
+	paketData: paketDataReducer,
+	listrik: listrikReducer
 });
 const store = createStore(
 	reducers,

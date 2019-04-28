@@ -48,14 +48,17 @@ import CreditFinishComponent from '../component/credit/credit-finish.component';
 
 // Services
 // ========================== //
-import ServiceComponent from '../component/service/service.component';
-import PaketDataComponent from '../component/service/paket-data/paket-data.component';
-import PulsaCompnent from '../component/service/pulsa/pulsa.component';
-import PulsaConfirmation from '../component/service/pulsa/pulsa-confirmation.component';
-import ListrikComponent from '../component/service/listrik/listrik.component';
-import PinjamanTunaiComponent from '../component/service/pinjaman-tunai/pinjaman-tunai.component';
-import PaketDataConfirmation from '../component/service/paket-data/paket-data-confirmasi.component';
-import ListrikConfirmation from '../component/service/listrik/listrik-comfirm.component';
+import BillerComponent from '../component/biller/biller.component';
+import PaketDataComponent from '../component/biller/paket-data/paket-data.component';
+import PulsaCompnent from '../component/biller/pulsa/pulsa.component';
+import PulsaConfirmation from '../component/biller/pulsa/pulsa-confirmation.component';
+import PulsaFinishComponent from '../component/biller/pulsa/pulsa-finish.component';
+import ListrikComponent from '../component/biller/listrik/listrik.component';
+import PinjamanTunaiComponent from '../component/biller/pinjaman-tunai/pinjaman-tunai.component';
+import PaketDataConfirmation from '../component/biller/paket-data/paket-data-confirmasi.component';
+import PaketDataFinishComponent from '../component/biller/paket-data/paket-data-finish.component';
+import ListrikConfirmation from '../component/biller/listrik/listrik-comfirm.component';
+import ListrikFinishComponent from '../component/biller/listrik/listrik-finish.component';
 
 // Home
 // ========================== //
@@ -137,15 +140,18 @@ const Credit = createStackNavigator({
     mode: 'modal'
 });
 
-const Service = createStackNavigator({
-    main: ServiceComponent,
+const Biller = createStackNavigator({
+    main: BillerComponent,
     PaketData: PaketDataComponent,
     PaketDataConfirmation: PaketDataConfirmation,
+    PaketDataFinish: PaketDataFinishComponent,
     Pulsa: PulsaCompnent,
     PulsaConfirmation: PulsaConfirmation,
+    PulsaFinish: PulsaFinishComponent,
     Listrik: ListrikComponent,
     PinjamanTunai: PinjamanTunaiComponent,
     ListrikConfirmation: ListrikConfirmation,
+    ListrikFinish: ListrikFinishComponent
 },{
     initialRouteName: 'main',
     mode: 'modal'
@@ -155,7 +161,7 @@ const Service = createStackNavigator({
 // ========================== //
 const tabsRoot = createBottomTabNavigator({
     Home: Home,
-    Service: Service,
+    Service: Biller,
     Credit: Credit,
     User: Personal,    
 },{

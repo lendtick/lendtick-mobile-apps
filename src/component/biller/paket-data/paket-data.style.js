@@ -12,7 +12,32 @@ export const styles = StyleSheet.create({
     line:{
         marginBottom: -12
     },
-    
+
+    // Package
+    // ========================= //
+    listPackage: {
+        marginTop: 30
+    },
+    imgPackage: {
+        width: 70,
+        height: 70,
+        left: '50%',
+        marginLeft: -35
+    },
+    textPackage: {
+        textAlign: 'center',
+        color: Variable.colorContent,
+        lineHeight: 18,
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+
+    // Addsense
+    // ========================= //
+    wrapAdds: {
+        marginTop: 30
+    },
+
     // Phone Number
     // ===================== //
     wrapPhoneNumber:{
@@ -28,11 +53,18 @@ export const styles = StyleSheet.create({
     },
     iconPhoneNumber: {
         position: 'absolute',
-        top: 10,
+        top: 3,
         right: 15
     },
     inputSinglePhoneNumber:{
         height: 45
+    },
+    imgProvider:{
+        width: 35,
+        height: 35,
+        borderLeftWidth: 1,
+        paddingLeft:15,
+        borderColor: '#efefef'
     },
 
     centerTextPhone:{
@@ -71,6 +103,16 @@ export const styles = StyleSheet.create({
         marginBottom: 15,
         ...Variable.boxShadow
     },
+    whiteBoxActive:{
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderColor: Variable.colorPrimary,
+        borderRadius: Variable.borderRadius,
+        backgroundColor: '#ffffff',
+        padding: 20,
+        marginBottom: 15,
+        ...Variable.boxShadow
+    },
     titleWhiteBox:{
         fontWeight: '700',
         color: Variable.colorTitle,
@@ -99,26 +141,5 @@ export const styles = StyleSheet.create({
         paddingBottom: 10,
         borderTopWidth:1,
         borderColor:'#dfdfdf'
-    },
-
-    // Pulsa
-    // ======================= //
-    itemPulsa: {
-        paddingLeft: 7.5,
-        paddingRight: 7.5,
-        paddingBottom: 15,
-    },
-    textPulsa:{
-        borderWidth: 1,
-        borderColor: '#efefef',
-        padding: 20,
-        width: '100%',
-        color: Variable.colorTitle,
-        fontWeight: '700',
-        textAlign: 'center',
-        borderRadius: Variable.borderRadius,
-        fontSize: 14,
-        ...Variable.boxShadow
     }
-
 });

@@ -4,9 +4,9 @@ import { Col,Grid, Row } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { HeaderSearch, BannerComponent } from '@directives';
 import { Variable } from '@styles';
-import { styles } from './service.style';
+import { styles } from './biller.style';
 
-class ServiceComponent extends React.Component {
+class BillerComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Services",
         headerTitleStyle: Variable.headerTitleStyle,
@@ -52,8 +52,8 @@ class ServiceComponent extends React.Component {
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
+                                    <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item8.png')} />
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
@@ -76,8 +76,8 @@ class ServiceComponent extends React.Component {
                             </Row>
                             <Row>
                                 <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item8.png')} />
+                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
@@ -101,4 +101,4 @@ class ServiceComponent extends React.Component {
 }
 
 
-export default ServiceComponent;
+export default BillerComponent;

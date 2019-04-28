@@ -1,22 +1,22 @@
 import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
-import { Col, Row, Grid } from "react-native-easy-grid";
-import Feather from 'react-native-vector-icons/Feather';
+import { Col, Grid } from "react-native-easy-grid";
+import AutoHeightImage from 'react-native-auto-height-image';
 import { Contacts } from 'expo';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
-
 import { Main,Typography,Variable } from '@styles';
 import { FooterButton,Modal } from '@directives';
-import { styles } from './pulsa.style';
+import { styles } from './paket-data.style';
 
-import pulseService from './pulse.service';
+import billerService from '../biller.service';
 
-class PulsaCompnent extends React.Component {
+class PaketDataComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Pulsa",
+        title: "Paket Data",
         headerTitleStyle: Variable.headerTitleStyle,
     });
+
 
     constructor(props) {
         super(props);
@@ -26,7 +26,12 @@ class PulsaCompnent extends React.Component {
             listContactFilter: [],
             popupContacts: false,
             loadingContact: false,
-            providerName: null
+            providerName: null,
+            providerImage: null,
+            billdetails:[],
+            loadingBiller: true,
+            totalAmount: "Rp 0",
+            selectedBiller: null
         };
     }
 
@@ -35,10 +40,14 @@ class PulsaCompnent extends React.Component {
     }
 
     checkPhone(phone){
+        phone = phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0);
         if(phone.length > 4){
-            pulseService.getInfoPhone(phone.substring(0,4)).then(res =>{
-                console.log(res);
-                this.setState({providerName: res.data[0].provider_phone_name})
+            billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
+                this.setState({
+                    providerName: res.data[0].provider_phone_name,
+                    providerImage: res.data[0].provider_phone_image,
+                });
+                this.fetchBiller(res.data[0].billers_id_paketdata);
             });
         }
     }
@@ -49,10 +58,7 @@ class PulsaCompnent extends React.Component {
     }
 
     selectContact(e){
-        this.setState({
-            phoneNumber: e,
-            popupContacts: false
-        });
+        this.setState({ phoneNumber: e,popupContacts: false});
         this.checkPhone(e);
     }
 
@@ -75,6 +81,37 @@ class PulsaCompnent extends React.Component {
         });
     }
 
+    fetchBiller(billerid){
+        let obj ={
+            billerid: billerid,
+            accountnumber: this.state.phoneNumber.split(' ').join('')
+        };
+        
+        this.setState({loadingBiller: true});
+        billerService.postBillerInquiry(obj).then(res =>{
+            let billdetails = res.data.response.billdetails;
+            _.map(billdetails, (x)=>{
+                x['total'] = Number(x.totalamount) - Number(x.adminfee)
+                x['rp_total'] = "Rp " + x['total'].toLocaleString()
+            });
+            this.setState({
+                billdetails: billdetails,
+                loadingBiller: false,
+            });
+            this.selectBiller(billdetails[0]);
+        });
+    }
+
+    selectBiller(e){
+        this.setState({
+            totalAmount: e ? e.rp_total : "Rp 0",
+            selectedBiller: e
+        });
+        this.props.updateDataPulsa(e);
+        this.props.updatePhonePulsa(this.state.phoneNumber);
+    }
+
+
     render() {
         return (
             <View style={styles.wrapper}>
@@ -83,17 +120,15 @@ class PulsaCompnent extends React.Component {
                         {/* ====== START INPUT PHONE NUMBER ====== */}
                         <View style={styles.wrapPhoneNumber}>
                             <View style={styles.iconPhoneNumber}>
-                                <Text style={Typography.singleText}>{this.state.providerName}</Text>
+                                {this.state.providerImage ? <AutoHeightImage source={{uri: this.state.providerImage}} width={35} style={styles.imgProvider}/> : null }
                             </View>
                             <TextInput
                                 style={[Typography.singleText,styles.inputSinglePhoneNumber]}
                                 placeholder="Enter phone number"
                                 underlineColorAndroid="transparent"
                                 dataDetectorTypes="phoneNumber"
-                                onChangeText={(phoneNumber) => {
-                                    this.setState({phoneNumber});
-                                    this.checkPhone(phoneNumber)
-                                }}
+                                onChangeText={(phoneNumber) => this.setState({phoneNumber})}
+                                onBlur={()=>this.checkPhone()}
                                 value={this.state.phoneNumber}
                             />
                         </View>
@@ -123,51 +158,31 @@ class PulsaCompnent extends React.Component {
                 </View>
                 <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
 
+                {/* ====== START LIST ====== */}
                 <ScrollView style={{backgroundColor: Variable.backgroundGray}}>
-                    <View style={{paddingTop:15,paddingBottom:15,paddingLeft:7.5,paddingRight:7.5}}>
-                        <Grid>
-                            <Row>
-                                <Col>
-                                    <View style={styles.itemPulsa}>
-                                        <Text style={styles.textPulsa}>Rp. 5000</Text>
-                                    </View>
-                                </Col>
-                                <Col>
-                                    <View style={styles.itemPulsa}>
-                                        <Text style={styles.textPulsa}>Rp. 10,000</Text>
-                                    </View>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <View style={styles.itemPulsa}>
-                                        <Text style={styles.textPulsa}>Rp. 15,000</Text>
-                                    </View>
-                                </Col>
-                                <Col>
-                                    <View style={styles.itemPulsa}>
-                                        <Text style={styles.textPulsa}>Rp. 20,000</Text>
-                                    </View>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <View style={styles.itemPulsa}>
-                                        <Text style={styles.textPulsa}>Rp. 50,000</Text>
-                                    </View>
-                                </Col>
-                                <Col>
-                                    <View style={styles.itemPulsa}>
-                                        <Text style={styles.textPulsa}>Rp. 100,000</Text>
-                                    </View>
-                                </Col>
-                            </Row>
-                        </Grid>
+                    {this.state.loadingBiller ? 
+                    <View style={{padding:30}}>  
+                        <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
                     </View>
+                    :
+                    <View style={[Main.container,{paddingTop:15}]}>
+                        {this.state.billdetails.map((item,i)=>(
+                            <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
+                                <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
+                                    <Text style={styles.titleWhiteBox}>{item.title}</Text>
+                                    <Text style={styles.descWhiteBox}>{item.descriptions}</Text>
+                                </View>
+                            </TouchableHighlight>
+                        ))}
+                    </View>
+                    }
                 </ScrollView>
+                {/* ====== END LIST ====== */}
 
                 {/* ====== START FOOTER ====== */}
-                <FooterButton text="Rp 100.000" textButton="Continue" onClick={()=> this.props.navigation.navigate('PulsaConfirmation')}/>
+                {this.state.totalAmount != 'Rp 0' ? 
+                    <FooterButton text={this.state.totalAmount} textButton="Continue" onClick={()=> this.props.navigation.navigate('PaketDataConfirmation')}/>
+                : null}
                 {/* ====== END FOOTER ====== */}
 
                 {/* ====== START Contacts ====== */}
@@ -212,7 +227,6 @@ class PulsaCompnent extends React.Component {
                     ))}
                 </Modal>
                 {/* ====== END Contacts ====== */}
-
             </View>
         );
     }
@@ -225,16 +239,22 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setGetData: (e) => {
-			dispatch({
-				type: 'UPDATE_DATA_PERSONAL',
+        updateDataPulsa: (e) =>{
+            dispatch({
+				type: 'UPDATE_DATA_PAKET_DATA',
 				data: e
 			})
         },
+        updatePhonePulsa: (e) =>{
+            dispatch({
+				type: 'UPDATE_PHONE_PAKET_DATA',
+				phoneNumber: e
+			})
+        }
 	}
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(PulsaCompnent)
+)(PaketDataComponent)

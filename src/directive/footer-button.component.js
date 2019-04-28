@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
 import { LinearGradient } from 'expo';
 import { Variable } from '@styles';
@@ -15,10 +15,10 @@ class FooterButton extends React.Component {
                     <Col style={{width:150}}>
                         <TouchableHighlight onPress={this.props.onClick} underlayColor="transparent">
                             <LinearGradient
-                                colors={Variable.colorGradient}
+                                colors={this.props.disabled ? ['#999','#999'] : Variable.colorGradient}
                                 start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                                 style={{padding: 15,paddingTop:13}}>
-                                <Text style={styles.footerBtn}>{this.props.textButton}</Text>
+                                {this.props.isSubmit ? <ActivityIndicator size="small" color="#fff" /> : <Text style={styles.footerBtn}>{this.props.textButton}</Text> }
                             </LinearGradient>
                         </TouchableHighlight>
                     </Col>
