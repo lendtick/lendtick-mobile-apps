@@ -17,7 +17,7 @@ class CreditDetailComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            loanType: "Middle Loan",
+            loanType: null,
             nopinjaman: "6545645",
             checked1: false,
             checked2: false,

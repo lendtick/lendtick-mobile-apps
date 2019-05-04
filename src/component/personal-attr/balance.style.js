@@ -12,6 +12,15 @@ export const styles = StyleSheet.create({
         alignItems: 'stretch',
         padding: 30
     },
+    container: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10
+    },
     itemLoan: {
         width: (Dimensions.get('window').width / 2) - 30,
         borderWidth: 1,
@@ -52,6 +61,7 @@ export const styles = StyleSheet.create({
         marginRight: 'auto',
         marginBottom: 10,
         opacity: 0.5,
+        borderStyle:'dotted',
         ...Variable.boxShadow
     },
     circleDetailText: {

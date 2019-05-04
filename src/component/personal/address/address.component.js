@@ -39,7 +39,6 @@ class AddressComponent extends React.Component {
     fetchAddress(){
         this.setState({isloading: true});
         personalService.getUserAddress().then(res =>{
-            console.log(res);
             if(res.status){
                 this.setState({
                     isloading: false,
@@ -59,7 +58,6 @@ class AddressComponent extends React.Component {
         this.setState({isloading: true});
         personalService.putAddress(obj).then(res =>{
             this.props.setAddress(true);
-            console.log(res);
         }, err =>{
             console.log(err);
         });

@@ -111,7 +111,7 @@ const Personal = createStackNavigator({
     Balance: BalanceComponent,
     BalanceAbout: BalanceAboutComponent,
     Pinjaman: PinjamanComponent,
-    NonMicroloan: NonMicroloanComponent,
+    Multiguna: NonMicroloanComponent,
     Microloan: MicroloanComponent
 },{
     initialRouteName: 'main',

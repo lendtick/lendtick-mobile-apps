@@ -1,144 +1,197 @@
 import React from 'react';
-import { View,Text,ScrollView } from 'react-native';
+import { View,Text,ScrollView,ActivityIndicator } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { ButtonComponent } from '@directives';
 import { styles } from './balance.style';
 
+import personalAttrService from './personal-attr.service';
+
 class NonMicroloanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Detail Pinjaman",
+        title: "Multiguna",
         headerTitleStyle: Variable.headerTitleStyle,
     });
 
     constructor(props) {
         super(props);
-        this.state = {  };
+        this.state = {             
+            disbursement_date: null,
+            loan_approved:0,
+            loan_number: null,
+            loan_request: 0,
+            name_loan_type: null,
+            paid_off_date: null,
+            request_date: null,
+            status: 0,
+            term_left: 0,
+            term_paid: 0,
+            term_total: 0,
+            credit: [],
+            loading: false,
+        };
+    }
+
+    componentDidMount(){
+        this.fetchDetailLoan();
+    }
+
+    fetchDetailLoan(){
+        let moment = require("moment");
+        this.setState({loading: true});
+        personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id')).then(res =>{
+            res.data.credit.map((x)=>{
+                x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
+            });
+            this.setState({
+                disbursement_date: moment(res.data.disbursement_date).format('DD MMM YYYY'),
+                loan_approved: res.data.loan_approved,
+                loan_number: res.data.loan_number,
+                loan_request: res.data.loan_request,
+                name_loan_type: res.data.name_loan_type,
+                paid_off_date: moment(res.data.paid_off_date).format('DD MMM YYYY'),
+                request_date: moment(res.data.request_date).format('DD MMM YYYY'),
+                status: res.data.status,
+                term_left: res.data.term_left,
+                term_paid: res.data.term_paid,
+                term_total: res.data.term_total,
+                credit: res.data.credit,
+                loading: false
+            });
+        }, err =>{
+            console.log(err);
+            this.setState({loading: false});
+        });
     }
 
     render() { 
         return(
             <View style={{backgroundColor: '#f8f8ff',height:'100%'}}>
-
-                {/* ====== START LOAN NUMBER ====== */}
-                <View style={{padding:15,backgroundColor:'#fff',borderBottomWidth:1,borderColor:'#dfdfdf', ...Variable.boxShadow}}>
-                    <Text style={[Typography.singleText,{color: Variable.colorTitle,fontFamily:Variable.fontBold}]}>No. 12423423423</Text>
+                {this.state.loading ? 
+                <View style={[styles.container, styles.horizontal]}>
+                    <ActivityIndicator size="small" color="#6a6a6a" />
                 </View>
-                {/* ====== END LOAN NUMBER ====== */}
+                :
+                <View style={{height:'100%'}}>
+                    {/* ====== START LOAN NUMBER ====== */}
+                    <View style={{padding:15,backgroundColor:'#fff',borderBottomWidth:1,borderColor:'#dfdfdf', ...Variable.boxShadow}}>
+                        <Text style={[Typography.singleText,{color: Variable.colorTitle,fontFamily:Variable.fontBold}]}>No. {this.state.loan_number}</Text>
+                    </View>
+                    {/* ====== END LOAN NUMBER ====== */}
 
-                <ScrollView>
-                    {/* ====== START STEP ====== */}
-                    <View style={{padding:15,paddingTop:30,paddingBottom:30}}>
-                        <Grid>
-                            <Col>
-                                <View>
-                                    <View style={[styles.circleDetail,{opacity:1}]}>
-                                        <Text style={[styles.circleDetailText,Typography.singleText]}>1</Text>
+                    <ScrollView>
+                        {/* ====== START STEP ====== */}
+                        <View style={{padding:15,paddingTop:30,paddingBottom:30}}>
+                            <Grid>
+                                <Col>
+                                    <View>
+                                        <View style={[styles.circleDetail,this.state.status > 1 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                            <Text style={[styles.circleDetailText,Typography.singleText]}>1</Text>
+                                        </View>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Pengajuan</Text>
                                     </View>
-                                    <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Pengajuan</Text>
-                                </View>
-                            </Col>
-                            <Col>
-                                <View>
-                                    <View style={[styles.circleDetail,{borderColor: Variable.colorPrimary,opacity:1}]}>
-                                        <Text style={[styles.circleDetailText,Typography.singleText]}>2</Text>
+                                </Col>
+                                <Col>
+                                    <View>
+                                        <View style={[styles.circleDetail,this.state.status > 2 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                            <Text style={[styles.circleDetailText,Typography.singleText]}>2</Text>
+                                        </View>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval</Text>
                                     </View>
-                                    <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval</Text>
-                                </View>
-                            </Col>
-                            <Col>
-                                <View>
-                                    <View style={[styles.circleDetail,{borderStyle:'dotted'}]}>
-                                        <Text style={[styles.circleDetailText,Typography.singleText]}>3</Text>
+                                </Col>
+                                <Col>
+                                    <View>
+                                        <View style={[styles.circleDetail,this.state.status > 3 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                            <Text style={[styles.circleDetailText,Typography.singleText]}>3</Text>
+                                        </View>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Konfirmasi</Text>
                                     </View>
-                                    <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Konfirmasi</Text>
-                                </View>
-                            </Col>
-                            <Col>
-                                <View>
-                                    <View style={[styles.circleDetail,{borderStyle:'dotted'}]}>
-                                        <Text style={[styles.circleDetailText,Typography.singleText]}>4</Text>
+                                </Col>
+                                <Col>
+                                    <View>
+                                        <View style={[styles.circleDetail,this.state.status > 4 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                            <Text style={[styles.circleDetailText,Typography.singleText]}>4</Text>
+                                        </View>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Uang diterima</Text>
                                     </View>
-                                    <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Uang diterima</Text>
-                                </View>
-                            </Col>
-                        </Grid>
-                    </View>
-                    {/* ====== END STEP ====== */}
+                                </Col>
+                            </Grid>
+                        </View>
+                        {/* ====== END STEP ====== */}
 
-                    {/* ====== START DESC ====== */}
-                    <View style={[styles.wrapDetailDescPinjaman,{paddingTop:30,paddingBottom:30}]}>
-                        <Text style={Typography.heading6}>Konfirmasi jumlah pinjaman</Text>
-                        <Text style={[Typography.singleText,{marginBottom:15}]}>
-                            jumlah pinjaman yang anda ajukan sebelumnya 100.000.000, di approve hanya 98.000.000
-                        </Text>
-                        <ButtonComponent type="primary" text="Konfirmasi" disabled={false} isSubmit={false}/>
-                    </View>
-                    {/* ====== START DESC ====== */}
+                        {/* ====== START DESC ====== */}
+                        <View style={[styles.wrapDetailDescPinjaman,{paddingTop:30,paddingBottom:30}]}>
+                            <Text style={Typography.heading6}>Konfirmasi jumlah pinjaman</Text>
 
-                    {/* ====== START COUNTER ====== */}
-                    <View style={{padding:15,paddingTop:30,paddingBottom:30}}>
-                        <Grid>
-                            <Col>
-                                <Text style={[Typography.singleText,{textAlign: 'center'}]}>Tenor</Text>
-                                <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>60</Text>
-                                <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
-                            </Col>
-                            <Col>
-                                <Text style={[Typography.singleText,{textAlign: 'center'}]}>dibayar</Text>
-                                <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>12</Text>
-                                <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
-                            </Col>
-                            <Col>
-                                <Text style={[Typography.singleText,{textAlign: 'center'}]}>sisa</Text>
-                                <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>48</Text>
-                                <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
-                            </Col>
-                        </Grid>
-                    </View>
-                    {/* ====== END COUNTER ====== */}
+                            <Text style={[Typography.singleText,{marginBottom:15}]}>
+                                jumlah pinjaman yang anda ajukan sebelumnya {this.state.loan_request.toLocaleString()}, di approve hanya {this.state.loan_approved.toLocaleString()}
+                            </Text>
+                            <ButtonComponent type="primary" text="Konfirmasi" disabled={false} isSubmit={false}/>
+                        </View>
+                        {/* ====== START DESC ====== */}
 
-                    {/* ====== START KETERANGAN ====== */}
-                    <View style={[styles.wrapDetailDescPinjaman,{padding:0}]}>
-                        <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
-                            <Col><Text style={Typography.label}>Tipe Pinjaman</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>Multiguna</Text></Col>
-                        </Grid>
-                        <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
-                            <Col><Text style={Typography.label}>Tanggal Mengajukan</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>12 Januari 2019</Text></Col>
-                        </Grid>
-                        <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
-                            <Col><Text style={Typography.label}>Tanggal Pencairan</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>19 Januari 2019</Text></Col>
-                        </Grid>
-                        <Grid style={{padding:15}}>
-                            <Col><Text style={Typography.label}>Estimasi Tanggal Lunas</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>20 Februari 2022</Text></Col>
-                        </Grid>
-                    </View>
-                    {/* ====== END KETERANGAN ====== */}
+                        {/* ====== START COUNTER ====== */}
+                        <View style={{padding:15,paddingTop:30,paddingBottom:30}}>
+                            <Grid>
+                                <Col>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Tenor</Text>
+                                    <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>{this.state.term_total}</Text>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>dibayar</Text>
+                                    <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>{this.state.term_paid}</Text>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>sisa</Text>
+                                    <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>{this.state.term_left}</Text>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
+                                </Col>
+                            </Grid>
+                        </View>
+                        {/* ====== END COUNTER ====== */}
 
-                    {/* ====== START KETERANGAN ====== */}
-                    <Grid style={{padding:15,marginTop:15}}>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
-                    </Grid>
-                    <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
-                        <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
-                            <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>1</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>12 Februari 2019</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp 1.200.000</Text></Col>
+                        {/* ====== START KETERANGAN ====== */}
+                        <View style={[styles.wrapDetailDescPinjaman,{padding:0}]}>
+                            <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                                <Col><Text style={Typography.label}>Tipe Pinjaman</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>{this.state.name_loan_type}</Text></Col>
+                            </Grid>
+                            <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                                <Col><Text style={Typography.label}>Tanggal Mengajukan</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>{this.state.request_date}</Text></Col>
+                            </Grid>
+                            <Grid style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                                <Col><Text style={Typography.label}>Tanggal Pencairan</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>{this.state.disbursement_date}</Text></Col>
+                            </Grid>
+                            <Grid style={{padding:15}}>
+                                <Col><Text style={Typography.label}>Estimasi Tanggal Lunas</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'right'}]}>{this.state.paid_off_date}</Text></Col>
+                            </Grid>
+                        </View>
+                        {/* ====== END KETERANGAN ====== */}
+
+                        {/* ====== START KETERANGAN ====== */}
+                        <Grid style={{padding:15,marginTop:15}}>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
                         </Grid>
-                        <Grid style={{padding:15}}>
-                        <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>2</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>-</Text></Col>
-                            <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp 1.200.000</Text></Col>
-                        </Grid>
-                    </View>
-                    {/* ====== END KETERANGAN ====== */}
-                </ScrollView>
+                        <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
+                            {this.state.credit.map((x,i)=>(
+                                <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
+                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>12 {x.term_payment_date}</Text></Col>
+                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
+                                </Grid>
+                            ))}
+                        </View>
+                        {/* ====== END KETERANGAN ====== */}
+                    </ScrollView>
+                </View>
+                }
             </View>
         ) 
     }

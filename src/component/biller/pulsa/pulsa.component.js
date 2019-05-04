@@ -38,7 +38,7 @@ class PulsaCompnent extends React.Component {
     }
 
     checkPhone(phone){
-        phone = phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0);
+        phone = phone ? phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0) : 0;
         if(phone.length > 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 this.setState({
@@ -87,16 +87,24 @@ class PulsaCompnent extends React.Component {
         
         this.setState({loadingBiller: true});
         billerService.postBillerInquiry(obj).then(res =>{
-            let billdetails = res.data.response.billdetails;
-            _.map(billdetails, (x)=>{
-                x['total'] = Number(x.totalamount) - Number(x.adminfee)
-                x['rp_total'] = "Rp " + x['total'].toLocaleString()
-            });
-            this.setState({
-                billdetails: billdetails,
-                loadingBiller: false,
-            });
-            this.selectBiller(billdetails[0]);
+            console.log(res);
+            if(res.data){
+                let billdetails = res.data.response.billdetails;
+                _.map(billdetails, (x)=>{
+                    x['total'] = Number(x.totalamount) - Number(x.adminfee)
+                    x['rp_total'] = "Rp " + x['total'].toLocaleString()
+                });
+                this.setState({
+                    billdetails: billdetails,
+                    loadingBiller: false,
+                });
+                this.selectBiller(billdetails[0]);
+            }else{
+                this.setState({
+                    billdetails: [],
+                    loadingBiller: false,
+                });
+            }
         });
     }
 
@@ -123,9 +131,13 @@ class PulsaCompnent extends React.Component {
                                 style={[Typography.singleText,styles.inputSinglePhoneNumber]}
                                 placeholder="Enter phone number"
                                 underlineColorAndroid="transparent"
-                                dataDetectorTypes="phoneNumber"
-                                onChangeText={(phoneNumber) => this.setState({phoneNumber})}
+                                keyboardType="phone-pad"
+                                onChangeText={(phoneNumber) => {
+                                    this.setState({phoneNumber});
+                                    this.checkPhone();
+                                }}
                                 onBlur={()=>this.checkPhone()}
+                                value={this.state.phoneNumber}
                                 value={this.state.phoneNumber}
                             />
                         </View>
@@ -163,14 +175,18 @@ class PulsaCompnent extends React.Component {
                     </View>
                     :
                     <View style={[Main.container,{paddingTop:15}]}>
-                        {this.state.billdetails.map((item,i)=>(
-                            <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
-                                <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
-                                    <Text style={styles.titleWhiteBox}>{item.title}</Text>
-                                    <Text style={styles.descWhiteBox}>{item.descriptions}</Text>
-                                </View>
-                            </TouchableHighlight>
-                        ))}
+                        {this.state.billdetails.length ? 
+                            <View>
+                                {this.state.billdetails.map((item,i)=>(
+                                    <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
+                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
+                                            <Text style={styles.titleWhiteBox}>{item.title}</Text>
+                                            <Text style={styles.descWhiteBox}>{item.descriptions}</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                ))}
+                            </View>
+                        : <Text style={[Typography.singleText,{textAlign:'center', marginTop:30}]}>Pulsa tidak ditemukan</Text>}
                     </View>
                     }
                 </ScrollView>
