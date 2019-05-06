@@ -41,7 +41,6 @@ class NonMicroloanComponent extends React.Component {
         let moment = require("moment");
         this.setState({loading: true});
         personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id')).then(res =>{
-            console.log(res);
             res.data.credit.map((x)=>{
                 x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
             });
@@ -217,7 +216,7 @@ class NonMicroloanComponent extends React.Component {
                             {this.state.credit.map((x,i)=>(
                                 <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
                                     <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
-                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>12 {x.term_payment_date}</Text></Col>
+                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term_payment_date}</Text></Col>
                                     <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
                                 </Grid>
                             ))}

@@ -95,15 +95,15 @@ class MicroloanComponent extends React.Component {
 
                     {/* ====== START KETERANGAN ====== */}
                     <Grid style={{padding:15,marginTop:15}}>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal</Text></Col>
+                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
+                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
                         <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
-                        <Col></Col>
                     </Grid>
                     <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
                         {this.state.credit.map((x,i)=>(
                             <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
-                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>12 {x.term_payment_date}</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term_payment_date}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
                             </Grid>
                         ))}

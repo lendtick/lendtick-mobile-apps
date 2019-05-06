@@ -54,11 +54,13 @@ class PaketDataComponent extends React.Component {
         phone = phone ? phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0) : 0;
         if(phone.length > 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
-                this.setState({
-                    providerName: res.data[0].provider_phone_name,
-                    providerImage: res.data[0].provider_phone_image,
-                });
-                this.fetchBiller(res.data[0].billers_id_paketdata);
+                if(res.data.length){
+                    this.setState({
+                        providerName: res.data[0].provider_phone_name,
+                        providerImage: res.data[0].provider_phone_image,
+                    });
+                    this.fetchBiller(res.data[0].billers_id_pulsa);
+                }
             });
         }
     }
