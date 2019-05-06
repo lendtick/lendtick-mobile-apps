@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,TouchableHighlight,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
+import { View,Text,TouchableHighlight,ScrollView,Image,Dimensions,ActivityIndicator,Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 import { InputComponent,ButtonComponent,Modal,InputCheckbox,AlertBox,InputMask,InputDropdown } from '@directives';
@@ -50,6 +50,7 @@ class CreditDetailComponent extends React.Component {
         this.fetchMstLoanType(this.props.navigation.getParam('id'));
         this.fetchGetOffset();
         this.fetchLoanTerm();
+        this.setState({loanType: this.props.navigation.getParam('name')});
     }
 
     // Fetch Master Loan Type
@@ -61,6 +62,12 @@ class CreditDetailComponent extends React.Component {
             this.setState({loading: false});
         }, err =>{
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchMstLoanType(id)}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -83,7 +90,6 @@ class CreditDetailComponent extends React.Component {
     fetchGetOffset(){
         this.setState({loading: true});
         creditService.getOffset().then(res =>{
-            console.log(res);
             _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;
@@ -98,6 +104,12 @@ class CreditDetailComponent extends React.Component {
             });
         }, err =>{
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchGetOffset()}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -136,6 +148,12 @@ class CreditDetailComponent extends React.Component {
             });
         }, err =>{
             this.setState({isSubmitVoucher: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.selectOffset(e)}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -160,9 +178,7 @@ class CreditDetailComponent extends React.Component {
 
         this.setState({isSubmitSimulation: true});
 
-        console.log(obj);
         creditService.postSimulation(obj).then(res =>{
-            console.log(res);
             this.setState({
                 isSubmitSimulation: false,
                 showSimulation: true,
@@ -174,12 +190,18 @@ class CreditDetailComponent extends React.Component {
             this.scrollView.scrollToEnd({ animated: true }); 
         }, err =>{
             this.setState({isSubmitSimulation: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.checkSimulation()}],
+                {cancelable: false},
+            );
         });
     }
 
     // Check Eligibitlity
     // ====================== //
-    postEligibility(e){
+    postEligibility(){
         this.setState({
             isSubmitEligible: true,
             showBtnContinue: false,
@@ -232,6 +254,12 @@ class CreditDetailComponent extends React.Component {
             this.props.navigation.navigate('CreditTerm');
         }, err =>{
             this.setState({isSubmitEligible: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.postEligibility()}],
+                {cancelable: false},
+            );
         });
     }
 

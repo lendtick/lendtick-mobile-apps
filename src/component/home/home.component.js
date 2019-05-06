@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,View,Text,Dimensions,TouchableHighlight,Platform,ActivityIndicator } from 'react-native';
+import { ScrollView,View,Text,Dimensions,TouchableHighlight,Platform,ActivityIndicator,Alert } from 'react-native';
 import { Permissions } from 'expo';
 import { SafeAreaView } from 'react-navigation';
 import { Col,Grid, Row } from "react-native-easy-grid";
@@ -62,12 +62,17 @@ class HomeComponent extends React.Component {
             this.setState({loading: false});
         }, err =>{
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchUser()}],
+                {cancelable: false},
+            );
         });
     }
 
     _handleNotification = (notification) => {
         this.setState({notification: notification});
-        console.log(notification);
     };
 
     render() { 

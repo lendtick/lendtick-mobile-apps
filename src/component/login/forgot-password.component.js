@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,Platform,TouchableHighlight,Text } from 'react-native';
+import { ScrollView,View,StatusBar,Platform,TouchableHighlight,Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import loginService from './login-service';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox } from '@directives';
@@ -36,7 +36,13 @@ class ForgotPassComponent extends Component {
                 this.setState({isSubmit: false, isFailed: true, message: res.message});
             }
         }, err =>{
-            this.setState({isSubmit: false, isFailed: true, message: 'Koneksi gagal silakan coba lagi'});
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit()}],
+                {cancelable: false},
+            );
         });
     }
 

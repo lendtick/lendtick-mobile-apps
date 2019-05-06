@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,Image,Text,Dimensions,TouchableHighlight } from 'react-native';
+import { ScrollView,View,Image,Text,Dimensions,Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { connect } from 'react-redux';
@@ -47,13 +47,17 @@ class CreditCompleteComponent extends Component {
             message: null
         });
 
-        console.log(obj);
         creditService.postReqLoan(obj).then(res =>{
-            console.log(res);
             this.setState({isSubmit: false});
             this.props.navigation.navigate('CreditFinish');
         }, err =>{
             this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.submitLoan()}],
+                {cancelable: false},
+            );
         });
     }
 

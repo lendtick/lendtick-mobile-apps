@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,KeyboardAvoidingView,AsyncStorage,Platform } from 'react-native';
+import { ScrollView,View,StatusBar,KeyboardAvoidingView,AsyncStorage,Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 var taiPasswordStrength = require("tai-password-strength");
 
@@ -86,7 +86,6 @@ class GantiPassComponent extends Component {
             inValidRePassword: false
         });
         loginService.putPassword(data).then(res =>{
-            console.log(res);
             if(res.status){
                 this.setState({
                     isSuccess: true,
@@ -107,6 +106,12 @@ class GantiPassComponent extends Component {
                 isFailed: true,
                 isSubmit: false
             });
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit(data)}],
+                {cancelable: false},
+            );
         })
     }
 

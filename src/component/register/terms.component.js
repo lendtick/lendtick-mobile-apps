@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,TouchableHighlight,Text,Platform } from 'react-native';
-import { LinearGradient,Permissions } from 'expo';
+import { ScrollView,View,StatusBar,TouchableHighlight,Text,Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 
@@ -28,7 +27,6 @@ class TermComponent extends Component {
     onSubmit(){
         this.setState({isSubmit: true});
         registerService.postRegister(this.props.register.data).then(res =>{
-            console.log(res);
             if(res.status){
                 this.setState({isSubmit: false});
                 this.props.setRegister(res['data']);
@@ -41,12 +39,13 @@ class TermComponent extends Component {
                 });
             }
         }, err =>{
-            console.log(err);
-            this.setState({
-                isFailed: true,
-                isSubmit: false,
-                message: "Daftar gagal, silakan coba lagi"
-            });
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit()}],
+                {cancelable: false},
+            );
         })
     }
 

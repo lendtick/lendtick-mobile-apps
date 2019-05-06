@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,ScrollView,Image,ActivityIndicator} from 'react-native';
+import { View,Text,ScrollView,Image,ActivityIndicator,Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
@@ -59,8 +59,13 @@ class MicroloanComponent extends React.Component {
                 loading: false
             });
         }, err =>{
-            console.log(err);
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchDetailLoan()}],
+                {cancelable: false},
+            );
         });
     }
 

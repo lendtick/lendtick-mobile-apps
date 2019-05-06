@@ -2,7 +2,8 @@ import { AsyncStorage } from 'react-native';
 import { API } from '@services/API';
 
 var urlGetLoanProfile = API.hostLoan + '/loan/profile',
-    urlGetDetailLoan = API.hostLoan + '/loan/profile/detail'
+    urlGetDetailLoan = API.hostLoan + '/loan/profile/detail',
+    urlPutConfrimLoan = API.hostLoan + '/loan/confirm';
 
 // Reservation Service
 export default personalAttrService = {
@@ -56,13 +57,37 @@ export default personalAttrService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getLoanProfile();
+                            personalService.getLoanProfileDetail(id);
                         }else{
                             resolve(json);                        
                         }
                     }
                 })
                 .catch(err => reject(err));
+            });
+        });
+        return promiseObj;
+    },
+
+    // ======================= //
+    // Reedem Voucher
+    // ======================= //
+    updateConfrim: (data) =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlPutConfrimLoan, {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                .then(response => response.json())
+                .then(json => resolve(json))
+                .catch(err => {
+                    reject(err);
+                });
             });
         });
         return promiseObj;

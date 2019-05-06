@@ -1,11 +1,9 @@
 import React from 'react';
-import { View,Dimensions,ActivityIndicator,Text } from 'react-native';
+import { View,Dimensions,ActivityIndicator,Text,Alert } from 'react-native';
 import { Permissions,ImagePicker } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
-import { Col,Grid } from "react-native-easy-grid";
-
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
 Validator.setMessages('en', en);
@@ -182,10 +180,13 @@ class InputDocument extends React.Component {
                 });
             }
         }, err =>{
-            this.setState({
-                isFailed: true,
-                isSubmit: false
-            });
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onUpdateMainAddress(obj)}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -242,14 +243,6 @@ class InputDocument extends React.Component {
                                     <Text style={[Typography.heading6,{marginBottom:5}]}>{x.document_type_name}</Text>
                                     <AutoHeightImage source={{uri: x.path}} width={Dimensions.get('window').width - 62} style={{marginBottom:15}}/> 
                                     <ButtonComponent type="default" text="Hapus" onClick={()=> this.removeDocument(x)} disabled={x.isloading} isSubmit={x.isloading}/>
-                                    {/* <Grid>
-                                        <Col style={{paddingRight:7.5}}>
-                                            <ButtonComponent type="primary" text="Ubah" onClick={()=> console.log("ubah")} disabled={false} isSubmit={false}/>
-                                        </Col>
-                                        <Col style={{paddingLeft:7.5}}>
-                                            <ButtonComponent type="default" text="Hapus" onClick={()=> this.removeDocument(x)} disabled={x.isloading} isSubmit={x.isloading}/>
-                                        </Col>
-                                    </Grid> */}
                                 </View>
                             ))}
                     </View>

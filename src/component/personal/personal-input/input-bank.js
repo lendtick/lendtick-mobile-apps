@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View,Alert } from 'react-native';
 import * as _ from 'lodash';
 
 import Validator from 'validatorjs';
@@ -86,17 +86,18 @@ class InputBank extends React.Component {
             isSuccess: false
         });
         personalService.putUpdateBankProfile(data).then(res =>{
-            console.log(res);
             this.setState({
                 isSubmit: false,
                 isSuccess: true
             });
         }, err =>{
-            console.log(err);
-            this.setState({
-                isFailed: true,
-                isSubmit: false
-            });
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit(data)}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -128,8 +129,8 @@ class InputBank extends React.Component {
                     onChange={(account_name_bank) => this.setState({account_name_bank})}/> 
 
                 {this.state.isInvalid ? <View style={{marginBottom:15}}><AlertBox type="warning" text="Masukan data dengan benar"/></View>: null}
-                {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update date berhasil"/></View>: null}
-                {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update date berhasil"/></View>: null}
+                {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update data gagal"/></View>: null}
+                {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update data berhasil"/></View>: null}
 
                 <ButtonComponent type="primary" text="Update data BANK" onClick={()=> this.validationSubmit()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
             </View>

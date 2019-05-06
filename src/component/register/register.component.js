@@ -64,7 +64,12 @@ class RegisterComponent extends Component {
                 arrCompany: this.state.arrCompany
             })
         }, err =>{
-            this.fetchListCompany();
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchListCompany()}],
+                {cancelable: false},
+            );
         })
     }
 

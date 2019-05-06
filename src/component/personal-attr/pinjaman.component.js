@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,ScrollView,Image,TouchableHighlight,ActivityIndicator } from 'react-native';
+import { View,Text,ScrollView,Image,TouchableHighlight,ActivityIndicator,Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
@@ -29,7 +29,6 @@ class PinjamanComponent extends React.Component {
     fetchLoanProfile(){
         this.setState({loading: true});
         personalAttrService.getLoanProfile().then(res =>{
-            console.log(res);
             this.setState({
                 loading: false,
                 arrList: res.data.detail,
@@ -37,6 +36,12 @@ class PinjamanComponent extends React.Component {
             });
         }, err =>{
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchLoanProfile()}],
+                {cancelable: false},
+            );
         });
     }
 

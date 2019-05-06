@@ -1,8 +1,8 @@
 import React from 'react';
-import { View,Text,ScrollView,ActivityIndicator } from 'react-native';
+import { View,Text,ScrollView,ActivityIndicator,Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
-import { ButtonComponent } from '@directives';
+import { ButtonComponent,AlertBox } from '@directives';
 import { styles } from './balance.style';
 
 import personalAttrService from './personal-attr.service';
@@ -29,6 +29,7 @@ class NonMicroloanComponent extends React.Component {
             term_total: 0,
             credit: [],
             loading: false,
+            isSubmit: false
         };
     }
 
@@ -40,6 +41,7 @@ class NonMicroloanComponent extends React.Component {
         let moment = require("moment");
         this.setState({loading: true});
         personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id')).then(res =>{
+            console.log(res);
             res.data.credit.map((x)=>{
                 x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
             });
@@ -59,9 +61,35 @@ class NonMicroloanComponent extends React.Component {
                 loading: false
             });
         }, err =>{
-            console.log(err);
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchDetailLoan()}],
+                {cancelable: false},
+            );
         });
+    }
+
+    confrimLoan(){
+        this.setState({isSubmit: true});
+        let obj = {
+            id_loan: this.props.navigation.getParam('id')
+        };
+
+        console.log(obj);
+        personalAttrService.updateConfrim(obj).then(res =>{
+            this.setState({isSubmit: false});
+            console.log(res);
+        }, err =>{
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchDetailLoan()}],
+                {cancelable: false},
+            );
+        })
     }
 
     render() { 
@@ -126,7 +154,13 @@ class NonMicroloanComponent extends React.Component {
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
                                 jumlah pinjaman yang anda ajukan sebelumnya {this.state.loan_request.toLocaleString()}, di approve hanya {this.state.loan_approved.toLocaleString()}
                             </Text>
-                            <ButtonComponent type="primary" text="Konfirmasi" disabled={false} isSubmit={false}/>
+
+                            <AlertBox 
+                                type="success" 
+                                title={null}
+                                text="Loan telah dikonfirmasi"
+                            />
+                            <ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
                         </View>
                         {/* ====== START DESC ====== */}
 

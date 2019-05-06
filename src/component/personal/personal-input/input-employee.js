@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View,Alert } from 'react-native';
 import * as _ from 'lodash';
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
@@ -92,11 +92,13 @@ class InputEmployee extends React.Component {
                 });
             }
         }, err =>{
-            this.setState({
-                message: "Server error",
-                isFailed: true,
-                isSubmit: false
-            });
+            this.setState({isSubmit:false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onUpdateMainAddress(obj)}],
+                {cancelable: false},
+            );
         });
     }
 

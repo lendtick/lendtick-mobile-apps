@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage,Platform } from 'react-native';
+import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage } from 'react-native';
 import { LinearGradient } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
 import Feather from 'react-native-vector-icons/Feather';
+import watch from 'redux-watch';
 import { connect } from 'react-redux';
 import { Variable,Main,Input,Typography } from '@styles';
 import personalService from './personal.service';
@@ -33,13 +34,20 @@ class personalComponent extends React.Component {
                 this.fetchAddress();
             }
         });
+
+        let watchPersonal = watch(store.getState, 'personal.data')
+        store.subscribe(watchPersonal((newVal, oldVal, objectPath) => {
+            this.fetchUser();
+            this.fetchAddress();
+        }));
     }
 
     componentDidMount(){
-        setTimeout(()=>{
+        try{
             this.fetchUser();
             this.fetchAddress();
-        }, 1000);
+        }catch(err){}
+            
     }
 
     logout(){

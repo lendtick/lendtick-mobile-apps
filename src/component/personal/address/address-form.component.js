@@ -113,7 +113,6 @@ class AddressFormComponent extends React.Component {
             data['id_user_address'] = this.state.id_user_address;
             data['is_main_address'] = this.state.checked ? 1 : 0;
             personalService.putAddress(data).then(res =>{
-                console.log(res);
                 this.setState({
                     isSuccess: true,
                     isSubmit: false,
@@ -129,7 +128,6 @@ class AddressFormComponent extends React.Component {
             // Post Address
             // ================== //
             personalService.postAddress(data).then(res =>{
-                console.log(res);
                 this.setState({
                     isSuccess: true,
                     isSubmit: false,

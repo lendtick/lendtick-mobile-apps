@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, TouchableHighlight, ScrollView, TextInput, Image, Dimensions, ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
+import watch from 'redux-watch';
+import { store } from '@services/store';
 import * as _ from 'lodash';
 import { FooterButton,Modal,ButtonComponent,InputComponent } from '@directives';
 import { Main,Typography,Variable } from '@styles';
@@ -46,7 +48,7 @@ class ListrikComponent extends React.Component {
                     billdetails: billdetails,
                     isSubmitToken: false,
                 });
-                this.selectBiller(billdetails[0]);
+                if(billdetails.length) this.selectBiller(billdetails[0]);
             });
         }
     }

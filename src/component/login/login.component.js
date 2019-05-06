@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,TouchableHighlight,Text,KeyboardAvoidingView,AsyncStorage,Platform } from 'react-native';
+import { ScrollView,View,StatusBar,TouchableHighlight,Text,KeyboardAvoidingView,AsyncStorage,Alert } from 'react-native';
 import { Permissions } from 'expo';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
@@ -53,7 +53,6 @@ class LoginComponent extends Component {
     onSubmit(){
         this.setState({isSubmit: true, isFailed: false});
         loginService.postLogin(this.state.username,this.state.password).then(res =>{
-            console.log(res);
             this.setState({isSubmit: false});
             if(res.status){
                 AsyncStorage.setItem('token', res['data'].token);
@@ -82,11 +81,12 @@ class LoginComponent extends Component {
                 });
             }
         }, err =>{
-            console.log(err);
-            this.setState({
-                isFailed: true,
-                isSubmit: false
-            });
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit()}],
+                {cancelable: false},
+            );
         });
     }
 

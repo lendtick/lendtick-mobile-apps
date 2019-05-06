@@ -1,10 +1,12 @@
 import React from 'react';
-import { View,Text,TouchableHighlight,ScrollView,ActivityIndicator } from 'react-native';
+import { View,Text,TouchableHighlight,ScrollView,ActivityIndicator,Alert } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
 import { AlertBox,ButtonComponent } from '@directives';
 import { Variable } from '@styles';
 import { styles } from './credit.style';
+import watch from 'redux-watch';
+import { store } from '@services/store';
 import { connect } from 'react-redux';
 import creditService from './credit.service';
 import * as _ from 'lodash';
@@ -23,15 +25,21 @@ class CreditComponent extends React.Component {
             loading: false,
             arrLoan: []
         };
+
+        let watchPersonal = watch(store.getState, 'personal.data')
+        store.subscribe(watchPersonal((newVal, oldVal, objectPath) => {
+            this.fetchInfoUser();
+        }));
     }
 
     componentDidMount(){
-        this.fetchInfoUser();
+        try{
+            this.fetchInfoUser();
+        }catch(err){}
     }
 
     fetchMasterLoan(){
         creditService.getMasterLoan().then(res =>{
-            console.log(res);
             let data = _.chunk(res.data,2);
             this.setState({
                 arrLoan: data,
@@ -43,7 +51,6 @@ class CreditComponent extends React.Component {
     fetchInfoUser(){
         this.setState({loading: true});
         creditService.getInfoUserFullfillment(this.props.personal.data.id_user).then(res =>{
-            console.log(res);
             if(res['data'].validasi.length){
                 let arrVaidation = [];
                 res['data'].validasi.map((x,i)=>{
@@ -59,6 +66,12 @@ class CreditComponent extends React.Component {
             }
         }, err =>{
             this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchInfoUser()}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -90,7 +103,8 @@ class CreditComponent extends React.Component {
                                     if(i == 0){
                                         return (<Col style={{paddingRight:7.5}} key={i}>
                                             <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail',{
-                                                id: item.id_loan_type
+                                                id: item.id_loan_type,
+                                                name: item.name_loan_type
                                             })} underlayColor="transparent">
                                                 <View style={styles.itemLoan}>
                                                     <AutoHeightImage source={{uri: item.icon_loan_type}} width={80} style={{left:'50%',marginLeft:-40,margin: 5}}/>
@@ -101,7 +115,8 @@ class CreditComponent extends React.Component {
                                     }else{
                                         return (<Col style={{paddingRight:7.5}} key={i}>
                                             <TouchableHighlight onPress={()=> this.props.navigation.navigate('CreditDetail',{
-                                                id: item.id_loan_type
+                                                id: item.id_loan_type,
+                                                name: item.name_loan_type
                                             })} underlayColor="transparent">
                                                 <View style={styles.itemLoan}>
                                                     <AutoHeightImage source={{uri: item.icon_loan_type}} width={80} style={{left:'50%',marginLeft:-40,margin: 5}}/>

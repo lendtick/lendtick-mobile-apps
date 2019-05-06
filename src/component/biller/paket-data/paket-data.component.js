@@ -3,8 +3,10 @@ import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,Acti
 import { Col, Grid } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Contacts } from 'expo';
-import { connect } from 'react-redux';
 import * as _ from 'lodash';
+import { store } from '@services/store';
+import { connect } from 'react-redux';
+import watch from 'redux-watch';
 import { Main,Typography,Variable } from '@styles';
 import { FooterButton,Modal } from '@directives';
 import { styles } from './paket-data.style';
@@ -31,13 +33,22 @@ class PaketDataComponent extends React.Component {
             billdetails:[],
             loadingBiller: true,
             totalAmount: "Rp 0",
-            selectedBiller: null
+            selectedBiller: null,
+            timeout: null
         };
+
+        let watchPersonal = watch(store.getState, 'personal.data')
+        store.subscribe(watchPersonal((newVal, oldVal, objectPath) => {
+            this.setMyNumber();
+        }));
     }
 
     componentDidMount(){
-       this.setMyNumber();
+        try{
+            this.setMyNumber();
+        }catch(err){}
     }
+
 
     checkPhone(phone){
         phone = phone ? phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0) : 0;
@@ -99,7 +110,7 @@ class PaketDataComponent extends React.Component {
                     billdetails: billdetails,
                     loadingBiller: false,
                 });
-                this.selectBiller(billdetails[0]);
+                if(billdetails.length) this.selectBiller(billdetails[0]);
             }else{
                 this.setState({
                     billdetails: [],
@@ -116,6 +127,13 @@ class PaketDataComponent extends React.Component {
         });
         this.props.updateDataPulsa(e);
         this.props.updatePhonePulsa(this.state.phoneNumber);
+    }
+
+    chaneNumber(e){
+        clearTimeout(this.state.timeout);
+        this.state.timeout = setTimeout(() => {
+            this.checkPhone(e);
+        }, 500);
     }
 
 
@@ -136,9 +154,8 @@ class PaketDataComponent extends React.Component {
                                 keyboardType="phone-pad"
                                 onChangeText={(phoneNumber) => {
                                     this.setState({phoneNumber});
-                                    this.checkPhone();
+                                    this.chaneNumber(this.state.phoneNumber);
                                 }}
-                                onBlur={()=>this.checkPhone()}
                                 value={this.state.phoneNumber}
                             />
                         </View>

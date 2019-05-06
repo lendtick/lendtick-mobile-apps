@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,Text,Dimensions,AsyncStorage } from 'react-native';
+import { ScrollView,View,StatusBar,Text,Dimensions,AsyncStorage,Alert } from 'react-native';
 import { ImagePicker, Camera } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal, InputDropdown } from '@directives';
@@ -101,7 +101,12 @@ class Register2Component extends Component {
                 arrCompany: this.state.arrCompany
             })
         }, err =>{
-            this.fetchListCompany();
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchListCompany()}],
+                {cancelable: false},
+            );
         })
     }
 
@@ -131,8 +136,13 @@ class Register2Component extends Component {
                 this.setState({personalPhoto:obj});
             });
         }, err =>{
-            this.fetchInfoUser();
             this.setState({isloading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchInfoUser()}],
+                {cancelable: false},
+            );
         })
     }
 
@@ -246,14 +256,12 @@ class Register2Component extends Component {
     // Submit
     // ======================== //
     onSubmit(data){
-        console.log(data);
         this.setState({
             isFailed: false,
             isSubmit: true,
             isInvalid: false
         });
         loginService.postRegister(data).then(res =>{
-            console.log(res);
             if(res.status){
                 AsyncStorage.setItem('isNew', '0');
                 this.props.navigation.navigate('User');
@@ -264,12 +272,14 @@ class Register2Component extends Component {
                     isSubmit: false
                 });
             }
-            
         }, err =>{
-            this.setState({
-                isFailed: true,
-                isSubmit: false
-            });
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit(data)}],
+                {cancelable: false},
+            );
         });
     }
 

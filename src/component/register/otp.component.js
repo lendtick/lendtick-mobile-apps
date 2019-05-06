@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,KeyboardAvoidingView,TouchableHighlight,Text,Platform } from 'react-native';
+import { ScrollView,View,KeyboardAvoidingView,TouchableHighlight,Text,Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import Feather from 'react-native-vector-icons/Feather';
 import CodeInput from 'react-native-confirmation-code-input';
@@ -70,7 +70,6 @@ class OtpComponent extends Component {
             otp_number: this.state.otpNumber
         };
         registerService.postOtvValidate(data).then(res =>{
-            console.log(res);
             if(res.status){
                 this.setState({isSubmit: false});
                 this.props.navigation.navigate('RegisterSuccess');
@@ -82,11 +81,12 @@ class OtpComponent extends Component {
                 });
             }
         }, err =>{
-            this.setState({
-                isFailed: true,
-                isSubmit: false,
-                message: "Kode OTP gagal dikirim, silakan submit ulang, pastikan koneksi internet anda tersambung"
-            });
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit()}],
+                {cancelable: false},
+            );
         });
     }
 

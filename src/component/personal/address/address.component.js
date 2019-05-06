@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,ScrollView,TouchableHighlight,ActivityIndicator,Platform } from 'react-native';
+import { View,Text,ScrollView,TouchableHighlight,ActivityIndicator,Alert } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { Col,Row,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
@@ -59,7 +59,12 @@ class AddressComponent extends React.Component {
         personalService.putAddress(obj).then(res =>{
             this.props.setAddress(true);
         }, err =>{
-            console.log(err);
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onUpdateMainAddress(obj)}],
+                {cancelable: false},
+            );
         });
     }
 

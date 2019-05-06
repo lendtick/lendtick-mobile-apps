@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Dimensions } from 'react-native';
+import { View,Dimensions,Alert } from 'react-native';
 import { Permissions,ImagePicker } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
@@ -153,17 +153,18 @@ class InputSallary extends React.Component {
             isSuccess: false
         });
         personalService.postReqSalary(data).then(res =>{
-            console.log(res);
             this.setState({
                 isSubmit: false,
                 isSuccess: true
             });
         }, err =>{
-            console.log(err);
-            this.setState({
-                isFailed: true,
-                isSubmit: false
-            });
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onSubmit()}],
+                {cancelable: false},
+            );
         });
     }
 

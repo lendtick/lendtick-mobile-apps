@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,ScrollView,TouchableHighlight,ActivityIndicator,Platform } from 'react-native';
+import { View,Text,ScrollView,TouchableHighlight,ActivityIndicator,Alert } from 'react-native';
 import { Col,Row,Grid } from "react-native-easy-grid";
 
 import { Main,Variable,Typography,Input } from '@styles';
@@ -37,8 +37,6 @@ class AddressDetailComponent extends React.Component {
         });
         let obj = {id_user_address: this.state.id_user_address};
         personalService.deleteAddress(obj).then(res =>{
-            console.log(res);
-            
             if(res.status == 0){
                 this.setState({
                     isSubmit: false,
@@ -51,11 +49,13 @@ class AddressDetailComponent extends React.Component {
                 this.props.navigation.goBack();
             }
         }, err =>{
-            this.setState({
-                isFailed: true,
-                message: 'Gagal menghapus, silakan coba lagi',
-                isSubmit: false
-            });
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.deleteAddressna()}],
+                {cancelable: false},
+            );
         })
     }
 
@@ -79,7 +79,13 @@ class AddressDetailComponent extends React.Component {
             this.props.setAddress(true);
             this.props.navigation.goBack();
         }, err =>{
-            console.log(err);
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.onUpdateMainAddress()}],
+                {cancelable: false},
+            );
         });
     }
     
