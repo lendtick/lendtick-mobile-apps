@@ -155,11 +155,11 @@ class NonMicroloanComponent extends React.Component {
                                 jumlah pinjaman yang anda ajukan sebelumnya {this.state.loan_request.toLocaleString()}, di approve hanya {this.state.loan_approved.toLocaleString()}
                             </Text>
 
-                            <AlertBox 
+                            {/* <AlertBox 
                                 type="success" 
                                 title={null}
                                 text="Loan telah dikonfirmasi"
-                            />
+                            /> */}
                             <ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
                         </View>
                         {/* ====== START DESC ====== */}
