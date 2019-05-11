@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,View, Text, Platform } from 'react-native';
+import { ScrollView,View, Text } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { BlockLogo } from '@directives';
 import { Main,Variable,Typography } from '@styles';

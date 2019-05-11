@@ -48,7 +48,7 @@ class HomeComponent extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.fetchUser();
         if(!checkAllowNotif()){
             Permissions.askAsync(Permissions.NOTIFICATIONS);

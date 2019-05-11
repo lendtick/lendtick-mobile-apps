@@ -27,7 +27,7 @@ export default billerService = {
                     if(json.data){
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token); 
-                            personalService.getInfoUser();
+                            billerService.getInfoPhone();
                         }else{
                             resolve(json);                        
                         }

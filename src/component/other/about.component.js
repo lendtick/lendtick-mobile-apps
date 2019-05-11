@@ -1,5 +1,4 @@
 import React from 'react';
-import { LinearGradient } from 'expo';
 import { View,Text,ScrollView,Platform } from 'react-native';
 import { BlockLogo } from '@directives';
 import { Main,Variable,Typography } from '@styles';

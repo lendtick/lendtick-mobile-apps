@@ -46,7 +46,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getMasterLoan();
                         }else{
                             resolve(json);                        
                         }
@@ -77,7 +77,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getLoanTerm();
                         }else{
                             resolve(json);                        
                         }
@@ -252,7 +252,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getLoanDocument();
                         }else{
                             resolve(json);                        
                         }
@@ -283,7 +283,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getValidateVoucher();
                         }else{
                             resolve(json);                        
                         }
@@ -314,7 +314,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getInfoUserFullfillment();
                         }else{
                             resolve(json);                        
                         }
@@ -345,7 +345,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getMstLoanType();
                         }else{
                             resolve(json);                        
                         }
@@ -377,7 +377,7 @@ export default creditService = {
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
                             token = json.data.token;
-                            personalService.getInfoUser();
+                            creditService.getOffset();
                         }else{
                             resolve(json);                        
                         }

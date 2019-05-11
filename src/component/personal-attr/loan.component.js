@@ -7,9 +7,9 @@ import { styles } from './balance.style';
 
 import personalAttrService from './personal-attr.service';
 
-class NonMicroloanComponent extends React.Component {
+class LoanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Multiguna",
+        title: "Loan",
         headerTitleStyle: Variable.headerTitleStyle,
     });
 
@@ -40,10 +40,14 @@ class NonMicroloanComponent extends React.Component {
     fetchDetailLoan(){
         let moment = require("moment");
         this.setState({loading: true});
-        personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id')).then(res =>{
-            res.data.credit.map((x)=>{
-                x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
-            });
+        console.log("req");
+        personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id'),this.props.navigation.getParam('group')).then(res =>{
+            console.log(res);
+            if(res.data.credit){
+                res.data.credit.map((x)=>{
+                    x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
+                });
+            }
             this.setState({
                 disbursement_date: moment(res.data.disbursement_date).format('DD MMM YYYY'),
                 loan_approved: res.data.loan_approved,
@@ -60,6 +64,7 @@ class NonMicroloanComponent extends React.Component {
                 loading: false
             });
         }, err =>{
+            console.log(err);
             this.setState({loading: false});
             Alert.alert(
                 'Error',
@@ -80,6 +85,7 @@ class NonMicroloanComponent extends React.Component {
         personalAttrService.updateConfrim(obj).then(res =>{
             this.setState({isSubmit: false});
             console.log(res);
+            this.fetchDetailLoan();
         }, err =>{
             this.setState({isSubmit: false});
             Alert.alert(
@@ -150,16 +156,10 @@ class NonMicroloanComponent extends React.Component {
                         <View style={[styles.wrapDetailDescPinjaman,{paddingTop:30,paddingBottom:30}]}>
                             <Text style={Typography.heading6}>Konfirmasi jumlah pinjaman</Text>
 
-                            <Text style={[Typography.singleText,{marginBottom:15}]}>
+                            <Text style={Typography.singleText}>
                                 jumlah pinjaman yang anda ajukan sebelumnya {this.state.loan_request.toLocaleString()}, di approve hanya {this.state.loan_approved.toLocaleString()}
                             </Text>
-
-                            {/* <AlertBox 
-                                type="success" 
-                                title={null}
-                                text="Loan telah dikonfirmasi"
-                            /> */}
-                            <ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
+                            {this.state.status == 3 ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
                         </View>
                         {/* ====== START DESC ====== */}
 
@@ -206,13 +206,15 @@ class NonMicroloanComponent extends React.Component {
                         </View>
                         {/* ====== END KETERANGAN ====== */}
 
-                        {/* ====== START KETERANGAN ====== */}
-                        <Grid style={{padding:15,marginTop:15}}>
-                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
-                        </Grid>
-                        <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
+                        {/* ====== START CREDIT ====== */}
+                        {this.state.credit ?
+                        <View>
+                            <Grid style={{padding:15,marginTop:15}}>
+                                <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
+                                <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
+                                <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
+                            </Grid>
+                            <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
                             {this.state.credit.map((x,i)=>(
                                 <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
                                     <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
@@ -220,8 +222,10 @@ class NonMicroloanComponent extends React.Component {
                                     <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
                                 </Grid>
                             ))}
+                            </View>
                         </View>
-                        {/* ====== END KETERANGAN ====== */}
+                        : null }
+                        {/* ====== END CREDIT ====== */}
                     </ScrollView>
                 </View>
                 }
@@ -231,4 +235,4 @@ class NonMicroloanComponent extends React.Component {
 }
 
 
-export default NonMicroloanComponent;
+export default LoanComponent;

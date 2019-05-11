@@ -22,10 +22,12 @@ export default homeService = {
                 })
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json);
                     if(json.data){
                         if(json.data.token){
+                            console.log("update token");
                             AsyncStorage.setItem('token', json.data.token); 
-                            personalService.getInfoUser();
+                            homeService.getInfoUser();
                         }else{
                             resolve(json);                        
                         }

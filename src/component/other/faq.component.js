@@ -1,6 +1,5 @@
 import React from 'react';
-import { ScrollView,View, Text, TouchableHighlight, Platform } from 'react-native';
-import { LinearGradient } from 'expo';
+import { ScrollView,View, Text, TouchableHighlight } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { BlockLogo } from '@directives';
 import Feather from 'react-native-vector-icons/Feather';

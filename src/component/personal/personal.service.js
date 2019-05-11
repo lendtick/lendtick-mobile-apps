@@ -78,7 +78,7 @@ export default personalService = {
                     }else{
                         AsyncStorage.setItem('token', json.data.token);
                         token = json.data.token;
-                        personalService.getBank();
+                        personalService.getCompany();
                     }
                 })
                 .catch(err => reject(err));
@@ -107,7 +107,7 @@ export default personalService = {
                     }else{
                         AsyncStorage.setItem('token', json.data.token);
                         token = json.data.token;
-                        personalService.getBank();
+                        personalService.getProfileCompany();
                     }
                 })
                 .catch(err => reject(err));
@@ -166,7 +166,7 @@ export default personalService = {
                     }else{
                         AsyncStorage.setItem('token', json.data.token);
                         token = json.data.token;
-                        personalService.getBank();
+                        personalService.getDocumentType();
                     }
                 })
                 .catch(err => reject(err));
@@ -195,7 +195,7 @@ export default personalService = {
                     }else{
                         AsyncStorage.setItem('token', json.data.token);
                         token = json.data.token;
-                        personalService.getBank();
+                        personalService.getProfileDocument();
                     }
                 })
                 .catch(err => reject(err));

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,TouchableHighlight,ActivityIndicator,Alert } from 'react-native';
 import { LinearGradient } from 'expo';
+import Feather from 'react-native-vector-icons/Feather';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { styles } from './balance.style';
@@ -29,6 +30,16 @@ class PinjamanComponent extends React.Component {
     fetchLoanProfile(){
         this.setState({loading: true});
         personalAttrService.getLoanProfile().then(res =>{
+            console.log(res);
+
+            if(res.data.detail){
+                res.data.detail.map((x)=>{
+                    if(x.loan_type == "Pinjaman Microloan") x.page = "MiddleLoan";
+                    if(x.loan_type == "Multiguna") x.page = "Loan";
+                    if(x.group == 1) x.group_code = "LC";
+                    if(x.group == 3) x.group_code = "ML";
+                });
+            }
             this.setState({
                 loading: false,
                 arrList: res.data.detail,
@@ -70,20 +81,26 @@ class PinjamanComponent extends React.Component {
                     <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
                     <View style={{padding:15}}>
                         {this.state.arrList.map((x,i)=>(
-                            <TouchableHighlight key={i} onPress={()=> this.props.navigation.navigate(x.loan_type,{
-                                id: x.id_loan
+                            <TouchableHighlight key={i} onPress={()=> this.props.navigation.navigate(x.page,{
+                                id: x.id_loan,
+                                group: x.group_code
                             })} underlayColor="transparent">
                                 <Grid style={styles.itemPinjaman}>
-                                    <Col style={{width:40,borderRightWidth:1,borderColor:'#dfdfdf'}}>
+                                    <Col style={{width:40,borderRightWidth:1,borderColor:'#f0f0f0'}}>
                                         <Text style={[Typography.heading6,{padding:15,textAlign:'center'}]}>{i + 1}</Text>
                                     </Col>
-                                    <Col style={{padding:15}}>
-                                        <Text style={Typography.singleText}>{x.loan_number}</Text>
-                                        <Text style={Typography.singleText}>{x.loan_type}</Text>
-                                        <Text style={[Typography.heading6,{marginBottom:0,marginTop:10}]}>Rp {x.installment.toLocaleString()} x {x.term}</Text>
-                                    </Col>
-                                    <Col style={{width:100,padding:15,backgroundColor:'#9bb9b6'}}>
-                                        <Text style={[Typography.singleText,{textAlign:'center',color:'#fff'}]}>{x.status}</Text>
+                                    <Col>
+                                        <View style={{padding:15}}>
+                                            {x.loan_number ? <Text style={Typography.singleText}>{x.loan_number}</Text> : null}
+                                            <Text style={Typography.singleText}>{x.loan_type}</Text>
+                                            <Text style={[Typography.heading6,{marginBottom:0,marginTop:10}]}>Rp {x.installment.toLocaleString()} x {x.term}</Text>
+                                        </View>
+                                        <View style={{padding:5,paddingLeft:15,paddingRight:15,backgroundColor:'#f0f0f0'}}>
+                                            <Grid>
+                                                <Col><Text style={Typography.singleText}>Status: {x.status}</Text></Col>
+                                                <Col style={{width:25}}><Feather name={x.status == 'Lunas' ? 'check' : 'eye'} size={18} style={{textAlign:'right',marginTop:1}} color={Variable.colorPrimary}/></Col>
+                                            </Grid>
+                                        </View>
                                     </Col>
                                 </Grid>
                             </TouchableHighlight>

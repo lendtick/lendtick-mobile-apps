@@ -51,7 +51,7 @@ class ListrikConfirmation extends React.Component {
         };
         billerService.postOrder(obj).then(res =>{
             this.setState({isSubmit: false});
-            this.props.navigation.navigate('ListrikFinish')
+            this.props.navigation.navigate('Payment');
         });
     }
 

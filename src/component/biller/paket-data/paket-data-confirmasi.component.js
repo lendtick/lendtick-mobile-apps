@@ -51,7 +51,7 @@ class PaketDataConfirmation extends React.Component {
         };
         billerService.postOrder(obj).then(res =>{
             this.setState({isSubmit: false});
-            this.props.navigation.navigate('PaketDataFinish')
+            this.props.navigation.navigate('Payment');
         });
     }
 

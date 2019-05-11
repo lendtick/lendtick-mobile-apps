@@ -41,10 +41,11 @@ export default personalAttrService = {
     // ======================= //
     // Get Loan Profile Detail
     // ======================= //
-    getLoanProfileDetail: (id) =>{
+    getLoanProfileDetail: (id,group) =>{
         const promiseObj = new Promise(function(resolve, reject){
+            console.log(urlGetDetailLoan + '?id_loan=' + id + '&group=' + group);
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetDetailLoan + '?id_loan=' + id,{
+                fetch(urlGetDetailLoan + '?id_loan=' + id + '&group=' + group,{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -53,6 +54,7 @@ export default personalAttrService = {
                 })
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json);
                     if(json.data){
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);

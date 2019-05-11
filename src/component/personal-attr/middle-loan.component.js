@@ -7,9 +7,9 @@ import { styles } from './balance.style';
 
 import personalAttrService from './personal-attr.service';
 
-class MicroloanComponent extends React.Component {
+class MiddleLoanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Microlan",
+        title: "Middle Loan",
         headerTitleStyle: Variable.headerTitleStyle,
     });
 
@@ -39,10 +39,12 @@ class MicroloanComponent extends React.Component {
     fetchDetailLoan(){
         let moment = require("moment");
         this.setState({loading: true});
-        personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id')).then(res =>{
-            res.data.credit.map((x)=>{
-                x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
-            });
+        personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id'),this.props.navigation.getParam('group')).then(res =>{
+            if(res.data.credit){
+                res.data.credit.map((x)=>{
+                    x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
+                });
+            }
             this.setState({
                 disbursement_date: moment(res.data.disbursement_date).format('DD MMM YYYY'),
                 loan_approved: res.data.loan_approved,
@@ -93,13 +95,15 @@ class MicroloanComponent extends React.Component {
                     </View>
                     <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
 
-                    {/* ====== START KETERANGAN ====== */}
-                    <Grid style={{padding:15,marginTop:15}}>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
-                        <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
-                    </Grid>
-                    <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
+                    {/* ====== START CREDIT ====== */}
+                    {this.state.credit ?
+                    <View>
+                        <Grid style={{padding:15,marginTop:15}}>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
+                        </Grid>
+                        <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
                         {this.state.credit.map((x,i)=>(
                             <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
@@ -107,8 +111,10 @@ class MicroloanComponent extends React.Component {
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
                             </Grid>
                         ))}
+                        </View>
                     </View>
-                    {/* ====== END KETERANGAN ====== */}
+                    : null }
+                    {/* ====== END CREDIT ====== */}
                 </ScrollView>
                 }
             </View>
@@ -117,4 +123,4 @@ class MicroloanComponent extends React.Component {
 }
 
 
-export default MicroloanComponent;
+export default MiddleLoanComponent;
