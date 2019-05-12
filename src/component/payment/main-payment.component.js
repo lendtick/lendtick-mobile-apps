@@ -1,9 +1,8 @@
 import React from 'react';
-import { ScrollView,View,Text,TouchableHighlight } from 'react-native';
-import { Col,Grid, Row } from "react-native-easy-grid";
+import { ScrollView,View,Text,TouchableHighlight, Dimensions } from 'react-native';
+import { Col,Grid } from "react-native-easy-grid";
 import Feather from 'react-native-vector-icons/Feather';
-import { SafeAreaView } from 'react-navigation';
-import { FooterButton,ButtonComponent } from '@directives';
+import { ButtonComponent,Modal } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 
 class MainPaymentComponent extends React.Component {
@@ -15,7 +14,8 @@ class MainPaymentComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectType: 'va'
+            selectType: 'va',
+            popUpOrder: false
         };
     }
 
@@ -25,7 +25,13 @@ class MainPaymentComponent extends React.Component {
                 this.props.navigation.navigate('VAPayment');
             break;
             case "middleloan" :
-                console.log('middleloan');
+                this.props.navigation.navigate('MiddlePayment');
+            break;
+            case "microloan" :
+                this.props.navigation.navigate('MicroloanPayment');
+            break;
+            case "split" :
+                this.props.navigation.navigate('SplitPayment');
             break;
         }
     }
@@ -57,7 +63,7 @@ class MainPaymentComponent extends React.Component {
                         </Grid>
                     </View>
                     <View style={Main.container}>
-                        <ButtonComponent type="primary" text="Produk yang dibeli" onClick={()=> console.log("asdasd")} />
+                        <ButtonComponent type="primary" text="Produk yang dibeli" onClick={()=> this.setState({popUpOrder: true})} />
                     </View>
                     {/* ======= End Information ========= */}
 
@@ -100,6 +106,24 @@ class MainPaymentComponent extends React.Component {
                     {/* ======= End List Payment ========= */}
 
                 </ScrollView>
+
+                {/* ====== START Contacts ====== */}
+                <Modal 
+                    isOpen={this.state.popUpOrder}
+                    title="Daftar beli"
+                    textRight="Tutup"
+                    rightClick={()=> this.setState({popUpOrder: false})}
+                    height={Dimensions.get('window').height - (Dimensions.get('window').height * 0.45)}
+                    width={Dimensions.get('window').width - 30}
+                    textLeft={null}>
+                   <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
+                        <Grid>
+                            <Col><Text style={Typography.singleText}>Pulsa m3 100 rb</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 104.000</Text></Col>
+                        </Grid>
+                    </View>
+                </Modal>
+                {/* ====== END Contacts ====== */}
             </View>
         ) 
     }

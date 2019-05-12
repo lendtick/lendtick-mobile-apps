@@ -47,10 +47,16 @@ const Login = createStackNavigator({
 // ========================== //
 import MainPaymentComponent from '../component/payment/main-payment.component';
 import VAComponent from '../component/payment/va.component';
+import MicroloanPayment from '../component/payment/microloan-payment.component';
+import MiddlePayment from '../component/payment/middleloan-payment.component';
+import SplitPayment from '../component/payment/split-payment.component';
 
 const Payment = createStackNavigator({
     Payment: MainPaymentComponent,
-    VAPayment: VAComponent
+    VAPayment: VAComponent,
+    MicroloanPayment:MicroloanPayment,
+    MiddlePayment: MiddlePayment,
+    SplitPayment: SplitPayment
 },{
     initialRouteName: 'Payment',
     mode: 'modal'

@@ -49,15 +49,14 @@ class HomeComponent extends React.Component {
     }
 
     componentWillMount(){
-        this.fetchUser();
-        if(!checkAllowNotif()){
-            Permissions.askAsync(Permissions.NOTIFICATIONS);
-        }
+        if(this.props.personal.data == null) this.fetchUser();
+        if(!checkAllowNotif()) Permissions.askAsync(Permissions.NOTIFICATIONS);
     }
 
     fetchUser(){
         this.setState({loading: true});
         homeService.getInfoUser().then(res =>{
+            console.log(res);
             this.props.setGetData(res['data']);
             this.setState({loading: false});
         }, err =>{
