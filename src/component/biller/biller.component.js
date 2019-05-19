@@ -28,7 +28,7 @@ class BillerComponent extends React.Component {
             <View style={styles.wrapper}>
                 <ScrollView>
                     {/* Start Header */}
-                    <HeaderSearch />
+                    <HeaderSearch onClickCart={()=> this.props.navigation.navigate('Payment')}/>
                     {/* End Header */}
 
                     {/* Start Banner */}

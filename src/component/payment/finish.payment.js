@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,Text,Platform } from 'react-native';
+
 import { ButtonComponent, BlockLogo } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 
-class PulsaFinishComponent extends Component {
+class paymentFinishComponent extends Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Finish Pulsa",
+        title: "Pembayaran",
         headerTitleStyle: Variable.headerTitleStyle,
         headerLeft: null
     });
@@ -34,13 +35,13 @@ class PulsaFinishComponent extends Component {
                         <StatusBar barStyle="dark-content" />
                         
                         <View style={{padding: 30, marginBottom: 50, backgroundColor: Variable.backgroundGray}}>
-                            <Text style={Typography.heading5}>Pembelian Pulsa Berhasil</Text>
+                            <Text style={Typography.heading5}>Berhasil Pembayaran</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
                                 Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex.
                             </Text>
                         </View>
                         
-                        <ButtonComponent type="primary" text="Kembali" onClick={()=> this.props.navigation.popToTop()} disabled={false} isSubmit={false}/>
+                        <ButtonComponent type="primary" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')} disabled={false} isSubmit={false}/>
                     </View>
                 
                 </ScrollView>
@@ -50,4 +51,4 @@ class PulsaFinishComponent extends Component {
     }
 }
 
-export default PulsaFinishComponent;
+export default paymentFinishComponent;

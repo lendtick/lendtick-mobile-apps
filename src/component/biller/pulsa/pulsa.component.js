@@ -28,6 +28,7 @@ class PulsaCompnent extends React.Component {
             loadingContact: false,
             providerName: null,
             providerImage: null,
+            billersIdPulsa: null,
             billdetails:[],
             loadingBiller: true,
             totalAmount: "Rp 0",
@@ -55,6 +56,7 @@ class PulsaCompnent extends React.Component {
                     this.setState({
                         providerName: res.data[0].provider_phone_name,
                         providerImage: res.data[0].provider_phone_image,
+                        billersIdPulsa: res.data[0].billers_id_pulsa
                     });
                     this.fetchBiller(res.data[0].billers_id_pulsa);
                 }
@@ -124,7 +126,12 @@ class PulsaCompnent extends React.Component {
             totalAmount: e.rp_total,
             selectedBiller: e
         });
-        this.props.updateDataPulsa(e);
+        let provider = {
+            providerName: this.state.providerName, 
+            providerImage: this.state.providerImage,
+            billersIdPulsa: this.state.billersIdPulsa
+        };
+        this.props.updateDataPulsa(_.merge(e,provider));
         this.props.updatePhonePulsa(this.state.phoneNumber);
     }
 

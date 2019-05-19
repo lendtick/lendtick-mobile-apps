@@ -29,6 +29,7 @@ class InputEmployee extends React.Component {
 
     fetchProfileCompany(){
         personalService.getProfileCompany().then(res =>{
+            console.log(res);
             let moment = require("moment");
             res['data'].employee_starting_date = moment(res['data'].employee_starting_date).format('DD MMM YYYY');
             this.setState(res['data']);

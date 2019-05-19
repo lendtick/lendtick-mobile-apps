@@ -1,11 +1,9 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { FooterButton } from '@directives';
+import { ButtonComponent } from '@directives';
 import { Main,Typography, Variable} from '@styles';
 import { styles } from './paket-data.style';
-
-import billerService from '../biller.service';
 
 class PaketDataConfirmation extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -20,39 +18,33 @@ class PaketDataConfirmation extends React.Component {
         };
     }
 
-    submit(){
-        this.setState({isSubmit: true});
-        let obj = {
-            "total_billing": 50000,
-            "id_workflow_status": "ODSTS01",
-            "id_user_company": 71,
-            "id_delivery_type": "DLV001",
-            "name_delivery_type": "Direct",
-            "cart": [
-                {
-                    "category_id": 11,
-                    "id_channel": "CHN0001",
-                    "product_id": 11,
-                    "product_name": "biller pulsa",
-                    "product_image_path": "biller pulsa",
-                    "biller_id": 1222,
-                    "bill_id": 1,
-                    "biller_name": "pulsa tsel",
-                    "bill_details": "keterangan",
-                    "quantity": 1,
-                    "sell_price": 1,
-                    "base_price": 1,
-                    "product_details": 1,
-                    "additional_data_1": "Oke",
-                    "additional_data_2": "Oke",
-                    "additional_data_3": "Oke"
-                }
-            ]
+    submitOrder(e){
+        let cart = {
+            category_id: 11,
+            id_channel: "CHN0001",
+            product_id: 11,
+            product_name: this.props.paketData.data.providerName,
+            product_image_path: this.props.paketData.data.providerImage,
+            biller_id: this.props.paketData.data.billersIdPaketData,
+            bill_id: 1,
+            biller_name: this.props.paketData.data.title,
+            bill_details: this.props.paketData.data.descriptions,
+            quantity: 1,
+            sell_price: 1,
+            base_price: 1,
+            product_details: 1,
+            additional_data_1: "Oke",
+            additional_data_2: "Oke",
+            additional_data_3: "Oke",
+            totalPayment: this.props.paketData.data.total
         };
-        billerService.postOrder(obj).then(res =>{
-            this.setState({isSubmit: false});
-            this.props.navigation.navigate('Payment');
-        });
+        let carts = this.props.cart.data;
+        carts.push(cart);
+        this.props.addToCart(carts);
+
+        let totalPayment = this.props.cart.totalPayment + this.props.paketData.data.total;
+        this.props.updatePayment(totalPayment);
+        this.props.navigation.navigate(e);
     }
 
     render() {
@@ -81,15 +73,15 @@ class PaketDataConfirmation extends React.Component {
                         </View>
                     </View>
                     {/* ====== END INFORMASI ====== */}
-                </ScrollView>
 
-                {/* ====== START FOOTER ====== */}
-                <FooterButton 
-                    text={this.props.paketData.data.rp_total} 
-                    disabled={this.state.isSubmit}
-                    isSubmit={this.state.isSubmit}
-                    textButton="Konfirmasi" onClick={()=> this.submit()}/>
-                {/* ====== END FOOTER ====== */}
+                    <View style={[Main.container]}>
+                        <View style={{marginTop:30}}/>
+                        <ButtonComponent type="primary" text="Selesaikan Pembayaran" onClick={()=> this.submitOrder('Payment')}/>
+                        <View style={{marginTop:15}}/>
+                        <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
+                        <View style={{marginTop:15}}/>
+                    </View>
+                </ScrollView>
             </View>
         );
     }
@@ -97,11 +89,15 @@ class PaketDataConfirmation extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-        paketData: state.paketData
+        paketData: state.paketData,
+        cart: state.cart
 	}
 }
 const mapDispatchToProps = (dispatch) => {
-	return {}
+	return {
+        addToCart: (e) => dispatch({type: 'UPDATE_CART', data: e}),
+        updatePayment: (e) => dispatch({type: 'UPDATE_TOTAL_PAYMENT', totalPayment: e})
+    }
 }
 
 export default connect(

@@ -25,7 +25,9 @@ class ListrikComponent extends React.Component {
             isSubmitToken: false,
             billdetails: [],
             totalAmount: 'Rp 0',
-            selectedBiller: null
+            selectedBiller: null,
+            providerName: null,
+            providerImage: null,
         };
     }
 
@@ -39,6 +41,7 @@ class ListrikComponent extends React.Component {
             };
             this.setState({isSubmitToken: true});
             billerService.postBillerInquiry(obj).then(res =>{
+                console.log(res);
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
                     x['total'] = Number(x.totalamount) - Number(x.adminfee)
@@ -47,6 +50,8 @@ class ListrikComponent extends React.Component {
                 this.setState({
                     billdetails: billdetails,
                     isSubmitToken: false,
+                    providerName: res.data.response.billername,
+                    providerImage: null,
                 });
                 if(billdetails.length) this.selectBiller(billdetails[0]);
             });
@@ -58,7 +63,12 @@ class ListrikComponent extends React.Component {
             totalAmount: e ? e.rp_total : "Rp 0",
             selectedBiller: e
         });
-        this.props.updateDataListrik(e);
+        let provider = {
+            providerName: this.state.providerName, 
+            providerImage: this.state.providerImage,
+            billersId: this.state.selectedLink === 'token' ? '9950101' : '9950102'
+        };
+        this.props.updateDataListrik(_.merge(e,provider));
         this.props.updateToken(this.state.token);
     }
 

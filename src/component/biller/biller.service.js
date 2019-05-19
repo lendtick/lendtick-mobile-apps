@@ -14,7 +14,6 @@ export default billerService = {
     getInfoPhone: (phone) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                console.log(urlGetcheckPhone + '?phone_number=' + phone);
                 fetch(urlGetcheckPhone + '?phone_number=' + phone,{
                     method: 'GET',
                     headers: new Headers({
@@ -44,7 +43,6 @@ export default billerService = {
     // ======================= //
     postBillerInquiry: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
-            console.log(data);
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlPostInquiry, {
                     method: 'POST',
@@ -62,30 +60,5 @@ export default billerService = {
             });
         });
         return promiseObj;
-    },
-
-    // ======================= //
-    // Post Order
-    // ======================= //
-    postOrder: (data) =>{
-        const promiseObj = new Promise(function(resolve, reject){
-            console.log(data);
-            AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPostOrder, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-type": "application/json",
-                        "Authorization": token
-                    },
-                })
-                .then(response => response.json())
-                .then(json => resolve(json))
-                .catch(err => {
-                    reject(err);
-                });
-            });
-        });
-        return promiseObj;
-    },
+    }
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View,Text,ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import { Col,Grid } from "react-native-easy-grid";
 import { ButtonComponent,InputMask } from '@directives';
 import { Main,Variable,Typography } from '@styles';
@@ -14,8 +15,43 @@ class SplitPayment extends React.Component {
         super(props);
         this.state = { 
             middleloanCount: "75000",
-            vaCount: "25000"
+            vaCount: "25000",
+            isSubmit: false
         };
+    }
+
+    createOrder(){
+        let obj = {
+            total_billing: this.props.cart.totalPayment,
+            id_workflow_status: "ODSTS01",
+            id_user_company: 71,
+            id_delivery_type: "DLV001",
+            name_delivery_type: "Direct",
+            cart: this.props.cart.data,
+            payment: [
+                {
+                    id_payment_type: "PAY004",
+                    total_payment: this.props.cart.totalPayment,
+                    identifier_number: 11
+                }
+            ]
+        };
+
+        this.setState({isSubmit: true});
+        paymentService.postOrder(obj).then(res =>{
+            this.setState({isSubmit: false});
+            this.props.addToCart([]);
+            this.props.updatePayment(0);
+            this.props.navigation.navigate('FinishPayment');
+        }, err =>{
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.submitLoan()}],
+                {cancelable: false},
+            );
+        })
     }
 
     render() { 
@@ -52,7 +88,8 @@ class SplitPayment extends React.Component {
                             value={this.state.vaCount}
                             disabled={true}
                             onChange={(vaCount) => this.setState({vaCount})}/>
-                        <ButtonComponent type="primary" text="Bayar" onClick={()=> this.props.navigation.navigate('Home')} />
+
+                        <ButtonComponent type="primary" text="Bayar" onClick={()=> this.createOrder()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
                     </View>
                 </ScrollView>
             </View>
@@ -60,4 +97,19 @@ class SplitPayment extends React.Component {
     }
 }
 
-export default SplitPayment;
+const mapStateToProps = (state) => {
+	return {
+        cart: state.cart
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+        addToCart: (e) => dispatch({type: 'UPDATE_CART', data: e}),
+        updatePayment: (e) => dispatch({type: 'UPDATE_TOTAL_PAYMENT', totalPayment: e})
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(SplitPayment)

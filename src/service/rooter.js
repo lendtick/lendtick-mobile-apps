@@ -50,13 +50,15 @@ import VAComponent from '../component/payment/va.component';
 import MicroloanPayment from '../component/payment/microloan-payment.component';
 import MiddlePayment from '../component/payment/middleloan-payment.component';
 import SplitPayment from '../component/payment/split-payment.component';
+import paymentFinishComponent from '../component/payment/finish.payment';
 
 const Payment = createStackNavigator({
     Payment: MainPaymentComponent,
     VAPayment: VAComponent,
     MicroloanPayment:MicroloanPayment,
     MiddlePayment: MiddlePayment,
-    SplitPayment: SplitPayment
+    SplitPayment: SplitPayment,
+    FinishPayment: paymentFinishComponent
 },{
     initialRouteName: 'Payment',
     mode: 'modal'
@@ -155,26 +157,20 @@ import BillerComponent from '../component/biller/biller.component';
 import PaketDataComponent from '../component/biller/paket-data/paket-data.component';
 import PulsaCompnent from '../component/biller/pulsa/pulsa.component';
 import PulsaConfirmation from '../component/biller/pulsa/pulsa-confirmation.component';
-import PulsaFinishComponent from '../component/biller/pulsa/pulsa-finish.component';
 import ListrikComponent from '../component/biller/listrik/listrik.component';
 import PinjamanTunaiComponent from '../component/biller/pinjaman-tunai/pinjaman-tunai.component';
 import PaketDataConfirmation from '../component/biller/paket-data/paket-data-confirmasi.component';
-import PaketDataFinishComponent from '../component/biller/paket-data/paket-data-finish.component';
 import ListrikConfirmation from '../component/biller/listrik/listrik-comfirm.component';
-import ListrikFinishComponent from '../component/biller/listrik/listrik-finish.component';
 
 const Biller = createStackNavigator({
     main: BillerComponent,
     PaketData: PaketDataComponent,
     PaketDataConfirmation: PaketDataConfirmation,
-    PaketDataFinish: PaketDataFinishComponent,
     Pulsa: PulsaCompnent,
     PulsaConfirmation: PulsaConfirmation,
-    PulsaFinish: PulsaFinishComponent,
     Listrik: ListrikComponent,
     PinjamanTunai: PinjamanTunaiComponent,
     ListrikConfirmation: ListrikConfirmation,
-    ListrikFinish: ListrikFinishComponent
 },{
     initialRouteName: 'main',
     mode: 'modal'

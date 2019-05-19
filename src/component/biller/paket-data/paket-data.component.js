@@ -34,7 +34,8 @@ class PaketDataComponent extends React.Component {
             loadingBiller: true,
             totalAmount: "Rp 0",
             selectedBiller: null,
-            timeout: null
+            timeout: null,
+            billersIdPaketData: null
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -58,8 +59,9 @@ class PaketDataComponent extends React.Component {
                     this.setState({
                         providerName: res.data[0].provider_phone_name,
                         providerImage: res.data[0].provider_phone_image,
+                        billersIdPaketData: res.data[0].billers_id_paketdata
                     });
-                    this.fetchBiller(res.data[0].billers_id_pulsa);
+                    this.fetchBiller(res.data[0].billers_id_paketdata);
                 }
             });
         }
@@ -127,8 +129,13 @@ class PaketDataComponent extends React.Component {
             totalAmount: e ? e.rp_total : "Rp 0",
             selectedBiller: e
         });
-        this.props.updateDataPulsa(e);
-        this.props.updatePhonePulsa(this.state.phoneNumber);
+        let provider = {
+            providerName: this.state.providerName, 
+            providerImage: this.state.providerImage,
+            billersIdPaketData: this.state.billersIdPaketData
+        };
+        this.props.updateDataPaketDate(_.merge(e,provider));
+        this.props.updatePhonePaketDate(this.state.phoneNumber);
     }
 
     chaneNumber(e){
@@ -272,13 +279,13 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-        updateDataPulsa: (e) =>{
+        updateDataPaketDate: (e) =>{
             dispatch({
 				type: 'UPDATE_DATA_PAKET_DATA',
 				data: e
 			})
         },
-        updatePhonePulsa: (e) =>{
+        updatePhonePaketDate: (e) =>{
             dispatch({
 				type: 'UPDATE_PHONE_PAKET_DATA',
 				phoneNumber: e

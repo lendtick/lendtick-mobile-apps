@@ -8,6 +8,7 @@ import { creditReducer } from '../component/credit/credit.reducer';
 import { pulsaReducer } from '../component/biller/pulsa/pulsa.reducer';
 import { paketDataReducer } from '../component/biller/paket-data/paket-data.reducer';
 import { listrikReducer } from '../component/biller/listrik/listrik.reducer';
+import { cartReducer } from '../component/payment/cart.reduce'; 
 
 const reducers = combineReducers({
 	login: signReducer,
@@ -18,7 +19,8 @@ const reducers = combineReducers({
 	credit: creditReducer,
 	pulsa: pulsaReducer,
 	paketData: paketDataReducer,
-	listrik: listrikReducer
+	listrik: listrikReducer,
+	cart: cartReducer
 });
 const store = createStore(
 	reducers,

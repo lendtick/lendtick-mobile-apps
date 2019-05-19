@@ -2,7 +2,7 @@
 // ======================= //
 export const pulsaReducer = (state = {
 	data: null,
-	phoneNumber: null
+	phoneNumber: null,
 }, action) => {
 	switch(action.type){
 		case "UPDATE_DATA_PULSA" :

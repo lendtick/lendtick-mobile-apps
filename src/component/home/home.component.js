@@ -57,6 +57,7 @@ class HomeComponent extends React.Component {
         this.setState({loading: true});
         homeService.getInfoUser().then(res =>{
             console.log(res);
+            console.log("telahdi update");
             this.props.setGetData(res['data']);
             this.setState({loading: false});
         }, err =>{
@@ -81,7 +82,7 @@ class HomeComponent extends React.Component {
                     <ScrollView>
                         
                         {/* Start Header */}
-                        <HeaderSearch />
+                        <HeaderSearch onClickCart={()=> this.props.navigation.navigate('Payment')}/>
                         {/* End Header */}
 
                         {/* Start Banner */}

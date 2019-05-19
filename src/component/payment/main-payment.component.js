@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView,View,Text,TouchableHighlight, Dimensions } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
+import { connect } from 'react-redux';
 import Feather from 'react-native-vector-icons/Feather';
 import { ButtonComponent,Modal } from '@directives';
 import { Main,Variable,Typography } from '@styles';
@@ -47,23 +48,23 @@ class MainPaymentComponent extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Tagihan</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 104.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 104.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf',marginBottom:15}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Bayar</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 104.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     <View style={Main.container}>
-                        <ButtonComponent type="primary" text="Produk yang dibeli" onClick={()=> this.setState({popUpOrder: true})} />
+                        <ButtonComponent type="primary" text="Produk yang dibeli" onClick={()=> this.setState({popUpOrder: true})} disabled={this.props.cart.totalPayment == 0}/>
                     </View>
                     {/* ======= End Information ========= */}
 
@@ -100,7 +101,10 @@ class MainPaymentComponent extends React.Component {
                         </TouchableHighlight>
 
                         <View style={{marginTop:15, marginBottom:15}}>
-                            <ButtonComponent type="primary" text="Pilih" onClick={()=> this.gotoPayment(this.state.selectType)} />
+                            <ButtonComponent type="primary" text="Pilih" onClick={()=> this.gotoPayment(this.state.selectType)} disabled={this.props.cart.totalPayment == 0}/>
+                            <View style={{marginTop:15}}/>
+                            <ButtonComponent type="default" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')}/>
+                            <View style={{marginTop:15}}/>
                         </View>
                     </View>
                     {/* ======= End List Payment ========= */}
@@ -116,12 +120,12 @@ class MainPaymentComponent extends React.Component {
                     height={Dimensions.get('window').height - (Dimensions.get('window').height * 0.45)}
                     width={Dimensions.get('window').width - 30}
                     textLeft={null}>
-                   <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
-                        <Grid>
-                            <Col><Text style={Typography.singleText}>Pulsa m3 100 rb</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 104.000</Text></Col>
-                        </Grid>
-                    </View>
+                    {this.props.cart.data.map((x,i)=>(
+                        <View key={i} style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
+                            <Text style={[Typography.heading6,{marginBottom:0}]}>{x.biller_name}</Text>
+                            <Text style={Typography.singleText}>Rp {x.totalPayment.toLocaleString()}</Text>
+                        </View>
+                    ))}
                 </Modal>
                 {/* ====== END Contacts ====== */}
             </View>
@@ -129,5 +133,16 @@ class MainPaymentComponent extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+	return {
+        cart: state.cart
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {}
+}
 
-export default MainPaymentComponent;
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(MainPaymentComponent)
