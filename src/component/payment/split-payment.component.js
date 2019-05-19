@@ -14,8 +14,10 @@ class SplitPayment extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            middleloanCount: "75000",
-            vaCount: "25000",
+            saldo: 500000,
+            calcSaldo: 500000,
+            middleloanCount: "0",
+            vaCount: 0,
             isSubmit: false
         };
     }
@@ -54,6 +56,16 @@ class SplitPayment extends React.Component {
         })
     }
 
+    calcSaldo(e){
+        let middleCount = Number(e.replace(/,/g, '').replace('Rp ', ''));
+        if(middleCount > this.state.saldo){
+            this.setState({calcSaldo: 0});
+        }else{
+            let calcSaldo = this.state.saldo - middleCount;
+            this.setState({calcSaldo: calcSaldo});
+        }
+    }
+
     render() { 
         return(
             <View style={{height:'100%',backgroundColor:'white'}}>
@@ -65,7 +77,7 @@ class SplitPayment extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp  100.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp  {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     {/* ======= End Information ========= */}
@@ -77,19 +89,21 @@ class SplitPayment extends React.Component {
                             keyboardType="numeric"
                             placeholder="Masukan jumlah nominal"
                             value={this.state.middleloanCount}
-                            onChange={(middleloanCount) => this.setState({middleloanCount})}/>
-                        <Text style={[Typography.singleText,{marginTop:-10,marginBottom:15,fontSize:12}]}>Max : Rp 3.000.000</Text>
+                            onChange={(middleloanCount) =>{
+                                this.setState({middleloanCount});
+                                this.calcSaldo(middleloanCount);
+                            }}/>
+                        <Text style={[Typography.singleText,{marginTop:-10,marginBottom:15,fontSize:12}]}>Max : Rp {this.state.saldo.toLocaleString()}</Text>
 
                         <InputMask 
                             label="VA"
                             iconName={null}
                             keyboardType="numeric"
                             placeholder="Masukan jumlah nominal"
-                            value={this.state.vaCount}
-                            disabled={true}
-                            onChange={(vaCount) => this.setState({vaCount})}/>
+                            value={this.state.calcSaldo.toString()}
+                            disabled={true}/>
 
-                        <ButtonComponent type="primary" text="Bayar" onClick={()=> this.createOrder()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
+                        <ButtonComponent type="primary" text="Bayar" onClick={()=> this.createOrder()} disabled={this.state.isSubmit || this.state.calcSaldo === 0} isSubmit={this.state.isSubmit}/>
                     </View>
                 </ScrollView>
             </View>

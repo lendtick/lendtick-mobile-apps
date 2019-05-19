@@ -14,7 +14,8 @@ class MiddlePayment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isSubmit: false
+            isSubmit: false,
+            saldo: 500000,
         };
     }
 
@@ -63,19 +64,19 @@ class MiddlePayment extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Saldo</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 500.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.state.saldo.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp -100.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp -{this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf',marginBottom:15}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Sisa Saldo</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp 400.000</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {(this.state.saldo - this.props.cart.totalPayment).toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
                     {/* ======= End Information ========= */}

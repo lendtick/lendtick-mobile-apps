@@ -22,7 +22,7 @@ class InputMask extends Component {
                         type={'money'}
                         placeholder={this.props.placeholder}
                         options={{
-                            precision: 3,
+                            precision: 0,
                             separator: ',',
                             delimiter: ',',
                             unit: 'Rp ',
