@@ -16,6 +16,14 @@ async function checkAllowNotif() {
     }
 }
 
+async function checkAllowCamera() {
+    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
+    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
+        return true;
+    }
+}
+
 class LoginComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Login",
@@ -39,6 +47,11 @@ class LoginComponent extends Component {
     componentDidMount(){
         if(!checkAllowNotif()){
             Permissions.askAsync(Permissions.NOTIFICATIONS);
+        }
+
+        if(!checkAllowCamera()){
+            Permissions.askAsync(Permissions.CAMERA);
+            Permissions.askAsync(Permissions.CAMERA_ROLL);
         }
     }
 
