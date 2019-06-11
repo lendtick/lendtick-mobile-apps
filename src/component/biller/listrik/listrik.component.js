@@ -79,22 +79,22 @@ class ListrikComponent extends React.Component {
                     <Grid>
                         <Col style={{borderRightWidth:1,borderColor:'#efefef'}}>
                             <TouchableHighlight onPress={()=> {
-                                this.setState({selectedLink: 'token'});
-                                setTimeout(()=>{
-                                    this.fetchBiller();
-                                }, 500);
-                            }} underlayColor="transparent">
-                                <Text style={this.state.selectedLink == 'token' ? styles.itemLinkActive : styles.itemLink}>Token Listrik</Text>
-                            </TouchableHighlight>
-                        </Col>
-                        <Col>
-                            <TouchableHighlight onPress={()=> {
                                 this.setState({selectedLink: 'tagihan'});
                                 setTimeout(()=>{
                                     this.fetchBiller();
                                 }, 500);
                             }} underlayColor="transparent">
                                 <Text style={this.state.selectedLink == 'tagihan' ? styles.itemLinkActive : styles.itemLink}>Tagihan Listrik</Text>
+                            </TouchableHighlight>
+                        </Col>
+                        <Col>
+                            <TouchableHighlight onPress={()=> {
+                                this.setState({selectedLink: 'token'});
+                                setTimeout(()=>{
+                                    this.fetchBiller();
+                                }, 500);
+                            }} underlayColor="transparent">
+                                <Text style={this.state.selectedLink == 'token' ? styles.itemLinkActive : styles.itemLink}>Token Listrik</Text>
                             </TouchableHighlight>
                         </Col>
                     </Grid>

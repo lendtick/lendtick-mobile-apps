@@ -56,8 +56,6 @@ class HomeComponent extends React.Component {
     fetchUser(){
         this.setState({loading: true});
         homeService.getInfoUser().then(res =>{
-            console.log(res);
-            console.log("telahdi update");
             this.props.setGetData(res['data']);
             this.setState({loading: false});
         }, err =>{
@@ -111,20 +109,20 @@ class HomeComponent extends React.Component {
                                         </TouchableHighlight>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
+                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
+                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item8.png')} />
                                         </TouchableHighlight>
                                     </Col>
                                 </Row>
-                                <Row>
+                                {/* <Row>
                                     <Col style={styles.itemProduct}>
                                         <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
                                         </TouchableHighlight>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item8.png')} />
+                                        <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
                                         </TouchableHighlight>
                                     </Col>
                                     <Col style={styles.itemProduct}>
@@ -132,14 +130,14 @@ class HomeComponent extends React.Component {
                                             <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item6.png')} />
                                         </TouchableHighlight>
                                     </Col>
-                                </Row>
+                                </Row> */}
                             </Grid>
                             }
                          </View>
                         {/* End Wrap Service */}
 
                         {/* Start Grid */} 
-                        <Grid style={styles.wrapAdds}>
+                        {/* <Grid style={styles.wrapAdds}>
                             <Row>
                                 <Col style={ Platform.OS === 'ios' ? {paddingRight:15,paddingLeft: 15} : {paddingLeft: 15,paddingRight:0}}>
                                     <TouchableHighlight onPress={() => console.log('aweu')} underlayColor="transparent">
@@ -166,11 +164,11 @@ class HomeComponent extends React.Component {
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
-                        </Grid>
+                        </Grid> */}
                         {/* End Grid */}
 
                         {/* ====== START POPULAR PRODUCT ====== */}
-                        <View style={{marginTop: -5, paddingLeft: 15, paddingBottom: 30}}>
+                        {/* <View style={{marginTop: -5, paddingLeft: 15, paddingBottom: 30}}>
                             <Text style={{marginBottom:15,fontWeight:'700',color:Variable.colorTitle,fontSize:18}}>Popular</Text>
                             <Carousel
                                 activeSlideAlignment="start"
@@ -199,11 +197,11 @@ class HomeComponent extends React.Component {
                                 inactiveSlideScale={1}
                                 inactiveSlideOpacity={1}
                                 />
-                        </View>
+                        </View> */}
                         {/* ====== END POPULAR PRODUCT ====== */}
 
                         {/* ====== START RECOMENDED PRODUCT ====== */}
-                        <View style={{paddingLeft: 15,backgroundColor:"#ffffff", paddingTop: 30, paddingBottom: 30}}>
+                        {/* <View style={{paddingLeft: 15,backgroundColor:"#ffffff", paddingTop: 30, paddingBottom: 30}}>
                             <Text style={{marginBottom:15,fontWeight:'700',color:Variable.colorTitle,fontSize:18}}>Recomendation</Text>
                             <Carousel
                                 activeSlideAlignment="start"
@@ -232,7 +230,7 @@ class HomeComponent extends React.Component {
                                 inactiveSlideScale={1}
                                 inactiveSlideOpacity={1}
                                 />
-                        </View>
+                        </View> */}
                         {/* ====== END RECOMENDED PRODUCT ====== */}
                     </ScrollView>
                 </View>
