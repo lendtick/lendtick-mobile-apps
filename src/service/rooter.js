@@ -1,6 +1,6 @@
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator,createSwitchNavigator } from 'react-navigation';
 import { Variable } from '@styles';
 
 // Balance
@@ -30,16 +30,21 @@ import Register2Component from '../component/login/register.component';
 import ForgotPassComponent from '../component/login/forgot-password.component';
 import ForgotPassSuccessComponent from '../component/login/forgot-pass-success.component';
 
-const Login = createStackNavigator({
-    Login: LoginComponent,
+const LoginUser = createStackNavigator({
+    LoginUser: LoginComponent,
     LoginFirst: LoginFirstComponent,
     LoginSecond: LoginSecondComponent,    
     GantiPass: GantiPassComponent,
     Register2: Register2Component,
     forgotPass: ForgotPassComponent,
     forgotPassSuccess: ForgotPassSuccessComponent,
+
+    Register: RegisterComponent,
+    Term: TermComponent,
+    Otp: OtpComponent,
+    RegisterSuccess: RegisterSuccessComponent
 },{
-    initialRouteName: 'Login',
+    initialRouteName: 'LoginUser',
     mode: 'modal'
 });
 
@@ -72,15 +77,15 @@ import TermComponent from '../component/register/terms.component';
 import OtpComponent from '../component/register/otp.component';
 import RegisterSuccessComponent from '../component/register/register-success.component';
 
-const Register = createStackNavigator({
-    Register: RegisterComponent,
-    Term: TermComponent,
-    Otp: OtpComponent,
-    RegisterSuccess: RegisterSuccessComponent
-},{
-    initialRouteName: 'Register',
-    mode: 'modal'
-});
+// const Register = createStackNavigator({
+//     Register: RegisterComponent,
+//     Term: TermComponent,
+//     Otp: OtpComponent,
+//     RegisterSuccess: RegisterSuccessComponent
+// },{
+//     initialRouteName: 'Register',
+//     mode: 'modal'
+// });
 
 
 // Personal
@@ -92,8 +97,8 @@ import AddressComponent from '../component/personal/address/address.component';
 import AddressDetailComponent from '../component/personal/address/address-detail.component';
 import AddressFormComponent from '../component/personal/address/address-form.component';
 
-const Personal = createStackNavigator({
-    main: personalComponent,
+const PersonalUser = createStackNavigator({
+    PersonalUser: personalComponent,
     FAQ: FAQComponent,
     About: AbotComponent,
     QRCode: QRCodeComponent,
@@ -108,7 +113,7 @@ const Personal = createStackNavigator({
     Loan: LoanComponent,
     MiddleLoan: MiddleLoanComponent
 },{
-    initialRouteName: 'main',
+    initialRouteName: 'PersonalUser',
     mode: 'modal'
 });
 
@@ -176,13 +181,24 @@ const Biller = createStackNavigator({
     mode: 'modal'
 });
 
+// Authentication
+// ========================== //
+import Auth from './auth';
+const User = createSwitchNavigator({
+    main: Auth,
+    Login: LoginUser,
+    Personal: PersonalUser,
+},{
+    initialRouteName: 'main',
+});
+
 // Set Tab Rootind
 // ========================== //
 const tabsRoot = createBottomTabNavigator({
     Home: Home,
     Service: Biller,
     Credit: Credit,
-    User: Personal,    
+    User: User,    
 },{
     navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) => {
@@ -220,8 +236,8 @@ const tabsRoot = createBottomTabNavigator({
 export const rooter = {
     Init: InitComponent,
     Walkthrough: walkThroughComponent,
-    Login: Login,
-    Register: Register,
+    // Login: Login,
+    // Register: Register,
     Payment: Payment,
     Dashboard: {
         screen: tabsRoot,

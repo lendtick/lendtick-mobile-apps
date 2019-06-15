@@ -264,7 +264,7 @@ class Register2Component extends Component {
         loginService.postRegister(data).then(res =>{
             if(res.status){
                 AsyncStorage.setItem('isNew', '0');
-                this.props.navigation.navigate('User');
+                this.props.navigation.navigate('Personal');
             }else{
                 this.setState({
                     isFailed: true,

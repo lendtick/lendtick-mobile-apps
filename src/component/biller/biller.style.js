@@ -28,5 +28,7 @@ export const styles = StyleSheet.create({
         paddingRight: 7.5,
         marginBottom: 15
     },
-    
+    itemProductDisable:{
+        opacity: 0.6
+    }
 });

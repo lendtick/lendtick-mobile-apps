@@ -30,19 +30,21 @@ class ListrikConfirmation extends React.Component {
             biller_name: this.props.listrik.data.title,
             bill_details: this.props.listrik.data.descriptions,
             quantity: 1,
-            sell_price: 1,
-            base_price: 1,
-            product_details: 1,
+            sell_price: this.props.listrik.data.total,
+            base_price: this.props.listrik.data.total,
+            product_details: this.props.listrik.token+ '.Postpaid.' + this.props.listrik.data.providerName,
             additional_data_1: "Oke",
             additional_data_2: "Oke",
             additional_data_3: "Oke",
-            totalPayment: this.props.listrik.data.total
+            totalPayment: this.props.listrik.data.total,
+            inquiry_id: this.props.listrik.data.inquiryId,
+            account_number: this.props.listrik.token,
         };
         let carts = this.props.cart.data;
         carts.push(cart);
         this.props.addToCart(carts);
 
-        let totalPayment = this.props.cart.totalPayment + this.props.listrik.data.total;
+        let totalPayment = this.props.listrik.data.total;
         this.props.updatePayment(totalPayment);
         this.props.navigation.navigate(e);
     }
@@ -65,8 +67,8 @@ class ListrikConfirmation extends React.Component {
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.data.descriptions}</Text>
                         </View>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.singleText,{marginBottom:5}]}>Token</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.data.token}</Text>
+                            <Text style={[Typography.singleText,{marginBottom:5}]}>ID Pelanggan</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.token}</Text>
                         </View>
                         <View>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Harga</Text>
@@ -79,8 +81,8 @@ class ListrikConfirmation extends React.Component {
                         <View style={{marginTop:30}}/>
                         <ButtonComponent type="primary" text="Selesaikan Pembayaran" onClick={()=> this.submitOrder('Payment')}/>
                         <View style={{marginTop:15}}/>
-                        <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
-                        <View style={{marginTop:15}}/>
+                        {/* <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
+                        <View style={{marginTop:15}}/> */}
                     </View>
                 </ScrollView>
             </View>

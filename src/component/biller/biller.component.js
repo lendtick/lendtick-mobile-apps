@@ -58,12 +58,12 @@ class BillerComponent extends React.Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
+                                <Col style={[styles.itemProduct,styles.itemProductDisable]}>
+                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
                                     </TouchableHighlight>
                                 </Col>
-                                <Col style={styles.itemProduct}>
+                                {/* <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item5.png')} />
                                     </TouchableHighlight>
@@ -72,12 +72,12 @@ class BillerComponent extends React.Component {
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item7.png')} />
                                     </TouchableHighlight>
-                                </Col>
+                                </Col> */}
                             </Row>
                             <Row>
-                                <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
+                                {/* <Col style={styles.itemProduct}>
+                                    <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
                                     </TouchableHighlight>
                                 </Col>
                                 <Col style={styles.itemProduct}>
@@ -89,7 +89,7 @@ class BillerComponent extends React.Component {
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item10.png')} />
                                     </TouchableHighlight>
-                                </Col>
+                                </Col> */}
                             </Row>
                         </Grid>
                         </View>

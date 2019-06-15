@@ -30,10 +30,11 @@ class PulsaCompnent extends React.Component {
             providerImage: null,
             billersIdPulsa: null,
             billdetails:[],
-            loadingBiller: true,
+            loadingBiller: false,
             totalAmount: "Rp 0",
             selectedBiller: null,
-            timeout: null
+            timeout: null,
+            inquiryId: null
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -104,12 +105,14 @@ class PulsaCompnent extends React.Component {
             if(res.data){
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
-                    x['total'] = Number(x.totalamount) - Number(x.adminfee)
+                    x['total'] = Number(x.totalamount) + Number(x.adminfee)
                     x['rp_total'] = "Rp " + x['total'].toLocaleString()
+                    x['paket_pulsa'] = x['body'][0].replace('DENOM           : ','')
                 });
                 this.setState({
                     billdetails: billdetails,
                     loadingBiller: false,
+                    inquiryId: res.data.response.inquiryid
                 });
                 if(billdetails.length) this.selectBiller(billdetails[0]);
             }else{
@@ -123,13 +126,14 @@ class PulsaCompnent extends React.Component {
 
     selectBiller(e){
         this.setState({
-            totalAmount: e.rp_total,
+            totalAmount: e ? e.rp_total : "Rp 0",
             selectedBiller: e
         });
         let provider = {
             providerName: this.state.providerName, 
             providerImage: this.state.providerImage,
-            billersIdPulsa: this.state.billersIdPulsa
+            billersIdPulsa: this.state.billersIdPulsa,
+            inquiryId: this.state.inquiryId
         };
         this.props.updateDataPulsa(_.merge(e,provider));
         this.props.updatePhonePulsa(this.state.phoneNumber);
@@ -170,7 +174,7 @@ class PulsaCompnent extends React.Component {
                         <View style={styles.wrapSelectPhoneLink}>
                             <Grid>
                                 <Col style={{borderRightWidth:1,borderColor:'#efefef'}}>
-                                    <TouchableHighlight onPress={()=> this.setMyNumber()} underlayColor="transparent">
+                                    <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.setMyNumber()} underlayColor="transparent">
                                         <Text style={styles.phoneLink}>My Number</Text>
                                     </TouchableHighlight>
                                 </Col>
@@ -202,9 +206,11 @@ class PulsaCompnent extends React.Component {
                             <View>
                                 {this.state.billdetails.map((item,i)=>(
                                     <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
-                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
-                                            <Text style={styles.titleWhiteBox}>{item.title}</Text>
-                                            <Text style={styles.descWhiteBox}>{item.descriptions}</Text>
+                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null, {flex: 1, flexDirection: 'row'}]}>
+                                            <Grid>
+                                                <Col><Text style={Typography.singleText}>{item.paket_pulsa}</Text></Col>
+                                                <Col><Text style={[styles.titleWhiteBox,{textAlign:'right'}]}>{item.rp_total}</Text></Col>
+                                            </Grid>
                                         </View>
                                     </TouchableHighlight>
                                 ))}
@@ -219,8 +225,8 @@ class PulsaCompnent extends React.Component {
                 {this.state.totalAmount != 'Rp 0' ? 
                 <FooterButton 
                     text={this.state.totalAmount} 
-                    textButton="Continue" 
-                    onClick={()=> this.props.navigation.navigate('PulsaConfirmation')}/>
+                    textButton="Selanjutnya" 
+                    onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('PulsaConfirmation')}/>
                 : null}
                 {/* ====== END FOOTER ====== */}
 

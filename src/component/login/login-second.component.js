@@ -18,7 +18,7 @@ class LoginSecondComponent extends Component {
     }
 
     onSubmit(){
-        this.props.navigation.navigate('User');
+        this.props.navigation.navigate('Personal');
     }
 
     _onFinishCheckingCode(e){

@@ -99,7 +99,7 @@ class ProductDetailComponent extends React.Component {
                 </ScrollView>   
 
                 {/* ====== START FOOTER ====== */}
-                <FooterButton text="Rp 100.000" textButton="Continue" onClick={()=> this.props.navigation.navigate('ProductConfirm')}/>
+                <FooterButton text="Rp 100.000" textButton="Selanjutnya" onClick={()=> this.props.navigation.navigate('ProductConfirm')}/>
                 {/* ====== END FOOTER ====== */}
             </View>
         );

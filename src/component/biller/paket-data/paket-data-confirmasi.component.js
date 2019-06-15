@@ -30,13 +30,15 @@ class PaketDataConfirmation extends React.Component {
             biller_name: this.props.paketData.data.title,
             bill_details: this.props.paketData.data.descriptions,
             quantity: 1,
-            sell_price: 1,
-            base_price: 1,
-            product_details: 1,
+            sell_price: this.props.paketData.data.total,
+            base_price: this.props.paketData.data.total,
+            product_details: 'PaketData.' + this.props.paketData.data.providerName,
             additional_data_1: "Oke",
             additional_data_2: "Oke",
             additional_data_3: "Oke",
-            totalPayment: this.props.paketData.data.total
+            totalPayment: this.props.paketData.data.total,
+            inquiry_id: this.props.paketData.data.inquiryId,
+            account_number: this.props.paketData.phoneNumber,
         };
         let carts = this.props.cart.data;
         carts.push(cart);
@@ -78,8 +80,8 @@ class PaketDataConfirmation extends React.Component {
                         <View style={{marginTop:30}}/>
                         <ButtonComponent type="primary" text="Selesaikan Pembayaran" onClick={()=> this.submitOrder('Payment')}/>
                         <View style={{marginTop:15}}/>
-                        <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
-                        <View style={{marginTop:15}}/>
+                        {/* <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
+                        <View style={{marginTop:15}}/> */}
                     </View>
                 </ScrollView>
             </View>

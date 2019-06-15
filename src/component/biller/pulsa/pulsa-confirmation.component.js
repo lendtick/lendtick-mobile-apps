@@ -28,13 +28,15 @@ class PulsaConfirmation extends React.Component {
             biller_name: this.props.pulsa.data.title,
             bill_details: this.props.pulsa.data.descriptions,
             quantity: 1,
-            sell_price: 1,
-            base_price: 1,
-            product_details: 1,
+            sell_price: this.props.pulsa.data.total,
+            base_price: this.props.pulsa.data.total,
+            product_details: 'Pulsa.' + this.props.pulsa.data.providerName,
             additional_data_1: "Oke",
             additional_data_2: "Oke",
             additional_data_3: "Oke",
-            totalPayment: this.props.pulsa.data.total
+            totalPayment: this.props.pulsa.data.total,
+            inquiry_id: this.props.pulsa.data.inquiryId,
+            account_number: this.props.pulsa.phoneNumber,
         };
         let carts = this.props.cart.data;
         carts.push(cart);
@@ -76,8 +78,8 @@ class PulsaConfirmation extends React.Component {
                         <View style={{marginTop:30}}/>
                         <ButtonComponent type="primary" text="Selesaikan Pembayaran" onClick={()=> this.submitOrder('Payment')}/>
                         <View style={{marginTop:15}}/>
-                        <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
-                        <View style={{marginTop:15}}/>
+                        {/* <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
+                        <View style={{marginTop:15}}/> */}
                     </View>
                   
                 </ScrollView>

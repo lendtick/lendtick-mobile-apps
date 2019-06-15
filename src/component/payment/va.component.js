@@ -15,43 +15,7 @@ class VAComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            isSubmit: false
-        };
-    }
-    
-    createOrder(){
-        let obj = {
-            total_billing: this.props.cart.totalPayment,
-            id_workflow_status: "ODSTS01",
-            id_user_company: 71,
-            id_delivery_type: "DLV001",
-            name_delivery_type: "Direct",
-            cart: this.props.cart.data,
-            payment: [
-                {
-                    id_payment_type: "PAY003",
-                    total_payment: this.props.cart.totalPayment,
-                    identifier_number: 11
-                }
-            ]
-        };
-
-        this.setState({isSubmit: true});
-        paymentService.postOrder(obj).then(res =>{
-            this.setState({isSubmit: false});
-            this.props.addToCart([]);
-            this.props.updatePayment(0);
-            this.props.navigation.navigate('FinishPayment');
-        }, err =>{
-            this.setState({isSubmit: false});
-            Alert.alert(
-                'Error',
-                'Pastikan koneksi tersambung, silakan coba lagi',
-                [{text: 'OK', onPress: () => this.submitLoan()}],
-                {cancelable: false},
-            );
-        })
+        this.state = {};
     }
 
     render() { 
@@ -65,7 +29,7 @@ class VAComponent extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>No VA</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>8889991710103</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>{this.props.cart.vanumber}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
@@ -95,7 +59,10 @@ class VAComponent extends React.Component {
                         ]}/>
 
                         <View style={{marginTop:15, marginBottom:15}}>
-                            <ButtonComponent type="primary" text="Bayar" onClick={()=> this.createOrder()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
+                            <ButtonComponent type="primary" text="Selesai" onClick={()=>{
+                                this.props.navigation.navigate('Home'); 
+                                this.props.updatePayment(0);
+                            }}/>
                         </View>
                     </View>
                 </ScrollView>
@@ -112,9 +79,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-        addToCart: (e) => dispatch({type: 'UPDATE_CART', data: e}),
-        updatePayment: (e) => dispatch({type: 'UPDATE_TOTAL_PAYMENT', totalPayment: e})
-	}
+        updatePayment: (e) => dispatch({type: 'UPDATE_TOTAL_PAYMENT', totalPayment: e}),
+    }
 }
 
 export default connect(

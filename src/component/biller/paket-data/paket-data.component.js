@@ -31,11 +31,12 @@ class PaketDataComponent extends React.Component {
             providerName: null,
             providerImage: null,
             billdetails:[],
-            loadingBiller: true,
+            loadingBiller: false,
             totalAmount: "Rp 0",
             selectedBiller: null,
             timeout: null,
-            billersIdPaketData: null
+            billersIdPaketData: null,
+            inquiryId: null
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -107,12 +108,14 @@ class PaketDataComponent extends React.Component {
             if(res.data){
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
-                    x['total'] = Number(x.totalamount) - Number(x.adminfee)
+                    x['total'] = Number(x.totalamount) + Number(x.adminfee)
                     x['rp_total'] = "Rp " + x['total'].toLocaleString()
+                    x['rp_totalamount'] = "Rp " + Number(x['totalamount']).toLocaleString()
                 });
                 this.setState({
                     billdetails: billdetails,
                     loadingBiller: false,
+                    inquiryId: res.data.response.inquiryid
                 });
                 if(billdetails.length) this.selectBiller(billdetails[0]);
             }else{
@@ -132,7 +135,8 @@ class PaketDataComponent extends React.Component {
         let provider = {
             providerName: this.state.providerName, 
             providerImage: this.state.providerImage,
-            billersIdPaketData: this.state.billersIdPaketData
+            billersIdPaketData: this.state.billersIdPaketData,
+            inquiryId: this.state.inquiryId
         };
         this.props.updateDataPaketDate(_.merge(e,provider));
         this.props.updatePhonePaketDate(this.state.phoneNumber);
@@ -174,7 +178,7 @@ class PaketDataComponent extends React.Component {
                         <View style={styles.wrapSelectPhoneLink}>
                             <Grid>
                                 <Col style={{borderRightWidth:1,borderColor:'#efefef'}}>
-                                    <TouchableHighlight onPress={()=> this.setMyNumber()} underlayColor="transparent">
+                                    <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.setMyNumber()} underlayColor="transparent">
                                         <Text style={styles.phoneLink}>My Number</Text>
                                     </TouchableHighlight>
                                 </Col>
@@ -208,7 +212,6 @@ class PaketDataComponent extends React.Component {
                                     <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
                                         <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
                                             <Text style={styles.titleWhiteBox}>{item.title}</Text>
-                                            <Text style={styles.descWhiteBox}>{item.descriptions}</Text>
                                         </View>
                                     </TouchableHighlight>
                                 ))}
@@ -221,7 +224,7 @@ class PaketDataComponent extends React.Component {
 
                 {/* ====== START FOOTER ====== */}
                 {this.state.totalAmount != 'Rp 0' ? 
-                    <FooterButton text={this.state.totalAmount} textButton="Continue" onClick={()=> this.props.navigation.navigate('PaketDataConfirmation')}/>
+                    <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('PaketDataConfirmation')}/>
                 : null}
                 {/* ====== END FOOTER ====== */}
 

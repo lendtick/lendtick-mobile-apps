@@ -2,7 +2,8 @@
 // ======================= //
 export const cartReducer = (state = {
     data: [],
-    totalPayment: 0,
+	totalPayment: 0,
+	vanumber: 0,
 }, action) => {
 	switch(action.type){
 		case "UPDATE_CART" :
@@ -15,6 +16,12 @@ export const cartReducer = (state = {
 			state = {
 				...state,
 				totalPayment: action.totalPayment
+			}
+		break;
+		case "UPDATE_VA_NUMBER" :
+			state = {
+				...state,
+				vanumber: action.vanumber
 			}
 		break;
 	}

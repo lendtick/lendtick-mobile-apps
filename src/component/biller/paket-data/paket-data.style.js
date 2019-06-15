@@ -97,26 +97,25 @@ export const styles = StyleSheet.create({
     whiteBox:{
         borderWidth: 1,
         borderColor: '#efefef',
-        borderRadius: Variable.borderRadius,
+        borderRadius: 2,
         backgroundColor: '#ffffff',
         padding: 20,
-        marginBottom: 15,
+        marginBottom: 5,
         ...Variable.boxShadow
     },
     whiteBoxActive:{
         borderWidth: 1,
         borderStyle: 'dashed',
         borderColor: Variable.colorPrimary,
-        borderRadius: Variable.borderRadius,
+        borderRadius: 2,
         backgroundColor: '#ffffff',
         padding: 20,
-        marginBottom: 15,
+        marginBottom: 5,
         ...Variable.boxShadow
     },
     titleWhiteBox:{
         fontWeight: '700',
         color: Variable.colorTitle,
-        marginBottom: 5,
         fontSize: 14
     },
     descWhiteBox:{

@@ -43,11 +43,14 @@ class personalComponent extends React.Component {
     }
 
     componentDidMount(){
-        try{
-            this.fetchUser();
-            this.fetchAddress();
-        }catch(err){}
-            
+        if(this.props.personal.data == null){
+            this.props.navigation.navigate('Login');
+        }else{
+            try{
+                this.fetchUser();
+                this.fetchAddress();
+            }catch(err){}
+        }   
     }
 
     logout(){

@@ -91,11 +91,6 @@ class HomeComponent extends React.Component {
 
                         {/* Start Wrap Service */}
                         <View style={styles.wrapService}>
-                            {this.state.loading ? 
-                            <View style={{padding:30}}>  
-                                <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
-                            </View>
-                            : 
                             <Grid>
                                 <Row>
                                     <Col style={styles.itemProduct}>
@@ -132,7 +127,6 @@ class HomeComponent extends React.Component {
                                     </Col>
                                 </Row> */}
                             </Grid>
-                            }
                          </View>
                         {/* End Wrap Service */}
 

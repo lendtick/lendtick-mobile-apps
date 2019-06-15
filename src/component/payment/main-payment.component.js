@@ -1,10 +1,12 @@
 import React from 'react';
-import { ScrollView,View,Text,TouchableHighlight, Dimensions } from 'react-native';
+import { ScrollView,View,Text,TouchableHighlight, Dimensions, Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 import Feather from 'react-native-vector-icons/Feather';
 import { ButtonComponent,Modal } from '@directives';
 import { Main,Variable,Typography } from '@styles';
+
+import paymentService from './payment.service';
 
 class MainPaymentComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -16,25 +18,71 @@ class MainPaymentComponent extends React.Component {
         super(props);
         this.state = {
             selectType: 'va',
-            popUpOrder: false
+            popUpOrder: false,
+            idPaymentType: null
         };
     }
 
     gotoPayment(e){
         switch(e){
             case "va" :
-                this.props.navigation.navigate('VAPayment');
+                this.setState({idPaymentType: "PAY003"});
+                this.createOrder();
             break;
             case "middleloan" :
-                this.props.navigation.navigate('MiddlePayment');
+                this.setState({idPaymentType: "PAY003"});
             break;
             case "microloan" :
                 this.props.navigation.navigate('MicroloanPayment');
             break;
             case "split" :
-                this.props.navigation.navigate('SplitPayment');
+                this.setState({idPaymentType: "PAY003"});
             break;
         }
+    }
+
+    createOrder(){
+        let obj = {
+            total_billing: this.props.cart.totalPayment,
+            id_workflow_status: "ODSTS01",
+            id_user_company: 71,
+            id_delivery_type: "DLV001",
+            name_delivery_type: "Direct",
+            cart: this.props.cart.data,
+            payment: [
+                {
+                    id_payment_type: "PAY003",
+                    total_payment: this.props.cart.totalPayment,
+                    identifier_number: 11
+                }
+            ]
+        };
+
+        this.setState({isSubmit: true});
+        paymentService.postOrder(obj).then(res =>{
+            this.setState({isSubmit: false});
+            this.props.addToCart([]);
+            this.props.updateVA(res.data.va_number);
+            switch(this.state.selectType){
+                case "va" :
+                    this.props.navigation.navigate('VAPayment');
+                break;
+                case "middleloan" :
+                    this.props.navigation.navigate('MiddlePayment');
+                break;
+                case "split" :
+                    this.props.navigation.navigate('SplitPayment');
+                break;
+            }
+        }, err =>{
+            this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.createOrder()}],
+                {cancelable: true},
+            );
+        })
     }
 
     render() { 
@@ -42,16 +90,13 @@ class MainPaymentComponent extends React.Component {
             <View style={{height:'100%',backgroundColor:'white'}}>
                 <ScrollView>
                     {/* ======= Start Information ========= */}
-                    <View style={Main.container}>
-                        <Text style={[Typography.singleTitle,{marginTop:15}]}>Informasi</Text>
-                    </View>
-                    <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
+                    <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1,marginBottom:15, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Tagihan</Text></Col>
                             <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
                     </View>
-                    <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
+                    {/* <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
                             <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
@@ -62,7 +107,7 @@ class MainPaymentComponent extends React.Component {
                             <Col><Text style={Typography.singleText}>Total Bayar</Text></Col>
                             <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
                         </Grid>
-                    </View>
+                    </View> */}
                     <View style={Main.container}>
                         <ButtonComponent type="primary" text="Produk yang dibeli" onClick={()=> this.setState({popUpOrder: true})} disabled={this.props.cart.totalPayment == 0}/>
                     </View>
@@ -79,32 +124,32 @@ class MainPaymentComponent extends React.Component {
                             </View>
                         </TouchableHighlight>
 
-                        <TouchableHighlight onPress={()=> this.setState({selectType: 'middleloan'})} underlayColor="transparent">
+                        {/* <TouchableHighlight onPress={()=> this.setState({selectType: 'middleloan'})} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderColor:'#efefef'}}>
                                 <Feather name={this.state.selectType == 'middleloan' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
                                 <Text style={[Typography.singleText,this.state.selectType == 'middleloan' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Middleloan</Text>
                             </View>
-                        </TouchableHighlight>
+                        </TouchableHighlight> */}
 
                         <TouchableHighlight onPress={()=> this.setState({selectType: 'microloan'})} underlayColor="transparent">
-                            <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderTopWidth:0,borderColor:'#efefef'}}>
+                            <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderColor:'#efefef'}}>
                                 <Feather name={this.state.selectType == 'microloan' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
                                 <Text style={[Typography.singleText,this.state.selectType == 'microloan' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Microloan</Text>
                             </View>
                         </TouchableHighlight>
 
-                        <TouchableHighlight onPress={()=> this.setState({selectType: 'split'})} underlayColor="transparent">
+                        {/* <TouchableHighlight onPress={()=> this.setState({selectType: 'split'})} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderTopWidth:0,borderBottomWidth:1,borderColor:'#efefef'}}>
                                 <Feather name={this.state.selectType == 'split' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
                                 <Text style={[Typography.singleText,this.state.selectType == 'split' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Split (Middleloan & VA)</Text>
                             </View>
-                        </TouchableHighlight>
+                        </TouchableHighlight> */}
 
                         <View style={{marginTop:15, marginBottom:15}}>
-                            <ButtonComponent type="primary" text="Pilih" onClick={()=> this.gotoPayment(this.state.selectType)} disabled={this.props.cart.totalPayment == 0}/>
+                            <ButtonComponent type="primary" text="Pilih" onClick={()=> this.gotoPayment(this.state.selectType)} isSubmit={this.state.isSubmit} disabled={this.props.cart.totalPayment == 0 || this.state.isSubmit}/>
                             <View style={{marginTop:15}}/>
-                            <ButtonComponent type="default" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')}/>
-                            <View style={{marginTop:15}}/>
+                            {/* <ButtonComponent type="default" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')}/>
+                            <View style={{marginTop:15}}/> */}
                         </View>
                     </View>
                     {/* ======= End List Payment ========= */}
@@ -139,7 +184,10 @@ const mapStateToProps = (state) => {
 	}
 }
 const mapDispatchToProps = (dispatch) => {
-	return {}
+	return {
+        addToCart: (e) => dispatch({type: 'UPDATE_CART', data: e}),
+        updateVA: (e) => dispatch({type: 'UPDATE_VA_NUMBER', vanumber: e})
+	}
 }
 
 export default connect(

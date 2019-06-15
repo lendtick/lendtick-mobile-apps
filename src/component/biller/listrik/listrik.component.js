@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import watch from 'redux-watch';
 import { store } from '@services/store';
 import * as _ from 'lodash';
-import { FooterButton,Modal,ButtonComponent,InputComponent } from '@directives';
+import { FooterButton,Modal,ButtonComponent,InputComponent,AlertBox } from '@directives';
 import { Main,Typography,Variable } from '@styles';
 import { styles } from './listrik.style';
 
@@ -20,7 +20,7 @@ class ListrikComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            token:null,
+            token: '',
             selectedLink: 'token',
             isSubmitToken: false,
             billdetails: [],
@@ -28,6 +28,8 @@ class ListrikComponent extends React.Component {
             selectedBiller: null,
             providerName: null,
             providerImage: null,
+            isSingle: false,
+            inquiryId: null
         };
     }
 
@@ -36,22 +38,27 @@ class ListrikComponent extends React.Component {
     fetchBiller(){
         if(this.state.token){
             let obj ={
-                billerid: this.state.selectedLink === 'token' ? '9950101' : '9950102',
+                billerid: this.state.selectedLink === 'token' ? '9950102' : '9950101',
                 accountnumber: this.state.token.split(' ').join('')
             };
             this.setState({isSubmitToken: true});
             billerService.postBillerInquiry(obj).then(res =>{
-                console.log(res);
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
-                    x['total'] = Number(x.totalamount) - Number(x.adminfee)
-                    x['rp_total'] = "Rp " + x['total'].toLocaleString()
+                    let totalAmountTagihan = Number(x.totalamount) + Number(x.adminfee);
+                    x['total'] = this.state.selectedLink === 'token' ? Number(x.totalamount) : Number(x.totalamount) + Number(x.adminfee);
+                    x['rp_total'] = this.state.selectedLink === 'token' ? "Rp " + Number(x['totalamount']).toLocaleString() : "Rp " + totalAmountTagihan.toLocaleString();
+
+                    let totalAmount = Number(x.totalamount) - Number(x.adminfee);
+                    x['rp_totalamount'] = "Rp " + totalAmount.toLocaleString()
                 });
                 this.setState({
                     billdetails: billdetails,
                     isSubmitToken: false,
                     providerName: res.data.response.billername,
                     providerImage: null,
+                    inquiryId: res.data.response.inquiryid,
+                    isSingle: this.state.selectedLink === 'token' ? false : true,
                 });
                 if(billdetails.length) this.selectBiller(billdetails[0]);
             });
@@ -66,7 +73,8 @@ class ListrikComponent extends React.Component {
         let provider = {
             providerName: this.state.providerName, 
             providerImage: this.state.providerImage,
-            billersId: this.state.selectedLink === 'token' ? '9950101' : '9950102'
+            inquiryId: this.state.inquiryId,
+            billersId: this.state.selectedLink === 'token' ? '9950102' : '9950101'
         };
         this.props.updateDataListrik(_.merge(e,provider));
         this.props.updateToken(this.state.token);
@@ -79,22 +87,22 @@ class ListrikComponent extends React.Component {
                     <Grid>
                         <Col style={{borderRightWidth:1,borderColor:'#efefef'}}>
                             <TouchableHighlight onPress={()=> {
-                                this.setState({selectedLink: 'tagihan'});
-                                setTimeout(()=>{
-                                    this.fetchBiller();
-                                }, 500);
-                            }} underlayColor="transparent">
-                                <Text style={this.state.selectedLink == 'tagihan' ? styles.itemLinkActive : styles.itemLink}>Tagihan Listrik</Text>
-                            </TouchableHighlight>
-                        </Col>
-                        <Col>
-                            <TouchableHighlight onPress={()=> {
                                 this.setState({selectedLink: 'token'});
                                 setTimeout(()=>{
                                     this.fetchBiller();
                                 }, 500);
                             }} underlayColor="transparent">
                                 <Text style={this.state.selectedLink == 'token' ? styles.itemLinkActive : styles.itemLink}>Token Listrik</Text>
+                            </TouchableHighlight>
+                        </Col>
+                        <Col>
+                            <TouchableHighlight onPress={()=> {
+                                this.setState({selectedLink: 'tagihan'});
+                                setTimeout(()=>{
+                                    this.fetchBiller();
+                                }, 500);
+                            }} underlayColor="transparent">
+                                <Text style={this.state.selectedLink == 'tagihan' ? styles.itemLinkActive : styles.itemLink}>Tagihan Listrik</Text>
                             </TouchableHighlight>
                         </Col>
                     </Grid>
@@ -108,7 +116,7 @@ class ListrikComponent extends React.Component {
                         placeholder="Masukan nomor token"
                         value={this.state.token}
                         onChange={(token) => this.setState({token})}/>
-                    <ButtonComponent type="primary" text="Submit Token" onClick={()=> this.fetchBiller()} disabled={this.state.isSubmitToken} isSubmit={this.state.isSubmitToken} />
+                    <ButtonComponent type="primary" text={this.state.selectedLink === 'token' ? 'Cari' : 'Cek Tagihan'} onClick={()=> this.fetchBiller()} disabled={this.state.isSubmitToken || this.state.token == ''} isSubmit={this.state.isSubmitToken} />
                 </View>
                 <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
 
@@ -123,19 +131,47 @@ class ListrikComponent extends React.Component {
                         {this.state.billdetails.map((item,i)=>(
                             <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
                                 <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
-                                    <Text style={styles.titleWhiteBox}>{item.title}</Text>
-                                    <Text style={styles.descWhiteBox}>{item.descriptions}</Text>
+                                    {this.state.isSingle ? 
+                                        <View>
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[0]}</Text> 
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[1]}</Text> 
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[2]}</Text> 
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[3]}</Text> 
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[4]}</Text> 
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[5]}</Text> 
+                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[6]}</Text> 
+                                        </View>
+                                    : 
+                                        <Text style={styles.titleWhiteBox}>{item.rp_totalamount}</Text> 
+                                    }
                                 </View>
                             </TouchableHighlight>
                         ))}
                     </View>
                     }
+
+                    <View style={[Main.container,{paddingTop:15,paddingBottom:15}]}>
+                        {this.state.selectedLink === 'token' ?
+                        <AlertBox type="info" text={[
+                            'Informasi kode token yang Anda bayar akan dikirimkan maksimal 2x24 jam. ',
+                            'Pembelian token listrik tidak dapat dilakukan pada jam 23:00-00:59 WIB.',
+                        ]}/>
+                        :
+                        <AlertBox type="info" text={[
+                            'Jatuh tempo pembayaran tagihan listrik adalah tanggal 20 di setiap bulannya. ',
+                            'Pembayaran tagihan listrik tidak dapat dilakukan pada pukul 23.45-00.30 WIB sesuai dengan ketentuan dari pihak PLN',
+                            'Proses verifikasi pembayaran membutuhkan waktu maksimum 2x24 jam ',
+                            'Total tagihan yang tertera sudah termasuk denda (bila ada)'
+                        ]}/>
+                        }
+                    </View>
+
                 </ScrollView>
                 {/* ====== END LIST ====== */}
 
                 {/* ====== START FOOTER ====== */}
                 {this.state.totalAmount != 'Rp 0' ? 
-                    <FooterButton text={this.state.totalAmount} textButton="Continue" onClick={()=> this.props.navigation.navigate('ListrikConfirmation')}/>
+                    <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('ListrikConfirmation')}/>
                 : null}
                 {/* ====== END FOOTER ====== */}
 
