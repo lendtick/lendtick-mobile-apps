@@ -77,7 +77,7 @@ class LoginComponent extends Component {
 
                 switch(Number(res['data'].is_new_user)){
                     case 0 :
-                        this.props.navigation.navigate('Personal');
+                        this.props.navigation.navigate('PersonalUser');
                     break;
                     case 1 :
                         this.props.navigation.navigate('LoginFirst');

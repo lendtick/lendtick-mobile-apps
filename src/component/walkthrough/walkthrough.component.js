@@ -14,7 +14,7 @@ class walkThroughComponent extends Component {
 
     keepSign(){
         AsyncStorage.setItem('keeped', '1');
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('LoginUser');
     }
 
     render() {

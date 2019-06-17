@@ -44,7 +44,7 @@ class personalComponent extends React.Component {
 
     componentDidMount(){
         if(this.props.personal.data == null){
-            this.props.navigation.navigate('Login');
+            this.props.navigation.navigate('LoginUser');
         }else{
             try{
                 this.fetchUser();
@@ -57,7 +57,7 @@ class personalComponent extends React.Component {
         AsyncStorage.removeItem('token');
         AsyncStorage.removeItem('username');
         AsyncStorage.removeItem('isNew').then((result)=>{
-            this.props.navigation.navigate('Login');
+            this.props.navigation.navigate('LoginUser');
         });
     }
 

@@ -102,7 +102,7 @@ class CreditComponent extends React.Component {
                                 {x.map((item,i) => {
                                     if(i == 0){
                                         return (<Col style={{paddingRight:7.5}} key={i}>
-                                            <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('CreditDetail',{
+                                            <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.props.navigation.navigate('CreditDetail',{
                                                 id: item.id_loan_type,
                                                 name: item.name_loan_type
                                             })} underlayColor="transparent">
@@ -114,7 +114,7 @@ class CreditComponent extends React.Component {
                                         </Col>);
                                     }else{
                                         return (<Col style={{paddingRight:7.5}} key={i}>
-                                            <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('CreditDetail',{
+                                            <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.props.navigation.navigate('CreditDetail',{
                                                 id: item.id_loan_type,
                                                 name: item.name_loan_type
                                             })} underlayColor="transparent">

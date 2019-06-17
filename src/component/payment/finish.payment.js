@@ -17,7 +17,7 @@ class paymentFinishComponent extends Component {
     }
 
     onSubmit(){
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('LoginUser');
     }
 
     _onFinishCheckingCode(e){

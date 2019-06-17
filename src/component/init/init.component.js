@@ -40,7 +40,7 @@ class InitComponent extends React.Component {
                 AsyncStorage.getItem('keeped').then((e)=>{
                     if(e){
                         this.props.navigation.navigate('Home');
-                        // this.props.navigation.navigate('Login');
+                        // this.props.navigation.navigate('LoginUser');
                     }else{
                         this.props.navigation.navigate('Walkthrough');
                     }

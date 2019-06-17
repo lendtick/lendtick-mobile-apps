@@ -178,7 +178,7 @@ class PaketDataComponent extends React.Component {
                         <View style={styles.wrapSelectPhoneLink}>
                             <Grid>
                                 <Col style={{borderRightWidth:1,borderColor:'#efefef'}}>
-                                    <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.setMyNumber()} underlayColor="transparent">
+                                    <TouchableHighlight onPress={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.setMyNumber()} underlayColor="transparent">
                                         <Text style={styles.phoneLink}>My Number</Text>
                                     </TouchableHighlight>
                                 </Col>
@@ -224,7 +224,7 @@ class PaketDataComponent extends React.Component {
 
                 {/* ====== START FOOTER ====== */}
                 {this.state.totalAmount != 'Rp 0' ? 
-                    <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('PaketDataConfirmation')}/>
+                    <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.props.navigation.navigate('PaketDataConfirmation')}/>
                 : null}
                 {/* ====== END FOOTER ====== */}
 

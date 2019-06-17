@@ -262,7 +262,7 @@ class RegisterComponent extends Component {
                         </View>
 
                         <View style={{marginTop: 20, marginBottom: 30}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('Login')} underlayColor="transparent">
+                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('LoginUser')} underlayColor="transparent">
                                 <Text style={[Input.singleLink,{textAlign:'center'}]}>Sudah punya akun ?</Text>
                             </TouchableHighlight>
                         </View>

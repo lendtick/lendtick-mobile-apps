@@ -26,7 +26,7 @@ class GantiPassUserComponent extends Component {
         this.setState({isSubmit: true, isFailed: false});
         setTimeout(()=>{
             this.setState({isSubmit: false});
-            this.props.navigation.navigate('Personal');
+            this.props.navigation.navigate('PersonalUser');
         }, 3000);
     }
 

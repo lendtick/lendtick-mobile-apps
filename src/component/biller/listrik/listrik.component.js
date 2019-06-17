@@ -171,7 +171,7 @@ class ListrikComponent extends React.Component {
 
                 {/* ====== START FOOTER ====== */}
                 {this.state.totalAmount != 'Rp 0' ? 
-                    <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('ListrikConfirmation')}/>
+                    <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.props.navigation.navigate('ListrikConfirmation')}/>
                 : null}
                 {/* ====== END FOOTER ====== */}
 

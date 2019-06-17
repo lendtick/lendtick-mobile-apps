@@ -67,7 +67,7 @@ class ForgotPassComponent extends Component {
                         {this.state.isFailed ? <View style={{marginBottom: 15}}><AlertBox type="danger" text={this.state.message}/></View> : null}
                         
                         <View style={{marginBottom: 15}}>
-                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('Login')} underlayColor="transparent">
+                            <TouchableHighlight onPress={()=> this.props.navigation.navigate('LoginUser')} underlayColor="transparent">
                                 <Text style={[Input.singleLink,{textAlign:'center'}]}>Kembali</Text>
                             </TouchableHighlight>
                         </View>

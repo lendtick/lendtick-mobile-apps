@@ -10,7 +10,7 @@ class Auth extends React.Component {
 
     _bootstrapAsync = async () => {
         const checkUser = this.props.personal.data;
-        this.props.navigation.navigate(checkUser == null ? 'Login' : 'Personal');
+        this.props.navigation.navigate(checkUser == null ? 'LoginUser' : 'PersonalUser');
     };
 
     render() { return null; }

@@ -96,7 +96,7 @@ class GantiPassComponent extends Component {
                     PasswordCheck: null,
                 });
                 AsyncStorage.removeItem('isNew').then(()=>{
-                    this.props.navigation.navigate('Login');
+                    this.props.navigation.navigate('LoginUser');
                 });
             }else{
                 this.setState({isSubmit: false});
