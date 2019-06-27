@@ -50,7 +50,10 @@ class InputComponent extends Component {
             <View style={{position:'relative'}}>
                 <View style={[Input.wrapInput,{backgroundColor:this.props.disabled ? '#f8f8ff' : '#ffffff'}]}>
                     {this.props.label != null ? <Text style={Typography.label}>{this.props.label}</Text> : null}
-                    {this.props.showIcon ? <Feather name={this.props.iconName} size={18} color={this.props.iconColor} style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}/> : null}
+                    {this.props.showIcon ? 
+                        <TouchableHighlight onPress={this.props.onClickIcon} underlayColor="transparent" style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}>
+                            <Feather name={this.props.iconName} size={18} color={this.props.iconColor}/>
+                        </TouchableHighlight> : null}
                     {this.props.isDate ? 
 
                     <DatePicker
@@ -109,6 +112,7 @@ InputComponent.propTypes = {
     value: PropTypes.string,
     dateName: PropTypes.string,
     onChange: PropTypes.func,
+    onClickIcon: PropTypes.func,
     showIcon: PropTypes.bool,
     secureTextEntry: PropTypes.bool,
     isButton: PropTypes.bool,

@@ -2,8 +2,9 @@ import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
-import { Contacts } from 'expo';
+import { Contacts, Permissions } from 'expo';
 import * as _ from 'lodash';
+import * as accounting from 'accounting';
 import { store } from '@services/store';
 import watch from 'redux-watch';
 import { connect } from 'react-redux';
@@ -11,6 +12,13 @@ import { Main,Typography,Variable } from '@styles';
 import { FooterButton,Modal } from '@directives';
 import { styles } from './pulsa.style';
 import billerService from '../biller.service';
+
+async function checkAllowContact() {
+    const { status } = await Permissions.getAsync(Permissions.CONTACTS);
+    if (status === 'granted') {
+        return true;
+    }
+}
 
 class PulsaCompnent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -84,6 +92,10 @@ class PulsaCompnent extends React.Component {
     }
 
     browseContact = async() =>{
+        if(!checkAllowContact()){
+            Permissions.askAsync(Permissions.CONTACTS);
+        }
+        
         this.setState({loadingContact: true});
         const { data } = await Contacts.getContactsAsync();
         this.setState({
@@ -106,7 +118,7 @@ class PulsaCompnent extends React.Component {
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
                     x['total'] = Number(x.totalamount) + Number(x.adminfee)
-                    x['rp_total'] = "Rp " + x['total'].toLocaleString()
+                    x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
                     x['paket_pulsa'] = x['body'][0].replace('DENOM           : ','')
                 });
                 this.setState({

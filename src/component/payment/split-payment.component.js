@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Col,Grid } from "react-native-easy-grid";
 import { ButtonComponent,InputMask } from '@directives';
 import { Main,Variable,Typography } from '@styles';
+import * as accounting from 'accounting';
 
 class SplitPayment extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -77,7 +78,7 @@ class SplitPayment extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp  {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp  {accounting.formatMoney(this.props.cart.totalPayment, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View>
                     {/* ======= End Information ========= */}
@@ -93,7 +94,7 @@ class SplitPayment extends React.Component {
                                 this.setState({middleloanCount});
                                 this.calcSaldo(middleloanCount);
                             }}/>
-                        <Text style={[Typography.singleText,{marginTop:-10,marginBottom:15,fontSize:12}]}>Max : Rp {this.state.saldo.toLocaleString()}</Text>
+                        <Text style={[Typography.singleText,{marginTop:-10,marginBottom:15,fontSize:12}]}>Max : Rp {accounting.formatMoney(this.state.saldo, "", 0, ",", ",")}</Text>
 
                         <InputMask 
                             label="VA"

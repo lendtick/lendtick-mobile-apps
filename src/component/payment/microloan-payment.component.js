@@ -2,6 +2,7 @@ import React from 'react';
 import { View,Text,ScrollView,Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Col,Grid } from "react-native-easy-grid";
+import * as accounting from 'accounting';
 import { ButtonComponent,AlertBox } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 import paymentService from './payment.service';
@@ -114,19 +115,19 @@ class MicroloanPayment extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Saldo</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.state.saldo.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {accounting.formatMoney(this.state.saldo, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp -{this.props.cart.totalPayment.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp -{accounting.formatMoney(this.props.cart.totalPayment, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf',marginBottom:15}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Sisa Saldo</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.state.total.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {accounting.formatMoney(this.state.total, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View>
                     {/* ======= End Information ========= */}

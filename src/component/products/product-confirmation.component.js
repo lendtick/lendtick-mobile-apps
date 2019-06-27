@@ -73,7 +73,7 @@ class ProductConfirmationComponent extends React.Component {
                                 <Text style={{color:Variable.colorContent,marginTop:7}}>Total Price</Text>
                             </Col>
                             <Col>
-                                <Text style={[Typography.heading5,{textAlign:'right'}]}>Rp {(this.state.qty * this.state.price).toLocaleString()}</Text>
+                                <Text style={[Typography.heading5,{textAlign:'right'}]}>Rp {accounting.formatMoney((this.state.qty * this.state.price), "", 0, ",", ",")}</Text>
                             </Col>
                         </Grid>
 

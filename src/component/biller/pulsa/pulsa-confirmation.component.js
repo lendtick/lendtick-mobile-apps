@@ -18,7 +18,7 @@ class PulsaConfirmation extends React.Component {
 
     submitOrder(e){
         let cart = {
-            category_id: 11,
+            category_id: "CATBILLER",
             id_channel: "CHN0001",
             product_id: 11,
             product_name: this.props.pulsa.data.providerName,
@@ -27,6 +27,7 @@ class PulsaConfirmation extends React.Component {
             bill_id: 1,
             biller_name: this.props.pulsa.data.title,
             bill_details: this.props.pulsa.data.descriptions,
+            billertrx:1,
             quantity: 1,
             sell_price: this.props.pulsa.data.total,
             base_price: this.props.pulsa.data.total,
@@ -78,8 +79,6 @@ class PulsaConfirmation extends React.Component {
                         <View style={{marginTop:30}}/>
                         <ButtonComponent type="primary" text="Selesaikan Pembayaran" onClick={()=> this.submitOrder('Payment')}/>
                         <View style={{marginTop:15}}/>
-                        {/* <ButtonComponent type="default" text="Tambahkan ke Keranjang" onClick={()=> this.submitOrder('Home')}/>
-                        <View style={{marginTop:15}}/> */}
                     </View>
                   
                 </ScrollView>

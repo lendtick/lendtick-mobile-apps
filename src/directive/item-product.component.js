@@ -18,7 +18,7 @@ class ItemProduct extends React.Component {
                     </View>
                     <Text style={styles.title}>{this.props.title}</Text>
                     <Text style={styles.category}>{this.props.category}</Text>
-                    <Text style={styles.price}>Rp {this.props.price.toLocaleString()}</Text>
+                    <Text style={styles.price}>Rp {accounting.formatMoney(this.props.price, "", 0, ",", ",")}</Text>
                 </View>
             </TouchableHighlight>
         );

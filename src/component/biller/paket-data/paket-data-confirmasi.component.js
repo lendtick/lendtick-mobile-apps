@@ -20,13 +20,14 @@ class PaketDataConfirmation extends React.Component {
 
     submitOrder(e){
         let cart = {
-            category_id: 11,
+            category_id: "CATBILLER",
             id_channel: "CHN0001",
             product_id: 11,
             product_name: this.props.paketData.data.providerName,
             product_image_path: this.props.paketData.data.providerImage,
             biller_id: this.props.paketData.data.billersIdPaketData,
             bill_id: 1,
+            billertrx:1,
             biller_name: this.props.paketData.data.title,
             bill_details: this.props.paketData.data.descriptions,
             quantity: 1,

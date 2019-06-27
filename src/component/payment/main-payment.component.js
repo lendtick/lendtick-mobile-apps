@@ -2,8 +2,9 @@ import React from 'react';
 import { ScrollView,View,Text,TouchableHighlight, Dimensions, Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
+import * as accounting from 'accounting';
 import Feather from 'react-native-vector-icons/Feather';
-import { ButtonComponent,Modal } from '@directives';
+import { ButtonComponent,Modal,AlertBox } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 
 import paymentService from './payment.service';
@@ -19,7 +20,8 @@ class MainPaymentComponent extends React.Component {
         this.state = {
             selectType: 'va',
             popUpOrder: false,
-            idPaymentType: null
+            idPaymentType: null,
+            message: null
         };
     }
 
@@ -58,23 +60,33 @@ class MainPaymentComponent extends React.Component {
             ]
         };
 
-        this.setState({isSubmit: true});
+        console.log(JSON.stringify(obj));
+
+        this.setState({isSubmit: true,message: null});
         paymentService.postOrder(obj).then(res =>{
+            console.log(res);
             this.setState({isSubmit: false});
-            this.props.addToCart([]);
-            this.props.updateVA(res.data.va_number);
-            switch(this.state.selectType){
-                case "va" :
-                    this.props.navigation.navigate('VAPayment');
-                break;
-                case "middleloan" :
-                    this.props.navigation.navigate('MiddlePayment');
-                break;
-                case "split" :
-                    this.props.navigation.navigate('SplitPayment');
-                break;
+
+            if(res.status){
+                this.props.addToCart([]);
+                this.props.updateVA(res.data.va_number);
+                switch(this.state.selectType){
+                    case "va" :
+                        this.props.navigation.navigate('VAPayment');
+                    break;
+                    case "middleloan" :
+                        this.props.navigation.navigate('MiddlePayment');
+                    break;
+                    case "split" :
+                        this.props.navigation.navigate('SplitPayment');
+                    break;
+                }
+            }else{
+                this.setState({message: res.message});
             }
+            
         }, err =>{
+            console.log(err);
             this.setState({isSubmit: false});
             Alert.alert(
                 'Error',
@@ -93,19 +105,19 @@ class MainPaymentComponent extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1,marginBottom:15, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Tagihan</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {accounting.formatMoney(this.props.cart.totalPayment, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View>
                     {/* <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Belanja</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {accounting.formatMoney(this.props.cart.totalPayment, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf',marginBottom:15}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>Total Bayar</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {this.props.cart.totalPayment.toLocaleString()}</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>Rp {accounting.formatMoney(this.props.cart.totalPayment, "", 0, ",", ",")}</Text></Col>
                         </Grid>
                     </View> */}
                     <View style={Main.container}>
@@ -146,6 +158,9 @@ class MainPaymentComponent extends React.Component {
                         </TouchableHighlight> */}
 
                         <View style={{marginTop:15, marginBottom:15}}>
+                            
+                            {this.state.message ? <View style={{marginBottom:15}}><AlertBox type="danger" title={null} text={this.state.message}/></View> : null} 
+
                             <ButtonComponent type="primary" text="Pilih" onClick={()=> this.gotoPayment(this.state.selectType)} isSubmit={this.state.isSubmit} disabled={this.props.cart.totalPayment == 0 || this.state.isSubmit}/>
                             <View style={{marginTop:15}}/>
                             {/* <ButtonComponent type="default" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')}/>
@@ -168,7 +183,7 @@ class MainPaymentComponent extends React.Component {
                     {this.props.cart.data.map((x,i)=>(
                         <View key={i} style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
                             <Text style={[Typography.heading6,{marginBottom:0}]}>{x.biller_name}</Text>
-                            <Text style={Typography.singleText}>Rp {x.totalPayment.toLocaleString()}</Text>
+                            <Text style={Typography.singleText}>Rp {accounting.formatMoney(x.totalPayment, "", 0, ",", ",")}</Text>
                         </View>
                     ))}
                 </Modal>

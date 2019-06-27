@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import { store } from '@services/store';
 import { connect } from 'react-redux';
 
@@ -9,8 +10,10 @@ class Auth extends React.Component {
     }
 
     _bootstrapAsync = async () => {
-        const checkUser = this.props.personal.data;
-        this.props.navigation.navigate(checkUser == null ? 'LoginUser' : 'PersonalUser');
+        AsyncStorage.getItem('token').then((token)=>{
+            console.log(token);
+            this.props.navigation.navigate(token == null ? 'LoginUser' : 'PersonalUser');
+        });
     };
 
     render() { return null; }

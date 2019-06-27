@@ -4,6 +4,7 @@ import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { ButtonComponent,AlertBox } from '@directives';
 import { styles } from './balance.style';
+import * as accounting from 'accounting';
 
 import personalAttrService from './personal-attr.service';
 
@@ -40,9 +41,7 @@ class LoanComponent extends React.Component {
     fetchDetailLoan(){
         let moment = require("moment");
         this.setState({loading: true});
-        console.log("req");
         personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id'),this.props.navigation.getParam('group')).then(res =>{
-            console.log(res);
             if(res.data.credit){
                 res.data.credit.map((x)=>{
                     x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
@@ -64,7 +63,6 @@ class LoanComponent extends React.Component {
                 loading: false
             });
         }, err =>{
-            console.log(err);
             this.setState({loading: false});
             Alert.alert(
                 'Error',
@@ -80,11 +78,8 @@ class LoanComponent extends React.Component {
         let obj = {
             id_loan: this.props.navigation.getParam('id')
         };
-
-        console.log(obj);
         personalAttrService.updateConfrim(obj).then(res =>{
             this.setState({isSubmit: false});
-            console.log(res);
             this.fetchDetailLoan();
         }, err =>{
             this.setState({isSubmit: false});
@@ -157,7 +152,7 @@ class LoanComponent extends React.Component {
                             <Text style={Typography.heading6}>Konfirmasi jumlah pinjaman</Text>
 
                             <Text style={Typography.singleText}>
-                                jumlah pinjaman yang anda ajukan sebelumnya {this.state.loan_request.toLocaleString()}, di approve hanya {this.state.loan_approved.toLocaleString()}
+                                jumlah pinjaman yang anda ajukan sebelumnya {accounting.formatMoney(this.state.loan_request, "", 0, ",", ",")}, di approve hanya {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}
                             </Text>
                             {this.state.status == 3 ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
                         </View>
@@ -219,7 +214,7 @@ class LoanComponent extends React.Component {
                                 <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
                                     <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
                                     <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term_payment_date}</Text></Col>
-                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
+                                    <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {accounting.formatMoney(x.amount, "", 0, ",", ",")}</Text></Col>
                                 </Grid>
                             ))}
                             </View>

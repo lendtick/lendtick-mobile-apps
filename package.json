@@ -8,6 +8,7 @@
     "postinstall": "rndebugger-open"
   },
   "dependencies": {
+    "accounting": "^0.4.1",
     "expo": "^32.0.0",
     "moment": "^2.24.0",
     "react": "16.5.0",

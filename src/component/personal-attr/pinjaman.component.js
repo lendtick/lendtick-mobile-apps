@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { styles } from './balance.style';
+import * as accounting from 'accounting';
 
 import personalAttrService from './personal-attr.service';
 
@@ -73,7 +74,7 @@ class PinjamanComponent extends React.Component {
                             paddingBottom: 50, 
                             alignItems: 'center'
                         }}>
-                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {this.state.payment.toLocaleString()}</Text>
+                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {accounting.formatMoney(this.state.payment, "", 0, ",", ",")}</Text>
                     </LinearGradient>
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Pembayaran bulan ini</Text>
@@ -93,7 +94,7 @@ class PinjamanComponent extends React.Component {
                                         <View style={{padding:15}}>
                                             {x.loan_number ? <Text style={Typography.singleText}>{x.loan_number}</Text> : null}
                                             <Text style={Typography.singleText}>{x.loan_type}</Text>
-                                            <Text style={[Typography.heading6,{marginBottom:0,marginTop:10}]}>Rp {x.installment.toLocaleString()} x {x.term}</Text>
+                                            <Text style={[Typography.heading6,{marginBottom:0,marginTop:10}]}>Rp {accounting.formatMoney(x.installment, "", 0, ",", ",")} x {x.term}</Text>
                                         </View>
                                         <View style={{padding:5,paddingLeft:15,paddingRight:15,backgroundColor:'#f0f0f0'}}>
                                             <Grid>

@@ -66,23 +66,26 @@ class LoginComponent extends Component {
     onSubmit(){
         this.setState({isSubmit: true, isFailed: false});
         loginService.postLogin(this.state.username,this.state.password).then(res =>{
+            console.log(res);
             this.setState({isSubmit: false});
             if(res.status){
                 AsyncStorage.setItem('token', res['data'].token);
                 AsyncStorage.setItem('isNew', res['data'].is_new_user.toString());
                 AsyncStorage.setItem('username', this.state.username);
                 this.props.setLogin(true);
-
                 registerNotification();
 
-                switch(Number(res['data'].is_new_user)){
-                    case 0 :
+                switch(res['data'].is_new_user){
+                    case "0":
+                        console.log("0");
                         this.props.navigation.navigate('PersonalUser');
                     break;
-                    case 1 :
+                    case "1":
+                        console.log("1");
                         this.props.navigation.navigate('LoginFirst');
                     break;
-                    case 2 :
+                    case "2":
+                        console.log("2");
                         this.props.navigation.navigate('Register2');
                     break;
                 }
@@ -101,6 +104,12 @@ class LoginComponent extends Component {
                 {cancelable: false},
             );
         });
+    }
+
+    clickIconPassword(){
+        this.setState(({
+            hidePassword: !this.state.hidePassword
+        }));
     }
 
     render() {
@@ -124,10 +133,11 @@ class LoginComponent extends Component {
 
                         <InputComponent 
                             label="Password"
-                            iconName={null}
+                            iconName={this.state.hidePassword ? "eye-off" : "eye"}
                             placeholder="Masukan password"
                             secureTextEntry={this.state.hidePassword}
                             value={this.state.password}
+                            onClickIcon={() => this.clickIconPassword()}
                             onChange={(password) => this.setState({password})}/>
 
                         {this.state.isFailed ? <AlertBox type="danger" text={this.state.message}/>: null}

@@ -96,6 +96,8 @@ import DataPersonalComponent from '../component/personal/data-personal.component
 import AddressComponent from '../component/personal/address/address.component';
 import AddressDetailComponent from '../component/personal/address/address-detail.component';
 import AddressFormComponent from '../component/personal/address/address-form.component';
+import listHistoryOrderComponent from '../component/personal/history-order/list-history-order.component';
+import detailHistoryOrderComponent from '../component/personal/history-order/detail-history-order.component';
 
 const PersonalUser = createStackNavigator({
     PersonalUser: personalComponent,
@@ -111,7 +113,9 @@ const PersonalUser = createStackNavigator({
     BalanceAbout: BalanceAboutComponent,
     Pinjaman: PinjamanComponent,
     Loan: LoanComponent,
-    MiddleLoan: MiddleLoanComponent
+    MiddleLoan: MiddleLoanComponent,
+    ListHistoryOrder: listHistoryOrderComponent,
+    DetailHistoryOrder: detailHistoryOrderComponent,
 },{
     initialRouteName: 'PersonalUser',
     mode: 'modal'

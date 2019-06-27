@@ -384,7 +384,7 @@ export default personalService = {
     },
     
     // ======================= //
-    // Get List Company
+    // Get Info User
     // ======================= //
     getInfoUser: () =>{
         const promiseObj = new Promise(function(resolve, reject){

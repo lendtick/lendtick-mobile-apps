@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { InputComponent,ButtonComponent,Modal,InputCheckbox,AlertBox,InputMask,InputDropdown } from '@directives';
 import { Variable,Typography,Input } from '@styles';
 import * as _ from 'lodash';
+import * as accounting from 'accounting';
 import { styles } from './credit.style';
 import creditService from './credit.service';
 
@@ -93,10 +94,10 @@ class CreditDetailComponent extends React.Component {
             _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;
-                x.installments = "Rp " + x.installments.toLocaleString();
-                x.loan_approved = "Rp " + x.loan_approved.toLocaleString();
-                x.paid_installment = "Rp " + x.paid_installment.toLocaleString();
-                x.unpaid_installment = "Rp " + x.unpaid_installment.toLocaleString();
+                x.installments = "Rp " + accounting.formatMoney(x.installments, "", 0, ",", ",");
+                x.loan_approved = "Rp " + accounting.formatMoney(x.loan_approved, "", 0, ",", ","); 
+                x.paid_installment = "Rp " + accounting.formatMoney(x.paid_installment, "", 0, ",", ","); 
+                x.unpaid_installment = "Rp " + accounting.formatMoney(x.unpaid_installment, "", 0, ",", ","); 
             })
             this.setState({
                 loading: false,
@@ -183,9 +184,9 @@ class CreditDetailComponent extends React.Component {
                 isSubmitSimulation: false,
                 showSimulation: true,
                 installmentsOrigin: res['data'].installments,
-                installments: 'Rp ' + res['data'].installments.toLocaleString(),
+                installments: 'Rp ' + accounting.formatMoney(res['data'].installments, "", 0, ",", ","),
                 term: res['data'].term,
-                total_loan: 'Rp ' + res['data'].total_loan.toLocaleString()
+                total_loan: 'Rp ' + accounting.formatMoney(res['data'].total_loan, "", 0, ",", ",")
             });
             this.scrollView.scrollToEnd({ animated: true }); 
         }, err =>{

@@ -20,13 +20,14 @@ class ListrikConfirmation extends React.Component {
 
     submitOrder(e){
         let cart = {
-            category_id: 11,
+            category_id: "CATBILLER",
             id_channel: "CHN0001",
             product_id: 11,
             product_name: this.props.listrik.data.providerName,
             product_image_path: this.props.listrik.data.providerImage,
             biller_id: this.props.listrik.data.billersId,
             bill_id: 1,
+            billertrx:1,
             biller_name: this.props.listrik.data.title,
             bill_details: this.props.listrik.data.descriptions,
             quantity: 1,

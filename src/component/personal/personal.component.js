@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage } from 'react-native';
+import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage,Alert } from 'react-native';
 import { LinearGradient } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
@@ -34,23 +34,17 @@ class personalComponent extends React.Component {
                 this.fetchAddress();
             }
         });
-
-        let watchPersonal = watch(store.getState, 'personal.data')
-        store.subscribe(watchPersonal((newVal, oldVal, objectPath) => {
-            this.fetchUser();
-            this.fetchAddress();
-        }));
     }
 
     componentDidMount(){
-        if(this.props.personal.data == null){
-            this.props.navigation.navigate('LoginUser');
-        }else{
-            try{
+        AsyncStorage.getItem('token').then((token)=>{
+            if(token){
                 this.fetchUser();
                 this.fetchAddress();
-            }catch(err){}
-        }   
+            }else{
+                this.props.navigation.navigate('LoginUser');
+            }
+        });
     }
 
     logout(){
@@ -62,14 +56,26 @@ class personalComponent extends React.Component {
     }
 
     fetchUser(){
-        let dataUser = this.props.personal.data;
-        let moment = require("moment");
-        let dateBecomeMember = moment(dataUser.date_become_member.substring(0, 10)).add(1800, 'days').format('DD MMM YYYY');
-        this.setState({
-            name: dataUser.name,
-            id: dataUser.id_koperasi,
-            validDate: "Valid date : " + dateBecomeMember,
-            loading: false
+        this.setState({loading: true});
+        personalService.getInfoUser().then(res =>{
+            let dataUser = res['data'];
+            this.props.setGetData(dataUser);
+            let moment = require("moment");
+            let dateBecomeMember = moment(dataUser.date_become_member.substring(0, 10)).add(1800, 'days').format('DD MMM YYYY');
+            this.setState({
+                name: dataUser.name,
+                id: dataUser.id_koperasi,
+                validDate: "Valid date : " + dateBecomeMember,
+                loading: false
+            });
+        }, err =>{
+            this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchUser()}],
+                {cancelable: false},
+            );
         });
     }
 
@@ -115,7 +121,7 @@ class personalComponent extends React.Component {
                     
                     <Grid style={{backgroundColor:'white',borderBottomWidth:1,borderTopWidth:1,borderColor:'#efefef'}}>
                         <Col style={{borderRightWidth:1,borderColor:'#efefef',padding:15, width:'33.3%'}}>
-                            <TouchableHighlight onPress={()=>{console.log('masuk pak eko')}} underlayColor="transparent">
+                            <TouchableHighlight onPress={()=>{this.props.navigation.navigate('ListHistoryOrder')}} underlayColor="transparent">
                                 <View>
                                     <Feather name="shopping-bag" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
                                     <Text style={[Typography.singleText,{textAlign:'center'}]}>Pembelian Saya</Text>
@@ -194,7 +200,7 @@ class personalComponent extends React.Component {
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Feather name="alert-circle" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Tentang KOPAI</Text>
+                                        <Text style={Typography.singleText}>Tentang kopastra</Text>
                                     </View>
                                 </Col>
                                 <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>

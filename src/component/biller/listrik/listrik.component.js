@@ -2,9 +2,8 @@ import React from 'react';
 import { View, Text, TouchableHighlight, ScrollView, TextInput, Image, Dimensions, ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
-import watch from 'redux-watch';
-import { store } from '@services/store';
 import * as _ from 'lodash';
+import * as accounting from 'accounting';
 import { FooterButton,Modal,ButtonComponent,InputComponent,AlertBox } from '@directives';
 import { Main,Typography,Variable } from '@styles';
 import { styles } from './listrik.style';
@@ -47,10 +46,10 @@ class ListrikComponent extends React.Component {
                 _.map(billdetails, (x)=>{
                     let totalAmountTagihan = Number(x.totalamount) + Number(x.adminfee);
                     x['total'] = this.state.selectedLink === 'token' ? Number(x.totalamount) : Number(x.totalamount) + Number(x.adminfee);
-                    x['rp_total'] = this.state.selectedLink === 'token' ? "Rp " + Number(x['totalamount']).toLocaleString() : "Rp " + totalAmountTagihan.toLocaleString();
+                    x['rp_total'] = this.state.selectedLink === 'token' ? "Rp " + accounting.formatMoney(Number(x['totalamount']), "", 0, ",", ",") : "Rp " + accounting.formatMoney(totalAmountTagihan, "", 0, ",", ",");
 
                     let totalAmount = Number(x.totalamount) - Number(x.adminfee);
-                    x['rp_totalamount'] = "Rp " + totalAmount.toLocaleString()
+                    x['rp_totalamount'] = "Rp " + accounting.formatMoney(totalAmount, "", 0, ",", ",");
                 });
                 this.setState({
                     billdetails: billdetails,

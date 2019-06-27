@@ -43,7 +43,6 @@ export default personalAttrService = {
     // ======================= //
     getLoanProfileDetail: (id,group) =>{
         const promiseObj = new Promise(function(resolve, reject){
-            console.log(urlGetDetailLoan + '?id_loan=' + id + '&group=' + group);
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlGetDetailLoan + '?id_loan=' + id + '&group=' + group,{
                     method: 'GET',

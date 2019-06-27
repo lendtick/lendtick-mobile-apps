@@ -4,6 +4,7 @@ import { Col, Grid } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Contacts } from 'expo';
 import * as _ from 'lodash';
+import * as accounting from 'accounting';
 import { store } from '@services/store';
 import { connect } from 'react-redux';
 import watch from 'redux-watch';
@@ -109,8 +110,8 @@ class PaketDataComponent extends React.Component {
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
                     x['total'] = Number(x.totalamount) + Number(x.adminfee)
-                    x['rp_total'] = "Rp " + x['total'].toLocaleString()
-                    x['rp_totalamount'] = "Rp " + Number(x['totalamount']).toLocaleString()
+                    x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
+                    x['rp_totalamount'] = "Rp " + accounting.formatMoney(x['totalamount'], "", 0, ",", ",")
                 });
                 this.setState({
                     billdetails: billdetails,

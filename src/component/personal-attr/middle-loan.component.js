@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { styles } from './balance.style';
+import * as accounting from 'accounting';
 
 import personalAttrService from './personal-attr.service';
 
@@ -88,7 +89,7 @@ class MiddleLoanComponent extends React.Component {
                             paddingBottom: 50, 
                             alignItems: 'center'
                         }}>
-                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {this.state.loan_approved.toLocaleString()}</Text>
+                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}</Text>
                     </LinearGradient>
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Tagihan bulan ini</Text>
@@ -108,7 +109,7 @@ class MiddleLoanComponent extends React.Component {
                             <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term_payment_date}</Text></Col>
-                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {x.amount.toLocaleString()}</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {accounting.formatMoney(x.amount, "", 0, ",", ",")}</Text></Col>
                             </Grid>
                         ))}
                         </View>
