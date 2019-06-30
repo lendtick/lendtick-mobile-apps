@@ -13,13 +13,6 @@ import { FooterButton,Modal } from '@directives';
 import { styles } from './pulsa.style';
 import billerService from '../biller.service';
 
-async function checkAllowContact() {
-    const { status } = await Permissions.getAsync(Permissions.CONTACTS);
-    if (status === 'granted') {
-        return true;
-    }
-}
-
 class PulsaCompnent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pulsa",
@@ -58,7 +51,9 @@ class PulsaCompnent extends React.Component {
     }
 
     checkPhone(phone){
-        phone = phone ? phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0) : 0;
+        phone = phone.replace('+62',0);
+        phone = phone.replace(/-/g,'');
+        phone = phone.replace(/ /g,'');
         if(phone.length > 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 if(res.data.length){
@@ -69,6 +64,11 @@ class PulsaCompnent extends React.Component {
                     });
                     this.fetchBiller(res.data[0].billers_id_pulsa);
                 }
+            });
+        }else{
+            this.setState({
+                totalAmount:  'Rp 0',
+                billdetails: []
             });
         }
     }
@@ -92,41 +92,49 @@ class PulsaCompnent extends React.Component {
     }
 
     browseContact = async() =>{
-        if(!checkAllowContact()){
+        const { status } = await Permissions.getAsync(Permissions.CONTACTS);
+        if (status === 'granted') {
+            this.setState({loadingContact: true});
+            const { data } = await Contacts.getContactsAsync();
+            this.setState({
+                listContact: data,
+                listContactFilter: data,
+                popupContacts: true,
+                loadingContact: false
+            });
+        }else{
             Permissions.askAsync(Permissions.CONTACTS);
         }
-        
-        this.setState({loadingContact: true});
-        const { data } = await Contacts.getContactsAsync();
-        this.setState({
-            listContact: data,
-            listContactFilter: data,
-            popupContacts: true,
-            loadingContact: false
-        });
     }
 
     fetchBiller(billerid){
         let obj ={
             billerid: billerid,
-            accountnumber: this.state.phoneNumber.split(' ').join('')
+            accountnumber: this.state.phoneNumber.split(' ').join('').replace('+62',0)
         };
         
         this.setState({loadingBiller: true});
         billerService.postBillerInquiry(obj).then(res =>{
-            if(res.data){
-                let billdetails = res.data.response.billdetails;
-                _.map(billdetails, (x)=>{
-                    x['total'] = Number(x.totalamount) + Number(x.adminfee)
-                    x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
-                    x['paket_pulsa'] = x['body'][0].replace('DENOM           : ','')
-                });
-                this.setState({
-                    billdetails: billdetails,
-                    loadingBiller: false,
-                    inquiryId: res.data.response.inquiryid
-                });
-                if(billdetails.length) this.selectBiller(billdetails[0]);
+            if(res.status){
+                if(res.data){
+                    let billdetails = res.data.response.billdetails;
+                    _.map(billdetails, (x)=>{
+                        x['total'] = Number(x.totalamount) + Number(x.adminfee)
+                        x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
+                        x['paket_pulsa'] = x['body'][0].replace('DENOM           : ','')
+                    });
+                    this.setState({
+                        billdetails: billdetails,
+                        loadingBiller: false,
+                        inquiryId: res.data.response.inquiryid
+                    });
+                    if(billdetails.length) this.selectBiller(billdetails[0]);
+                }else{
+                    this.setState({
+                        billdetails: [],
+                        loadingBiller: false,
+                    });
+                }
             }else{
                 this.setState({
                     billdetails: [],
@@ -138,7 +146,7 @@ class PulsaCompnent extends React.Component {
 
     selectBiller(e){
         this.setState({
-            totalAmount: e ? e.rp_total : "Rp 0",
+            totalAmount: e ? e.paket_pulsa : "Rp 0",
             selectedBiller: e
         });
         let provider = {
@@ -148,7 +156,7 @@ class PulsaCompnent extends React.Component {
             inquiryId: this.state.inquiryId
         };
         this.props.updateDataPulsa(_.merge(e,provider));
-        this.props.updatePhonePulsa(this.state.phoneNumber);
+        this.props.updatePhonePulsa(this.state.phoneNumber.replace('+62',0));
     }
 
     chaneNumber(e){
@@ -218,11 +226,8 @@ class PulsaCompnent extends React.Component {
                             <View>
                                 {this.state.billdetails.map((item,i)=>(
                                     <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
-                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null, {flex: 1, flexDirection: 'row'}]}>
-                                            <Grid>
-                                                <Col><Text style={Typography.singleText}>{item.paket_pulsa}</Text></Col>
-                                                <Col><Text style={[styles.titleWhiteBox,{textAlign:'right'}]}>{item.rp_total}</Text></Col>
-                                            </Grid>
+                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
+                                            <Text style={styles.titleWhiteBox}>{accounting.formatMoney(item.paket_pulsa, "", 0, ",", ",")}</Text>
                                         </View>
                                     </TouchableHighlight>
                                 ))}
@@ -236,7 +241,7 @@ class PulsaCompnent extends React.Component {
                 {/* ====== START FOOTER ====== */}
                 {this.state.totalAmount != 'Rp 0' ? 
                 <FooterButton 
-                    text={this.state.totalAmount} 
+                    text={'Rp ' + accounting.formatMoney(this.state.totalAmount, "", 0, ",", ",")} 
                     textButton="Selanjutnya" 
                     onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.props.navigation.navigate('PulsaConfirmation')}/>
                 : null}

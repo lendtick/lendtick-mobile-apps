@@ -52,7 +52,7 @@ class MicroloanPayment extends React.Component {
         let moment = require("moment");
         let obj = {
             payroll_period: moment().format("YYYY-MM-DD"),
-            amount: this.state.total
+            amount: this.props.cart.totalPayment
         };
 
         this.setState({isSubmit: true});
@@ -89,8 +89,8 @@ class MicroloanPayment extends React.Component {
 
         this.setState({isSubmit: true});
         paymentService.postOrder(obj).then(res =>{
-            console.log(res);
             this.setState({isSubmit: false});
+            this.props.addToCart([]);
             this.props.updatePayment(0);
             this.props.navigation.navigate('FinishPayment');
         }, err =>{
@@ -143,7 +143,7 @@ class MicroloanPayment extends React.Component {
 
                         <View style={{marginTop:15}}></View>
 
-                        <ButtonComponent type="primary" text="Bayar" onClick={()=> this.microloanOrder()} disabled={this.state.isSubmit || this.state.total < 0} isSubmit={this.state.isSubmit}/>
+                        <ButtonComponent type="primary" text="Bayar" onClick={()=> this.microloanOrder()} disabled={this.state.isSubmit || this.state.total <= 0} isSubmit={this.state.isSubmit}/>
                     </View>
                 </ScrollView>
             </View>
@@ -158,6 +158,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
+        addToCart: (e) => dispatch({type: 'UPDATE_CART', data: e}),
         updatePayment: (e) => dispatch({type: 'UPDATE_TOTAL_PAYMENT', totalPayment: e})
 	}
 }

@@ -42,6 +42,7 @@ class ListrikComponent extends React.Component {
             };
             this.setState({isSubmitToken: true});
             billerService.postBillerInquiry(obj).then(res =>{
+                console.log(res);
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
                     let totalAmountTagihan = Number(x.totalamount) + Number(x.adminfee);

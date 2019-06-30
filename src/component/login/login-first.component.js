@@ -32,16 +32,13 @@ class LoginFirstComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15,paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom: 15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         <View style={{padding: 30, marginBottom: 30, backgroundColor: Variable.backgroundGray}}>
                             <Text style={Typography.heading5}>Selamat Datang</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Telah melakukan registrasi, kami akan kirimkan info jika user anda sudah siap
-                            </Text>
-                            <Text style={[Typography.singleText]}>
-                                Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex.
+                                Terimakasih Telah melakukan pendaftaran di Koperasi Astra International. 
                             </Text>
                         </View>
                         

@@ -10,7 +10,7 @@ import personalAttrService from './personal-attr.service';
 
 class MiddleLoanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Middle Loan",
+        title: "Pinjaman Microloan",
         headerTitleStyle: Variable.headerTitleStyle,
     });
 
@@ -89,7 +89,7 @@ class MiddleLoanComponent extends React.Component {
                             paddingBottom: 50, 
                             alignItems: 'center'
                         }}>
-                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}</Text>
+                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {accounting.formatMoney(this.props.navigation.getParam('payment'), "", 0, ",", ",")}</Text>
                     </LinearGradient>
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Tagihan bulan ini</Text>
@@ -107,7 +107,7 @@ class MiddleLoanComponent extends React.Component {
                         <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
                         {this.state.credit.map((x,i)=>(
                             <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
-                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.left}</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term_payment_date}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {accounting.formatMoney(x.amount, "", 0, ",", ",")}</Text></Col>
                             </Grid>

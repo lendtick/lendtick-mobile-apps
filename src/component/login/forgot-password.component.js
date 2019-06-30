@@ -53,7 +53,7 @@ class ForgotPassComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom:15}]}>
                         <StatusBar barStyle="dark-content" />
 
                         <InputComponent 

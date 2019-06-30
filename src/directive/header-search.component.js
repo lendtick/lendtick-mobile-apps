@@ -37,14 +37,14 @@ class HeaderSearch extends React.Component {
                             </Col>
                         </Grid>
                     </Col>
-                    <Col style={{width:65}}>
+                    {/* <Col style={{width:65}}>
                         <TouchableHighlight onPress={this.props.onClickCart} underlayColor="transparent">
                             <View style={{position:"relative",flex: 1, flexDirection: 'row'}}>
                                 <Text style={styles.counter}>{this.props.cart.data.length}</Text>
                                 <Feather name="shopping-cart" size={24} color="#ffffff" style={{textAlign:'right', top:6,marginTop: Platform.OS === 'ios' ? 2 : 8}}/>
                             </View>
                         </TouchableHighlight>
-                    </Col>
+                    </Col> */}
                 </Grid>
             </LinearGradient>
         )

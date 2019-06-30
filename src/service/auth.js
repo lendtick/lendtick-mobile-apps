@@ -11,7 +11,6 @@ class Auth extends React.Component {
 
     _bootstrapAsync = async () => {
         AsyncStorage.getItem('token').then((token)=>{
-            console.log(token);
             this.props.navigation.navigate(token == null ? 'LoginUser' : 'PersonalUser');
         });
     };

@@ -6,12 +6,11 @@ import { AlertBox,ButtonComponent } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 import * as accounting from 'accounting';
 
-import paymentService from './payment.service';
-
 class VAComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pembayaran",
         headerTitleStyle: Variable.headerTitleStyle,
+        headerLeft: null
     });
 
     constructor(props) {
@@ -61,7 +60,7 @@ class VAComponent extends React.Component {
 
                         <View style={{marginTop:15, marginBottom:15}}>
                             <ButtonComponent type="primary" text="Selesai" onClick={()=>{
-                                this.props.navigation.navigate('Home'); 
+                                this.props.navigation.navigate('ListHistoryOrder'); 
                                 this.props.updatePayment(0);
                             }}/>
                         </View>

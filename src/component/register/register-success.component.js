@@ -32,7 +32,7 @@ class RegisterSuccessComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15,paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom: 15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         <View style={{padding: 30, marginBottom: 50, backgroundColor: Variable.backgroundGray}}>

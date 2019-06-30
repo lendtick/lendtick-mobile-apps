@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage,Alert } from 'react-native';
+import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage,Alert,KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
@@ -36,7 +36,7 @@ class personalComponent extends React.Component {
         });
     }
 
-    componentDidMount(){
+    componentWillMount(){
         AsyncStorage.getItem('token').then((token)=>{
             if(token){
                 this.fetchUser();
@@ -93,6 +93,7 @@ class personalComponent extends React.Component {
     render() { 
         return(
             <View style={{height:'100%',backgroundColor: Variable.backgroundGray}}>
+                
                 <ScrollView>
                     <View style={[Main.container,{paddingTop: 15, paddingBottom: 5}]}> 
                         <LinearGradient
@@ -110,15 +111,22 @@ class personalComponent extends React.Component {
                         </LinearGradient>
 
                     </View>
+
+                    {!this.state.loading ? 
                     <View style={{marginBottom: 20, width: 112,left:'50%', marginLeft: -56}}>
-                        <TouchableHighlight onPress={()=>{this.props.navigation.navigate('QRCode');}} underlayColor="transparent">
+                        <TouchableHighlight onPress={()=>{this.props.navigation.navigate('QRCode',{
+                            code: this.state.id,
+                            name: this.state.name
+                        });}} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',alignItems: 'center'}}>
                                 <Feather name="search" size={14} color={Variable.colorPrimaryText} />
                                 <Text style={[Input.singleLink,{textAlign:'center',marginLeft: 5}]}>Lihat QR Code</Text>
                             </View>
                         </TouchableHighlight>
                     </View>
-                    
+                    : null }
+
+                    {!this.state.loading ? 
                     <Grid style={{backgroundColor:'white',borderBottomWidth:1,borderTopWidth:1,borderColor:'#efefef'}}>
                         <Col style={{borderRightWidth:1,borderColor:'#efefef',padding:15, width:'33.3%'}}>
                             <TouchableHighlight onPress={()=>{this.props.navigation.navigate('ListHistoryOrder')}} underlayColor="transparent">
@@ -145,6 +153,7 @@ class personalComponent extends React.Component {
                             </TouchableHighlight>
                         </Col>
                     </Grid>
+                    : null }
 
                     <View style={[Main.container,{paddingTop: 15, paddingBottom: 15}]}> 
                         {this.state.loading ? <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/> :
@@ -184,7 +193,7 @@ class personalComponent extends React.Component {
                                 <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
                             </Grid>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>{this.props.navigation.navigate('FAQ');}} underlayColor="transparent">
+                        {/* <TouchableHighlight onPress={()=>{this.props.navigation.navigate('FAQ');}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
@@ -194,13 +203,24 @@ class personalComponent extends React.Component {
                                 </Col>
                                 <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
                             </Grid>
-                        </TouchableHighlight>
+                        </TouchableHighlight> */}
                         <TouchableHighlight onPress={()=>{this.props.navigation.navigate('About');}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
                                         <Feather name="alert-circle" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Tentang kopastra</Text>
+                                        <Text style={Typography.singleText}>Tentang Koperasi Astra</Text>
+                                    </View>
+                                </Col>
+                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
+                            </Grid>
+                        </TouchableHighlight>
+                        <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Contact');}} underlayColor="transparent">
+                            <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
+                                <Col>
+                                    <View style={{flex: 1, flexDirection: 'row'}}>
+                                        <Feather name="phone" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
+                                        <Text style={Typography.singleText}>Hubungi kami</Text>
                                     </View>
                                 </Col>
                                 <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>

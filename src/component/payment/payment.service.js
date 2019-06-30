@@ -7,6 +7,7 @@ export default paymentService = {
     // Post Order
     // ======================= //
     postOrder: (data) =>{
+        console.log(JSON.stringify(data));
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(API.finance + '/order/biller', {

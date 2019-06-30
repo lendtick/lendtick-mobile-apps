@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,ScrollView,Image,StyleSheet,ActivityIndicator,Platform } from 'react-native';
+import { View,ScrollView,Image,StyleSheet,ActivityIndicator,KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo';
 import { connect } from 'react-redux';
 import InputPersonal from './personal-input/input-personal';
@@ -67,43 +67,45 @@ class DataPersonalComponent extends React.Component {
     render() { 
         return(
             <View style={{height:'100%',backgroundColor:'white'}}>
-                <ScrollView>
-                    <View style={{position:'relative',marginBottom: 70}}>
-                        <LinearGradient
-                            colors={Variable.colorGradient}
-                            style={{ height: 100 }}
-                            start={[0, 0]}
-                            end={[1, 0]}
-                        />
-                        <View style={styles.wrapUser}></View>
-                        {this.state.imageProfile ? <Image style={styles.imgUser} source={{uri: this.state.imageProfile}} /> : <View style={[styles.imgUser,{borderWidth:1, borderColor:'#dfdfdf'}]}><ActivityIndicator size="small" color="#333" style={{top:38}}/></View>}
-                    </View>
+                <KeyboardAvoidingView behavior="position">
+                    <ScrollView>
+                        <View style={{position:'relative',marginBottom: 70}}>
+                            <LinearGradient
+                                colors={Variable.colorGradient}
+                                style={{ height: 100 }}
+                                start={[0, 0]}
+                                end={[1, 0]}
+                            />
+                            <View style={styles.wrapUser}></View>
+                            {this.state.imageProfile ? <Image style={styles.imgUser} source={{uri: this.state.imageProfile}} /> : <View style={[styles.imgUser,{borderWidth:1, borderColor:'#dfdfdf'}]}><ActivityIndicator size="small" color="#333" style={{top:38}}/></View>}
+                        </View>
 
-                    <Panel title="Personal Data" onClick={() => this.setState({collapse1: !this.state.collapse1})} collapse={this.state.collapse1}>
-                        {/* Start Data Personal */}
-                        <InputPersonal />
-                        {/* End Data Personal */}
-                    </Panel>    
-                    <Panel title="Data Pegawai" onClick={() => this.setState({collapse5: !this.state.collapse5})} collapse={this.state.collapse5}>
-                        <InputEmployee />
-                    </Panel>
-                    <Panel title="Data Gaji" onClick={() => this.setState({collapse3: !this.state.collapse3})} collapse={this.state.collapse3}>
-                        {/* Start Data Sallary */}
-                        <InputSallary />
-                        {/* End Data Sallary */}
-                    </Panel>    
-                    <Panel title="Informasi Bank" onClick={() => this.setState({collapse4: !this.state.collapse4})} collapse={this.state.collapse4}>
-                        {/* Start Data Bank */}
-                        <InputBank />
-                        {/* End Data Bank */}
-                    </Panel>    
-                    <Panel title="Informasi Dokumen" onClick={() => this.setState({collapse2: !this.state.collapse2})} collapse={this.state.collapse2}>
-                        {/* Start Data Bank */}
-                        <InputDocument />
-                        {/* End Data Bank */}
-                    </Panel>  
-                    
-                </ScrollView>
+                        <Panel title="Personal Data" onClick={() => this.setState({collapse1: !this.state.collapse1})} collapse={this.state.collapse1}>
+                            {/* Start Data Personal */}
+                            <InputPersonal />
+                            {/* End Data Personal */}
+                        </Panel>    
+                        <Panel title="Data Pegawai" onClick={() => this.setState({collapse5: !this.state.collapse5})} collapse={this.state.collapse5}>
+                            <InputEmployee />
+                        </Panel>
+                        <Panel title="Data Gaji" onClick={() => this.setState({collapse3: !this.state.collapse3})} collapse={this.state.collapse3}>
+                            {/* Start Data Sallary */}
+                            <InputSallary />
+                            {/* End Data Sallary */}
+                        </Panel>    
+                        <Panel title="Informasi Bank" onClick={() => this.setState({collapse4: !this.state.collapse4})} collapse={this.state.collapse4}>
+                            {/* Start Data Bank */}
+                            <InputBank />
+                            {/* End Data Bank */}
+                        </Panel>    
+                        <Panel title="Informasi Dokumen" onClick={() => this.setState({collapse2: !this.state.collapse2})} collapse={this.state.collapse2}>
+                            {/* Start Data Bank */}
+                            <InputDocument />
+                            {/* End Data Bank */}
+                        </Panel>  
+                        
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </View>
         ) 
     }

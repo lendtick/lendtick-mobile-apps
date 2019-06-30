@@ -1,8 +1,8 @@
 import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
+import { Contacts, Permissions } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
-import { Contacts } from 'expo';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
 import { store } from '@services/store';
@@ -19,7 +19,6 @@ class PaketDataComponent extends React.Component {
         title: "Paket Data",
         headerTitleStyle: Variable.headerTitleStyle,
     });
-
 
     constructor(props) {
         super(props);
@@ -54,7 +53,9 @@ class PaketDataComponent extends React.Component {
 
 
     checkPhone(phone){
-        phone = phone ? phone.replace(/-/g,'').replace(/ /g,'').replace('+62',0) : 0;
+        phone = phone.replace('+62',0);
+        phone = phone.replace(/-/g,'');
+        phone = phone.replace(/ /g,'');
         if(phone.length > 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 if(res.data.length){
@@ -65,6 +66,11 @@ class PaketDataComponent extends React.Component {
                     });
                     this.fetchBiller(res.data[0].billers_id_paketdata);
                 }
+            });
+        }else{
+            this.setState({
+                totalAmount:  'Rp 0',
+                billdetails: []
             });
         }
     }
@@ -88,37 +94,49 @@ class PaketDataComponent extends React.Component {
     }
 
     browseContact = async() =>{
-        this.setState({loadingContact: true});
-        const { data } = await Contacts.getContactsAsync();
-        this.setState({
-            listContact: data,
-            listContactFilter: data,
-            popupContacts: true,
-            loadingContact: false
-        });
+        const { status } = await Permissions.getAsync(Permissions.CONTACTS);
+        if (status === 'granted') {
+            this.setState({loadingContact: true});
+            const { data } = await Contacts.getContactsAsync();
+            this.setState({
+                listContact: data,
+                listContactFilter: data,
+                popupContacts: true,
+                loadingContact: false
+            });
+        }else{
+            Permissions.askAsync(Permissions.CONTACTS);
+        }
     }
 
     fetchBiller(billerid){
         let obj ={
             billerid: billerid,
-            accountnumber: this.state.phoneNumber.split(' ').join('')
+            accountnumber: this.state.phoneNumber.split(' ').join('').replace('+62',0)
         };
         
         this.setState({loadingBiller: true});
         billerService.postBillerInquiry(obj).then(res =>{
-            if(res.data){
-                let billdetails = res.data.response.billdetails;
-                _.map(billdetails, (x)=>{
-                    x['total'] = Number(x.totalamount) + Number(x.adminfee)
-                    x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
-                    x['rp_totalamount'] = "Rp " + accounting.formatMoney(x['totalamount'], "", 0, ",", ",")
-                });
-                this.setState({
-                    billdetails: billdetails,
-                    loadingBiller: false,
-                    inquiryId: res.data.response.inquiryid
-                });
-                if(billdetails.length) this.selectBiller(billdetails[0]);
+            if(res.status){
+                if(res.data){
+                    let billdetails = res.data.response.billdetails;
+                    _.map(billdetails, (x)=>{
+                        x['total'] = Number(x.totalamount) + Number(x.adminfee)
+                        x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
+                        x['rp_totalamount'] = "Rp " + accounting.formatMoney(x['totalamount'], "", 0, ",", ",")
+                    });
+                    this.setState({
+                        billdetails: billdetails,
+                        loadingBiller: false,
+                        inquiryId: res.data.response.inquiryid
+                    });
+                    if(billdetails.length) this.selectBiller(billdetails[0]);
+                }else{
+                    this.setState({
+                        billdetails: [],
+                        loadingBiller: false,
+                    });
+                }
             }else{
                 this.setState({
                     billdetails: [],
@@ -140,7 +158,7 @@ class PaketDataComponent extends React.Component {
             inquiryId: this.state.inquiryId
         };
         this.props.updateDataPaketDate(_.merge(e,provider));
-        this.props.updatePhonePaketDate(this.state.phoneNumber);
+        this.props.updatePhonePaketDate(this.state.phoneNumber.replace('+62',0));
     }
 
     chaneNumber(e){

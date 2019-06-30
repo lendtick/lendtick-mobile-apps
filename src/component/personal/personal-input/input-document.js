@@ -1,6 +1,6 @@
 import React from 'react';
 import { View,Dimensions,ActivityIndicator,Text,Alert } from 'react-native';
-import { Permissions,ImagePicker } from 'expo';
+import { ImagePicker, Camera, Permissions } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
@@ -37,14 +37,6 @@ base64MimeType = (encoded) => {
         result = mime[1];
     }
     return result;
-}
-
-async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
-    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
-        return true;
-    }
 }
 
 class InputDocument extends React.Component {
@@ -110,7 +102,9 @@ class InputDocument extends React.Component {
     }
 
     pickupImage = async () => {
-        if(checkAllowCamera()){
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
             let response = await ImagePicker.launchImageLibraryAsync({
                 base64: true,
                 storageOptions: {

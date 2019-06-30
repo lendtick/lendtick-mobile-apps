@@ -62,10 +62,10 @@ class PaketDataConfirmation extends React.Component {
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.data.title}</Text>
                         </View>
-                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
+                        {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Deskripsi</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.data.descriptions}</Text>
-                        </View>
+                        </View> */}
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Phone Number</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.phoneNumber}</Text>

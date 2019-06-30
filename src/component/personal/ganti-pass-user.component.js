@@ -30,6 +30,12 @@ class GantiPassUserComponent extends Component {
         }, 3000);
     }
 
+    clickIconPassword(){
+        this.setState(({
+            hidePassword: !this.state.hidePassword
+        }));
+    }
+
     render() {
         return (
             <View style={{height:'100%',backgroundColor:'white'}}>
@@ -37,7 +43,7 @@ class GantiPassUserComponent extends Component {
                 <ScrollView>
                     <BlockLogo />
 
-                    <View style={[Main.container,{marginTop: 15}]}>                        
+                    <View style={[Main.container,{marginTop: 15, paddingBottom:15}]}>                        
                         <View>
                             <InputComponent 
                                 label="Password lama"
@@ -49,10 +55,11 @@ class GantiPassUserComponent extends Component {
 
                             <InputComponent 
                                 label="Password baru"
-                                iconName={null}
+                                iconName={this.state.hidePassword ? "eye-off" : "eye"}
                                 placeholder="Masukan password baru"
                                 secureTextEntry={this.state.hidePassword}
                                 value={this.state.newPassword}
+                                onClickIcon={() => this.clickIconPassword()}
                                 onChange={(newPassword) => this.setState({newPassword})}/>    
 
                             <InputComponent 

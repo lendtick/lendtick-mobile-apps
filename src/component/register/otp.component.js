@@ -125,7 +125,7 @@ class OtpComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15,paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom: 15}]}>
 
                        
                             <View style={{padding: 30, backgroundColor: Variable.backgroundGray}}>

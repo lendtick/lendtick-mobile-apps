@@ -3,6 +3,7 @@ import { ScrollView,View, Text } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { BlockLogo } from '@directives';
 import { Main,Variable,Typography } from '@styles';
+import QRCode from 'react-native-qrcode';
 
 class QRCodeComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -12,7 +13,7 @@ class QRCodeComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {  };
+        this.state = {};
     }
 
     render() { 
@@ -22,9 +23,15 @@ class QRCodeComponent extends React.Component {
                     <BlockLogo />
                     <View style={[Main.container,{marginTop:15,marginBottom:15}]}>
                         <Text style={[Typography.heading6,{textAlign:'center'}]}>Scan QR Code</Text>
-                        <AutoHeightImage style={{marginBottom:15, left:'50%',marginLeft:-112.5}} width={225} source={require('@assets/img/balance/qrcode.jpg')} />
-                        <Text style={[Typography.heading6,{textAlign:'center',marginBottom:5}]}>Jhon Tinsman</Text>
-                        <Text style={[Typography.singleText,{textAlign:'center',marginBottom: 30}]}>324234</Text>
+                        <View style={{marginBottom:15, marginLeft: 'auto', marginRight: 'auto'}}>
+                            <QRCode
+                                value={this.props.navigation.getParam('code')}
+                                size={200}
+                                bgColor='#3a3a3a'
+                                fgColor='white'/>
+                        </View>
+                        <Text style={[Typography.heading6,{textAlign:'center',marginBottom:5}]}>{this.props.navigation.getParam('name')}</Text>
+                        <Text style={[Typography.singleText,{textAlign:'center',marginBottom: 30}]}>{this.props.navigation.getParam('code')}</Text>
                     </View>
                 </ScrollView>
             </View>

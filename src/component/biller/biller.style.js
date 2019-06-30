@@ -29,6 +29,6 @@ export const styles = StyleSheet.create({
         marginBottom: 15
     },
     itemProductDisable:{
-        opacity: 0.6
+        opacity: 0.4
     }
 });

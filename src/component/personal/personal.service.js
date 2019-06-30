@@ -1,36 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { API } from '@services/API';
 
-var urlGetProfile = API.auth + '/profile/get',
-    urlPutProfile = API.auth + '/profile/update',
-    urlGetMasterGrade = API.auth + '/mst/grade',
-    urlGetMasterGender = API.auth + '/mst/gender',
-    urlGetMasterDomicile = API.auth + '/mst/domicile',
-    urlGetMasterMarriage = API.auth + '/mst/marriage',
-    urlGetMasterReligion = API.auth + '/mst/religion',
-    urlGetMasterBank = API.auth + '/mst/bank',
-    urlGetMasterCopany = API.auth + '/company/get',
-    urlGetMasterDocumentType = API.hostLoan + '/master/document',
-
-    urlGetProfileCompany = API.auth + '/profile/company',
-
-    urlGetProfileDocument = API.auth + '/profile/document',
-    urlPostDocument = API.auth + '/profile/document/add',
-    urlDeleteDocument = API.auth + '/profile/document/delete',
-
-    urlGetBankProfile = API.auth + '/profile/bank',
-    urlPutBankProfile = API.auth + '/profile/bank/update',
-    
-    urlPostSalary = API.auth + '/salary/req',
-    urlGetSalary = API.auth + '/profile/salary',
-
-    urlGetAddress = API.auth + '/profile/get-address-by-user',
-    urlPostAddress = API.auth + '/profile/create-address-by-user',
-    urlPutAddress = API.auth + '/profile/update-address-by-user',
-    urlDeleteAddress = API.auth + '/profile/delete-address-by-user',
-
-    urlPutEmployee = API.auth + '/profile/company/update';
-
 // Reservation Service
 export default personalService = {
     // ======================= //
@@ -39,7 +9,7 @@ export default personalService = {
     updateDataEmployee: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPutEmployee, {
+                fetch(API.auth + '/profile/company/update', {
                     method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {
@@ -64,7 +34,7 @@ export default personalService = {
     getCompany: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterCopany,{
+                fetch(API.auth + '/company/get',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -93,7 +63,7 @@ export default personalService = {
     getProfileCompany: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetProfileCompany,{
+                fetch(API.auth + '/profile/company',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -123,7 +93,7 @@ export default personalService = {
     getBank: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterBank,{
+                fetch(API.auth + '/mst/bank',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -152,7 +122,7 @@ export default personalService = {
     getDocumentType: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterDocumentType,{
+                fetch(API.hostLoan + '/master/document',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -181,7 +151,7 @@ export default personalService = {
     getProfileDocument: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetProfileDocument,{
+                fetch(API.auth + '/profile/document',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -210,7 +180,7 @@ export default personalService = {
     postDocument: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPostDocument, {
+                fetch(API.auth + '/profile/document/add', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
@@ -234,7 +204,7 @@ export default personalService = {
     deleteDocument: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlDeleteDocument, {
+                fetch(API.auth + '/profile/document/delete', {
                     method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {
@@ -259,7 +229,7 @@ export default personalService = {
     getBankProfile: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetBankProfile,{
+                fetch(API.auth + '/profile/bank',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -288,7 +258,7 @@ export default personalService = {
     putUpdateBankProfile: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPutBankProfile, {
+                fetch(API.auth + '/profile/bank/update', {
                     method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {
@@ -312,7 +282,7 @@ export default personalService = {
     putUpdateProfile: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPutProfile, {
+                fetch(API.auth + '/profile/update', {
                     method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {
@@ -336,7 +306,7 @@ export default personalService = {
     getProfileSalary: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetSalary,{
+                fetch(API.auth + '/profile/salary',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -365,7 +335,7 @@ export default personalService = {
     postReqSalary: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPostSalary, {
+                fetch(API.auth + '/salary/req', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
@@ -389,7 +359,7 @@ export default personalService = {
     getInfoUser: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetProfile,{
+                fetch(API.auth + '/profile/get',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -418,7 +388,7 @@ export default personalService = {
     getMasterGender: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterGender,{
+                fetch(API.auth + '/mst/gender',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -447,7 +417,7 @@ export default personalService = {
     getMasterDomicile: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterDomicile,{
+                fetch(API.auth + '/mst/domicile',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -476,7 +446,7 @@ export default personalService = {
     getMasterMarriage: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterMarriage,{
+                fetch(API.auth + '/mst/marriage',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -505,7 +475,7 @@ export default personalService = {
     getMasterReligion: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterReligion,{
+                fetch(API.auth + '/mst/religion',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -534,7 +504,7 @@ export default personalService = {
     getMasterGrade: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetMasterGrade,{
+                fetch(API.auth + '/mst/grade',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -563,7 +533,7 @@ export default personalService = {
     getUserAddress: () =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetAddress,{
+                fetch(API.auth + '/profile/get-address-by-user',{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',
@@ -592,7 +562,7 @@ export default personalService = {
     postAddress : (body) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPostAddress, {
+                fetch(API.auth + '/profile/create-address-by-user', {
                     method: 'POST',
                     body: JSON.stringify(body),
                     headers: new Headers({
@@ -622,7 +592,7 @@ export default personalService = {
     putAddress : (body) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlPutAddress, {
+                fetch(API.auth + '/profile/update-address-by-user', {
                     method: 'PUT',
                     body: JSON.stringify(body),
                     headers: new Headers({
@@ -652,7 +622,7 @@ export default personalService = {
     deleteAddress : (body) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlDeleteAddress, {
+                fetch(API.auth + '/profile/delete-address-by-user', {
                     method: 'POST',
                     body: JSON.stringify(body),
                     headers: new Headers({
@@ -668,6 +638,35 @@ export default personalService = {
                         AsyncStorage.setItem('token', json.data.token);
                         token = json.data.token;
                         personalService.deleteAddress(body);
+                    }
+                })
+                .catch(err => reject(err));
+            });
+        });
+        return promiseObj;
+    },
+
+    // ======================= //
+    // Get List History Order
+    // ======================= //
+    getListHostoryOrder: () =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(API.hostLoan + '/order/history',{
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    })
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if(json.data.token == undefined){
+                        resolve(json);
+                    }else{
+                        AsyncStorage.setItem('token', json.data.token);
+                        token = json.data.token;
+                        personalService.getListHostoryOrder();
                     }
                 })
                 .catch(err => reject(err));

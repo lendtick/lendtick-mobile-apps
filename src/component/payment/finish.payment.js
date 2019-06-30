@@ -31,17 +31,17 @@ class paymentFinishComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15,paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom: 15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         <View style={{padding: 30, marginBottom: 50, backgroundColor: Variable.backgroundGray}}>
-                            <Text style={Typography.heading5}>Berhasil Pembayaran</Text>
+                            <Text style={Typography.heading5}>Pembayaran Berhasil</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex.
+                                Terimakasih Telah melakukan Transaksi di Koperasi Astra International. 
                             </Text>
                         </View>
                         
-                        <ButtonComponent type="primary" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')} disabled={false} isSubmit={false}/>
+                        <ButtonComponent type="primary" text="Kembali" onClick={()=> this.props.navigation.navigate('ListHistoryOrder')} disabled={false} isSubmit={false}/>
                     </View>
                 
                 </ScrollView>

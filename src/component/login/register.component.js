@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,Text,Dimensions,AsyncStorage,Alert } from 'react-native';
-import { ImagePicker, Camera } from 'expo';
+import { ImagePicker, Camera, Permissions } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal, InputDropdown } from '@directives';
 import { Main,Variable, Typography } from '@styles';
@@ -40,14 +40,6 @@ base64MimeType = (encoded) => {
     return result;
 }
 
-async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
-    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
-        return true;
-    }
-}
-
 class Register2Component extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Register",
@@ -77,6 +69,7 @@ class Register2Component extends Component {
             openInfo: true,
             message: "Daftar gagal, silakan coba lagi",
             arrCompany: [],
+            hidePassword: true,
         };
     }
 
@@ -146,8 +139,10 @@ class Register2Component extends Component {
         })
     }
 
-    pickupImage = async (param) => {
-        if(checkAllowCamera()){
+    pickupImage = async(param) => {
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
             let response = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: true,
                 base64: true,
@@ -167,25 +162,35 @@ class Register2Component extends Component {
                 };
             }
         }else{
+            console.log('masuk sini');
             Permissions.askAsync(Permissions.CAMERA);
             Permissions.askAsync(Permissions.CAMERA_ROLL);
         }
     }
 
-    async snapPhoto() {       
-        if (this.camera) {
-            const options = { quality: 1, base64: true, fixOrientation: true, exif: true};
-            let photo = await this.camera.takePictureAsync(options);
-            let obj = {
-                base64: photo.base64,
-                uri: photo.uri
+    snapPhoto = async() => {    
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
+            if (this.camera) {
+                const options = { quality: 1, base64: true, fixOrientation: true, exif: true};
+                let photo = await this.camera.takePictureAsync(options);
+                let obj = {
+                    base64: photo.base64,
+                    uri: photo.uri
+                }
+                this.setState({
+                    personalPhoto: obj,
+                    openCameraProfile: false,
+                    type:"image"
+                });
             }
-            this.setState({
-                personalPhoto: obj,
-                openCameraProfile: false,
-                type:"image"
-            });
-        }
+        }else{
+            console.log('masuk sini');
+            Permissions.askAsync(Permissions.CAMERA);
+            Permissions.askAsync(Permissions.CAMERA_ROLL);
+        }  
+        
     }
 
     // Validation
@@ -283,6 +288,12 @@ class Register2Component extends Component {
         });
     }
 
+    clickIconPassword(){
+        this.setState(({
+            hidePassword: !this.state.hidePassword
+        }));
+    }
+
     render() {
         const { hasCameraPermission } = this.state;
         let alertComponent;
@@ -325,7 +336,7 @@ class Register2Component extends Component {
             <View style={{height:'100%',backgroundColor:'white'}}>
                 <ScrollView>
                     <BlockLogo />
-                    <View style={[Main.container,{marginTop: 15, paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15, paddingBottom: 15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         <View>
@@ -409,10 +420,11 @@ class Register2Component extends Component {
 
                             <InputComponent 
                                 label="Password"
-                                iconName={null}
+                                iconName={this.state.hidePassword ? "eye-off" : "eye"}
                                 placeholder="Enter password"
                                 secureTextEntry={true}
                                 value={this.state.Password}
+                                onClickIcon={() => this.clickIconPassword()}
                                 onChange={(e) => this.setPassword(e)}/>
                             {this.state.Password != '' ? <View style={{marginBottom:15}}>{alertComponent}</View> : null}
 

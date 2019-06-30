@@ -63,10 +63,10 @@ class ListrikConfirmation extends React.Component {
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.data.title}</Text>
                         </View>
-                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
+                        {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Description</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.data.descriptions}</Text>
-                        </View>
+                        </View> */}
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>ID Pelanggan</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.token}</Text>

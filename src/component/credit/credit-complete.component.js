@@ -25,9 +25,7 @@ class CreditCompleteComponent extends Component {
         };
     }
 
-    componentDidMount(){
-        console.log(this.props.credit.document1);
-    }
+    componentDidMount(){}
 
     submitLoan(){
         let moment = require("moment");

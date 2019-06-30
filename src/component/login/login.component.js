@@ -16,14 +16,6 @@ async function checkAllowNotif() {
     }
 }
 
-async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
-    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
-        return true;
-    }
-}
-
 class LoginComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Login",
@@ -48,11 +40,6 @@ class LoginComponent extends Component {
         if(!checkAllowNotif()){
             Permissions.askAsync(Permissions.NOTIFICATIONS);
         }
-
-        if(!checkAllowCamera()){
-            Permissions.askAsync(Permissions.CAMERA);
-            Permissions.askAsync(Permissions.CAMERA_ROLL);
-        }
     }
 
     // handle Notification
@@ -66,7 +53,6 @@ class LoginComponent extends Component {
     onSubmit(){
         this.setState({isSubmit: true, isFailed: false});
         loginService.postLogin(this.state.username,this.state.password).then(res =>{
-            console.log(res);
             this.setState({isSubmit: false});
             if(res.status){
                 AsyncStorage.setItem('token', res['data'].token);
@@ -77,15 +63,12 @@ class LoginComponent extends Component {
 
                 switch(res['data'].is_new_user){
                     case "0":
-                        console.log("0");
                         this.props.navigation.navigate('PersonalUser');
                     break;
                     case "1":
-                        console.log("1");
                         this.props.navigation.navigate('LoginFirst');
                     break;
                     case "2":
-                        console.log("2");
                         this.props.navigation.navigate('Register2');
                     break;
                 }
@@ -121,7 +104,7 @@ class LoginComponent extends Component {
                     <BlockLogo />
                     <StatusBar barStyle="dark-content" />
                 
-                    <View style={[Main.container,{marginTop: 15}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom:15}]}>
                         
                         <InputComponent 
                             label="No Anggota Koperasi"

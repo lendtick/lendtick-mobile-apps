@@ -60,11 +60,9 @@ class MainPaymentComponent extends React.Component {
             ]
         };
 
-        console.log(JSON.stringify(obj));
-
         this.setState({isSubmit: true,message: null});
+        
         paymentService.postOrder(obj).then(res =>{
-            console.log(res);
             this.setState({isSubmit: false});
 
             if(res.status){
@@ -95,6 +93,12 @@ class MainPaymentComponent extends React.Component {
                 {cancelable: true},
             );
         })
+    }
+
+    backHome(){
+        this.props.addToCart([]);
+        this.props.updatePayment(0);
+        this.props.navigation.navigate('Home');
     }
 
     render() { 
@@ -163,6 +167,8 @@ class MainPaymentComponent extends React.Component {
 
                             <ButtonComponent type="primary" text="Pilih" onClick={()=> this.gotoPayment(this.state.selectType)} isSubmit={this.state.isSubmit} disabled={this.props.cart.totalPayment == 0 || this.state.isSubmit}/>
                             <View style={{marginTop:15}}/>
+                            <ButtonComponent type="default" text="Batalkan" onClick={()=> this.backHome()} isSubmit={false} disabled={this.state.isSubmit}/>
+                            <View style={{marginTop:15}}/>
                             {/* <ButtonComponent type="default" text="Kembali" onClick={()=> this.props.navigation.navigate('Home')}/>
                             <View style={{marginTop:15}}/> */}
                         </View>
@@ -201,7 +207,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
         addToCart: (e) => dispatch({type: 'UPDATE_CART', data: e}),
-        updateVA: (e) => dispatch({type: 'UPDATE_VA_NUMBER', vanumber: e})
+        updateVA: (e) => dispatch({type: 'UPDATE_VA_NUMBER', vanumber: e}),
+        updatePayment: (e) => dispatch({type: 'UPDATE_TOTAL_PAYMENT', totalPayment: e}),
 	}
 }
 

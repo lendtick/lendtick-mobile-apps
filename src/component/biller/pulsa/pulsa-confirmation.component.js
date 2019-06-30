@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import * as accounting from 'accounting';
 import { ButtonComponent } from '@directives';
 import { Main,Typography, Variable} from '@styles';
 import { styles } from './pulsa.style';
@@ -29,13 +30,13 @@ class PulsaConfirmation extends React.Component {
             bill_details: this.props.pulsa.data.descriptions,
             billertrx:1,
             quantity: 1,
-            sell_price: this.props.pulsa.data.total,
-            base_price: this.props.pulsa.data.total,
+            sell_price: Number(this.props.pulsa.data.paket_pulsa),
+            base_price: Number(this.props.pulsa.data.paket_pulsa),
             product_details: 'Pulsa.' + this.props.pulsa.data.providerName,
             additional_data_1: "Oke",
             additional_data_2: "Oke",
             additional_data_3: "Oke",
-            totalPayment: this.props.pulsa.data.total,
+            totalPayment: Number(this.props.pulsa.data.paket_pulsa),
             inquiry_id: this.props.pulsa.data.inquiryId,
             account_number: this.props.pulsa.phoneNumber,
         };
@@ -43,8 +44,7 @@ class PulsaConfirmation extends React.Component {
         carts.push(cart);
         this.props.addToCart(carts);
 
-        let totalPayment = this.props.cart.totalPayment + this.props.pulsa.data.total;
-        this.props.updatePayment(totalPayment);
+        this.props.updatePayment(Number(this.props.pulsa.data.paket_pulsa));
         this.props.navigation.navigate(e);
     }
 
@@ -60,17 +60,17 @@ class PulsaConfirmation extends React.Component {
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.data.title}</Text>
                         </View>
-                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
+                        {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Deskripsi</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.data.descriptions}</Text>
-                        </View>
+                        </View> */}
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Phone Number</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.phoneNumber}</Text>
                         </View>
                         <View>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Harga</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.data.rp_total}</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>Rp {accounting.formatMoney(this.props.pulsa.data.paket_pulsa, "", 0, ",", ",")}</Text>
                         </View>
                     </View>
                     {/* ====== END INFORMASI ====== */}

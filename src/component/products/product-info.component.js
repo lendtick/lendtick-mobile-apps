@@ -14,7 +14,6 @@ import { styles } from './product.style';
 class ProductInfoComponent extends React.Component {
 
     onStarRatingPress(rating) {
-        console.log(rating);
     }
 
     _renderItemProduct ({item, index}) {

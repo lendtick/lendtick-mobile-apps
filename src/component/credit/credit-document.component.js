@@ -1,22 +1,15 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
+import { ImagePicker, Permissions } from 'expo';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import AutoHeightImage from 'react-native-auto-height-image';
-import { ImagePicker,Permissions } from 'expo';
 import { InputComponent,ButtonComponent } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 import { styles } from './credit.style';
 import creditService from './credit.service';
 
-async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
-    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
-        return true;
-    }
-}
 
 toDataUrl = (url, callback) => {
     const xhr = new XMLHttpRequest();
@@ -79,7 +72,9 @@ class CreditDocumentComponent extends React.Component {
     pickupImage = async (param) => {
         var document_type = null;
         var doc_photo = null;
-        if(checkAllowCamera()){
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
             let response = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: false,
                 base64: true,

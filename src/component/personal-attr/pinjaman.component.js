@@ -31,8 +31,6 @@ class PinjamanComponent extends React.Component {
     fetchLoanProfile(){
         this.setState({loading: true});
         personalAttrService.getLoanProfile().then(res =>{
-            console.log(res);
-
             if(res.data.detail){
                 res.data.detail.map((x)=>{
                     if(x.loan_type == "Pinjaman Microloan") x.page = "MiddleLoan";
@@ -84,7 +82,8 @@ class PinjamanComponent extends React.Component {
                         {this.state.arrList.map((x,i)=>(
                             <TouchableHighlight key={i} onPress={()=> this.props.navigation.navigate(x.page,{
                                 id: x.id_loan,
-                                group: x.group_code
+                                group: x.group_code,
+                                payment: this.state.payment
                             })} underlayColor="transparent">
                                 <Grid style={styles.itemPinjaman}>
                                     <Col style={{width:40,borderRightWidth:1,borderColor:'#f0f0f0'}}>

@@ -362,7 +362,6 @@ export default creditService = {
     // ======================= //
     getOffset: () =>{
         const promiseObj = new Promise(function(resolve, reject){
-            console.log(urlGetOffset);
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlGetOffset,{
                     method: 'GET',

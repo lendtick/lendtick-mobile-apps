@@ -28,7 +28,8 @@ class GantiPassComponent extends Component {
             isSubmit: false,
             isSuccess: false,
             isInvalid: false,
-            inValidRePassword: false
+            inValidRePassword: false,
+            hidePassword: true,
         };
     }
 
@@ -115,6 +116,12 @@ class GantiPassComponent extends Component {
         })
     }
 
+    clickIconPassword(){
+        this.setState(({
+            hidePassword: !this.state.hidePassword
+        }));
+    }
+
     render() {
         let alertComponent;
         switch(this.state.PasswordCheck){
@@ -161,7 +168,7 @@ class GantiPassComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15}]}>
+                    <View style={[Main.container,{marginTop: 15, paddingBottom:15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         {/* ==================== START FORM ==================== */ }
@@ -174,10 +181,11 @@ class GantiPassComponent extends Component {
                             onChange={(oldPassword) => this.setState({oldPassword})}/>
                         <InputComponent 
                             label="Password Baru"
-                            iconName={null}
+                            iconName={this.state.hidePassword ? "eye-off" : "eye"}
                             placeholder="Enter password"
                             secureTextEntry={true}
                             value={this.state.Password}
+                            onClickIcon={() => this.clickIconPassword()}
                             onChange={(e) => this.setPassword(e)}/>
                         {this.state.Password != '' ? <View style={{marginBottom:15}}>{alertComponent}</View> : null}
                         <InputComponent 
@@ -195,6 +203,7 @@ class GantiPassComponent extends Component {
 
                         <View style={{marginTop: 10}} />
                         <ButtonComponent type="primary" text="Ubah Password" onClick={()=> this.validationSubmit()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
+                        <View style={{marginTop: 15}} />
                         {/* ==================== END FORM ==================== */ }
                     </View>
                 

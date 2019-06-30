@@ -18,6 +18,7 @@ import walkThroughComponent from '../component/walkthrough/walkthrough.component
 import AbotComponent from '../component/other/about.component';
 import FAQComponent from '../component/other/faq.component';
 import QRCodeComponent from '../component/other/qrcode.component';
+import ContactComponent from '../component/other/contact.component';
 
 
 // Login
@@ -69,23 +70,12 @@ const Payment = createStackNavigator({
     mode: 'modal'
 });
 
-
 // Register
 // ========================== //
 import RegisterComponent from '../component/register/register.component';
 import TermComponent from '../component/register/terms.component';
 import OtpComponent from '../component/register/otp.component';
 import RegisterSuccessComponent from '../component/register/register-success.component';
-
-// const Register = createStackNavigator({
-//     Register: RegisterComponent,
-//     Term: TermComponent,
-//     Otp: OtpComponent,
-//     RegisterSuccess: RegisterSuccessComponent
-// },{
-//     initialRouteName: 'Register',
-//     mode: 'modal'
-// });
 
 
 // Personal
@@ -103,6 +93,7 @@ const PersonalUser = createStackNavigator({
     PersonalUser: personalComponent,
     FAQ: FAQComponent,
     About: AbotComponent,
+    Contact: ContactComponent,
     QRCode: QRCodeComponent,
     GantiPassUser: GantiPassUserComponent,
     DataPersonal: DataPersonalComponent,

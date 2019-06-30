@@ -13,13 +13,6 @@ import { styles } from './home.style';
 import truncate from 'lodash/truncate';
 import homeService from './home.service';
 
-async function checkAllowNotif() {
-    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    if (status === 'granted') {
-        return true;
-    }
-}
-
 class HomeComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Home",
@@ -30,11 +23,7 @@ class HomeComponent extends React.Component {
         this.state = { 
             notification: null,
             loading: false,
-            entries:[
-                {id: "01", title: "coba 1", src:require("@assets/img/banner/img01.jpg"), link:""},
-                {id: "02", title: "coba 2", src:require("@assets/img/banner/img01.jpg"), link:""},
-                {id: "03", title: "coba 3", src:require("@assets/img/banner/img01.jpg"), link:""},
-            ],
+            entries:[],
             productsPopular:[
                 {id: "01", title: "Jaket merah", category:"Jacket", price: 14500, src:require("@assets/img/product/img01.jpg")},
                 {id: "02", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("@assets/img/product/img02.jpg")},
@@ -50,14 +39,43 @@ class HomeComponent extends React.Component {
 
     componentWillMount(){
         if(this.props.personal.data == null) this.fetchUser();
-        if(!checkAllowNotif()) Permissions.askAsync(Permissions.NOTIFICATIONS);
+        this.fetchContent();
+
+        const status = Permissions.getAsync(Permissions.NOTIFICATIONS);
+        if (status !== 'granted') {
+            Permissions.askAsync(Permissions.NOTIFICATIONS);
+        }
     }
 
     fetchUser(){
-        this.setState({loading: true});
         homeService.getInfoUser().then(res =>{
             this.props.setGetData(res['data']);
-            this.setState({loading: false});
+        }, err =>{
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchUser()}],
+                {cancelable: false},
+            );
+        });
+    }
+
+    fetchContent(){
+        this.setState({loading: true});
+        let arrContent = [];
+        homeService.getImageContent().then(res =>{
+            res.data.map((x)=>{
+                let obj = {
+                    id: x.id_content,
+                    title: x.title,
+                    src: {uri: x.image_path}
+                };
+                arrContent.push(obj);
+            });
+            this.setState({
+                entries: arrContent,
+                loading: false
+            });
         }, err =>{
             this.setState({loading: false});
             Alert.alert(
@@ -84,9 +102,11 @@ class HomeComponent extends React.Component {
                         {/* End Header */}
 
                         {/* Start Banner */}
+                        {this.state.loading ? 
+                        <ActivityIndicator size="small" color="#333" style={{marginBottom:15, marginTop:30}}/> :
                         <View style={styles.wrapSlider}>
                             <BannerComponent data={this.state.entries} height={180}/>
-                        </View>
+                        </View>}
                         {/* End Banner */}
 
                         {/* Start Wrap Service */}

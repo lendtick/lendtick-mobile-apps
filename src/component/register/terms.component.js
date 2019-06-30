@@ -56,21 +56,14 @@ class TermComponent extends Component {
                 
                     <BlockLogo />
                 
-                    <View style={[Main.container,{marginTop: 15,paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom: 15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         <View style={{padding: 30, backgroundColor: Variable.backgroundGray}}>
                             <Text style={Typography.heading5}>Syarat & Ketentuan</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex. Nec id tritani iuvaret, commodo qualisque iudicabit ei nam. Ea pericula intellegat usu, in erat tritani qui.
+                                Dengan mencentang ini, Anda Setuju untuk memberikan data anda kepada Koperasi Astra International untuk digunakan sebagai syarat administrasi pendafataran anggota baru Koperasi Astra Internation. 
                             </Text>
-                            <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Id congue minimum accusamus mea, eu nec putant moderatius repudiandae. Sit cu doctus epicuri, et clita mucius mel, at est audiam aliquip mandamus. In sed sonet vulputate appellantur, dicit utroque deserunt eu cum. In voluptua inciderint scribentur vim. Has dicat tempor neglegentur no.
-                            </Text>
-                            <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Tation scripserit duo ex, pri probo eleifend in, at eripuit civibus his. Eam semper maluisset disputationi ne. Recusabo salutandi ei mea, ex esse probatus mnesarchum eos, ea semper fierent voluptaria ius. Prima harum omittantur an pro.
-                            </Text>
-
                             <Grid>
                                 <Col style={{width:35}}>
                                     <InputCheckbox onChange={()=> this.setState({checked: !this.state.checked})} checked={this.state.checked}/>

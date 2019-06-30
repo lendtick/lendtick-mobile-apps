@@ -27,9 +27,6 @@ class BillerComponent extends React.Component {
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
-                    {/* Start Header */}
-                    <HeaderSearch onClickCart={()=> this.props.navigation.navigate('Payment')}/>
-                    {/* End Header */}
 
                     {/* Start Banner */}
                     <View style={styles.wrapSlider}>
@@ -63,34 +60,35 @@ class BillerComponent extends React.Component {
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
                                     </TouchableHighlight>
                                 </Col>
-                                {/* <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item5.png')} />
-                                    </TouchableHighlight>
-                                </Col>
-                                <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item7.png')} />
-                                    </TouchableHighlight>
-                                </Col> */}
-                            </Row>
-                            <Row>
-                                {/* <Col style={styles.itemProduct}>
-                                    <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
-                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
-                                    </TouchableHighlight>
-                                </Col>
-                                <Col style={styles.itemProduct}>
+                                <Col style={[styles.itemProduct,styles.itemProductDisable]}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item1.png')} />
                                     </TouchableHighlight>
                                 </Col>
-                                <Col style={styles.itemProduct}>
+                               
+                                <Col style={[styles.itemProduct,styles.itemProductDisable]}>
+                                    {/* <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item7.png')} />
+                                    </TouchableHighlight> */}
+                                </Col>
+                            </Row>
+                            {/* <Row>
+                                <Col style={[styles.itemProduct,styles.itemProductDisable]}>
+                                    <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col style={[styles.itemProduct,styles.itemProductDisable]}>
+                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                        <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item5.png')} />
+                                    </TouchableHighlight>
+                                </Col>
+                                <Col style={[styles.itemProduct,styles.itemProductDisable]}>
                                     <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item10.png')} />
                                     </TouchableHighlight>
-                                </Col> */}
-                            </Row>
+                                </Col>
+                            </Row> */}
                         </Grid>
                         </View>
                     {/* End Wrap Service */}

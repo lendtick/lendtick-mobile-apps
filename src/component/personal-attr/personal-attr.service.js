@@ -53,7 +53,6 @@ export default personalAttrService = {
                 })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json);
                     if(json.data){
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);

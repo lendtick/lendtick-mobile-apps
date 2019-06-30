@@ -1,6 +1,6 @@
 import React from 'react';
 import { View,Dimensions,Alert } from 'react-native';
-import { Permissions,ImagePicker } from 'expo';
+import { ImagePicker, Camera, Permissions } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 
@@ -36,14 +36,6 @@ base64MimeType = (encoded) => {
         result = mime[1];
     }
     return result;
-}
-
-async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
-    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
-        return true;
-    }
 }
 
 class InputSallary extends React.Component {
@@ -102,7 +94,9 @@ class InputSallary extends React.Component {
     }
 
     pickupImage = async () => {
-        if(checkAllowCamera()){
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
             let response = await ImagePicker.launchImageLibraryAsync({
                 base64: true,
                 storageOptions: {

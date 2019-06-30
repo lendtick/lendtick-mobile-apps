@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "kopastra",
-		"slug": "kopastra",
+		"name": "koperasiastra",
+		"slug": "koperasiastra",
 		"privacy": "public",
 		"sdkVersion": "32.0.0",
 		"platforms": [
@@ -24,10 +24,10 @@
 		],
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.koperasiAstra.kopastra"
+			"bundleIdentifier": "com.koperasiAstra.koperasiastra"
 		},
 		"android": {
-			"package": "com.koperasiAstra.kopastra"
+			"package": "com.koperasiAstra.koperasiastra"
 		},
 		"notification": {
 			"icon": "./assets/img/icon-notif.png"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform } from 'react-native';
-import { LinearGradient, ImagePicker, Camera, Permissions } from 'expo';
+import { ImagePicker, Camera, Permissions } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal,InputDropdown } from '@directives';
 import { Main,Variable,Input, Typography } from '@styles';
@@ -10,14 +10,6 @@ import { connect } from 'react-redux';
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
 Validator.setMessages('en', en);
-
-async function checkAllowCamera() {
-    const { statusCamera } = await Permissions.getAsync(Permissions.CAMERA);
-    const { statusCameraRoll } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (statusCamera === 'granted' && statusCameraRoll === 'granted') {
-        return true;
-    }
-}
 
 class RegisterComponent extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -45,7 +37,7 @@ class RegisterComponent extends Component {
             openPopupCompany: false,
             isFailed: false,
             arrCompany: [],
-
+            errorInputName: false
         };
     }
 
@@ -73,8 +65,10 @@ class RegisterComponent extends Component {
         })
     }
 
-    pickupImage = async (param) => {
-        if(checkAllowCamera()){
+    pickupImage = async(param) =>{
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
             let response = await ImagePicker.launchImageLibraryAsync({
                 allowsEditing: true,
                 base64: true,
@@ -94,24 +88,33 @@ class RegisterComponent extends Component {
                 };
             }
         }else{
+            console.log('masuk sini');
             Permissions.askAsync(Permissions.CAMERA);
             Permissions.askAsync(Permissions.CAMERA_ROLL);
         }
     }
 
-    snapPhoto = async ()=>{       
-        if (this.camera) {
-            const options = { quality: 1, base64: true, fixOrientation: true, exif: true};
-            let photo = await this.camera.takePictureAsync(options);
-            let obj = {
-                base64: photo.base64,
-                uri: photo.uri
+    snapPhoto = async() => {    
+        const statusCamera = await Permissions.getAsync(Permissions.CAMERA);
+        const statusCameraRoll = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (statusCamera.status === 'granted' && statusCameraRoll.status === 'granted') {
+            if (this.camera) {
+                const options = { quality: 1, base64: true, fixOrientation: true, exif: true};
+                let photo = await this.camera.takePictureAsync(options);
+                let obj = {
+                    base64: photo.base64,
+                    uri: photo.uri
+                }
+                this.setState({
+                    personalPhoto: obj,
+                    openCameraProfile: false,
+                    type:"image"
+                });
             }
-            this.setState({
-                personalPhoto: obj,
-                openCameraProfile: false,
-                type:"image"
-            });
+        }else{
+            console.log('masuk sini');
+            Permissions.askAsync(Permissions.CAMERA);
+            Permissions.askAsync(Permissions.CAMERA_ROLL);
         }
     }
 
@@ -150,10 +153,16 @@ class RegisterComponent extends Component {
             };
     
             let validation = new Validator(data, rules);
-            if(validation.passes()){
-                this.onSubmit(data);
+            let validateName = this.state.name.match(/\d+/);
+            if(validateName){
+                this.setState({errorInputName: true});
             }else{
-                this.setState({isInvalid: true});
+                this.setState({errorInputName: false});
+                if(validation.passes()){
+                    this.onSubmit(data);
+                }else{
+                    this.setState({isInvalid: true});
+                }
             }
         }else{
             this.setState({isInvalid: true});
@@ -177,7 +186,7 @@ class RegisterComponent extends Component {
             <View style={{height:'100%',backgroundColor:'white'}}>
                 <ScrollView>
                     <BlockLogo />
-                    <View style={[Main.container,{marginTop: 15, paddingBottom: 30}]}>
+                    <View style={[Main.container,{marginTop: 15, paddingBottom: 15}]}>
                         <StatusBar barStyle="dark-content" />
                         
                         <View>
@@ -187,7 +196,16 @@ class RegisterComponent extends Component {
                                 keyboardType="default"
                                 placeholder="Masukan nama lengkap"
                                 value={this.state.name}
-                                onChange={(name) => this.setState({name})}/>
+                                onChange={(name) => {
+                                    this.setState({name});
+                                    let validateName = name.match(/\d+/);
+                                    if(validateName){
+                                        this.setState({errorInputName: true});
+                                    }else{
+                                        this.setState({errorInputName: false});
+                                    }
+                                }}/>
+                            {this.state.errorInputName ? <View style={{marginBottom:15}}><AlertBox type="warning" text="Pastikan nama lengkap tidak mengandung angka"/></View>: null}
 
                             <InputComponent 
                                 label="Email"
