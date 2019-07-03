@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,View,Dimensions,TouchableHighlight } from 'react-native';
+import { ScrollView,View,Dimensions,TouchableHighlight,ActivityIndicator } from 'react-native';
 import { Col,Grid, Row } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { HeaderSearch, BannerComponent } from '@directives';
@@ -15,12 +15,39 @@ class BillerComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            entries:[
-                {id: "01", title: "coba 1", src:require("@assets/img/banner/img01.jpg"), link:""},
-                {id: "02", title: "coba 2", src:require("@assets/img/banner/img01.jpg"), link:""},
-                {id: "03", title: "coba 3", src:require("@assets/img/banner/img01.jpg"), link:""},
-            ],
+            entries:[],
         };
+    }
+
+    componentWillMount(){
+        this.fetchContent();
+    }
+
+    fetchContent(){
+        this.setState({loading: true});
+        let arrContent = [];
+        homeService.getImageContent().then(res =>{
+            res.data.map((x)=>{
+                let obj = {
+                    id: x.id_content,
+                    title: x.title,
+                    src: {uri: x.image_path}
+                };
+                arrContent.push(obj);
+            });
+            this.setState({
+                entries: arrContent,
+                loading: false
+            });
+        }, err =>{
+            this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchUser()}],
+                {cancelable: false},
+            );
+        });
     }
 
     render() { 
@@ -29,9 +56,11 @@ class BillerComponent extends React.Component {
                 <ScrollView>
 
                     {/* Start Banner */}
+                    {this.state.loading ? 
+                    <ActivityIndicator size="small" color="#333" style={{marginBottom:15, marginTop:30}}/> :
                     <View style={styles.wrapSlider}>
                         <BannerComponent data={this.state.entries} height={180}/>
-                    </View>
+                    </View>}
                     {/* End Banner */}
 
                     {/* Start Wrap Service */}
@@ -67,12 +96,12 @@ class BillerComponent extends React.Component {
                                 </Col>
                                
                                 <Col style={[styles.itemProduct,styles.itemProductDisable]}>
-                                    {/* <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                    <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item7.png')} />
-                                    </TouchableHighlight> */}
+                                    </TouchableHighlight>
                                 </Col>
                             </Row>
-                            {/* <Row>
+                            <Row>
                                 <Col style={[styles.itemProduct,styles.itemProductDisable]}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
@@ -88,7 +117,7 @@ class BillerComponent extends React.Component {
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item10.png')} />
                                     </TouchableHighlight>
                                 </Col>
-                            </Row> */}
+                            </Row>
                         </Grid>
                         </View>
                     {/* End Wrap Service */}

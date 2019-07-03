@@ -60,5 +60,35 @@ export default billerService = {
             });
         });
         return promiseObj;
-    }
+    },
+
+    // ======================= //
+    // Get Content
+    // ======================= //
+    getImageContent: () =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(API.content + '/content/promo',{
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    })
+                })
+                .then(response => response.json())
+                .then(json => {
+                    if(json.data){
+                        if(json.data.token){
+                            AsyncStorage.setItem('token', json.data.token); 
+                            homeService.getImageContent();
+                        }else{
+                            resolve(json);                        
+                        }
+                    }
+                })
+                .catch(err => reject(err));
+            });
+        });
+        return promiseObj;
+    },
 };
