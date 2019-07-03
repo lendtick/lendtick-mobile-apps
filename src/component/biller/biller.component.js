@@ -15,12 +15,39 @@ class BillerComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            entries:[
-                {id: "01", title: "coba 1", src:require("@assets/img/banner/img01.jpg"), link:""},
-                {id: "02", title: "coba 2", src:require("@assets/img/banner/img01.jpg"), link:""},
-                {id: "03", title: "coba 3", src:require("@assets/img/banner/img01.jpg"), link:""},
-            ],
+            entries:[],
         };
+    }
+
+    componentWillMount(){
+        this.fetchContent();
+    }
+
+    fetchContent(){
+        this.setState({loading: true});
+        let arrContent = [];
+        homeService.getImageContent().then(res =>{
+            res.data.map((x)=>{
+                let obj = {
+                    id: x.id_content,
+                    title: x.title,
+                    src: {uri: x.image_path}
+                };
+                arrContent.push(obj);
+            });
+            this.setState({
+                entries: arrContent,
+                loading: false
+            });
+        }, err =>{
+            this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchUser()}],
+                {cancelable: false},
+            );
+        });
     }
 
     render() { 
