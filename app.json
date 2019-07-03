@@ -8,7 +8,7 @@
 			"ios",
 			"android"
 		],
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"orientation": "portrait",
 		"icon": "./assets/img/icon.png",
 		"splash": {
@@ -27,7 +27,8 @@
 			"bundleIdentifier": "com.koperasiAstra.koperasiastra"
 		},
 		"android": {
-			"package": "com.koperasiAstra.koperasiastra"
+			"package": "com.koperasiAstra.koperasiastra",
+			"versionCode": 2
 		},
 		"notification": {
 			"icon": "./assets/img/icon-notif.png"
