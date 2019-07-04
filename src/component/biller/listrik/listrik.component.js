@@ -28,7 +28,9 @@ class ListrikComponent extends React.Component {
             providerName: null,
             providerImage: null,
             isSingle: false,
-            inquiryId: null
+            inquiryId: null,
+            resStatus:'0000',
+            resMsg:null
         };
     }
 
@@ -42,7 +44,7 @@ class ListrikComponent extends React.Component {
             };
             this.setState({isSubmitToken: true});
             billerService.postBillerInquiry(obj).then(res =>{
-                console.log(res);
+                console.log(res.data.response);
                 let billdetails = res.data.response.billdetails;
                 _.map(billdetails, (x)=>{
                     let totalAmountTagihan = Number(x.totalamount) + Number(x.adminfee);
@@ -52,14 +54,31 @@ class ListrikComponent extends React.Component {
                     let totalAmount = Number(x.totalamount) - Number(x.adminfee);
                     x['rp_totalamount'] = "Rp " + accounting.formatMoney(totalAmount, "", 0, ",", ",");
                 });
-                this.setState({
-                    billdetails: billdetails,
-                    isSubmitToken: false,
-                    providerName: res.data.response.billername,
-                    providerImage: null,
-                    inquiryId: res.data.response.inquiryid,
-                    isSingle: this.state.selectedLink === 'token' ? false : true,
-                });
+
+                if (res.data.response.responsecode == '0000'){
+                    this.setState({
+                        billdetails: billdetails,
+                        isSubmitToken: false,
+                        providerName: res.data.response.billername,
+                        providerImage: null,
+                        inquiryId: res.data.response.inquiryid,
+                        isSingle: this.state.selectedLink === 'token' ? false : true,
+                        resMsg: res.data.response.responsemsg,
+                        resStatus:res.data.response.responsecode,
+                    });
+                } else {
+                    this.setState({
+                        billdetails: billdetails,
+                        isSubmitToken: false,
+                        providerName: res.data.response.billername,
+                        providerImage: null,
+                        inquiryId: res.data.response.inquiryid,
+                        isSingle: this.state.selectedLink === 'token' ? false : true,
+                        resMsg: res.data.response.responsemsg,
+                        resStatus:res.data.response.responsecode,
+                    });
+                }
+                
                 if(billdetails.length) this.selectBiller(billdetails[0]);
             });
         }
@@ -113,7 +132,7 @@ class ListrikComponent extends React.Component {
                         label={null}
                         iconName={null}
                         keyboardType="numeric"
-                        placeholder="Masukan nomor token"
+                        placeholder="Masukan nomor meter"
                         value={this.state.token}
                         onChange={(token) => this.setState({token})}/>
                     <ButtonComponent type="primary" text={this.state.selectedLink === 'token' ? 'Cari' : 'Cek Tagihan'} onClick={()=> this.fetchBiller()} disabled={this.state.isSubmitToken || this.state.token == ''} isSubmit={this.state.isSubmitToken} />
@@ -122,32 +141,37 @@ class ListrikComponent extends React.Component {
 
                 {/* ====== START LIST ====== */}
                 <ScrollView style={{backgroundColor: Variable.backgroundGray}}>
-                    {this.state.loadingBiller ? 
-                    <View style={{padding:30}}>  
-                        <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
-                    </View>
-                    :
-                    <View style={[Main.container,{paddingTop:15}]}>
-                        {this.state.billdetails.map((item,i)=>(
-                            <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
-                                <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
-                                    {this.state.isSingle ? 
-                                        <View>
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[0]}</Text> 
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[1]}</Text> 
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[2]}</Text> 
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[3]}</Text> 
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[4]}</Text> 
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[5]}</Text> 
-                                            <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[6]}</Text> 
-                                        </View>
-                                    : 
-                                        <Text style={styles.titleWhiteBox}>{item.rp_totalamount}</Text> 
-                                    }
+                    { this.state.loadingBiller ? 
+                        <View style={{padding:30}}>  
+                            <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
+                        </View>
+                        :
+                        <View style={[Main.container,{paddingTop:15}]}>
+                            {this.state.resStatus == '0000' ? 
+                                <View>
+                                    {this.state.billdetails.map((item,i)=>(
+                                        <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
+                                            <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
+                                                {/* <Text style={styles.titleWhiteBox}>{item.title}</Text> */}
+                                                {this.state.isSingle ? 
+                                                    <View>
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[0]}</Text> 
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[1]}</Text> 
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[2]}</Text> 
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[3]}</Text> 
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[4]}</Text> 
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[5]}</Text> 
+                                                        <Text style={[Typography.singleText,{textAlign:'left'}]}>{item.body[6]}</Text> 
+                                                    </View>
+                                                : 
+                                                    <Text style={styles.titleWhiteBox}>{item.rp_totalamount}</Text> 
+                                                }
+                                            </View>
+                                        </TouchableHighlight>
+                                    ))}
                                 </View>
-                            </TouchableHighlight>
-                        ))}
-                    </View>
+                            : <AlertBox type={'warning'} title={'Pemberitahuan!'} text={this.state.resMsg}/>}
+                        </View>
                     }
 
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15}]}>
@@ -170,7 +194,7 @@ class ListrikComponent extends React.Component {
                 {/* ====== END LIST ====== */}
 
                 {/* ====== START FOOTER ====== */}
-                {this.state.totalAmount != 'Rp 0' ? 
+                {this.state.totalAmount != 'Rp 0' && this.state.resStatus == '0000'? 
                     <FooterButton text={this.state.totalAmount} textButton="Selanjutnya" onClick={()=> this.props.personal.data == null ? this.props.navigation.navigate('LoginUser') : this.props.navigation.navigate('ListrikConfirmation')}/>
                 : null}
                 {/* ====== END FOOTER ====== */}

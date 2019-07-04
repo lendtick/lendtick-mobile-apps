@@ -61,6 +61,7 @@ class ListrikConfirmation extends React.Component {
                     </View>
                     <View style={[Main.wrapInfo,{paddingBottom:5,marginTop:0}]}>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
+                        <Text style={[Typography.singleText,{marginBottom:5}]}>Jenis Layanan</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.data.title}</Text>
                         </View>
                         {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>

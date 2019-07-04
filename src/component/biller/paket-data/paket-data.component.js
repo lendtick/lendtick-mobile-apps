@@ -6,6 +6,7 @@ import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
 import { store } from '@services/store';
+import { AlertBox } from '@directives';
 import { connect } from 'react-redux';
 import watch from 'redux-watch';
 import { Main,Typography,Variable } from '@styles';
@@ -235,7 +236,7 @@ class PaketDataComponent extends React.Component {
                                     </TouchableHighlight>
                                 ))}
                             </View>
-                        : <Text style={[Typography.singleText,{textAlign:'center', marginTop:30}]}>Paket data tidak ditemukan</Text>}
+                        : <AlertBox type={'warning'} title={'Pemberitahuan!'} text={'Anda belum memilih operator'}/>}
                     </View>
                     }
                 </ScrollView>

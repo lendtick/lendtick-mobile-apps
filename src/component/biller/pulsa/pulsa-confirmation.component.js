@@ -9,12 +9,24 @@ import { styles } from './pulsa.style';
 class PulsaConfirmation extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Konfirmasi Pulsa",
+        titleBillers: [],
         headerTitleStyle: Variable.headerTitleStyle,
     });
 
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount(){
+        try{
+            this.titleBillers();
+        }catch(err){}
+    }
+
+    titleBillers(){
+        let titleBiller = this.props.pulsa.data.title.split('-');
+        this.setState({titleBiller: titleBiller[0]});
     }
 
     submitOrder(e){
@@ -57,15 +69,15 @@ class PulsaConfirmation extends React.Component {
                         <Text style={[Typography.singleTitle,{marginTop:15}]}>Informasi</Text>
                     </View>
                     <View style={[Main.wrapInfo,{paddingBottom:5,marginTop:0}]}>
-                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.data.title}</Text>
-                        </View>
                         {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.singleText,{marginBottom:5}]}>Deskripsi</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.data.descriptions}</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.data.title}</Text>
                         </View> */}
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.singleText,{marginBottom:5}]}>Phone Number</Text>
+                            <Text style={[Typography.singleText,{marginBottom:5}]}>Jenis Layanan</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.state.titleBiller}</Text>
+                        </View>
+                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
+                            <Text style={[Typography.singleText,{marginBottom:5}]}>Nomor Handphone</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.pulsa.phoneNumber}</Text>
                         </View>
                         <View>

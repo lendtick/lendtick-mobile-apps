@@ -6,6 +6,7 @@ import { Contacts, Permissions } from 'expo';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
 import { store } from '@services/store';
+import { AlertBox } from '@directives';
 import watch from 'redux-watch';
 import { connect } from 'react-redux';
 import { Main,Typography,Variable } from '@styles';
@@ -232,7 +233,7 @@ class PulsaCompnent extends React.Component {
                                     </TouchableHighlight>
                                 ))}
                             </View>
-                        : <Text style={[Typography.singleText,{textAlign:'center', marginTop:30}]}>Pulsa tidak ditemukan</Text>}
+                        : <AlertBox type={'warning'} title={'Pemberitahuan!'} text={'Anda belum memilih operator'}/> }
                     </View>
                     }
                 </ScrollView>
