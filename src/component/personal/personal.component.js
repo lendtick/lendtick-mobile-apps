@@ -61,7 +61,7 @@ class personalComponent extends React.Component {
             let dataUser = res['data'];
             this.props.setGetData(dataUser);
             let moment = require("moment");
-            let dateBecomeMember = moment(dataUser.date_become_member.substring(0, 10)).add(1800, 'days').format('DD MMM YYYY');
+            let dateBecomeMember = dataUser.date_become_member ? moment(dataUser.date_become_member.substring(0, 10)).add(1800, 'days').format('DD MMM YYYY') : '-';
             this.setState({
                 name: dataUser.name,
                 id: dataUser.id_koperasi,
