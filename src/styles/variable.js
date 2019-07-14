@@ -3,12 +3,18 @@ import { Platform } from 'react-native';
 let fontRegular = 'font-regular';
 let fontMedium = 'font-medium';
 let fontBold = 'font-bold';
+let fontLight = 'font-light';
+let fontExtraLight = 'font-extra-light';
+let fontThin = 'font-thin';
 export const Variable = {
     colorTitle: "#3a3a3a",
     colorContent: "#6a6a6a",
     fontRegular: fontRegular,
     fontBold: fontBold,
     fontMedium: fontMedium,
+    fontLight:fontLight,
+    fontExtraLight:fontExtraLight,
+    fontThin:fontThin,
     backgroundGray:'#f8f8ff',
     colorGradient:['#6dbcad', '#1b91be'],
     colorPrimary: '#34847D',

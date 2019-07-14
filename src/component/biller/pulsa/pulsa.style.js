@@ -9,6 +9,12 @@ export const styles = StyleSheet.create({
         height: '100%'
     },
 
+    wrapService:{
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+
     line:{
         marginBottom: -12
     },
@@ -94,6 +100,13 @@ export const styles = StyleSheet.create({
         color: Variable.colorTitle,
         fontSize: 14
     },
+    titleGradientBox:{
+        fontWeight: '700',
+        textAlign: 'center',
+        fontSize: 14,
+        color: '#ffffff',
+        fontFamily: Variable.fontBold
+    },
     descWhiteBox:{
         color: Variable.colorContent,
         fontSize: 14,
@@ -124,6 +137,7 @@ export const styles = StyleSheet.create({
         paddingLeft: 7.5,
         paddingRight: 7.5,
         paddingBottom: 15,
+        width: '50%',
     },
     textPulsa:{
         borderWidth: 1,
@@ -153,5 +167,18 @@ export const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around'
-      }
+      },
+
+    // Gradient
+    // ===================== //
+    gradientBox: {
+        padding:20,
+        paddingTop:18,
+        marginBottom:5,
+        borderWidth: 1,
+        borderColor: '#efefef',
+        borderRadius: 2,
+        backgroundColor: '#ffffff',
+        ...Variable.boxShadow
+    }
 });

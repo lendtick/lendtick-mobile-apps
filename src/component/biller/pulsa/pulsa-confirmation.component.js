@@ -43,13 +43,14 @@ class PulsaConfirmation extends React.Component {
             billertrx:1,
             quantity: 1,
             sell_price: Number(this.props.pulsa.data.paket_pulsa),
-            base_price: Number(this.props.pulsa.data.paket_pulsa),
+            base_price: this.props.pulsa.data.priceToPay,
             product_details: 'Pulsa.' + this.props.pulsa.data.providerName,
             additional_data_1: "Oke",
             additional_data_2: "Oke",
             additional_data_3: "Oke",
             totalPayment: Number(this.props.pulsa.data.paket_pulsa),
             inquiry_id: this.props.pulsa.data.inquiryId,
+            systrace: this.props.pulsa.data.systraceApp,
             account_number: this.props.pulsa.phoneNumber,
         };
         let carts = this.props.cart.data;

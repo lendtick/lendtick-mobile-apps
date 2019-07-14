@@ -1,7 +1,7 @@
 import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
-import { Contacts, Permissions } from 'expo';
+import { Contacts, Permissions, LinearGradient } from 'expo';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
@@ -37,7 +37,8 @@ class PaketDataComponent extends React.Component {
             selectedBiller: null,
             timeout: null,
             billersIdPaketData: null,
-            inquiryId: null
+            inquiryId: null,
+            systracePaket:null,
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -47,6 +48,7 @@ class PaketDataComponent extends React.Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         try{
             this.setMyNumber();
         }catch(err){}
@@ -118,6 +120,7 @@ class PaketDataComponent extends React.Component {
         
         this.setState({loadingBiller: true});
         billerService.postBillerInquiry(obj).then(res =>{
+            console.log('paket =>',res.data.trace.systrace);
             if(res.status){
                 if(res.data){
                     let billdetails = res.data.response.billdetails;
@@ -125,11 +128,13 @@ class PaketDataComponent extends React.Component {
                         x['total'] = Number(x.totalamount) + Number(x.adminfee)
                         x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
                         x['rp_totalamount'] = "Rp " + accounting.formatMoney(x['totalamount'], "", 0, ",", ",")
+                        x['priceToPay'] = x.totalamount
                     });
                     this.setState({
                         billdetails: billdetails,
                         loadingBiller: false,
-                        inquiryId: res.data.response.inquiryid
+                        inquiryId: res.data.response.inquiryid,
+                        systracePaket: res.data.trace.systrace
                     });
                     if(billdetails.length) this.selectBiller(billdetails[0]);
                 }else{
@@ -156,7 +161,8 @@ class PaketDataComponent extends React.Component {
             providerName: this.state.providerName, 
             providerImage: this.state.providerImage,
             billersIdPaketData: this.state.billersIdPaketData,
-            inquiryId: this.state.inquiryId
+            inquiryId: this.state.inquiryId,
+            systracePaket: this.state.systracePaket
         };
         this.props.updateDataPaketDate(_.merge(e,provider));
         this.props.updatePhonePaketDate(this.state.phoneNumber.replace('+62',0));
@@ -169,6 +175,9 @@ class PaketDataComponent extends React.Component {
         }, 500);
     }
 
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     render() {
         return (
@@ -230,9 +239,12 @@ class PaketDataComponent extends React.Component {
                             <View>
                                 {this.state.billdetails.map((item,i)=>(
                                     <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
-                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
-                                            <Text style={styles.titleWhiteBox}>{item.title}</Text>
-                                        </View>
+                                        <LinearGradient 
+                                            colors={this.state.selectedBiller == item ? Variable.colorGradient : ['#fff', '#fff']}
+                                            start={{x: 0, y: 0}} end={{x: 1, y: 0}}
+                                            style={styles.gradientBox}>
+                                                <Text style={this.state.selectedBiller == item ? styles.titleGradientBox : styles.titleWhiteBox}>{item.title}</Text>
+                                        </LinearGradient>
                                     </TouchableHighlight>
                                 ))}
                             </View>

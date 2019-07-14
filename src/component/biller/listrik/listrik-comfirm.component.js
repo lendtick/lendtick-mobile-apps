@@ -40,6 +40,7 @@ class ListrikConfirmation extends React.Component {
             totalPayment: this.props.listrik.data.total,
             inquiry_id: this.props.listrik.data.inquiryId,
             account_number: this.props.listrik.token,
+            systrace: this.props.listrik.data.systraceApp,
         };
         let carts = this.props.cart.data;
         carts.push(cart);

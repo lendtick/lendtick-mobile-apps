@@ -10,7 +10,7 @@ var API = {
     auth: "https://commerce-kai-user.azurewebsites.net",    
     notif: "https://commerce-kai-notification.azurewebsites.net",
     hostLoan: "https://commerce-kai-loan.azurewebsites.net",
-    finance: "https://commerce-kai-finance.azurewebsites.net",
+    finance: "http://13.67.41.162",
     content: "https://commerce-kai-content.azurewebsites.net",
 };
 

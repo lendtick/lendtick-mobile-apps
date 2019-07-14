@@ -118,6 +118,13 @@ export const styles = StyleSheet.create({
         color: Variable.colorTitle,
         fontSize: 14
     },
+    titleGradientBox:{
+        fontWeight: '700',
+        textAlign: 'left',
+        fontSize: 14,
+        color: '#ffffff',
+        fontFamily: Variable.fontBold
+    },
     descWhiteBox:{
         color: Variable.colorContent,
         fontSize: 14,
@@ -140,5 +147,18 @@ export const styles = StyleSheet.create({
         paddingBottom: 10,
         borderTopWidth:1,
         borderColor:'#dfdfdf'
+    },
+    
+    // Gradient
+    // ===================== //
+    gradientBox: {
+        padding:20,
+        paddingTop:18,
+        marginBottom:5,
+        borderWidth: 1,
+        borderColor: '#efefef',
+        borderRadius: 2,
+        backgroundColor: '#ffffff',
+        ...Variable.boxShadow
     }
 });

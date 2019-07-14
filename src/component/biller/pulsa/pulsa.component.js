@@ -1,8 +1,8 @@
 import React from 'react';
-import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
-import { Col, Grid } from "react-native-easy-grid";
+import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator,TouchableOpacity } from 'react-native';
+import { Col, Grid, Row } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
-import { Contacts, Permissions } from 'expo';
+import { Contacts, Permissions, LinearGradient } from 'expo';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
 import { store } from '@services/store';
@@ -14,7 +14,7 @@ import { FooterButton,Modal } from '@directives';
 import { styles } from './pulsa.style';
 import billerService from '../biller.service';
 
-class PulsaCompnent extends React.Component {
+class PulsaComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pulsa",
         headerTitleStyle: Variable.headerTitleStyle,
@@ -36,7 +36,9 @@ class PulsaCompnent extends React.Component {
             totalAmount: "Rp 0",
             selectedBiller: null,
             timeout: null,
-            inquiryId: null
+            inquiryId: null,
+            systraceApp:null,
+            billersdetailtemp:[]
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -46,6 +48,7 @@ class PulsaCompnent extends React.Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         try{
             this.setMyNumber();
         }catch(err){}
@@ -119,26 +122,36 @@ class PulsaCompnent extends React.Component {
             if(res.status){
                 if(res.data){
                     let billdetails = res.data.response.billdetails;
+                    let len = billdetails.length / 2;
+                    let arrbilldetails = [];
                     _.map(billdetails, (x)=>{
                         x['total'] = Number(x.totalamount) + Number(x.adminfee)
                         x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
                         x['paket_pulsa'] = x['body'][0].replace('DENOM           : ','')
+                        x['priceToPay'] = x.totalamount
                     });
+                    for(i=0; i<len; i++){
+                        arrbilldetails.push(billdetails.splice(0,2));
+                    }
                     this.setState({
                         billdetails: billdetails,
+                        billersdetailtemp:arrbilldetails,
                         loadingBiller: false,
-                        inquiryId: res.data.response.inquiryid
+                        inquiryId: res.data.response.inquiryid,
+                        systraceApp: res.data.trace.systrace
                     });
-                    if(billdetails.length) this.selectBiller(billdetails[0]);
+                    if(arrbilldetails.length) this.selectBiller(arrbilldetails[0][0]);
                 }else{
                     this.setState({
                         billdetails: [],
+                        billersdetailtemp: [],
                         loadingBiller: false,
                     });
                 }
             }else{
                 this.setState({
                     billdetails: [],
+                    billersdetailtemp: [],
                     loadingBiller: false,
                 });
             }
@@ -154,7 +167,8 @@ class PulsaCompnent extends React.Component {
             providerName: this.state.providerName, 
             providerImage: this.state.providerImage,
             billersIdPulsa: this.state.billersIdPulsa,
-            inquiryId: this.state.inquiryId
+            inquiryId: this.state.inquiryId,
+            systraceApp:this.state.systraceApp
         };
         this.props.updateDataPulsa(_.merge(e,provider));
         this.props.updatePhonePulsa(this.state.phoneNumber.replace('+62',0));
@@ -165,6 +179,10 @@ class PulsaCompnent extends React.Component {
         this.state.timeout = setTimeout(() => {
             this.checkPhone(e);
         }, 500);
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
@@ -223,15 +241,26 @@ class PulsaCompnent extends React.Component {
                     </View>
                     :
                     <View style={[Main.container,{paddingTop:15}]}>
-                        {this.state.billdetails.length ? 
+                        {this.state.billersdetailtemp.length ? 
                             <View>
-                                {this.state.billdetails.map((item,i)=>(
-                                    <TouchableHighlight key={i} onPress={()=> this.selectBiller(item)} underlayColor="transparent">
-                                        <View style={[styles.whiteBox,this.state.selectedBiller == item ? styles.whiteBoxActive : null]}>
-                                            <Text style={styles.titleWhiteBox}>{accounting.formatMoney(item.paket_pulsa, "", 0, ",", ",")}</Text>
-                                        </View>
-                                    </TouchableHighlight>
+                                <Grid>
+                                {this.state.billersdetailtemp.map((row, k)=>(
+                                    <Row key={k}>
+                                        {row.map((item,i) => (
+                                            <Col key={i} style={styles.itemPulsa}>
+                                                <TouchableHighlight onPress={()=> this.selectBiller(item)} underlayColor="transparent">
+                                                    <LinearGradient 
+                                                        colors={this.state.selectedBiller == item ? Variable.colorGradient : ['#fff', '#fff']}
+                                                        start={{x: 0, y: 0}} end={{x: 1, y: 0}}
+                                                        style={styles.gradientBox}>
+                                                        <Text style={this.state.selectedBiller == item ? styles.titleGradientBox : styles.titleWhiteBox}>{accounting.formatMoney(item.paket_pulsa, "", 0, ",", ",")}</Text>
+                                                    </LinearGradient>
+                                                </TouchableHighlight>
+                                            </Col>
+                                        ))}
+                                    </Row>
                                 ))}
+                                </Grid>
                             </View>
                         : <AlertBox type={'warning'} title={'Pemberitahuan!'} text={'Anda belum memilih operator'}/> }
                     </View>
@@ -320,4 +349,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(PulsaCompnent)
+)(PulsaComponent)

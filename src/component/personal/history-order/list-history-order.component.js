@@ -6,6 +6,7 @@ import * as accounting from 'accounting';
 import { Main,Variable,Typography } from '@styles';
 import { AlertBox } from '@directives';
 import { styles } from './history-order.style';
+import { FooterButton,Modal } from '@directives';
 
 import personalService from '../personal.service';
 
@@ -24,6 +25,7 @@ class listHistoryOrderComponent extends Component {
     }
 
     componentDidMount(){
+        this._isMounted = true;
         this.fetchHistoryOrder();
     }
 
@@ -31,14 +33,17 @@ class listHistoryOrderComponent extends Component {
         let moment = require("moment");
         this.setState({loading: true});
         personalService.getListHostoryOrder().then(res =>{
-            res['data'].map((x)=>{
-                x.date = moment(x.billing_date.substring(0, 10)).format('DD MMM YYYY');             
-            });
-            this.setState({
-                data: res['data'],
-                loading: false
-            });
-            console.log(this.state.data)
+            if(res){
+                res['data'].map((x)=>{
+                    x.date = moment(x.billing_date.substring(0, 10)).format('DD MMM YYYY');             
+                });
+                this.setState({
+                    data: res['data'],
+                    loading: false
+                });
+                console.log(this.state.data)
+            }
+            
         }, err =>{
             this.setState({loading: false});
             Alert.alert(
@@ -48,6 +53,33 @@ class listHistoryOrderComponent extends Component {
                 {cancelable: false},
             );
         });
+    }
+
+    fetchUser(){
+        this.setState({loading: false});
+        personalService.getInfoUser().then(res =>{
+            let dataUser = res['data'];
+            this.props.setGetData(dataUser);
+            let moment = require("moment");
+            let dateBecomeMember = dataUser.date_become_member ? moment(dataUser.date_become_member.substring(0, 10)).add(1800, 'days').format('DD MMM YYYY') : '-';
+            // this.setState({
+            //     name: dataUser.name,
+            //     id: dataUser.id_koperasi,
+            //     validDate: "Valid date : " + dateBecomeMember,
+            //     loading: false
+            // });
+        }, err =>{
+            this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                {cancelable: false},
+            );
+        });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render() {
@@ -63,13 +95,16 @@ class listHistoryOrderComponent extends Component {
                         <View style={{padding:15}}>
                             {this.state.data.map((x,i)=>(
                                 <View key={i} style={styles.itemHistory}>
+                                    <View style={x.id_workflow_status == "ODSTS01" ? styles.statusHistoryWarning: styles.statusHistorySuccess}>
+                                        <Text style={{textAlign: 'center'}}>{x.workflow_status_name}</Text>
+                                    </View>
                                     <View style={styles.headerHistory}>
                                         <Text style={styles.descHistory}>{x.date}</Text>
-                                        <Text style={styles.descHistory}>{x.billing_number}</Text>
+                                        <Text style={styles.invoiceHistory}>{x.billing_number}</Text>
                                     </View>
                                     <View style={[styles.bodyHistory,{borderTopWidth:1,borderColor: '#efefef'}]}>
-                                        <Text style={styles.titleHistory}>{x.order_detail[0].biller_name}</Text>
-                                        <Text style={styles.descHistory}>{x.order_detail[0].product_name}</Text>
+                                        <Text style={styles.titleHistory}>{'Nama Produk : ' + x.order_detail[0].product_name}</Text>
+                                        <Text style={styles.descHistory}>{x.order_detail[0].biller_name}</Text>
                                     </View>
                                     <View style={[styles.bodyHistory,{borderTopWidth:1,borderColor: '#efefef'}]}>
                                         <Text style={styles.titleHistory}>Nomer {x.order_detail[0].biller_id == '9950102' || x.order_detail[0].biller_id == '9950101' ? 'Meteran' : 'Telepon'}</Text>
@@ -77,11 +112,13 @@ class listHistoryOrderComponent extends Component {
                                     </View>
                                     <View style={[styles.bodyHistory,{borderTopWidth:1,borderColor: '#efefef'}]}>
                                         <Text style={styles.titleHistory}>Total Pembayaran</Text>
-                                        <Text style={styles.descHistory}>Rp. {accounting.formatMoney(Number(x['total_billing']), "", 0, ",", ",")}</Text>
+                                        <Text style={styles.priceHistory}>Rp. {accounting.formatMoney(Number(x['total_billing']), "", 0, ",", ",")}</Text>
                                     </View>
-                                    <AlertBox type={x.id_workflow_status == "ODSTS99" ? 'danger' : 'info'} title={null} text={x.workflow_status_name}/>
-                                    <View style={{borderTopWidth:1,borderColor: '#efefef'}}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('DetailHistoryOrder',{
+                                    {/* <View style={{borderTopWidth:1,borderColor: '#efefef'}}> */}
+                                    <FooterButton 
+                                        text={null}
+                                        textButton="Lihat Detail" 
+                                        onClick={()=> this.props.navigation.navigate('DetailHistoryOrder',{
                                             detail:x.order_detail[0],
                                             date: x.date,
                                             payment: x.order_payment[0],
@@ -90,10 +127,7 @@ class listHistoryOrderComponent extends Component {
                                                 id_workflow_status: x.id_workflow_status,
                                                 workflow_status_name: x.workflow_status_name,
                                             }
-                                        })} underlayColor="#fafafa">
-                                            <Text style={styles.linkDefault}>Lihat Detail</Text>
-                                        </TouchableHighlight>
-                                    </View>
+                                        })}/>
                                 </View>
                             ))}
                         </View>

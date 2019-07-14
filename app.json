@@ -1,37 +1,36 @@
 {
-	"expo": {
-		"name": "koperasiastra",
-		"slug": "koperasiastra",
-		"privacy": "public",
-		"sdkVersion": "32.0.0",
-		"platforms": [
-			"ios",
-			"android"
-		],
-		"version": "1.0.1",
-		"orientation": "portrait",
-		"icon": "./assets/img/icon.png",
-		"splash": {
-			"image": "./assets/img/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			
-		},
-		"assetBundlePatterns": [
-			"**/*"
-		],
-		"ios": {
-			"supportsTablet": true,
-			"bundleIdentifier": "com.koperasiAstra.koperasiastra"
-		},
-		"android": {
-			"package": "com.koperasiAstra.koperasiastra",
-			"versionCode": 2
-		},
-		"notification": {
-			"icon": "./assets/img/icon-notif.png"
-		}
-	}
+  "expo": {
+    "name": "koperasiastra",
+    "slug": "koperasiastra",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "icon": "./assets/img/icon.png",
+    "splash": {
+      "image": "./assets/img/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {},
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.koperasiAstra.koperasiastra"
+    },
+    "android": {
+      "package": "com.koperasiAstra.koperasiastra",
+      "versionCode": 3
+    },
+    "notification": {
+      "icon": "./assets/img/icon-notif.png"
+    },
+    "description": ""
+  }
 }

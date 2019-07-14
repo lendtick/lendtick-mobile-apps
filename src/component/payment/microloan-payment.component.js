@@ -16,12 +16,16 @@ class MicroloanPayment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            typeAlert:'info',
+            titleAlert:'INFORMASI',
             isSubmit: false,
             saldo: 0,
             plafond: 0,
             unpaid: 0,
             total: 0,
-            message: null
+            message: null,
+            resMessage:'testing',
+            resCode:'0000',
         };
     }
 
@@ -89,10 +93,16 @@ class MicroloanPayment extends React.Component {
 
         this.setState({isSubmit: true});
         paymentService.postOrder(obj).then(res =>{
-            this.setState({isSubmit: false});
-            this.props.addToCart([]);
-            this.props.updatePayment(0);
-            this.props.navigation.navigate('FinishPayment');
+            console.log(res.data);
+            if (!res.status || res.status == 0) {
+                this.setState({isSubmit: false, resCode:'9999', resMessage:res.data.message_system});
+            } else {
+                this.setState({isSubmit: false});
+                this.props.addToCart([]);
+                this.props.updatePayment(0);
+                this.props.navigation.navigate('FinishPayment');
+            }
+            
         }, err =>{
             this.setState({isSubmit: false});
             Alert.alert(
@@ -135,8 +145,8 @@ class MicroloanPayment extends React.Component {
                     <View style={[Main.container,{marginTop:15, marginBottom:15}]}>
                         {this.state.message ? 
                             <AlertBox 
-                                type="info" 
-                                title={null}
+                                type={this.state.typeAlert} 
+                                title={this.state.titleAlert}
                                 text={this.state.message}
                             />
                         : null }
@@ -145,6 +155,19 @@ class MicroloanPayment extends React.Component {
 
                         <ButtonComponent type="primary" text="Bayar" onClick={()=> this.microloanOrder()} disabled={this.state.isSubmit || this.state.total <= 0} isSubmit={this.state.isSubmit}/>
                     </View>
+
+                    {
+                        this.state.resCode == '9999' ?
+                            <View style={[Main.container,{marginTop:15, marginBottom:15}]}>
+                                <AlertBox 
+                                    type='danger' 
+                                    title='ERROR SYSTEM'
+                                    text={this.state.resMessage}
+                                />
+                            </View>
+                        : null
+                    }
+                    
                 </ScrollView>
             </View>
         ) 

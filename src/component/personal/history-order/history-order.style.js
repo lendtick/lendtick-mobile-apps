@@ -26,7 +26,11 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#efefef',
         borderRadius: Variable.borderRadius,
-        marginBottom: 15
+        marginBottom: 15,
+        shadowColor: '#D3D3D3',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2, 
     },
     headerHistory:{
         paddingTop: 10,
@@ -44,13 +48,26 @@ export const styles = StyleSheet.create({
         color: Variable.colorContent,
         fontSize: 14,
         marginBottom: 5,
-        fontFamily: Variable.fontBold
+        fontFamily: Variable.fontExtraLight
+    },
+    invoiceHistory:{
+        color: Variable.colorPrimary,
+        fontWeight: '700',
+        fontSize: 18,
+        marginBottom: 5,
+        fontFamily: Variable.fontLight
     },
     descHistory:{
         color: Variable.colorTitle,
         fontWeight: '700',
         fontSize: 14,
-        fontFamily: Variable.fontRegular
+        fontFamily: Variable.fontLight
+    },
+    priceHistory:{
+        color: '#FF6F00',
+        fontWeight: '700',
+        fontSize: 20,
+        fontFamily: Variable.fontLight
     },
     linkDefault:{
         textAlign:'center',
@@ -80,5 +97,35 @@ export const styles = StyleSheet.create({
         backgroundColor: Variable.colorPrimary,
         borderWidth: 1,
         borderColor: '#ffffff'
-    }
+    },
+    statusHistorySuccess:{
+        backgroundColor:'#D5F5E3',
+        fontFamily: Variable.fontRegular,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    statusHistoryWarning:{
+        backgroundColor:'#FCF3CF',
+        fontFamily: Variable.fontRegular,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    singleStatusSuccess:{
+        color: '#0B5345',
+        fontWeight: '700',
+        fontSize: 18,
+        marginBottom: 5,
+        fontFamily: Variable.fontMedium
+    },
+    singleStatusWarning:{
+        color: '#78281F',
+        fontWeight: '700',
+        fontSize: 18,
+        marginBottom: 5,
+        fontFamily: Variable.fontMedium
+    },
 });

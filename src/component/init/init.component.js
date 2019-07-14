@@ -19,6 +19,9 @@ class InitComponent extends React.Component {
             'font-bold': require('@assets/font/Poppins/Poppins-Bold.ttf'),
             'font-medium': require('@assets/font/Poppins/Poppins-Medium.ttf'),
             'font-regular': require('@assets/font/Poppins/Poppins-Regular.ttf'),
+            'font-light': require('@assets/font/Poppins/Poppins-Light.ttf'),
+            'font-extra-light': require('@assets/font/Poppins/Poppins-ExtraLight.ttf'),
+            'font-thin': require('@assets/font/Poppins/Poppins-Thin.ttf'),
         });
 
         // Direct Page as token & status isNew user

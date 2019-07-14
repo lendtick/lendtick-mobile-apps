@@ -17,18 +17,22 @@ class AlertBox extends React.Component {
             case 'warning' : 
                 color = styles.warning;
                 textColor = styles.textWarning;
+                titleColor = styles.textWarning;
             break;
             case 'info' : 
                 color = styles.info; 
                 textColor = styles.textInfo;
+                titleColor = styles.textInfo;
             break;
             case 'success' : 
                 color = styles.success; 
                 textColor = styles.textSuccess;
+                titleColor = styles.textSuccess;
             break;
             case 'danger' : 
                 color = styles.danger; 
                 textColor = styles.textDanger;
+                titleColor = styles.textDanger;
             break;
         }
 
@@ -45,7 +49,7 @@ class AlertBox extends React.Component {
         }
         return (
             <View style={[styles.wrapAlert,color]}>
-                {this.props.title != null ? <Text style={styles.titleAlert}>{this.props.title}</Text> : null}
+                {this.props.title != null ? <Text style={[styles.titleAlert, titleColor]}>{this.props.title}</Text> : null}
                 {content}
             </View>
         );
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     titleAlert:{
         fontSize: 14,
         fontWeight: '700',
-        color: Variable.colorTitle,
+        // color: Variable.colorTitle,
         fontFamily: Variable.fontBold,
         marginBottom: 7.5,
     },
@@ -95,6 +99,9 @@ const styles = StyleSheet.create({
     textWarning:{
         color: '#8a6d3b',
     },
+    titleWarning:{
+        color: '#8a6d3b',
+    },
 
     // Info
     // ========================= //
@@ -103,6 +110,9 @@ const styles = StyleSheet.create({
         borderColor: '#bce8f1',
     },
     textInfo:{
+        color: '#31708f',
+    },
+    titleInfo:{
         color: '#31708f',
     },
 
@@ -115,6 +125,9 @@ const styles = StyleSheet.create({
     textSuccess:{
         color: '#3c763d',
     },
+    titleSuccess:{
+        color: '#3c763d',
+    },
 
     // Info
     // ========================= //
@@ -123,6 +136,9 @@ const styles = StyleSheet.create({
         borderColor: '#ebccd1',
     },
     textDanger:{
+        color: '#a94442',
+    },
+    titleDanger:{
         color: '#a94442',
     },
 });
