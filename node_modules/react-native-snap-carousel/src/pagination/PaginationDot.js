@@ -35,9 +35,9 @@ export default class PaginationDot extends PureComponent {
         }
     }
 
-    componentWillReceiveProps (nextProps) {
-        if (nextProps.active !== this.props.active) {
-            this._animate(nextProps.active ? 1 : 0);
+    componentDidUpdate (prevProps) {
+        if (prevProps.active !== this.props.active) {
+            this._animate(this.props.active ? 1 : 0);
         }
     }
 
@@ -133,6 +133,7 @@ export default class PaginationDot extends PureComponent {
 
         return (
             <TouchableOpacity
+              accessible={false}
               style={dotContainerStyle}
               activeOpacity={tappable ? activeOpacity : 1}
               onPress={onPress}
