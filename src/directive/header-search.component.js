@@ -1,8 +1,14 @@
 import React from 'react';
 import { StyleSheet,TextInput,TouchableHighlight,Platform,Text,View } from 'react-native';
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
+=======
+import { Foundation } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
+>>>>>>> master
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable } from '@styles';
 
@@ -32,11 +38,16 @@ class HeaderSearch extends React.Component {
                             </Col>
                             <Col style={{width:30}}>
                                 <TouchableHighlight onPress={()=> console.log("Cari")} underlayColor="transparent">
+<<<<<<< HEAD
                                     <Feather name="search" size={18} color={Variable.colorContent} style={{textAlign:'center', top:-2,marginTop: Platform.OS === 'ios' ? 0 : 6}}/>
+=======
+                                    <Foundation name="magnifying-glass" size={18} color={Variable.colorContent} style={{textAlign:'center', top:-2,marginTop: Platform.OS === 'ios' ? 0 : 6}}/>
+>>>>>>> master
                                 </TouchableHighlight>
                             </Col>
                         </Grid>
                     </Col>
+<<<<<<< HEAD
                     {/* <Col style={{width:65}}>
                         <TouchableHighlight onPress={this.props.onClickCart} underlayColor="transparent">
                             <View style={{position:"relative",flex: 1, flexDirection: 'row'}}>
@@ -45,6 +56,8 @@ class HeaderSearch extends React.Component {
                             </View>
                         </TouchableHighlight>
                     </Col> */}
+=======
+>>>>>>> master
                 </Grid>
             </LinearGradient>
         )
@@ -53,7 +66,11 @@ class HeaderSearch extends React.Component {
 
 const styles = StyleSheet.create({
     wrapInput: {
+<<<<<<< HEAD
         backgroundColor: "#fff",
+=======
+        backgroundColor: '#ffffff',
+>>>>>>> master
         padding: 10,
         paddingLeft: 15,
         borderRadius: 4

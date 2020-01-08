@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,TouchableHighlight,Text,KeyboardAvoidingView,AsyncStorage,Alert } from 'react-native';
+<<<<<<< HEAD
 import { Permissions } from 'expo';
+=======
+import * as Permissions from 'expo-permissions';
+// import { Permissions } from 'expo';
+>>>>>>> master
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 
@@ -20,6 +25,15 @@ class LoginComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Login",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
         headerLeft: null
     });
 
@@ -116,7 +130,11 @@ class LoginComponent extends Component {
 
                         <InputComponent 
                             label="Password"
+<<<<<<< HEAD
                             iconName={this.state.hidePassword ? "eye-off" : "eye"}
+=======
+                            iconName={this.state.hidePassword ? "eye" : "eye"}
+>>>>>>> master
                             placeholder="Masukan password"
                             secureTextEntry={this.state.hidePassword}
                             value={this.state.password}

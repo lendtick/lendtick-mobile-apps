@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableHighlight,ActivityIndicator,StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import { LinearGradient } from 'expo';
+=======
+import { LinearGradient } from 'expo-linear-gradient';
+>>>>>>> master
 import { Input, Variable } from '@styles';
 
 class ButtonComponent extends React.Component {
@@ -12,7 +16,11 @@ class ButtonComponent extends React.Component {
             case "primary" :
                 elem =  <TouchableHighlight onPress={this.props.onClick} style={{width: '100%'}} underlayColor="transparent">
                             <LinearGradient
+<<<<<<< HEAD
                                 colors={this.props.disabled ? ['#999','#999'] : Variable.colorGradient}
+=======
+                                colors={this.props.disabled ? ['#999','#999'] : ['#25c4fd', '#aad95a']}
+>>>>>>> master
                                 start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                                 style={{ padding: 15, alignItems: 'center', borderRadius: 4, width: '100%' }}>
                                 {this.props.isSubmit ? <ActivityIndicator size="small" color="#fff" /> : <Text style={Input.btnText}>{this.props.text}</Text> }

@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { View, Text, Image, TouchableHighlight,AsyncStorage } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { LinearGradient } from 'expo';
+=======
+import { View, Text, Image, TouchableHighlight, AsyncStorage } from 'react-native';
+import Swiper from 'react-native-swiper';
+// import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
+>>>>>>> master
 import { Typography,Variable } from '@styles';
 import { styles } from './walkthrough.style';
 
@@ -31,19 +38,31 @@ class walkThroughComponent extends Component {
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
+<<<<<<< HEAD
                             source={require('@assets/img/walktrough/walkt1.png')} />
+=======
+                            source={require('@assets/img/walktrough/walkt4.jpg')} />
+>>>>>>> master
                         <Text style={Typography.heading5}>Terpercaya</Text>
                     </View>
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
+<<<<<<< HEAD
                             source={require('@assets/img/walktrough/walkt2.png')} />
+=======
+                            source={require('@assets/img/walktrough/walkt5.jpg')} />
+>>>>>>> master
                         <Text style={Typography.heading5}>Mempermudah</Text>
                     </View>
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
+<<<<<<< HEAD
                             source={require('@assets/img/walktrough/walkt3.png')} />
+=======
+                            source={require('@assets/img/walktrough/walkt6.jpg')} />
+>>>>>>> master
                         <Text style={Typography.heading5}>Mewujudkan</Text>
                     </View>
                 </Swiper>

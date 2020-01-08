@@ -17,6 +17,15 @@ class AddressFormComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Alamat Pengiriman",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
 

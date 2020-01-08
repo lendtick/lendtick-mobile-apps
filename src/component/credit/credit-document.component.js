@@ -1,6 +1,11 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
+<<<<<<< HEAD
 import { ImagePicker, Permissions } from 'expo';
+=======
+import { ImagePicker } from 'expo';
+import * as Permissions from 'expo-permissions';
+>>>>>>> master
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
@@ -43,6 +48,15 @@ class CreditDocumentComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Melengkapi Dokumen",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {

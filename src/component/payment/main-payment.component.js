@@ -3,7 +3,11 @@ import { ScrollView,View,Text,TouchableHighlight, Dimensions, Alert } from 'reac
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 import * as accounting from 'accounting';
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
+=======
+import { AntDesign } from '@expo/vector-icons';
+>>>>>>> master
 import { ButtonComponent,Modal,AlertBox } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 
@@ -13,6 +17,15 @@ class MainPaymentComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pembayaran",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {
@@ -135,28 +148,45 @@ class MainPaymentComponent extends React.Component {
                         
                         <TouchableHighlight onPress={()=> this.setState({selectType: 'va'})} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
+<<<<<<< HEAD
                                 <Feather name={this.state.selectType == 'va' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+=======
+                                <AntDesign name={this.state.selectType == 'va' ? "checksquareo" : "closesquareo"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+>>>>>>> master
                                 <Text style={[Typography.singleText,this.state.selectType == 'va' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Virtual Account</Text>
                             </View>
                         </TouchableHighlight>
 
                         {/* <TouchableHighlight onPress={()=> this.setState({selectType: 'middleloan'})} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderColor:'#efefef'}}>
+<<<<<<< HEAD
                                 <Feather name={this.state.selectType == 'middleloan' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+=======
+                                <AntDesign name={this.state.selectType == 'middleloan' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+>>>>>>> master
                                 <Text style={[Typography.singleText,this.state.selectType == 'middleloan' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Middleloan</Text>
                             </View>
                         </TouchableHighlight> */}
 
                         <TouchableHighlight onPress={()=> this.setState({selectType: 'microloan'})} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderColor:'#efefef'}}>
+<<<<<<< HEAD
                                 <Feather name={this.state.selectType == 'microloan' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
                                 <Text style={[Typography.singleText,this.state.selectType == 'microloan' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Microloan</Text>
+=======
+                                <AntDesign name={this.state.selectType == 'microloan' ? "checksquareo" : "closesquareo"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+                                <Text style={[Typography.singleText,this.state.selectType == 'microloan' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Saldo KAI</Text>
+>>>>>>> master
                             </View>
                         </TouchableHighlight>
 
                         {/* <TouchableHighlight onPress={()=> this.setState({selectType: 'split'})} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',padding:15, backgroundColor:'white',borderWidth:1,borderTopWidth:0,borderBottomWidth:1,borderColor:'#efefef'}}>
+<<<<<<< HEAD
                                 <Feather name={this.state.selectType == 'split' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+=======
+                                <AntDesign name={this.state.selectType == 'split' ? "check-circle" : "circle"} size={14} style={{marginRight: 10, top:2}} color={Variable.colorPrimary} />
+>>>>>>> master
                                 <Text style={[Typography.singleText,this.state.selectType == 'split' ? {color:Variable.colorPrimary,fontFamily: Variable.fontBold} : null]}>Split (Middleloan & VA)</Text>
                             </View>
                         </TouchableHighlight> */}

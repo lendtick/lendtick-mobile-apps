@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { ScrollView,View,KeyboardAvoidingView,TouchableHighlight,Text,Alert } from 'react-native';
+<<<<<<< HEAD
 import { LinearGradient } from 'expo';
 import Feather from 'react-native-vector-icons/Feather';
+=======
+import { LinearGradient } from 'expo-linear-gradient';
+import { AntDesign } from '@expo/vector-icons';
+>>>>>>> master
 import CodeInput from 'react-native-confirmation-code-input';
 import registerService from './register.service';
 import { connect } from 'react-redux';
@@ -14,6 +19,15 @@ class OtpComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Register",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
         headerLeft: null
     });
 
@@ -161,7 +175,11 @@ class OtpComponent extends Component {
                         <View style={{marginTop: 20, width: 94,left:'50%', marginLeft: -48}}>
                             <TouchableHighlight onPress={()=>{this.resendOTP()}} underlayColor="transparent">
                                 <View style={{flex: 1, flexDirection: 'row',alignItems: 'center'}}>
+<<<<<<< HEAD
                                     <Feather name="refresh-cw" size={14} color={Variable.colorPrimaryText} />
+=======
+                                    <AntDesign name="refresh-cw" size={14} color={Variable.colorPrimaryText} />
+>>>>>>> master
                                     <Text style={[Input.singleLink,{textAlign:'center',marginLeft: 5}]}>Kirim ulang</Text>
                                 </View>
                             </TouchableHighlight>

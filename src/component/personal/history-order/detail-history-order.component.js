@@ -9,6 +9,15 @@ class detailHistoryOrderComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Detail Transaksi",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {
@@ -54,7 +63,11 @@ class detailHistoryOrderComponent extends Component {
                         </View>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={{fontFamily:Variable.fontLight}}>Jenis Transaksi</Text>
+<<<<<<< HEAD
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.state.detail.biller_name}</Text>
+=======
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.state.detail.biller_name.split('-')[0]}</Text>
+>>>>>>> master
                         </View>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={{fontFamily:Variable.fontLight}}>Jenis Layanan</Text>

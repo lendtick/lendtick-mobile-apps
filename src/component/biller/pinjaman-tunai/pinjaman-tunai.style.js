@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { Variable } from '@styles';
+<<<<<<< HEAD
 import Dimensions from 'Dimensions';
+=======
+// import Dimensions from 'Dimensions';
+>>>>>>> master
 
 export const styles = StyleSheet.create({
     wrapper:{

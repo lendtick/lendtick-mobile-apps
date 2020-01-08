@@ -1,5 +1,10 @@
 import { Variable } from './variable';
+<<<<<<< HEAD
 import Dimensions from 'Dimensions';
+=======
+// import Dimensions from 'Dimensions';
+import {Dimensions} from 'react-native';
+>>>>>>> master
 
 export default MainStyle = {
     // Container

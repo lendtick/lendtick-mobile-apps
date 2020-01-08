@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View,Text,Platform} from 'react-native';
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
+=======
+import { AntDesign } from '@expo/vector-icons';
+>>>>>>> master
 import RNPickerSelect from 'react-native-picker-select';
 import * as _ from 'lodash';
 import { Typography, Input,Variable } from '@styles';
@@ -22,7 +26,11 @@ class InputDropdown extends Component {
             <View style={{position:'relative'}}>
                 <View style={[Input.wrapInput,{backgroundColor:this.props.disabled ? '#f8f8ff' : '#ffffff'}]}>
                     {this.props.label != null ? <Text style={[Typography.label,{marginBottom:5}]}>{this.props.label}</Text> : null}
+<<<<<<< HEAD
                     {this.props.showIcon ? <Feather name={this.props.iconName} size={18} color={this.props.iconColor} style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}/> : null}
+=======
+                    {this.props.showIcon ? <AntDesign name={this.props.iconName} size={18} color={this.props.iconColor} style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}/> : null}
+>>>>>>> master
                     <RNPickerSelect
                         placeholder={placeholder}
                         items={this.props.items}

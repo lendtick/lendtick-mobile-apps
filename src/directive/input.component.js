@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, Text, TouchableHighlight } from 'react-native';
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
+=======
+// import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+>>>>>>> master
 import DatePicker from 'react-native-datepicker';
 import * as _ from 'lodash';
 import { Typography, Input } from '@styles';
@@ -52,7 +57,11 @@ class InputComponent extends Component {
                     {this.props.label != null ? <Text style={Typography.label}>{this.props.label}</Text> : null}
                     {this.props.showIcon ? 
                         <TouchableHighlight onPress={this.props.onClickIcon} underlayColor="transparent" style={this.props.label != null ? [Input.icon,{top: 10}] : [Input.icon,{top:8 + this.props.topIcon}]}>
+<<<<<<< HEAD
                             <Feather name={this.props.iconName} size={18} color={this.props.iconColor}/>
+=======
+                            <AntDesign name={this.props.iconName} size={18} color={this.props.iconColor}/>
+>>>>>>> master
                         </TouchableHighlight> : null}
                     {this.props.isDate ? 
 

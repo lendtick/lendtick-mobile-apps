@@ -7,7 +7,11 @@ import * as accounting from 'accounting';
 import { FooterButton,Modal,ButtonComponent,InputComponent,AlertBox } from '@directives';
 import { Main,Typography,Variable } from '@styles';
 import { styles } from './listrik.style';
+<<<<<<< HEAD
 import { LinearGradient } from 'expo';
+=======
+import { LinearGradient } from 'expo-linear-gradient';
+>>>>>>> master
 
 import billerService from '../biller.service';
 
@@ -15,6 +19,15 @@ class ListrikComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Listrik",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {
@@ -51,7 +64,11 @@ class ListrikComponent extends React.Component {
             billerService.postBillerInquiry(obj).then(res =>{
                 console.log(res.data.response);
                 let billdetails = res.data.response.billdetails;
+<<<<<<< HEAD
                 let len = billdetails.length / 2;
+=======
+                let len = billdetails.length / 3;
+>>>>>>> master
                 let arrbilldetails = [];
                 _.map(billdetails, (x)=>{
                     let totalAmountTagihan = Number(x.totalamount) + Number(x.adminfee);
@@ -63,9 +80,14 @@ class ListrikComponent extends React.Component {
                 });
                 if (res.data.response.responsecode == '0000'){
                     for(i=0; i<len; i++){
+<<<<<<< HEAD
                         arrbilldetails.push(billdetails.splice(0,2));
                     }
                     console.log(arrbilldetails);
+=======
+                        arrbilldetails.push(billdetails.splice(0,3));
+                    }
+>>>>>>> master
                     this.setState({
                         billdetails: billdetails,
                         isSubmitToken: false,
@@ -73,7 +95,11 @@ class ListrikComponent extends React.Component {
                         providerImage: null,
                         inquiryId: res.data.response.inquiryid,
                         isSingle: this.state.selectedLink === 'token' ? false : true,
+<<<<<<< HEAD
                         resMsg: res.data.response.responsemsg,
+=======
+                        resMsg: arrbilldetails.length > 0 ? res.data.response.responsemsg : 'Terjadi Kesalahan Dari Vendor Penyedia Jasa',
+>>>>>>> master
                         resStatus:res.data.response.responsecode,
                         systraceApp: res.data.trace.systrace,
                         billersdetailtemp:arrbilldetails,
@@ -86,7 +112,11 @@ class ListrikComponent extends React.Component {
                         providerImage: null,
                         inquiryId: res.data.response.inquiryid,
                         isSingle: this.state.selectedLink === 'token' ? false : true,
+<<<<<<< HEAD
                         resMsg: res.data.response.responsemsg,
+=======
+                        resMsg: arrbilldetails.length > 0 ? res.data.response.responsemsg : 'Terjadi Kesalahan Dari Vendor Penyedia Jasa',
+>>>>>>> master
                         resStatus:res.data.response.responsecode,
                         billersdetailtemp:arrbilldetails,
                     });
@@ -169,6 +199,10 @@ class ListrikComponent extends React.Component {
                                 this.state.isSingle ? 
                                     this.state.billersdetailtemp.map((rowSingle, r)=>(
                                         <View key={r}>
+<<<<<<< HEAD
+=======
+                                            <AlertBox type={'warning'} title={'Pemberitahuan!'} text={this.state.resMsg}/>
+>>>>>>> master
                                             {rowSingle.map((singleMap, s) => (
                                                 <TouchableHighlight key={s} onPress={()=> this.selectBiller(singleMap)} underlayColor="transparent">
                                                     <View View style={styles.textPulsa}>
@@ -184,6 +218,10 @@ class ListrikComponent extends React.Component {
                                     ))
                                 :
                                     <View>
+<<<<<<< HEAD
+=======
+                                        <AlertBox type={'warning'} title={'Pemberitahuan!'} text={this.state.resMsg}/>
+>>>>>>> master
                                         <Grid>
                                             {this.state.billersdetailtemp.map((row, k)=>(
                                                 <Row key={k}>

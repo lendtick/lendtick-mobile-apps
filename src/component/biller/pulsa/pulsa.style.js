@@ -95,6 +95,7 @@ export const styles = StyleSheet.create({
         ...Variable.boxShadow
     },
     titleWhiteBox:{
+<<<<<<< HEAD
         fontWeight: '700',
         textAlign: 'center',
         color: Variable.colorTitle,
@@ -106,6 +107,18 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         color: '#ffffff',
         fontFamily: Variable.fontBold
+=======
+        fontWeight: '400',
+        textAlign: 'center',
+        color: '#3e3e3e',
+        fontSize: 12
+    },
+    titleGradientBox:{
+        fontWeight: '400',
+        textAlign: 'center',
+        fontSize: 12,
+        color: '#ffffff'
+>>>>>>> master
     },
     descWhiteBox:{
         color: Variable.colorContent,
@@ -137,7 +150,11 @@ export const styles = StyleSheet.create({
         paddingLeft: 7.5,
         paddingRight: 7.5,
         paddingBottom: 15,
+<<<<<<< HEAD
         width: '50%',
+=======
+        width: '33%',
+>>>>>>> master
     },
     textPulsa:{
         borderWidth: 1,

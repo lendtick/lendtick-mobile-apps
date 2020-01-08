@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView,View,Text,TouchableHighlight,Alert,ActivityIndicator } from 'react-native';
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
+=======
+import { AntDesign } from '@expo/vector-icons';
+>>>>>>> master
 import { Col,Row,Grid } from "react-native-easy-grid";
 import * as accounting from 'accounting';
 import { Main,Variable,Typography } from '@styles';
@@ -14,6 +18,15 @@ class listHistoryOrderComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pembelian Saya",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {
@@ -104,7 +117,11 @@ class listHistoryOrderComponent extends Component {
                                     </View>
                                     <View style={[styles.bodyHistory,{borderTopWidth:1,borderColor: '#efefef'}]}>
                                         <Text style={styles.titleHistory}>{'Nama Produk : ' + x.order_detail[0].product_name}</Text>
+<<<<<<< HEAD
                                         <Text style={styles.descHistory}>{x.order_detail[0].biller_name}</Text>
+=======
+                                        <Text style={styles.descHistory}>{x.order_detail[0].biller_name.split('-')[0]}</Text>
+>>>>>>> master
                                     </View>
                                     <View style={[styles.bodyHistory,{borderTopWidth:1,borderColor: '#efefef'}]}>
                                         <Text style={styles.titleHistory}>Nomer {x.order_detail[0].biller_id == '9950102' || x.order_detail[0].biller_id == '9950101' ? 'Meteran' : 'Telepon'}</Text>

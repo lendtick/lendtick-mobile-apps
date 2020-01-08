@@ -64,5 +64,31 @@ export default homeService = {
         return promiseObj;
     },
 
+<<<<<<< HEAD
+=======
+    // ======================= //
+    // Post Balance
+    // ======================= //
+    getBalance: () =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(API.hostLoan + '/microloan/balance', {
+                    method: 'GET',
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                .then(response => response.json())
+                .then(json => resolve(json))
+                .catch(err => {
+                    reject(err);
+                });
+            });
+        });
+        return promiseObj;
+    },
+
+>>>>>>> master
     
 };

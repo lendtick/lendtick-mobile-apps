@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
+=======
+// import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+>>>>>>> master
 
 import { Main,Typography,Input,Variable } from '@styles';
 import { styles } from './pinjaman-tunai.style';
@@ -10,6 +15,15 @@ class PinjamanTunaiComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pinjaman Tunai",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {
@@ -68,7 +82,11 @@ class PinjamanTunaiComponent extends React.Component {
                     <View style={[Main.container,{marginBottom:15}]}>
                         <Grid>
                             <Col style={{width:35}}>
+<<<<<<< HEAD
                                 <Feather name="square" size={20} color={Variable.colorPrimary} />
+=======
+                                <AntDesign name="square" size={20} color={Variable.colorPrimary} />
+>>>>>>> master
                             </Col>
                             <Col>
                                 <Text style={Typography.singleText}>Saya telah membaca dan menyetujui Perjanjian Peminjaman di koperasi ASTRA</Text>

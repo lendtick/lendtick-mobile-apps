@@ -1,5 +1,10 @@
 import { Platform,AsyncStorage } from 'react-native';
+<<<<<<< HEAD
 import { Permissions,Notifications } from 'expo';
+=======
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+>>>>>>> master
 import { API } from '@services/API';
 
 var urlPutToken = API.auth + '/fcm/token';

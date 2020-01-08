@@ -3,6 +3,10 @@ import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import PropTypes from 'prop-types';
 import { Variable } from '@styles';
+<<<<<<< HEAD
+=======
+import * as accounting from 'accounting';
+>>>>>>> master
 
 class ItemProduct extends React.Component {
     constructor(props) {

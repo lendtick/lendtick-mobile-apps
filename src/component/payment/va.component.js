@@ -10,6 +10,15 @@ class VAComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pembayaran",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
         headerLeft: null
     });
 

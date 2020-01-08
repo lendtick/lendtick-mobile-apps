@@ -9,6 +9,15 @@ class ForgotPassComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Lupa Kata Sandi",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
         headerLeft: null
     });
 

@@ -1,6 +1,11 @@
 import React from 'react';
 import { View,ScrollView,Image,StyleSheet,ActivityIndicator,KeyboardAvoidingView } from 'react-native';
+<<<<<<< HEAD
 import { LinearGradient } from 'expo';
+=======
+import { Constants } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
+>>>>>>> master
 import { connect } from 'react-redux';
 import InputPersonal from './personal-input/input-personal';
 import InputBank from './personal-input/input-bank';
@@ -42,6 +47,15 @@ class DataPersonalComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Data Personal",
         headerTitleStyle: Variable.headerTitleStyle,
+<<<<<<< HEAD
+=======
+        headerStyle: {
+            elevation:0,
+            backgroundColor: '#42A9A0',
+            borderBottomWidth: 0,
+        },
+        headerTintColor: '#ffffff',
+>>>>>>> master
     });
 
     constructor(props) {
