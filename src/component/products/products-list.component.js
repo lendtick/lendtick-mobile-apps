@@ -1,12 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View,Text,TouchableHighlight,ScrollView,Platform } from 'react-native';
-import Dimensions from 'Dimensions';
-=======
 import { View,Text,TouchableHighlight,ScrollView,Platform, Dimensions } from 'react-native';
 // import Dimensions from 'Dimensions';
 
->>>>>>> master
 import truncate from 'lodash/truncate';
 import { Col, Grid } from "react-native-easy-grid";
 import * as _ from 'lodash';
@@ -19,15 +14,12 @@ class ListProductComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Product List",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {

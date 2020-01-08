@@ -1,10 +1,6 @@
 import React from 'react';
 import { Text,View,TouchableHighlight,StyleSheet,Animated } from 'react-native'; //Step 1
-<<<<<<< HEAD
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable, Typography } from '@styles';
 import * as Animatable from 'react-native-animatable';
@@ -36,11 +32,7 @@ class Panel extends React.Component {
                     <Grid>
                         <Col><Text style={[Typography.heading6,{marginBottom:0}]}>{this.props.title}</Text></Col>
                         <Col style={{width:50}}>
-<<<<<<< HEAD
-                            <Feather name={this.props.collapse ? 'chevron-down' : 'chevron-right'} size={20} color={Variable.colorContent} style={{textAlign:'right'}}/>
-=======
                             <AntDesign name={this.props.collapse ? 'down' : 'right'} size={20} color={Variable.colorContent} style={{textAlign:'right'}}/>
->>>>>>> master
                         </Col>
                     </Grid>
                 </TouchableHighlight>

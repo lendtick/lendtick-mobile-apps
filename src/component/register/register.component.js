@@ -1,13 +1,4 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform } from 'react-native';
-import { ImagePicker, Camera, Permissions } from 'expo';
-import AutoHeightImage from 'react-native-auto-height-image';
-import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal,InputDropdown } from '@directives';
-import { Main,Variable,Input, Typography } from '@styles';
-import * as _ from 'lodash';
-import { connect } from 'react-redux';
-=======
 import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { ImagePicker, Camera } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -18,7 +9,6 @@ import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import Autocomplete from 'react-native-autocomplete-input';
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
@@ -28,15 +18,12 @@ class RegisterComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Register",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
         headerLeft: null
     });
 
@@ -49,14 +36,6 @@ class RegisterComponent extends Component {
             identity_id: null,
             nik: null,
             company: null,
-<<<<<<< HEAD
-            nik: null,
-            identityPhoto: null,
-            companyIdentityPhoto: null,
-
-            openCameraProfile: false,
-            personalPhoto: null,
-=======
             query: '',
             companies:[],
             nik: null,
@@ -65,7 +44,6 @@ class RegisterComponent extends Component {
 
             openCameraProfile: false,
             // personalPhoto: null,
->>>>>>> master
 
             openPopupCompany: false,
             isFailed: false,
@@ -79,17 +57,6 @@ class RegisterComponent extends Component {
     }
     
     fetchListCompany(){
-<<<<<<< HEAD
-        this.setState({ arrCompany: []});
-        registerService.getListCompany().then(res =>{
-            _.map(res['data'],(x)=>{
-                let obj = {value: x.id_company, label: x.name_company};
-                this.state.arrCompany.push(obj);
-            });
-            this.setState({
-                arrCompany: this.state.arrCompany
-            })
-=======
         // this.setState({ arrCompany: []});
         registerService.getListCompany().then(res =>{
             _.map(res['data'],(x)=>{
@@ -103,7 +70,6 @@ class RegisterComponent extends Component {
             // this.setState({
             //     arrCompany: this.state.arrCompany
             // })
->>>>>>> master
         }, err =>{
             Alert.alert(
                 'Error',
@@ -176,11 +142,8 @@ class RegisterComponent extends Component {
                 isInvalid: false
             });
 
-<<<<<<< HEAD
-=======
             console.log('final ==>', this.state.company);
              
->>>>>>> master
             let data = {
                 name: this.state.name,
                 role: 'ROLE001',
@@ -200,13 +163,8 @@ class RegisterComponent extends Component {
                 company: 'required',
                 identity_photo: 'required',
                 company_identity_photo: 'required',
-<<<<<<< HEAD
-                phone_number: 'required|numeric',
-                personal_photo: 'required',
-=======
                 personal_photo: 'required',
                 phone_number: 'required|numeric',
->>>>>>> master
                 nik: 'required|numeric',
                 identity_id: 'required|numeric'
             };
@@ -223,12 +181,8 @@ class RegisterComponent extends Component {
                     this.setState({isInvalid: true});
                 }
             }
-<<<<<<< HEAD
-        }else{
-=======
         }
         else{
->>>>>>> master
             this.setState({isInvalid: true});
         }
     }
@@ -236,10 +190,7 @@ class RegisterComponent extends Component {
     // Submit
     // ======================== //
     onSubmit(data){
-<<<<<<< HEAD
-=======
         console.log("ini data mana==> ", data);
->>>>>>> master
         this.setState({
             isFailed: false,
             isInvalid: false
@@ -248,10 +199,6 @@ class RegisterComponent extends Component {
         this.props.navigation.navigate('Term');
     }
 
-<<<<<<< HEAD
-    render() {
-        const { hasCameraPermission } = this.state;
-=======
     findCompanies(query) {
         if (query === '') {
             return [];
@@ -279,7 +226,6 @@ class RegisterComponent extends Component {
         const companies = this.findCompanies(query);
         const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
 
->>>>>>> master
         return (
             <View style={{height:'100%',backgroundColor:'white'}}>
                 <ScrollView>
@@ -347,15 +293,6 @@ class RegisterComponent extends Component {
                                 value={this.state.nik}
                                 onChange={(nik) => this.setState({nik})}/>
 
-<<<<<<< HEAD
-                            <InputDropdown 
-                                label="Nama Perusahaan"
-                                iconName={null}
-                                placeholder="Nama Perusahaan"
-                                value={this.state.company}
-                                items={this.state.arrCompany}
-                                onChange={(company) => this.setState({company})}/>  
-=======
                             {/* <InputDropdown 
                                 label="Nama Perusahaan"
                                 iconName={null}
@@ -397,7 +334,6 @@ class RegisterComponent extends Component {
                                         />
                                 </View>
                                 </View>
->>>>>>> master
 
                             <InputComponent 
                                 label="Foto Kartu ID"

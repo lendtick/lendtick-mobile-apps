@@ -1,12 +1,8 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-<<<<<<< HEAD
-import { Permissions,Font } from 'expo';
-=======
 // import { Font } from 'expo';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
->>>>>>> master
 
 class InitComponent extends React.Component {
     constructor(props) {
@@ -22,21 +18,12 @@ class InitComponent extends React.Component {
         // Load Font
         // ======================================== //
         await Font.loadAsync({
-<<<<<<< HEAD
-            'font-bold': require('@assets/font/Poppins/Poppins-Bold.ttf'),
-            'font-medium': require('@assets/font/Poppins/Poppins-Medium.ttf'),
-            'font-regular': require('@assets/font/Poppins/Poppins-Regular.ttf'),
-            'font-light': require('@assets/font/Poppins/Poppins-Light.ttf'),
-            'font-extra-light': require('@assets/font/Poppins/Poppins-ExtraLight.ttf'),
-            'font-thin': require('@assets/font/Poppins/Poppins-Thin.ttf'),
-=======
             'font-bold': require('../../../assets/font/Poppins/Poppins-Bold.ttf'),
             'font-medium': require('../../../assets/font/Poppins/Poppins-Medium.ttf'),
             'font-regular': require('../../../assets/font/Poppins/Poppins-Regular.ttf'),
             'font-light': require('../../../assets/font/Poppins/Poppins-Light.ttf'),
             'font-extra-light': require('../../../assets/font/Poppins/Poppins-ExtraLight.ttf'),
             'font-thin': require('../../../assets/font/Poppins/Poppins-Thin.ttf'),
->>>>>>> master
         });
 
         // Direct Page as token & status isNew user

@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, StyleSheet, ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
-<<<<<<< HEAD
-import { LinearGradient } from 'expo';
-=======
 import { LinearGradient } from 'expo-linear-gradient';
->>>>>>> master
 import { Variable } from '@styles';
 
 class FooterButton extends React.Component {
@@ -19,11 +15,7 @@ class FooterButton extends React.Component {
                     <Col style={{width:150}}>
                         <TouchableHighlight onPress={this.props.onClick} underlayColor="transparent">
                             <LinearGradient
-<<<<<<< HEAD
-                                colors={this.props.disabled ? ['#999','#999'] : Variable.colorGradient}
-=======
                                 colors={this.props.disabled ? ['#999','#999'] : ['#25c4fd', '#aad95a']}
->>>>>>> master
                                 start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                                 style={{padding: 15,paddingTop:13}}>
                                 {this.props.isSubmit ? <ActivityIndicator size="small" color="#fff" /> : <Text style={styles.footerBtn}>{this.props.textButton}</Text> }

@@ -64,8 +64,6 @@ export default homeService = {
         return promiseObj;
     },
 
-<<<<<<< HEAD
-=======
     // ======================= //
     // Post Balance
     // ======================= //
@@ -89,6 +87,5 @@ export default homeService = {
         return promiseObj;
     },
 
->>>>>>> master
     
 };

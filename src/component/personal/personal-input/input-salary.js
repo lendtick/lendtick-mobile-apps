@@ -1,11 +1,7 @@
 import React from 'react';
 import { View,Dimensions,Alert } from 'react-native';
-<<<<<<< HEAD
-import { ImagePicker, Camera, Permissions } from 'expo';
-=======
 import { ImagePicker, Camera } from 'expo';
 import * as Permissions from 'expo-permissions';
->>>>>>> master
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 

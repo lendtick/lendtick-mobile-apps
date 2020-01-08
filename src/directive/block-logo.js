@@ -1,10 +1,6 @@
 import React from 'react';
 import { View,StyleSheet, Image } from 'react-native';
-<<<<<<< HEAD
-import { LinearGradient } from 'expo';
-=======
 import { LinearGradient } from 'expo-linear-gradient';
->>>>>>> master
 import { Variable } from '@styles';
 
 class BlockLogo extends React.Component {

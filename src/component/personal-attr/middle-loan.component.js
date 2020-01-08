@@ -1,10 +1,6 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,ActivityIndicator,Alert } from 'react-native';
-<<<<<<< HEAD
-import { LinearGradient } from 'expo';
-=======
 import { LinearGradient } from 'expo-linear-gradient';
->>>>>>> master
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { styles } from './balance.style';
@@ -16,15 +12,12 @@ class MiddleLoanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pinjaman Microloan",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -94,11 +87,7 @@ class MiddleLoanComponent extends React.Component {
                 </View>
                 :
                 <ScrollView>
-<<<<<<< HEAD
-                    <LinearGradient
-=======
                     {/* <LinearGradient
->>>>>>> master
                         colors={Variable.colorGradient}
                         start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                         style={{ 
@@ -106,13 +95,8 @@ class MiddleLoanComponent extends React.Component {
                             paddingBottom: 50, 
                             alignItems: 'center'
                         }}>
-<<<<<<< HEAD
-                         <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {accounting.formatMoney(this.props.navigation.getParam('payment'), "", 0, ",", ",")}</Text>
-                    </LinearGradient>
-=======
                          <Text style={[Typography.heading3,{color:'#000',marginBottom:0}]}>Rp {accounting.formatMoney(this.props.navigation.getParam('payment'), "", 0, ",", ",")}</Text>
                     </LinearGradient> */}
->>>>>>> master
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Tagihan bulan ini</Text>
                     </View>

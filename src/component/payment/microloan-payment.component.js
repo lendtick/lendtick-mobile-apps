@@ -9,10 +9,6 @@ import paymentService from './payment.service';
 
 class MicroloanPayment extends React.Component {
     static navigationOptions = ({navigation}) => ({
-<<<<<<< HEAD
-        title: "Pembayaran Microloan",
-        headerTitleStyle: Variable.headerTitleStyle,
-=======
         title: "Saldo KAI",
         headerTitleStyle: Variable.headerTitleStyle,
         headerStyle: {
@@ -21,7 +17,6 @@ class MicroloanPayment extends React.Component {
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {

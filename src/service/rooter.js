@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 import { createBottomTabNavigator, createStackNavigator,createSwitchNavigator } from 'react-navigation';
 import { Variable } from '@styles';
 
@@ -47,10 +43,7 @@ const LoginUser = createStackNavigator({
     Register: RegisterComponent,
     Term: TermComponent,
     Otp: OtpComponent,
-<<<<<<< HEAD
-=======
     Search: SearchComponent,
->>>>>>> master
     RegisterSuccess: RegisterSuccessComponent
 },{
     initialRouteName: 'LoginUser',
@@ -85,13 +78,10 @@ import TermComponent from '../component/register/terms.component';
 import OtpComponent from '../component/register/otp.component';
 import RegisterSuccessComponent from '../component/register/register-success.component';
 
-<<<<<<< HEAD
-=======
 // Search
 // ========================== //
 import SearchComponent from '../component/register/search.component';
 
->>>>>>> master
 
 // Personal
 // ========================== //
@@ -177,14 +167,11 @@ import PinjamanTunaiComponent from '../component/biller/pinjaman-tunai/pinjaman-
 import PaketDataConfirmation from '../component/biller/paket-data/paket-data-confirmasi.component';
 import ListrikConfirmation from '../component/biller/listrik/listrik-comfirm.component';
 
-<<<<<<< HEAD
-=======
 import BpjsComponent from '../component/biller/bpjs/bpjs.component';
 import BpjsConfirmation from '../component/biller/bpjs/bpjs-confirm.component';
 import AirComponent from '../component/biller/air/air.component';
 import AirConfirmation from '../component/biller/air/air-confirm.component';
 
->>>>>>> master
 const Biller = createStackNavigator({
     main: BillerComponent,
     PaketData: PaketDataComponent,
@@ -194,13 +181,10 @@ const Biller = createStackNavigator({
     Listrik: ListrikComponent,
     PinjamanTunai: PinjamanTunaiComponent,
     ListrikConfirmation: ListrikConfirmation,
-<<<<<<< HEAD
-=======
     Bpjs:BpjsComponent,
     BpjsConfirmation:BpjsConfirmation,
     Air:AirComponent,
     AirConfirmation:AirConfirmation,
->>>>>>> master
 },{
     initialRouteName: 'main',
     mode: 'modal'
@@ -231,19 +215,11 @@ const tabsRoot = createBottomTabNavigator({
             let iconName;
             switch(routeName){
                 case "Home" :  iconName = 'home'; break;
-<<<<<<< HEAD
-                case "Service" :  iconName = 'grid'; break;
-                case "Credit" :  iconName = 'credit-card'; break;
-                case "User" :  iconName = 'user'; break;
-            }
-            return <Feather name={iconName} size={20} color="#6a6a6a" />;
-=======
                 case "Service" :  iconName = 'appstore-o'; break;
                 case "Credit" :  iconName = 'creditcard'; break;
                 case "User" :  iconName = 'user'; break;
             }
             return <AntDesign name={iconName} size={20} color="#6a6a6a" />;
->>>>>>> master
         },
         tabBarPosition: 'top'
     }),

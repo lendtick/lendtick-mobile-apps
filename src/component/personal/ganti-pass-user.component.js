@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView,View,KeyboardAvoidingView,Platform } from 'react-native';
-<<<<<<< HEAD
-import { LinearGradient } from 'expo';
-=======
 import { LinearGradient } from 'expo-linear-gradient';
->>>>>>> master
 
 import { ButtonComponent, BlockLogo, InputComponent } from '@directives';
 import { Main,Variable } from '@styles';
@@ -13,15 +9,12 @@ class GantiPassUserComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Ganti Password",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -68,11 +61,7 @@ class GantiPassUserComponent extends Component {
 
                             <InputComponent 
                                 label="Password baru"
-<<<<<<< HEAD
-                                iconName={this.state.hidePassword ? "eye-off" : "eye"}
-=======
                                 iconName={this.state.hidePassword ? "eye" : "eye"}
->>>>>>> master
                                 placeholder="Masukan password baru"
                                 secureTextEntry={this.state.hidePassword}
                                 value={this.state.newPassword}

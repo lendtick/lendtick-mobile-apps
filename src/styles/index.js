@@ -18,11 +18,8 @@ export const Typography = StyleSheet.create({
     ...TypographyStyle
 });
 
-<<<<<<< HEAD
-=======
 import StatusBarStyle from './status-bar';
 export const Statusbar = StyleSheet.create({
     ...StatusBarStyle
 });
 
->>>>>>> master

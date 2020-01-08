@@ -1,9 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View,Text,TouchableHighlight,Dimensions } from 'react-native';
-import AutoHeightImage from 'react-native-auto-height-image';
-import { Variable,Typography } from '@styles';
-=======
 import { View,Text,TouchableHighlight,ScrollView,ActivityIndicator,Alert } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
@@ -14,29 +9,22 @@ import watch from 'redux-watch';
 import { store } from '@services/store';
 import { connect } from 'react-redux';
 import creditService from './credit.service';
->>>>>>> master
 import * as _ from 'lodash';
 
 class CreditComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Credit",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
         super(props);
-<<<<<<< HEAD
-        this.state = {};
-=======
         this.state = { 
             titleError: null,
             arrError: [],
@@ -91,24 +79,10 @@ class CreditComponent extends React.Component {
                 {cancelable: false},
             );
         });
->>>>>>> master
     }
 
     render() { 
         return(
-<<<<<<< HEAD
-            <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'stretch',
-                    backgroundColor: '#fff'
-                }}>
-                <AutoHeightImage width={Dimensions.get('window').width} source={require('@assets/img/coming-soon.png')} />
-                <Text style={[Typography.heading5,{textAlign:'center'}]}>Segera Hadir</Text>
-                <Text style={[Typography.singleText,{textAlign:'center'}]}>kemudahan pengajuan pinjaman untuk anda</Text>
-            </View>
-=======
             <ScrollView style={{padding: 15,  backgroundColor: '#f8f8ff'}}>
                 {this.state.loading ? 
                     <View style={{padding:30}}>  
@@ -165,14 +139,10 @@ class CreditComponent extends React.Component {
                 </View>
                 }
             </ScrollView>
->>>>>>> master
         ) 
     }
 }
 
-<<<<<<< HEAD
-export default CreditComponent;
-=======
 
 const mapStateToProps = (state) => {
 	return {
@@ -187,4 +157,3 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(CreditComponent)
->>>>>>> master

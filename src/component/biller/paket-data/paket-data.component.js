@@ -1,13 +1,9 @@
 import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
-<<<<<<< HEAD
-import { Contacts, Permissions, LinearGradient } from 'expo';
-=======
 import { Contacts } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Permissions from 'expo-permissions';
->>>>>>> master
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
@@ -25,15 +21,12 @@ class PaketDataComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Paket Data",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -54,10 +47,7 @@ class PaketDataComponent extends React.Component {
             billersIdPaketData: null,
             inquiryId: null,
             systracePaket:null,
-<<<<<<< HEAD
-=======
             alert:[]
->>>>>>> master
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -80,10 +70,7 @@ class PaketDataComponent extends React.Component {
         phone = phone.replace(/ /g,'');
         if(phone.length > 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
-<<<<<<< HEAD
-=======
                 console.log(res);
->>>>>>> master
                 if(res.data.length){
                     this.setState({
                         providerName: res.data[0].provider_phone_name,
@@ -143,24 +130,6 @@ class PaketDataComponent extends React.Component {
         
         this.setState({loadingBiller: true});
         billerService.postBillerInquiry(obj).then(res =>{
-<<<<<<< HEAD
-            console.log('paket =>',res.data.trace.systrace);
-            if(res.status){
-                if(res.data){
-                    let billdetails = res.data.response.billdetails;
-                    _.map(billdetails, (x)=>{
-                        x['total'] = Number(x.totalamount) + Number(x.adminfee)
-                        x['rp_total'] = "Rp " + accounting.formatMoney(x['total'], "", 0, ",", ",")
-                        x['rp_totalamount'] = "Rp " + accounting.formatMoney(x['totalamount'], "", 0, ",", ",")
-                        x['priceToPay'] = x.totalamount
-                    });
-                    this.setState({
-                        billdetails: billdetails,
-                        loadingBiller: false,
-                        inquiryId: res.data.response.inquiryid,
-                        systracePaket: res.data.trace.systrace
-                    });
-=======
             if(res.status){
                 if(res.data){
                     let billdetails = res.data.response.billdetails;
@@ -185,26 +154,19 @@ class PaketDataComponent extends React.Component {
                             alert:['danger', 'ERROR', 'Terjadi Kesalahan Dari Vendor Penyedia Jasa']
                         });
                     }
->>>>>>> master
                     if(billdetails.length) this.selectBiller(billdetails[0]);
                 }else{
                     this.setState({
                         billdetails: [],
                         loadingBiller: false,
-<<<<<<< HEAD
-=======
                         alert:['danger', 'ERROR', 'Terjadi Kesalahan Dari Vendor Penyedia Jasa']
->>>>>>> master
                     });
                 }
             }else{
                 this.setState({
                     billdetails: [],
                     loadingBiller: false,
-<<<<<<< HEAD
-=======
                     alert:['warning', 'pemberitahuan', 'Anda belum memilih operator']
->>>>>>> master
                 });
             }
         });
@@ -216,10 +178,7 @@ class PaketDataComponent extends React.Component {
             selectedBiller: e
         });
         let provider = {
-<<<<<<< HEAD
-=======
             bill_id : e.billid,
->>>>>>> master
             providerName: this.state.providerName, 
             providerImage: this.state.providerImage,
             billersIdPaketData: this.state.billersIdPaketData,
@@ -310,11 +269,7 @@ class PaketDataComponent extends React.Component {
                                     </TouchableHighlight>
                                 ))}
                             </View>
-<<<<<<< HEAD
-                        : <AlertBox type={'warning'} title={'Pemberitahuan!'} text={'Anda belum memilih operator'}/>}
-=======
                         : <AlertBox type={this.state.alert[0]} title={this.state.alert[1]} text={this.state.alert[2]}/>}
->>>>>>> master
                     </View>
                     }
                 </ScrollView>

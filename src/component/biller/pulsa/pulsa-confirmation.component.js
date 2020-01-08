@@ -11,15 +11,12 @@ class PulsaConfirmation extends React.Component {
         title: "Konfirmasi Pulsa",
         titleBillers: [],
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -46,11 +43,7 @@ class PulsaConfirmation extends React.Component {
             product_name: this.props.pulsa.data.providerName,
             product_image_path: this.props.pulsa.data.providerImage,
             biller_id: this.props.pulsa.data.billersIdPulsa,
-<<<<<<< HEAD
-            bill_id: 1,
-=======
             bill_id: this.props.pulsa.data.bill_id,
->>>>>>> master
             biller_name: this.props.pulsa.data.title,
             bill_details: this.props.pulsa.data.descriptions,
             billertrx:1,

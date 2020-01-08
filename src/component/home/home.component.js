@@ -1,52 +1,35 @@
 import React from 'react';
-<<<<<<< HEAD
-import { ScrollView,View,Text,Dimensions,TouchableHighlight,Platform,ActivityIndicator,Alert } from 'react-native';
-import { Permissions } from 'expo';
-=======
 import { ScrollView,View,Text,Dimensions,TouchableHighlight,Platform,ActivityIndicator,Alert, StatusBar, AsyncStorage} from 'react-native';
 import { Constants } from 'expo';
 import * as Permissions from 'expo-permissions';
->>>>>>> master
 import { SafeAreaView } from 'react-navigation';
 import { Col,Grid, Row } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import AutoHeightImage from 'react-native-auto-height-image';
-<<<<<<< HEAD
-
-import { HeaderSearch, BannerComponent, ItemProduct } from '@directives';
-import { Variable } from '@styles';
-=======
 import watch from 'redux-watch';
 import { store } from '@services/store';
 
 import { HeaderSearch, BannerComponent, ItemProduct, HeaderHome } from '@directives';
 import { Variable, Typography } from '@styles';
->>>>>>> master
 import { styles } from './home.style';
 import truncate from 'lodash/truncate';
 import homeService from './home.service';
 
-<<<<<<< HEAD
-=======
 if (Platform.OS === 'android') {
     SafeAreaView.setStatusBarHeight(0);
 }
 
->>>>>>> master
 class HomeComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Home",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
     constructor(props) {
         super(props);
@@ -54,10 +37,7 @@ class HomeComponent extends React.Component {
             notification: null,
             loading: false,
             entries:[],
-<<<<<<< HEAD
-=======
             entriesMin:[],
->>>>>>> master
             productsPopular:[
                 {id: "01", title: "Jaket merah", category:"Jacket", price: 14500, src:require("@assets/img/product/img01.jpg")},
                 {id: "02", title: "Kemeja Gaya", category:"Baju", price: 15000, src:require("@assets/img/product/img02.jpg")},
@@ -67,20 +47,13 @@ class HomeComponent extends React.Component {
                 {id: "01", title: "Tas Wanita", category:"Bag", price: 14500, src:require("@assets/img/product/img04.jpg")},
                 {id: "02", title: "Sepati Anti Paku", category:"Shoes", price: 15000, src:require("@assets/img/product/img05.jpg")},
                 {id: "03", title: "Tas Wanita Coklat", category:"Bag", price: 14500, src:require("@assets/img/product/img06.jpg")},
-<<<<<<< HEAD
-            ]
-=======
             ],
             name : null,
             saldo : null,
->>>>>>> master
         };
     }
 
     componentWillMount(){
-<<<<<<< HEAD
-        if(this.props.personal.data == null) this.fetchUser();
-=======
         // console.log('BAH DATA: ', this.props.home);
         // if (this.props.home){
         //     this.setState({
@@ -96,7 +69,6 @@ class HomeComponent extends React.Component {
                 // console.log('token ini : ',token);
             }
         });
->>>>>>> master
         this.fetchContent();
 
         const status = Permissions.getAsync(Permissions.NOTIFICATIONS);
@@ -107,15 +79,11 @@ class HomeComponent extends React.Component {
 
     fetchUser(){
         homeService.getInfoUser().then(res =>{
-<<<<<<< HEAD
-            this.props.setGetData(res['data']);
-=======
             let dataUser = res['data'];
             this.props.setGetData(dataUser);
             this.setState({
                 name: dataUser.name,
             });
->>>>>>> master
         }, err =>{
             Alert.alert(
                 'Error',
@@ -126,8 +94,6 @@ class HomeComponent extends React.Component {
         });
     }
 
-<<<<<<< HEAD
-=======
     fetchBalance(){
         homeService.getBalance().then(res =>{
             this.setState({
@@ -143,7 +109,6 @@ class HomeComponent extends React.Component {
         });
     }
 
->>>>>>> master
     fetchContent(){
         this.setState({loading: true});
         let arrContent = [];
@@ -158,10 +123,7 @@ class HomeComponent extends React.Component {
             });
             this.setState({
                 entries: arrContent,
-<<<<<<< HEAD
-=======
                 entriesMin: arrContent,
->>>>>>> master
                 loading: false
             });
         }, err =>{
@@ -182,15 +144,6 @@ class HomeComponent extends React.Component {
     render() { 
         return(
             <SafeAreaView>
-<<<<<<< HEAD
-                <View style={styles.wrapper}>
-                    <ScrollView>
-                        
-                        {/* Start Header */}
-                        <HeaderSearch onClickCart={()=> this.props.navigation.navigate('Payment')}/>
-                        {/* End Header */}
-
-=======
                 <StatusBar barStyle='light-content'/>
                 <View style={styles.wrapper}>
                     <ScrollView>
@@ -198,16 +151,10 @@ class HomeComponent extends React.Component {
                         <HeaderSearch onClickCart={()=> this.props.navigation.navigate('Payment')}/>
                         {/* End Header */}
                         
->>>>>>> master
                         {/* Start Banner */}
                         {this.state.loading ? 
                         <ActivityIndicator size="small" color="#333" style={{marginBottom:15, marginTop:30}}/> :
                         <View style={styles.wrapSlider}>
-<<<<<<< HEAD
-                            <BannerComponent data={this.state.entries} height={180}/>
-                        </View>}
-                        {/* End Banner */}
-=======
                             <BannerComponent data={this.state.entries} height={250}/>
                         </View>}
                         {/* End Banner */}
@@ -215,7 +162,6 @@ class HomeComponent extends React.Component {
                         {/* Header Home */}
                         <HeaderHome name={this.state.name ? this.state.name : '-'} saldo={this.state.saldo ? this.state.saldo : 0}/>
                         {/* End Header Home */}
->>>>>>> master
 
                         {/* Start Wrap Service */}
                         <View style={styles.wrapService}>
@@ -223,39 +169,6 @@ class HomeComponent extends React.Component {
                                 <Row>
                                     <Col style={styles.itemProduct}>
                                         <TouchableHighlight onPress={()=> this.props.navigation.navigate('Pulsa')} underlayColor="transparent">
-<<<<<<< HEAD
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item9.png')} />
-                                        </TouchableHighlight>
-                                    </Col>
-                                    <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('PaketData')} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item2.png')} />
-                                        </TouchableHighlight>
-                                    </Col>
-                                    <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item8.png')} />
-                                        </TouchableHighlight>
-                                    </Col>
-                                </Row>
-                                {/* <Row>
-                                    <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
-                                        </TouchableHighlight>
-                                    </Col>
-                                    <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item3.png')} />
-                                        </TouchableHighlight>
-                                    </Col>
-                                    <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
-                                            <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item6.png')} />
-                                        </TouchableHighlight>
-                                    </Col>
-                                </Row> */}
-=======
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/pulsa-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Pulsa</Text>
@@ -309,17 +222,12 @@ class HomeComponent extends React.Component {
                                         <Text style={styles.labelItem}>Lain-Lain</Text>
                                     </Col>
                                 </Row>
->>>>>>> master
                             </Grid>
                          </View>
                         {/* End Wrap Service */}
 
                         {/* Start Grid */} 
-<<<<<<< HEAD
-                        {/* <Grid style={styles.wrapAdds}>
-=======
                         <Grid style={styles.wrapAdds}>
->>>>>>> master
                             <Row>
                                 <Col style={ Platform.OS === 'ios' ? {paddingRight:15,paddingLeft: 15} : {paddingLeft: 15,paddingRight:0}}>
                                     <TouchableHighlight onPress={() => console.log('aweu')} underlayColor="transparent">
@@ -346,19 +254,11 @@ class HomeComponent extends React.Component {
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
-<<<<<<< HEAD
-                        </Grid> */}
-                        {/* End Grid */}
-
-                        {/* ====== START POPULAR PRODUCT ====== */}
-                        {/* <View style={{marginTop: -5, paddingLeft: 15, paddingBottom: 30}}>
-=======
                         </Grid>
                         {/* End Grid */}
 
                         {/* ====== START POPULAR PRODUCT ====== */}
                         <View style={{marginTop: -5, paddingLeft: 15, paddingBottom: 30}}>
->>>>>>> master
                             <Text style={{marginBottom:15,fontWeight:'700',color:Variable.colorTitle,fontSize:18}}>Popular</Text>
                             <Carousel
                                 activeSlideAlignment="start"
@@ -387,19 +287,11 @@ class HomeComponent extends React.Component {
                                 inactiveSlideScale={1}
                                 inactiveSlideOpacity={1}
                                 />
-<<<<<<< HEAD
-                        </View> */}
-                        {/* ====== END POPULAR PRODUCT ====== */}
-
-                        {/* ====== START RECOMENDED PRODUCT ====== */}
-                        {/* <View style={{paddingLeft: 15,backgroundColor:"#ffffff", paddingTop: 30, paddingBottom: 30}}>
-=======
                         </View>
                         {/* ====== END POPULAR PRODUCT ====== */}
 
                         {/* ====== START RECOMENDED PRODUCT ====== */}
                         <View style={{paddingLeft: 15,backgroundColor:"#ffffff", paddingTop: 30, paddingBottom: 30}}>
->>>>>>> master
                             <Text style={{marginBottom:15,fontWeight:'700',color:Variable.colorTitle,fontSize:18}}>Recomendation</Text>
                             <Carousel
                                 activeSlideAlignment="start"
@@ -428,11 +320,7 @@ class HomeComponent extends React.Component {
                                 inactiveSlideScale={1}
                                 inactiveSlideOpacity={1}
                                 />
-<<<<<<< HEAD
-                        </View> */}
-=======
                         </View>
->>>>>>> master
                         {/* ====== END RECOMENDED PRODUCT ====== */}
                     </ScrollView>
                 </View>
@@ -443,22 +331,14 @@ class HomeComponent extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-<<<<<<< HEAD
-        personal: state.personal
-=======
         home: state.home
->>>>>>> master
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
 		setGetData: (e) => {
 			dispatch({
-<<<<<<< HEAD
-				type: 'UPDATE_DATA_PERSONAL',
-=======
 				type: 'UPDATE_DATA_PERSONAL_HOME',
->>>>>>> master
 				data: e
 			})
         },

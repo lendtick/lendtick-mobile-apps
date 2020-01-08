@@ -1,20 +1,11 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View,Text,Image } from 'react-native';
-import Dimensions from 'Dimensions';
-=======
 import { View,Text,Image, Dimensions } from 'react-native';
 // import Dimensions from 'Dimensions';
->>>>>>> master
 import { Col, Grid } from "react-native-easy-grid";
 import Carousel from 'react-native-snap-carousel';
 import truncate from 'lodash/truncate';
 import StarRating from 'react-native-star-rating';
-<<<<<<< HEAD
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 
 import { BannerComponent,ItemProduct } from '@directives';
 import { Typography,Variable} from '@styles';

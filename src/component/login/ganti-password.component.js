@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,KeyboardAvoidingView,AsyncStorage,Alert } from 'react-native';
-<<<<<<< HEAD
-import { LinearGradient } from 'expo';
-=======
 import { LinearGradient } from 'expo-linear-gradient';
->>>>>>> master
 var taiPasswordStrength = require("tai-password-strength");
 
 import Validator from 'validatorjs';
@@ -19,16 +15,12 @@ class GantiPassComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Ganti Password",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-        headerTintColor: 'white',
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -194,11 +186,7 @@ class GantiPassComponent extends Component {
                             onChange={(oldPassword) => this.setState({oldPassword})}/>
                         <InputComponent 
                             label="Password Baru"
-<<<<<<< HEAD
-                            iconName={this.state.hidePassword ? "eye-off" : "eye"}
-=======
                             iconName={this.state.hidePassword ? "eye" : "eye"}
->>>>>>> master
                             placeholder="Enter password"
                             secureTextEntry={true}
                             value={this.state.Password}

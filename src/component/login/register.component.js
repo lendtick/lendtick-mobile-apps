@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,Text,Dimensions,AsyncStorage,Alert } from 'react-native';
-<<<<<<< HEAD
-import { ImagePicker, Camera, Permissions } from 'expo';
-=======
 import { ImagePicker, Camera , Permissions} from 'expo';
->>>>>>> master
 import AutoHeightImage from 'react-native-auto-height-image';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal, InputDropdown } from '@directives';
 import { Main,Variable, Typography } from '@styles';
@@ -48,15 +44,12 @@ class Register2Component extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Register",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
         headerLeft: null
     });
 
@@ -433,11 +426,7 @@ class Register2Component extends Component {
 
                             <InputComponent 
                                 label="Password"
-<<<<<<< HEAD
-                                iconName={this.state.hidePassword ? "eye-off" : "eye"}
-=======
                                 iconName={this.state.hidePassword ? "eye" : "eye"}
->>>>>>> master
                                 placeholder="Enter password"
                                 secureTextEntry={true}
                                 value={this.state.Password}

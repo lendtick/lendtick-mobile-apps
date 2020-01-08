@@ -3,28 +3,16 @@
     "name": "koperasiastra",
     "slug": "koperasiastra",
     "privacy": "public",
-<<<<<<< HEAD
-    "sdkVersion": "32.0.0",
-=======
     "sdkVersion": "35.0.0",
->>>>>>> master
     "platforms": [
       "ios",
       "android"
     ],
-<<<<<<< HEAD
-    "version": "1.0.3",
-    "orientation": "portrait",
-    "icon": "./assets/img/icon.png",
-    "splash": {
-      "image": "./assets/img/splash.png",
-=======
     "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/img/icon.png",
     "splash": {
       "image": "./assets/img/LOGOKAIPRD01.png",
->>>>>>> master
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -38,19 +26,11 @@
     },
     "android": {
       "package": "com.koperasiAstra.koperasiastra",
-<<<<<<< HEAD
-      "versionCode": 3
-=======
       "versionCode": 5
->>>>>>> master
     },
     "notification": {
       "icon": "./assets/img/icon-notif.png"
     },
-<<<<<<< HEAD
-    "description": ""
-  }
-=======
     "description": "",
     "androidStatusBar": {
       "backgroundColor": "#42A9A0",
@@ -60,5 +40,4 @@
   },
   "displayName": "koperasiastra",
   "name": "koperasiastra"
->>>>>>> master
 }

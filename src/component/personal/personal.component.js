@@ -1,18 +1,10 @@
 import React from 'react';
-<<<<<<< HEAD
-import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage,Alert,KeyboardAvoidingView } from 'react-native';
-import { LinearGradient } from 'expo';
-import AutoHeightImage from 'react-native-auto-height-image';
-import { Col,Grid } from "react-native-easy-grid";
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { ScrollView,View,Text,ActivityIndicator,TouchableHighlight,AsyncStorage,Alert,StatusBar, Platform } from 'react-native';
 import { Constants } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 import watch from 'redux-watch';
 import { connect } from 'react-redux';
 import { Variable,Main,Input,Typography } from '@styles';
@@ -23,15 +15,12 @@ class personalComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Personal",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
     
     constructor(props) {
@@ -111,10 +100,6 @@ class personalComponent extends React.Component {
     render() { 
         return(
             <View style={{height:'100%',backgroundColor: Variable.backgroundGray}}>
-<<<<<<< HEAD
-                
-=======
->>>>>>> master
                 <ScrollView>
                     <View style={[Main.container,{paddingTop: 15, paddingBottom: 5}]}> 
                         <LinearGradient
@@ -127,11 +112,7 @@ class personalComponent extends React.Component {
                             <View>
                                 <Text style={[Typography.heading5,{marginTop:15,marginBottom:5, color:'white'}]}>{this.state.name}</Text>
                                 <Text style={[Typography.heading6,{marginBottom:15, color:'white'}]}>{this.state.id}</Text>
-<<<<<<< HEAD
-                                <Text style={[Typography.singleText,{marginBottom:0, color:'white', textAlign:'right'}]}>{this.state.validDate}</Text>
-=======
                                 {/* <Text style={[Typography.singleText,{marginBottom:0, color:'white', textAlign:'right'}]}>{this.state.validDate}</Text> */}
->>>>>>> master
                             </View>}
                         </LinearGradient>
 
@@ -144,11 +125,7 @@ class personalComponent extends React.Component {
                             name: this.state.name
                         });}} underlayColor="transparent">
                             <View style={{flex: 1, flexDirection: 'row',alignItems: 'center'}}>
-<<<<<<< HEAD
-                                <Feather name="search" size={14} color={Variable.colorPrimaryText} />
-=======
                                 <AntDesign name="qrcode" size={14} color={Variable.colorPrimaryText} />
->>>>>>> master
                                 <Text style={[Input.singleLink,{textAlign:'center',marginLeft: 5}]}>Lihat QR Code</Text>
                             </View>
                         </TouchableHighlight>
@@ -160,11 +137,7 @@ class personalComponent extends React.Component {
                         <Col style={{borderRightWidth:1,borderColor:'#efefef',padding:15, width:'33.3%'}}>
                             <TouchableHighlight onPress={()=>{this.props.navigation.navigate('ListHistoryOrder')}} underlayColor="transparent">
                                 <View>
-<<<<<<< HEAD
-                                    <Feather name="shopping-bag" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
-=======
                                     <AntDesign name="shoppingcart" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
->>>>>>> master
                                     <Text style={[Typography.singleText,{textAlign:'center'}]}>Pembelian Saya</Text>
                                 </View>
                             </TouchableHighlight>
@@ -172,11 +145,7 @@ class personalComponent extends React.Component {
                         <Col style={{borderRightWidth:1,borderColor:'#efefef',padding:15, width:'33.3%'}}>
                             <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Balance');}} underlayColor="transparent">
                                 <View>
-<<<<<<< HEAD
-                                    <Feather name="dollar-sign" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
-=======
                                     <AntDesign name="wallet" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
->>>>>>> master
                                     <Text style={[Typography.singleText,{textAlign:'center'}]}>Saldo</Text>
                                 </View>
                             </TouchableHighlight>
@@ -184,11 +153,7 @@ class personalComponent extends React.Component {
                         <Col style={{padding:15, width:'33.3%'}}>
                             <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Pinjaman');}} underlayColor="transparent">
                                 <View>
-<<<<<<< HEAD
-                                    <Feather name="crosshair" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
-=======
                                     <AntDesign name="folder1" size={24} style={{textAlign:'center',marginBottom:10}} color={Variable.colorContent} />
->>>>>>> master
                                     <Text style={[Typography.singleText,{textAlign:'center'}]}>Pinjaman Saya</Text>
                                 </View>
                             </TouchableHighlight>
@@ -202,19 +167,11 @@ class personalComponent extends React.Component {
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="user" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Data Personal</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
-=======
                                         <AntDesign name="user" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Data Personal</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight>
                         }
@@ -223,19 +180,11 @@ class personalComponent extends React.Component {
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="map-pin" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Pengaturan Alamat</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
-=======
                                         <AntDesign name="home" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Pengaturan Alamat</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight>
                         }
@@ -243,95 +192,55 @@ class personalComponent extends React.Component {
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="lock" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Ubah kata sandi</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
-=======
                                         <AntDesign name="lock" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Ubah kata sandi</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight>
                         {/* <TouchableHighlight onPress={()=>{this.props.navigation.navigate('FAQ');}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="help-circle" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Bantuan</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
-=======
                                         <AntDesign name="help-circle" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Bantuan</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight> */}
                         <TouchableHighlight onPress={()=>{this.props.navigation.navigate('About');}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="alert-circle" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Tentang Koperasi Astra</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
-=======
                                         <AntDesign name="profile" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Tentang Koperasi Astra</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight>
                         <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Contact');}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="phone" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
-                                        <Text style={Typography.singleText}>Hubungi kami</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
-=======
                                         <AntDesign name="customerservice" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Hubungi kami</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight>
                         <TouchableHighlight onPress={()=>{this.logout();}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'#da6d6d',borderWidth:1,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-<<<<<<< HEAD
-                                        <Feather name="log-out" size={14} style={{marginRight: 10}} color="#fff" />
-                                        <Text style={[Typography.singleText,{color:'#fff'}]}>Keluar</Text>
-                                    </View>
-                                </Col>
-                                <Col><Feather name="chevron-right" size={18} style={{textAlign:'right',top:-2}} color="#fff" /></Col>
-=======
                                         <AntDesign name="arrowright" size={14} style={{marginRight: 10}} color="#fff" />
                                         <Text style={[Typography.singleText,{color:'#fff'}]}>Keluar</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color="#fff" /></Col>
->>>>>>> master
                             </Grid>
                         </TouchableHighlight>
                     </View>
@@ -354,15 +263,12 @@ const mapDispatchToProps = (dispatch) => {
 				data: e
 			})
         },
-<<<<<<< HEAD
-=======
 		setGetData: (e) => {
 			dispatch({
 				type: 'UPDATE_DATA_PERSONAL_HOME',
 				data: e
 			})
         },
->>>>>>> master
 	}
 }
 

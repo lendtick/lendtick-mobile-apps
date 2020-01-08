@@ -1,12 +1,7 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,TouchableHighlight,ActivityIndicator,Alert } from 'react-native';
-<<<<<<< HEAD
-import { LinearGradient } from 'expo';
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
 import { styles } from './balance.style';
@@ -18,15 +13,12 @@ class PinjamanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Pinjaman",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -78,11 +70,7 @@ class PinjamanComponent extends React.Component {
                 </View>
                 :
                 <ScrollView>
-<<<<<<< HEAD
-                    <LinearGradient
-=======
                     {/* <LinearGradient
->>>>>>> master
                         colors={Variable.colorGradient}
                         start={{x: 0, y: 0}} end={{x: 1, y: 0}}
                         style={{ 
@@ -91,11 +79,7 @@ class PinjamanComponent extends React.Component {
                             alignItems: 'center'
                         }}>
                          <Text style={[Typography.heading3,{color:'#ffffff',marginBottom:0}]}>Rp {accounting.formatMoney(this.state.payment, "", 0, ",", ",")}</Text>
-<<<<<<< HEAD
-                    </LinearGradient>
-=======
                     </LinearGradient> */}
->>>>>>> master
                     <View style={{backgroundColor:'#ffffff'}}>
                         <Text style={[Typography.singleText,{textAlign:'center',padding:15}]}>Pembayaran bulan ini</Text>
                     </View>
@@ -120,11 +104,7 @@ class PinjamanComponent extends React.Component {
                                         <View style={{padding:5,paddingLeft:15,paddingRight:15,backgroundColor:'#f0f0f0'}}>
                                             <Grid>
                                                 <Col><Text style={Typography.singleText}>Status: {x.status}</Text></Col>
-<<<<<<< HEAD
-                                                <Col style={{width:25}}><Feather name={x.status == 'Lunas' ? 'check' : 'eye'} size={18} style={{textAlign:'right',marginTop:1}} color={Variable.colorPrimary}/></Col>
-=======
                                                 <Col style={{width:25}}><AntDesign name={x.status == 'Lunas' ? 'check' : 'eye'} size={18} style={{textAlign:'right',marginTop:1}} color={Variable.colorPrimary}/></Col>
->>>>>>> master
                                             </Grid>
                                         </View>
                                     </Col>

@@ -1,16 +1,9 @@
 import { StyleSheet } from 'react-native';
-<<<<<<< HEAD
-
-export const styles = StyleSheet.create({
-    wrapper:{
-        backgroundColor: '#f8f8ff',
-=======
 import { Variable } from '../../styles/variable';
 
 export const styles = StyleSheet.create({
     wrapper:{
         backgroundColor: '#FFFFFF',
->>>>>>> master
         position: 'relative',
         zIndex: 1,
         height: '100%'
@@ -19,11 +12,6 @@ export const styles = StyleSheet.create({
     // Slider
     // ========================= //
     wrapSlider:{
-<<<<<<< HEAD
-        position: 'relative',
-    },
-
-=======
         paddingTop: 0,
         position: 'relative',
     },
@@ -33,7 +21,6 @@ export const styles = StyleSheet.create({
         position: 'relative'
     },
 
->>>>>>> master
     // Service
     // ========================= //
     wrapService:{
@@ -46,12 +33,8 @@ export const styles = StyleSheet.create({
     itemProduct:{
         paddingLeft: 7.5,
         paddingRight: 7.5,
-<<<<<<< HEAD
-        marginBottom: 15
-=======
         marginBottom: 15,
         alignItems: 'center',
->>>>>>> master
     },
 
     // Addsense
@@ -62,9 +45,6 @@ export const styles = StyleSheet.create({
         paddingTop:30,
         paddingBottom:30,
         marginBottom: 30,
-<<<<<<< HEAD
-    }
-=======
     },
 
     itemTitle:{
@@ -82,5 +62,4 @@ export const styles = StyleSheet.create({
         fontFamily: Variable.fontRegular
     },
 
->>>>>>> master
 });

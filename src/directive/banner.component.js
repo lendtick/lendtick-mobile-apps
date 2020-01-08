@@ -1,13 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View, TouchableHighlight, Image, StyleSheet } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import Dimensions from 'Dimensions';
-=======
 import { View, TouchableHighlight, Image, StyleSheet, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 // import Dimensions from 'Dimensions';
->>>>>>> master
 import { Variable } from '@styles';
 import PropTypes from 'prop-types';
 

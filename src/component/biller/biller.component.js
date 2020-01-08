@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { ScrollView,View,Dimensions,TouchableHighlight,ActivityIndicator } from 'react-native';
-=======
 import { ScrollView,View,Dimensions,TouchableHighlight,ActivityIndicator, Text } from 'react-native';
->>>>>>> master
 import { Col,Grid, Row } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { HeaderSearch, BannerComponent } from '@directives';
@@ -14,15 +10,12 @@ class BillerComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Services",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -79,9 +72,6 @@ class BillerComponent extends React.Component {
                     {/* Start Wrap Service */}
                     <View style={[styles.wrapService,{paddingBottom:15}]}>
                         <Grid>
-<<<<<<< HEAD
-                            <Row>
-=======
                         <Row>
                             <Col style={styles.itemProduct}>
                                 <TouchableHighlight onPress={()=> this.props.navigation.navigate('Pulsa')} underlayColor="transparent">
@@ -139,7 +129,6 @@ class BillerComponent extends React.Component {
                             </Col>
                         </Row>
                             {/* <Row>
->>>>>>> master
                                 <Col style={styles.itemProduct}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('Pulsa')} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item9.png')} />
@@ -174,11 +163,7 @@ class BillerComponent extends React.Component {
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
-<<<<<<< HEAD
-                            <Row>
-=======
                             <Row> 
->>>>>>> master
                                 <Col style={[styles.itemProduct,styles.itemProductDisable]}>
                                     <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
                                         <AutoHeightImage width={(Dimensions.get('window').width / 3) - 17.5} source={require('@assets/img/icon-service/item4.png')} />
@@ -195,10 +180,7 @@ class BillerComponent extends React.Component {
                                     </TouchableHighlight>
                                 </Col>
                             </Row>
-<<<<<<< HEAD
-=======
                             */}
->>>>>>> master
                         </Grid>
                         </View>
                     {/* End Wrap Service */}

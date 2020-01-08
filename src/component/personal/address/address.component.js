@@ -1,10 +1,6 @@
 import React from 'react';
 import { View,Text,ScrollView,TouchableHighlight,ActivityIndicator,Alert } from 'react-native';
-<<<<<<< HEAD
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { AntDesign } from '@expo/vector-icons';
->>>>>>> master
 import { Col,Row,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
 
@@ -18,15 +14,12 @@ class AddressComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Alamat Pengiriman",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
 
@@ -158,11 +151,7 @@ class AddressComponent extends React.Component {
                         </ScrollView>
                         <TouchableHighlight style={styles.positionAddAddress} onPress={() => this.props.navigation.navigate('AddressForm')} underlayColor="transparent">
                             <View style={styles.addAddress}>
-<<<<<<< HEAD
-                                <Feather name="plus" size={28} style={{top:7.5,left:7.5}} color="#ffffff" />
-=======
                                 <AntDesign name="plus" size={28} style={{top:7.5,left:7.5}} color="#ffffff" />
->>>>>>> master
                             </View>
                         </TouchableHighlight>
                     </View>

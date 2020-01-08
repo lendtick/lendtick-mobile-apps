@@ -7,12 +7,6 @@ import InputComponent from './input.component';
 import InputDropdown from './input-dropdown';
 import Panel from './panel.component';
 import HeaderSearch from './header-search.component';
-<<<<<<< HEAD
-import BannerComponent from './banner.component';
-import ItemProduct from './item-product.component';
-import Modal from './popup.component';
-import FooterButton from './footer-button.component';
-=======
 import HeaderHome from './header-home.component';
 import BannerComponent from './banner.component';
 import BannerMinComponent from './banner-min.component';
@@ -21,7 +15,6 @@ import Modal from './popup.component';
 import FooterButton from './footer-button.component';
 import GeneralStatusBarColor from './status-bar.component';
 import InputAutocomplete from './autocomplete-dropdown.component';
->>>>>>> master
 
 export {
     AlertBox,
@@ -36,13 +29,9 @@ export {
     Modal,
     InputDropdown,
     FooterButton,
-<<<<<<< HEAD
-    InputMask
-=======
     InputMask,
     GeneralStatusBarColor,
     InputAutocomplete,
     BannerMinComponent,
     HeaderHome,
->>>>>>> master
 };

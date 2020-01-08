@@ -1,12 +1,8 @@
 import React from 'react';
 import { View,Text,Image,TouchableHighlight,ScrollView,Platform } from 'react-native';
 import { Col,Row,Grid } from "react-native-easy-grid";
-<<<<<<< HEAD
-import Feather from 'react-native-vector-icons/Feather';
-=======
 import { AntDesign } from '@expo/vector-icons';
 import * as accounting from 'accounting';
->>>>>>> master
 
 import { FooterButton,AlertBox } from '@directives';
 import { Main,Typography,Variable } from '@styles';
@@ -16,15 +12,12 @@ class ProductConfirmationComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Confirmation Order",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -63,21 +56,13 @@ class ProductConfirmationComponent extends React.Component {
                                     <Grid>
                                         <Col style={{width:30}}>
                                             <TouchableHighlight style={styles.spinnerBtn} onPress={() => this.lessQty()} underlayColor="transparent">
-<<<<<<< HEAD
-                                                <Feather name="minus" style={{top:3.5,left:3.5}} size={20} color="#6a6a6a" />                                            
-=======
                                                 <AntDesign name="minus" style={{top:3.5,left:3.5}} size={20} color="#6a6a6a" />                                            
->>>>>>> master
                                             </TouchableHighlight>
                                         </Col>
                                         <Col><Text style={[Typography.label,{textAlign:'center',top:6}]}>{this.state.qty}</Text></Col>
                                         <Col style={{width:30}}>
                                             <TouchableHighlight style={styles.spinnerBtn} onPress={() => this.addQty()} underlayColor="transparent">
-<<<<<<< HEAD
-                                                <Feather name="plus" style={{top:3.5,left:3.5}} size={20} color="#6a6a6a" />                                            
-=======
                                                 <AntDesign name="plus" style={{top:3.5,left:3.5}} size={20} color="#6a6a6a" />                                            
->>>>>>> master
                                             </TouchableHighlight>
                                         </Col>
                                     </Grid>
@@ -103,11 +88,7 @@ class ProductConfirmationComponent extends React.Component {
 
                         <Grid>
                             <Col style={{width:30}}>
-<<<<<<< HEAD
-                                <Feather name="check-square" size={20} color={Variable.colorPrimaryText} />
-=======
                                 <AntDesign name="checksquareo" size={20} color={Variable.colorPrimaryText} />
->>>>>>> master
                             </Col>
                             <Col>
                                 <Text style={[Typography.singleText,{marginBottom:15,marginTop:3,color:Variable.colorContent}]}>Cicilan bulanan [Sudah termasuk biaya administrasi]</Text>
@@ -170,11 +151,7 @@ class ProductConfirmationComponent extends React.Component {
 
                         <Grid>
                             <Col style={{width:30}}>
-<<<<<<< HEAD
-                                <Feather name="square" size={20} color={Variable.colorPrimaryText} />
-=======
                                 <AntDesign name="checksquareo" size={20} color={Variable.colorPrimaryText} />
->>>>>>> master
                             </Col>
                             <Col>
                                 <Text style={[Typography.singleText,{marginBottom:15,marginTop:3,color:Variable.colorContent}]}>Saya menyetujui cicilan tersebut Syarat dan ketentuan</Text>

@@ -9,15 +9,12 @@ class PaketDataConfirmation extends React.Component {
     static navigationOptions = ({navigation}) => ({
         title: "Konfirmasi Paket Data",
         headerTitleStyle: Variable.headerTitleStyle,
-<<<<<<< HEAD
-=======
         headerStyle: {
             elevation:0,
             backgroundColor: '#42A9A0',
             borderBottomWidth: 0,
         },
         headerTintColor: '#ffffff',
->>>>>>> master
     });
 
     constructor(props) {
@@ -35,11 +32,7 @@ class PaketDataConfirmation extends React.Component {
             product_name: this.props.paketData.data.providerName,
             product_image_path: this.props.paketData.data.providerImage,
             biller_id: this.props.paketData.data.billersIdPaketData,
-<<<<<<< HEAD
-            bill_id: 1,
-=======
             bill_id: this.props.paketData.data.bill_id,
->>>>>>> master
             billertrx:1,
             biller_name: this.props.paketData.data.title,
             bill_details: this.props.paketData.data.descriptions,
