@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "koperasiastra",
+    "slug": "koperasiastra",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.5",
+    "orientation": "portrait",
+    "icon": "./assets/img/icon.png",
+    "splash": {
+      "image": "./assets/img/LOGOKAIPRD01.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {},
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.koperasiAstra.koperasiastra"
+    },
+    "android": {
+      "package": "com.koperasiAstra.koperasiastra",
+      "versionCode": 5
+    },
+    "notification": {
+      "icon": "./assets/img/icon-notif.png"
+    },
+    "description": "",
+    "androidStatusBar": {
+      "backgroundColor": "#42A9A0",
+      "barStyle": "light-content"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "koperasiastra",
+  "name": "koperasiastra"
+}
