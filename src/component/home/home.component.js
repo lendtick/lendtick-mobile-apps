@@ -53,6 +53,29 @@ class HomeComponent extends React.Component {
         };
     }
 
+    
+    componentDidMount() {
+        // console.log('addlisten')
+        this.props.navigation.addListener('didFocus', this.onScreenFocus)
+    }
+
+    onScreenFocus = () => {
+        // Screen was focused, our on focus logic goes here
+        // console.log('update')
+        AsyncStorage.getItem('token').then((token)=>{
+            if(token){
+                // console.log('token ini : ',token);
+                this.fetchUser();
+                this.fetchBalance();
+            }else {
+                // console.log('token ini : ',token);
+            }
+        });
+        
+        // this.forceUpdate()
+    }
+    
+
     componentWillMount(){
         // console.log('BAH DATA: ', this.props.home);
         // if (this.props.home){
