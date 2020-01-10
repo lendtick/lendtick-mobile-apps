@@ -69,12 +69,15 @@ class HomeComponent extends React.Component {
                 this.fetchBalance();
             }else {
                 // console.log('token ini : ',token);
+                this.setState({
+                    saldo: null,
+                    name: null
+                })
             }
         });
         
         // this.forceUpdate()
     }
-    
 
     componentWillMount(){
         // console.log('BAH DATA: ', this.props.home);
