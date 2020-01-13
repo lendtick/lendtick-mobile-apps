@@ -141,7 +141,7 @@ class BpjsComponent extends React.Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <View style={{padding:15}}>
+                <View style={{padding:15}} removeClippedSubviews={false}>
                     <InputComponent 
                         label={'Nomor BPJS Kesehatan'}
                         iconName={null}

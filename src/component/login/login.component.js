@@ -111,7 +111,7 @@ class LoginComponent extends Component {
                     <BlockLogo />
                     <StatusBar barStyle="dark-content" />
                 
-                    <View style={[Main.container,{marginTop: 15,paddingBottom:15}]}>
+                    <View style={[Main.container,{marginTop: 15,paddingBottom:15}]} removeClippedSubviews={false}>
                         
                         <InputComponent 
                             label="No Anggota Koperasi"
