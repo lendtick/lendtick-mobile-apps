@@ -150,7 +150,7 @@ class ListrikComponent extends React.Component {
                     </Grid>
                 </View>
 
-                <View style={{padding:15}}>
+                <View style={{padding:15}} removeClippedSubviews={false}>
                     <InputComponent 
                         label={null}
                         iconName={null}
