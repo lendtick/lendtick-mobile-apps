@@ -25,7 +25,6 @@
       "bundleIdentifier": "com.koperasiAstra.koperasiastra"
     },
     "android": {
-      "permissions":["CAMERA_ROLL, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, READ_INTERNAL_STORAGE, CAMERA"],
       "package": "com.koperasiAstra.koperasiastra",
       "versionCode": 8
     },

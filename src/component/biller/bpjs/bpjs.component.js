@@ -40,6 +40,7 @@ class BpjsComponent extends React.Component {
             inquiryId: null,
             resStatus:'0000',
             resMsg:null,
+            alertMsg:null,
             systraceApp:null,
             billersdetailtemp:[],
             alertCondition:false,
@@ -63,6 +64,7 @@ class BpjsComponent extends React.Component {
             };
             this.setState({isSubmitToken: true});
             billerService.postBillerInquiry(obj).then(res =>{
+                console.log(res);
                 if (res.status && res.message === 'Sukses') {
                     let billdetails = res.data.response.billdetails;
                     console.log(billdetails);
@@ -92,6 +94,7 @@ class BpjsComponent extends React.Component {
                             resStatus:res.data.response.responsecode,
                             systraceApp: res.data.trace.systrace,
                             alertCondition:false,
+                            alertMsg:null
                         });
                     } else {
                         this.setState({
@@ -102,13 +105,15 @@ class BpjsComponent extends React.Component {
                             inquiryId: res.data.response.inquiryid,
                             resMsg: res.data.response.responsemsg,
                             resStatus:res.data.response.responsecode,
-                            alertCondition:true
+                            alertCondition:true,
+                            alertMsg:null
                         });
                     }
                     this.selectBiller(billdetails[0]);
                 } else {
                     this.setState({
                         resMsg: res.data.response.responsemsg,
+                        alertMsg: res.data.system_message,
                         isSubmitToken: false,
                         alertCondition:true
                     });
@@ -157,20 +162,24 @@ class BpjsComponent extends React.Component {
                 </View>
                 <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
                 <ScrollView style={{backgroundColor: Variable.backgroundGray}}>
-                    <View style={[Main.container,{paddingTop:15}]}>
-                        { this.state.billdetails.length > 0 ? 
-                            this.state.bodyDetails.map((item, x) => (
-                                <View key={x} style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:10}}>
-                                    <Grid>
-                                        <Col><Text style={{textAlign:'left', fontFamily:Variable.fontLight}}>{item.split(':')[0]}</Text></Col>
-                                        <Col><Text style={{textAlign:'right', fontFamily:Variable.fontLight}}>{item.split(':')[1]}</Text></Col>
-                                    </Grid>
-                                </View>
-                            ))
-                        : 
-                            null
-                        }
-                    </View>
+                    {this.state.alertMsg === null ?
+                        <View style={[Main.container,{paddingTop:15}]}>
+                            { this.state.billdetails.length > 0 ? 
+                                this.state.bodyDetails.map((item, x) => (
+                                    <View key={x} style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:10}}>
+                                        <Grid>
+                                            <Col><Text style={{textAlign:'left', fontFamily:Variable.fontLight}}>{item.split(':')[0]}</Text></Col>
+                                            <Col><Text style={{textAlign:'right', fontFamily:Variable.fontLight}}>{item.split(':')[1]}</Text></Col>
+                                        </Grid>
+                                    </View>
+                                ))
+                            : 
+                                null
+                            }
+                        </View>
+                    :
+                        <AlertBox type={'warning'} title={'Pemberitahuan!'} text={this.state.alertMsg}/>
+                    }
                 </ScrollView>
 
                 {/* ====== START FOOTER ====== */}
