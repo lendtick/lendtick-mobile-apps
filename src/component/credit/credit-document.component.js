@@ -1,6 +1,7 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
-import { ImagePicker } from 'expo';
+// import { ImagePicker } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';

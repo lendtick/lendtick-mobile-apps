@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import { ImagePicker} from 'expo';
+// import { ImagePicker} from 'expo';
+import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import AutoHeightImage from 'react-native-auto-height-image';

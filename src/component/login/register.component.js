@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { ScrollView,View,StatusBar,Text,Dimensions,AsyncStorage,Alert } from 'react-native';
-import { ImagePicker, Camera , Permissions} from 'expo';
+// import { ImagePicker, Camera , Permissions} from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import { Camera } from 'expo-camera';
+import * as Permissions from 'expo-permissions';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal, InputDropdown } from '@directives';
 import { Main,Variable, Typography } from '@styles';

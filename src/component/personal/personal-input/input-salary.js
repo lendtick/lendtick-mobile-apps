@@ -1,6 +1,7 @@
 import React from 'react';
 import { View,Dimensions,Alert } from 'react-native';
-import { ImagePicker, Camera } from 'expo';
+// import { ImagePicker, Camera } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
