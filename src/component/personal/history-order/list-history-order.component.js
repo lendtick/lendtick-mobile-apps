@@ -79,7 +79,7 @@ class listHistoryOrderComponent extends Component {
             Alert.alert(
                 'Error',
                 'Pastikan koneksi tersambung, silakan coba lagi',
-                [{text: 'OK', onPress: () => this.fetchUser()}],
+                [{text: 'OK', onPress: () => this.fetchHistoryOrder()}],
                 {cancelable: false},
             );
         });
