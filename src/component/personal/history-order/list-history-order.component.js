@@ -71,7 +71,7 @@ class listHistoryOrderComponent extends Component {
                     data: res['data'].sort(compareValues('billing_date', 'desc')),
                     loading: false
                 });
-                console.log(this.state.data)
+                // console.log(this.state.data)
             }
             
         }, err =>{
