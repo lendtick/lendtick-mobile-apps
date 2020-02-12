@@ -73,6 +73,7 @@ class personalComponent extends React.Component {
                 name: dataUser.name,
                 id: dataUser.id_koperasi,
                 validDate: "Valid date : " + dateBecomeMember,
+                becomeMember: "Join date: " + moment(dataUser.date_become_member).format('DD MMM YYYY'),
                 loading: false
             });
         }, err =>{
@@ -113,6 +114,7 @@ class personalComponent extends React.Component {
                                 <Text style={[Typography.heading5,{marginTop:15,marginBottom:5, color:'white'}]}>{this.state.name}</Text>
                                 <Text style={[Typography.heading6,{marginBottom:15, color:'white'}]}>{this.state.id}</Text>
                                 {/* <Text style={[Typography.singleText,{marginBottom:0, color:'white', textAlign:'right'}]}>{this.state.validDate}</Text> */}
+                                <Text style={[Typography.singleText,{marginBottom:0, color:'white', textAlign:'right'}]}>{this.state.becomeMember}</Text>
                             </View>}
                         </LinearGradient>
 

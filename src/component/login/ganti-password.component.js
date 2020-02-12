@@ -179,15 +179,16 @@ class GantiPassComponent extends Component {
                         {/* ==================== START FORM ==================== */ }
                         <InputComponent 
                             label="Password lama"
-                            iconName={null}
+                            iconName={this.state.hidePassword ? "eye" : "eye"}
                             placeholder="Masukan password lama"
                             secureTextEntry={true}
                             value={this.state.oldPassword}
+                            onClickIcon={() => this.clickIconPassword()}
                             onChange={(oldPassword) => this.setState({oldPassword})}/>
                         <InputComponent 
                             label="Password Baru"
                             iconName={this.state.hidePassword ? "eye" : "eye"}
-                            placeholder="Enter password"
+                            placeholder="Masukan password baru"
                             secureTextEntry={true}
                             value={this.state.Password}
                             onClickIcon={() => this.clickIconPassword()}
@@ -195,10 +196,11 @@ class GantiPassComponent extends Component {
                         {this.state.Password != '' ? <View style={{marginBottom:15}}>{alertComponent}</View> : null}
                         <InputComponent 
                             label="Konfirmasi Password"
-                            iconName={null}
+                            iconName={this.state.hidePassword ? "eye" : "eye"}
                             placeholder="Masukan konfirmasi password"
                             secureTextEntry={true}
                             value={this.state.Repassword}
+                            onClickIcon={() => this.clickIconPassword()}
                             onChange={(e) => this.setConfirmPassword(e)}/>
 
                         {this.state.isFailed ? <AlertBox type="danger" text="Ganti password gagal, silakan coba lagi"/>: null}

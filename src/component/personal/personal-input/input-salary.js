@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
+import { InputMask } from '@directives';
 
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
@@ -67,15 +68,16 @@ class InputSallary extends React.Component {
             this.setState(res['data']);
             this.fetchMaster();
 
-            toDataUrl(res['data'].salary_photo, (e) => {
-                let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
-                let obj = {
-                    type: base64MimeType(e),
-                    base64: imgData,
-                    uri:res['data'].salary_photo
-                }
-                this.setState({salaryPhoto:obj});
-            });
+            // toDataUrl(res['data'].salary_photo, (e) => {
+            //     let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
+            //     let obj = {
+            //         type: base64MimeType(e),
+            //         base64: imgData,
+            //         uri:res['data'].salary_photo
+            //     }
+            //     this.setState({salaryPhoto:obj});
+            // });
+            console.log(res)
         });
     }
 
@@ -168,13 +170,21 @@ class InputSallary extends React.Component {
         return(
             <View>
 
-                <InputComponent 
+                {/* <InputComponent 
                     label="Nilai Gaji"
                     iconName={null}
                     keyboardType="numeric"
                     placeholder="Masukan nilai gaji"
                     value={this.state.salary_amount}
-                    onChange={(salary_amount) => this.setState({salary_amount})}/> 
+
+                    onChange={(salary_amount) => this.setState({salary_amount})}/>  */}
+                <InputMask 
+                    label="Nilai Gaji"
+                    iconName={null}
+                    keyboardType="numeric"
+                    placeholder="Masukan nilai gaji"
+                    value={this.state.salary_amount}
+                    onChange={(salary_amount) => this.setState({salary_amount})}/>
             
                 <InputDropdown 
                     label="Pilih Golongan"

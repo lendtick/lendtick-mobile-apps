@@ -59,13 +59,15 @@ class InputBank extends React.Component {
         let data = {
             id_bank: this.state.id_bank,
             account_name_bank: this.state.account_name_bank,
-            account_number_bank: this.state.account_number_bank
+            account_number_bank: this.state.account_number_bank,
+            branch_bank: this.state.branch_bank
         };
 
         let rules = {
             id_bank: 'required',
             account_name_bank: 'required',
-            account_number_bank: 'required|numeric'
+            account_number_bank: 'required|numeric',
+            branch_bank: 'required',
         };
 
         let validation = new Validator(data, rules);
@@ -112,7 +114,13 @@ class InputBank extends React.Component {
                     value={this.state.id_bank}
                     items={this.state.arrBank}
                     onChange={(id_bank) => this.setState({id_bank})}/> 
-
+                <InputComponent 
+                    label="Nama Cabang"
+                    iconName={null}
+                    keyboardType="default"
+                    placeholder="Masukan nama cabang"
+                    value={this.state.branch_bank}
+                    onChange={(branch_bank) => this.setState({branch_bank})}/>  
                 <InputComponent 
                     label="No Rekening"
                     iconName={null}

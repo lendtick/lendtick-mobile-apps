@@ -20,7 +20,7 @@ class BlockLogo extends React.Component {
                 <View style={styles.wrapLogo}></View>
                 <Image 
                     style={styles.imgLogo}
-                    source={require('@assets/img/logo-sign.png')} />
+                    source={require('@assets/img/logo-sign-prod.png')} />
             </View>
         )
     }
