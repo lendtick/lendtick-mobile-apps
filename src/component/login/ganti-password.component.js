@@ -36,7 +36,7 @@ class GantiPassComponent extends Component {
             inValidRePassword: false,
             hidePassword: true,
             hideNewPassword: true,
-            hideConfirmNewPassword: tru,
+            hideConfirmNewPassword: true,
         };
     }
 
