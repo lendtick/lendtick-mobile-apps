@@ -35,6 +35,8 @@ class GantiPassComponent extends Component {
             isInvalid: false,
             inValidRePassword: false,
             hidePassword: true,
+            hideNewPassword: true,
+            hideConfirmNewPassword: tru,
         };
     }
 
@@ -127,6 +129,18 @@ class GantiPassComponent extends Component {
         }));
     }
 
+    clickIconNewPassword(){
+        this.setState(({
+            hideNewPassword: !this.state.hideNewPassword
+        }));
+    }
+
+    clickIconConfirmNewPassword(){
+        this.setState(({
+            hideConfirmNewPassword: !this.state.hideConfirmNewPassword
+        }));
+    }
+
     render() {
         let alertComponent;
         switch(this.state.PasswordCheck){
@@ -187,20 +201,20 @@ class GantiPassComponent extends Component {
                             onChange={(oldPassword) => this.setState({oldPassword})}/>
                         <InputComponent 
                             label="Password Baru"
-                            iconName={this.state.hidePassword ? "eye" : "eye"}
+                            iconName={this.state.hideNewPassword ? "eye" : "eye"}
                             placeholder="Masukan password baru"
                             secureTextEntry={true}
                             value={this.state.Password}
-                            onClickIcon={() => this.clickIconPassword()}
+                            onClickIcon={() => this.clickIconNewPassword()}
                             onChange={(e) => this.setPassword(e)}/>
                         {this.state.Password != '' ? <View style={{marginBottom:15}}>{alertComponent}</View> : null}
                         <InputComponent 
                             label="Konfirmasi Password"
-                            iconName={this.state.hidePassword ? "eye" : "eye"}
+                            iconName={this.state.hideConfirmNewPassword ? "eye" : "eye"}
                             placeholder="Masukan konfirmasi password"
                             secureTextEntry={true}
                             value={this.state.Repassword}
-                            onClickIcon={() => this.clickIconPassword()}
+                            onClickIcon={() => this.clickIconConfirmNewPassword()}
                             onChange={(e) => this.setConfirmPassword(e)}/>
 
                         {this.state.isFailed ? <AlertBox type="danger" text="Ganti password gagal, silakan coba lagi"/>: null}
