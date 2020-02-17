@@ -213,7 +213,7 @@ class HomeComponent extends React.Component {
                                         <Text style={styles.labelItem}>Listrik</Text>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent" disabled={true}>
+                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/pesawat-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Tiket</Text>
