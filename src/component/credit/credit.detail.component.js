@@ -109,6 +109,7 @@ class CreditDetailComponent extends React.Component {
                 loading: false,
                 arrOffset: res['data']
             });
+            console.log(res['data'])
         }, err =>{
             this.setState({loading: false});
             Alert.alert(
@@ -183,18 +184,31 @@ class CreditDetailComponent extends React.Component {
             obj.loan_offsets.push(objOffset);
         });
 
+
+
         this.setState({isSubmitSimulation: true});
 
         creditService.postSimulation(obj).then(res =>{
-            this.setState({
-                isSubmitSimulation: false,
-                showSimulation: true,
-                installmentsOrigin: res['data'].installments,
-                installments: 'Rp ' + accounting.formatMoney(res['data'].installments, "", 0, ",", ","),
-                term: res['data'].term,
-                total_loan: 'Rp ' + accounting.formatMoney(res['data'].total_loan, "", 0, ",", ",")
-            });
-            this.scrollView.scrollToEnd({ animated: true }); 
+            console.log(res)
+            if(res['status'] === 0) {
+                this.setState({isSubmitSimulation: false});
+                Alert.alert(
+                    'Error',
+                    res['message'],
+                    [{text: 'OK'}],
+                    {cancelable: false},
+                );
+            } else {
+                this.setState({
+                    isSubmitSimulation: false,
+                    showSimulation: true,
+                    installmentsOrigin: res['data'].installments,
+                    installments: 'Rp ' + accounting.formatMoney(res['data'].installments, "", 0, ",", ","),
+                    term: res['data'].term,
+                    total_loan: 'Rp ' + accounting.formatMoney(res['data'].total_loan, "", 0, ",", ",")
+                });
+                this.scrollView.scrollToEnd({ animated: true }); 
+            }
         }, err =>{
             this.setState({isSubmitSimulation: false});
             Alert.alert(
