@@ -115,7 +115,7 @@ class BillerComponent extends React.Component {
                                 <Text style={styles.labelItem}>Air</Text>
                             </Col>
                             <Col style={styles.itemProduct}>
-                                <TouchableHighlight onPress={()=> console.log("Service")} underlayColor="transparent">
+                                <TouchableHighlight onPress={()=> this.props.navigation.navigate('Credit')} underlayColor="transparent">
                                     <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/simpanpinjam-outline.png')} />
                                 </TouchableHighlight>
                                 <Text style={styles.labelItem}>Simpan</Text>
