@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { ButtonComponent } from '@directives';
+import { Col, Grid, Row} from "react-native-easy-grid";
 import { Main,Typography, Variable} from '@styles';
 import { styles } from './bpjs.style';
 
@@ -22,6 +23,10 @@ class BpjsConfirmation extends React.Component {
         this.state = {
             isSubmit: false
         };
+    }
+
+    componentDidMount() {
+        console.log(this.props.bpjs)
     }
 
     submitOrder(e){
@@ -68,9 +73,14 @@ class BpjsConfirmation extends React.Component {
                     </View>
                     <View style={[Main.wrapInfo,{paddingBottom:5,marginTop:0}]}>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                        <Text style={[Typography.singleText,{marginBottom:5}]}>Jenis Layanan</Text>
+                            <Text style={[Typography.singleText,{marginBottom:5}]}>Jenis Layanan</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.bpjs.data.title}</Text>
                         </View>
+                        <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
+                            <Text style={[Typography.singleText,{marginBottom:5}]}>Provider</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.bpjs.data.providerName}</Text>
+                        </View>
+
                         {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Description</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.listrik.data.descriptions}</Text>
@@ -82,6 +92,20 @@ class BpjsConfirmation extends React.Component {
                         <View>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Harga</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.bpjs.data.rp_total}</Text>
+                        </View>
+                        <View style={[Main.container,{paddingTop:15}]}>
+                            { this.props.bpjs.data.body.length > 0 ? 
+                                this.props.bpjs.data.body.map((item, x) => (
+                                    <View key={x} style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:10}}>
+                                        <Grid>
+                                            <Col><Text style={{textAlign:'left', fontFamily:Variable.fontLight}}>{item.split(':')[0]}</Text></Col>
+                                            <Col><Text style={{textAlign:'right', fontFamily:Variable.fontLight}}>{item.split(':')[1]}</Text></Col>
+                                        </Grid>
+                                    </View>
+                                ))
+                            : 
+                                null
+                            }
                         </View>
                     </View>
                     {/* ====== END INFORMASI ====== */}
