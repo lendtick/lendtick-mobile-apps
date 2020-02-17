@@ -190,7 +190,7 @@ class CreditDetailComponent extends React.Component {
 
         creditService.postSimulation(obj).then(res =>{
             console.log(res)
-            if(res['status'] === 0) {
+            if(res['data'] === null) {
                 this.setState({isSubmitSimulation: false});
                 Alert.alert(
                     'Error',
