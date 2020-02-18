@@ -68,15 +68,15 @@ class InputSallary extends React.Component {
             this.setState(res['data']);
             this.fetchMaster();
 
-            // toDataUrl(res['data'].salary_photo, (e) => {
-            //     let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
-            //     let obj = {
-            //         type: base64MimeType(e),
-            //         base64: imgData,
-            //         uri:res['data'].salary_photo
-            //     }
-            //     this.setState({salaryPhoto:obj});
-            // });
+            toDataUrl(res['data'].salary_photo, (e) => {
+                let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
+                let obj = {
+                    type: base64MimeType(e),
+                    base64: imgData,
+                    uri:res['data'].salary_photo
+                }
+                this.setState({salaryPhoto:obj});
+            });
             console.log(res)
         });
     }
