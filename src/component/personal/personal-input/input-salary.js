@@ -122,7 +122,7 @@ class InputSallary extends React.Component {
     // ======================== //
     validationSubmit(){
         let data = {
-            salary_amount: this.state.salary_amount,
+            salary_amount: this.state.salary_amount.replace(/\D/g, ""),
             id_grade: this.state.id_grade,
             salary_photo: `data:image/png;base64,${this.state.salaryPhoto.base64}`
         };
@@ -132,7 +132,7 @@ class InputSallary extends React.Component {
             salary_amount: 'required|numeric',
             salary_photo: 'required',
         };
-
+        console.log(data)
         let validation = new Validator(data, rules);
         if(validation.passes()){
             this.onSubmit(data);
@@ -155,6 +155,7 @@ class InputSallary extends React.Component {
                 isSubmit: false,
                 isSuccess: true
             });
+            console.log(res)
         }, err =>{
             this.setState({isSubmit: false});
             Alert.alert(
