@@ -41,6 +41,9 @@ class RegisterComponent extends Component {
             query: '',
             companies:[],
             nik: null,
+            department: null,
+            division: null,
+            posiition: null,
             // identityPhoto: null,
             // companyIdentityPhoto: null,
 
@@ -156,7 +159,10 @@ class RegisterComponent extends Component {
                 phone_number: this.state.phone_number,
                 email: this.state.email,
                 nik: this.state.nik,
-                identity_id: this.state.identity_id
+                identity_id: this.state.identity_id,
+                department: this.state.department,
+                division: this.state.division,
+                position: this.state.posiition
             };
     
             let rules = {
@@ -335,7 +341,31 @@ class RegisterComponent extends Component {
                                             )}
                                         />
                                 </View>
-                                </View>
+                            </View>
+
+                            <InputComponent 
+                                label="Department"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder="Masukan department"
+                                value={this.state.department}
+                                onChange={(department) => this.setState({department})}/>
+
+                            <InputComponent 
+                                label="Divisi"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder="Masukan divisi"
+                                value={this.state.division}
+                                onChange={(division) => this.setState({division})}/>
+
+                            <InputComponent 
+                                label="Position"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder="Masukan posisi"
+                                value={this.state.position}
+                                onChange={(position) => this.setState({position})}/>
 
                             <InputComponent 
                                 label="Foto Kartu ID"
