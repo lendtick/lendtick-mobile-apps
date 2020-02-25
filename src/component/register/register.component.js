@@ -174,7 +174,10 @@ class RegisterComponent extends Component {
                 personal_photo: 'required',
                 phone_number: 'required|numeric',
                 nik: 'required|numeric',
-                identity_id: 'required|numeric'
+                identity_id: 'required|numeric',
+                department: 'required',
+                division: 'required',
+                position: 'required'
             };
     
             let validation = new Validator(data, rules);
