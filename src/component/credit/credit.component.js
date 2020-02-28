@@ -3,13 +3,14 @@ import { View,Text,TouchableHighlight,ScrollView,ActivityIndicator,Alert } from 
 import AutoHeightImage from 'react-native-auto-height-image';
 import { Col,Grid } from "react-native-easy-grid";
 import { AlertBox,ButtonComponent } from '@directives';
-import { Variable } from '@styles';
+import { Variable, Input } from '@styles';
 import { styles } from './credit.style';
 import watch from 'redux-watch';
 import { store } from '@services/store';
 import { connect } from 'react-redux';
 import creditService from './credit.service';
 import * as _ from 'lodash';
+import * as accounting from 'accounting';
 
 class CreditComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -29,7 +30,8 @@ class CreditComponent extends React.Component {
             titleError: null,
             arrError: [],
             loading: false,
-            arrLoan: []
+            arrLoan: [],
+            loanBalance: 0,
         };
 
         let watchPersonal = watch(store.getState, 'personal.data')
@@ -54,6 +56,21 @@ class CreditComponent extends React.Component {
         });
     }
 
+    fetchLoanBalance(){
+        creditService.getUserBalance().then(res =>{
+            this.setState({
+                loanBalance: res.data.loan_plafond,
+            });
+        },err =>{
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchLoanBalance()}],
+                {cancelable: true},
+            );
+        });
+    }
+
     fetchInfoUser(){
         this.setState({loading: true});
         creditService.getInfoUserFullfillment(this.props.personal.data.id_user).then(res =>{
@@ -68,7 +85,8 @@ class CreditComponent extends React.Component {
                     loading: false
                 });
             }else{
-                this.fetchMasterLoan();            
+                this.fetchMasterLoan(); 
+                this.fetchLoanBalance();           
             }
         }, err =>{
             this.setState({loading: false});
@@ -103,6 +121,30 @@ class CreditComponent extends React.Component {
                     </View>
                     : 
                     <View>
+                        <Col style={{paddingRight:7.5, marginBottom: 10}}>
+                            <View style={styles.itemBalance}>
+                                <Text style={styles.textHeaderLoanBalance}>Saldo</Text>
+                                <Text style={styles.textLoanBalance}>Rp {accounting.formatMoney(this.state.loanBalance, "", 0, ",", ",")}</Text>
+                            </View>
+                            <TouchableHighlight>
+                                <View style={{marginBottom: 10, marginTop: 7.5}}>
+                                    <Text style={[Input.singleLink,{textAlign:'right',marginLeft: 5}]}>Apa itu saldo?</Text>
+                                </View>
+                            </TouchableHighlight>
+
+                            {/* Tips */}
+                            <View style={{marginBottom: 10, marginTop: 5, marginLeft: 5}}>
+                                <Text style={styles.textHeaderTips}>Tips</Text>
+                                <Text style={styles.textTips}>- Balance saldo didapatkan dari informasi gaji dan pinjaman</Text>
+                                <Text style={styles.textTips}>- Tentukan product pinjaman dengan bunga yang menarik</Text>
+                            </View>
+
+                            {/* Tips */}
+                            <View style={{marginBottom: 10, marginTop: 15, marginLeft: 5}}>
+                                <Text style={styles.textHeaderTips}>KAS - Product for your Needs</Text>
+                            </View>
+                        </Col>
+                        
                         {this.state.arrLoan.map((x,index) => (
                             <Grid key={index} style={{marginBottom: 15}}>
                                 {x.map((item,i) => {

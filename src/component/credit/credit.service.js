@@ -7,6 +7,7 @@ var urlGetProfileFullfillment = API.auth + '/profile/fullfillment',
     urlGetLoanTerm = API.hostLoan + '/master/loan/term',
     urlGetLoanDocument = API.hostLoan + '/loan/document/',
     urlPostDocument = API.auth + '/profile/document/add',
+    urlGetLoanBalance = API.hostLoan + '/loan/balance',
 
     urlPostReqLoan = API.hostLoan + '/loan/request',
     
@@ -294,6 +295,31 @@ export default creditService = {
         });
         return promiseObj;
     },
+
+    // ======================= //
+    // Get User Loan Balance
+    // ======================= //
+    getUserBalance: (data) =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlGetLoanBalance, {
+                    method: 'GET',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                .then(response => response.json())
+                .then(json => resolve(json))
+                .catch(err => {
+                    reject(err);
+                });
+            });
+        });
+        return promiseObj;
+    },
+
 
     // ======================= //
     // Get Info User

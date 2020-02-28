@@ -15,7 +15,50 @@ export const styles = StyleSheet.create({
         borderStyle: 'dashed',
         ...Variable.boxShadow
     },
+    itemBalance: {
+        borderWidth: 1,
+        borderColor: '#dfdfdf',
+        backgroundColor: '#ffffff',
+        borderRadius: Variable.borderRadius,
+        padding: 15,
+        ...Variable.boxShadow
+    },
     textMenuLoan:{
+        fontSize: 14,
+        color: Variable.colorContent,
+        fontFamily: Variable.fontMedium,
+        textAlign: 'center',
+        lineHeight: 18
+    },
+    textHeaderLoanBalance:{
+        fontSize: 16,
+        color: Variable.colorContent,
+        fontFamily: Variable.fontBold,
+        textAlign: 'center',
+        lineHeight: 18
+    },
+    textHeaderTips:{
+        fontSize: 16,
+        color: Variable.colorContent,
+        fontFamily: Variable.fontBold,
+        textAlign: 'left',
+        lineHeight: 18
+    },
+    textHeaderKAS:{
+        fontSize: 16,
+        color: Variable.colorContent,
+        fontFamily: Variable.fontBold,
+        textAlign: 'left',
+        lineHeight: 18
+    },
+    textTips:{
+        fontSize: 14,
+        color: Variable.colorContent,
+        fontFamily: Variable.fontMedium,
+        textAlign: 'left',
+        lineHeight: 18
+    },
+    textLoanBalance:{
         fontSize: 14,
         color: Variable.colorContent,
         fontFamily: Variable.fontMedium,
