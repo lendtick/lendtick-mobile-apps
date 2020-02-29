@@ -199,6 +199,7 @@ class CreditDetailComponent extends React.Component {
                     {cancelable: false},
                 );
             } else {
+                console.log(res['data'])
                 this.setState({
                     isSubmitSimulation: false,
                     showSimulation: true,
@@ -380,7 +381,7 @@ class CreditDetailComponent extends React.Component {
                             value={this.state.loanType}/>
 
                         <InputMask 
-                            label="Jumlah"
+                            label="Silahkan isi nominal pinjaman"
                             iconName={null}
                             keyboardType="numeric"
                             placeholder="Masukan jumlah nominal"
@@ -388,7 +389,7 @@ class CreditDetailComponent extends React.Component {
                             onChange={(jumlah) => this.setState({jumlah})}/>
 
                         <InputDropdown 
-                            label="Jangka Waktu"
+                            label="Silahkan pilih periode pinjaman"
                             iconName={null}
                             placeholder="Pilih tipe waktu"
                             value={this.state.waktu}
@@ -404,7 +405,7 @@ class CreditDetailComponent extends React.Component {
                             onClickBtn={()=>this.setState({openPopup: true})}/>
 
                         {/* ====== START REDEEM VOUCHER ====== */}
-                        <View style={{padding:15,marginBottom:15,borderWidth:2,borderColor:Variable.colorPrimary,borderRadius:Variable.borderRadius}}>
+                        {/* <View style={{padding:15,marginBottom:15,borderWidth:2,borderColor:Variable.colorPrimary,borderRadius:Variable.borderRadius}}>
                              <InputComponent 
                                 label="Kode Voucher"
                                 iconName={null}
@@ -417,7 +418,7 @@ class CreditDetailComponent extends React.Component {
                             {this.state.msgVoucher && this.state.statusVoucher == 1 ? <View style={{marginBottom:15}}><AlertBox  type="success" title={null} text={this.state.msgVoucher}/></View> : null }
                             
                             <ButtonComponent type="primary" text="Reedem Voucher" onClick={()=> this.submitVoucher()} disabled={this.state.isSubmitVoucher} isSubmit={this.state.isSubmitVoucher} />
-                        </View>
+                        </View> */}
                         {/* ====== END REDEEM VOUCHER ====== */}
 
                         <View style={{

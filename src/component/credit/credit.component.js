@@ -11,8 +11,10 @@ import { connect } from 'react-redux';
 import creditService from './credit.service';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';
+import RBSheet from "react-native-raw-bottom-sheet";
 
 class CreditComponent extends React.Component {
+
     static navigationOptions = ({navigation}) => ({
         title: "Credit",
         headerTitleStyle: Variable.headerTitleStyle,
@@ -23,6 +25,7 @@ class CreditComponent extends React.Component {
         },
         headerTintColor: '#ffffff',
     });
+    
 
     constructor(props) {
         super(props);
@@ -126,7 +129,7 @@ class CreditComponent extends React.Component {
                                 <Text style={styles.textHeaderLoanBalance}>Saldo</Text>
                                 <Text style={styles.textLoanBalance}>Rp {accounting.formatMoney(this.state.loanBalance, "", 0, ",", ",")}</Text>
                             </View>
-                            <TouchableHighlight>
+                            <TouchableHighlight onPress={() => this.RBSheet.open()} underlayColor="transparent">
                                 <View style={{marginBottom: 10, marginTop: 7.5}}>
                                     <Text style={[Input.singleLink,{textAlign:'right',marginLeft: 5}]}>Apa itu saldo?</Text>
                                 </View>
@@ -178,6 +181,33 @@ class CreditComponent extends React.Component {
                         ))}
                     </View>
                     }
+                    <RBSheet
+                        ref={ref => {
+                            this.RBSheet = ref;
+                          }}
+                        closeOnDragDown={true}
+                        closeOnPressMask={false}
+                        height={400}
+                        duration={500}
+                        customStyles={{
+                        wrapper: {
+                            backgroundColor: "transparent"
+                        },
+                        draggableIcon: {
+                            backgroundColor: "#000"
+                        }
+                        }}
+                    >
+                       <ScrollView style={{marginBottom: 10, marginTop: 5, marginLeft: 10, marginRight: 10}}>
+                            <Text style={styles.textHeaderTips}>Apa itu Saldo?</Text>
+                            <Text style={styles.textTips}> Balance saldo didapatkan dari informasi gaji dan pinjaman</Text>
+                            <Text style={styles.textTips}> Tentukan product pinjaman dengan bunga yang menarik</Text>
+
+                            <Text style={[styles.textHeaderTips, {marginTop:25}]}>Bayar dengan Saldo</Text>
+                            <Text style={styles.textTips}> Balance saldo didapatkan dari informasi gaji dan pinjaman</Text>
+
+                        </ScrollView>
+                    </RBSheet>
                 </View>
                 }
             </ScrollView>

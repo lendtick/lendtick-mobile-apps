@@ -205,6 +205,7 @@ export default creditService = {
                 .catch(err => {
                     reject(err);
                 });
+                console.log(data)
             });
         });
         return promiseObj;
