@@ -119,7 +119,10 @@ class CreditComponent extends React.Component {
                             text={this.state.arrError}
                         />
                         <View style={{marginTop:15}} />
-                        <ButtonComponent type="primary" text="Masuk ke Halaman Personal" onClick={()=> this.props.navigation.navigate('User')}/>
+                            <ButtonComponent type="default" text="Cek kembali status kredit" onClick={()=> this.fetchInfoUser()}/>
+                        <View style={{height:60}}/>
+                        <View style={{marginTop:15}} />
+                            <ButtonComponent type="primary" text="Masuk ke Halaman Personal" onClick={()=> this.props.navigation.navigate('User')}/>
                         <View style={{height:60}}/>
                     </View>
                     : 

@@ -206,6 +206,7 @@ class CreditDetailComponent extends React.Component {
                     installmentsOrigin: res['data'].installments,
                     installments: 'Rp ' + accounting.formatMoney(res['data'].installments, "", 0, ",", ","),
                     term: res['data'].term,
+                    fee: res['data'].fee,
                     total_loan: 'Rp ' + accounting.formatMoney(res['data'].total_loan, "", 0, ",", ",")
                 });
                 this.scrollView.scrollToEnd({ animated: true }); 
@@ -471,6 +472,55 @@ class CreditDetailComponent extends React.Component {
                                 </Col>
                                 <Col>
                                     <Text style={[Typography.label,{textAlign:'right'}]}>{this.state.installments}</Text>
+                                </Col>
+                            </Grid>
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Biaya Admin :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Biaya Admin']}</Text>
+                                </Col>
+                            </Grid>
+
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Biaya Asuransi :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Biaya Asuransi']}</Text>
+                                </Col>
+                            </Grid>
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Biaya Provisi :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Biaya Provisi']}</Text>
+                                </Col>
+                            </Grid>
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Jumlah yang harus dibayar :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.total_loan}</Text>
                                 </Col>
                             </Grid>
 

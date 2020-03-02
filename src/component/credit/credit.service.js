@@ -4,7 +4,7 @@ import { API } from '@services/API';
 var urlGetProfileFullfillment = API.auth + '/profile/fullfillment',
     urlGetMasterLoanType = API.hostLoan + '/master/loan/type/',
     urlGetOffset = API.hostLoan + '/loan/unpaid',
-    urlGetLoanTerm = API.hostLoan + '/master/loan/term',
+    urlGetLoanTerm = API.hostLoan + '/master/loan/term/grade',
     urlGetLoanDocument = API.hostLoan + '/loan/document/',
     urlPostDocument = API.auth + '/profile/document/add',
     urlGetLoanBalance = API.hostLoan + '/loan/balance',
