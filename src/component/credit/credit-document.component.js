@@ -1,5 +1,6 @@
 import React from 'react';
 import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
+import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator, Alert } from 'react-native';
 // import { ImagePicker } from 'expo';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -123,7 +124,17 @@ class CreditDocumentComponent extends React.Component {
                 doc_photo: `data:image/png;base64,${response.base64}`
             }
             creditService.postDocument(obj).then(res =>{  
-                this.fetchDocument();
+                
+                if(res['message'] === "Dokumen sudah tersedia") {
+                    Alert.alert(
+                        'Error',
+                        'Dokumen sudah tersedia!',
+                        [{text: 'OK', onPress: () => this.fetchDocument()}],
+                        {cancelable: false},
+                    );
+                } else {
+                    this.fetchDocument();
+                }
             });
         }else{
             Permissions.askAsync(Permissions.CAMERA);
