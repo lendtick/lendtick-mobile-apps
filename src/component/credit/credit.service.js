@@ -192,6 +192,7 @@ export default creditService = {
     postSimulation: (data) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
+                console.log(token)
                 fetch(urlPostSimulation, {
                     method: 'POST',
                     body: JSON.stringify(data),
@@ -241,6 +242,7 @@ export default creditService = {
     getLoanDocument: (id) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
+                console.log('userid: '+ id)
                 fetch(urlGetLoanDocument + id,{
                     method: 'GET',
                     headers: new Headers({

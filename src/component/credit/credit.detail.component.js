@@ -110,7 +110,7 @@ class CreditDetailComponent extends React.Component {
                 loading: false,
                 arrOffset: res['data']
             });
-            console.log(res['data'])
+            // console.log(res['data'])
         }, err =>{
             this.setState({loading: false});
             Alert.alert(

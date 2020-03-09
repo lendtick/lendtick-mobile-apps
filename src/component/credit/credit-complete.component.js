@@ -167,6 +167,13 @@ class CreditCompleteComponent extends Component {
                             </View>
                         : null} 
 
+                        {this.props.credit.document4 != null ?
+                            <View style={{padding:15,borderWidth:1,borderColor:'#dfdfdf',borderRadius:Variable.borderRadius,borderStyle:'dashed',marginBottom:15}}>
+                                <Text style={[Typography.heading6,{marginBottom:5}]}>{this.props.credit.document4.type}</Text>
+                                <AutoHeightImage source={{uri: this.props.credit.document4.uri}} width={Dimensions.get('window').width - 62}/>
+                            </View>
+                        : null} 
+
                         <View style={{marginBottom: 15}} />
                             
                         {this.state.message ? <View style={{marginBottom:15}}><AlertBox  type={this.state.status == 1 ? 'success' : 'danger'} title={null} text={this.state.message}/></View> : null }

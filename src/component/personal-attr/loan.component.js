@@ -53,6 +53,7 @@ class LoanComponent extends React.Component {
                     x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
                 });
             }
+            console.log(res.data)
             this.setState({
                 disbursement_date: moment(res.data.disbursement_date).format('DD MMM YYYY'),
                 loan_approved: res.data.loan_approved,

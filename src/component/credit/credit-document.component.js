@@ -1,5 +1,4 @@
 import React from 'react';
-import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { View,Text,ScrollView,Image,Dimensions,ActivityIndicator, Alert } from 'react-native';
 // import { ImagePicker } from 'expo';
 import * as ImagePicker from 'expo-image-picker';
@@ -60,9 +59,11 @@ class CreditDocumentComponent extends React.Component {
             document1: null,
             document2: null,
             document3: null,
+            document4: null,
             loading1: false,
             loading2: false,
             loading3: false,
+            loading4: false,
             arrDcument: []
         };
     }
@@ -115,6 +116,13 @@ class CreditDocumentComponent extends React.Component {
                             document3: response
                         });
                     break;
+                    case 'document4' : 
+                        document_type = 'DOC006';
+                        this.setState({
+                            loading4: true,
+                            document4: response
+                        });
+                    break;
                 };
             }
 
@@ -123,8 +131,9 @@ class CreditDocumentComponent extends React.Component {
                 id_document_type: document_type,
                 doc_photo: `data:image/png;base64,${response.base64}`
             }
+
             creditService.postDocument(obj).then(res =>{  
-                
+                console.log(res)
                 if(res['message'] === "Dokumen sudah tersedia") {
                     Alert.alert(
                         'Error',
@@ -144,6 +153,7 @@ class CreditDocumentComponent extends React.Component {
 
     fetchDocument(){
         creditService.getLoanDocument(this.props.credit.data.id).then(res =>{
+            console.log(res)
             this.setState({arrDcument:[]});
             _.map(res['data'], (x)=>{
                 switch(x.id_document_type){
@@ -217,6 +227,30 @@ class CreditDocumentComponent extends React.Component {
                             });
                         }else{
                             this.setState({loading3:false});
+                        }
+                    break;
+                    case "DOC006" :
+                        if(x.path){
+                            toDataUrl(x.path, (e) => {
+                                let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
+                                let obj = {
+                                    type: base64MimeType(e),
+                                    base64: imgData,
+                                    uri: x.path
+                                }
+                                this.state.arrDcument.push(1);
+                                this.setState({
+                                    document4:obj,
+                                    loading4:false,
+                                    arrDcument: this.state.arrDcument
+                                });
+                                this.props.updateDoc4({
+                                    uri: obj.uri,
+                                    type: 'SLIP GAJI'
+                                });
+                            });
+                        }else{
+                            this.setState({loading4:false});
                         }
                     break;
                 }
@@ -323,12 +357,30 @@ class CreditDocumentComponent extends React.Component {
                         </View>
                     }
 
-                {!this.state.loading1 && !this.state.loading2 &&!this.state.loading3 ? 
+                    {this.state.loading4 ? 
+                        <View style={{padding:30}}>  
+                            <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
+                        </View>
+                        :
+                        <View>
+                            <InputComponent 
+                                label="Slip Gaji"
+                                iconName="upload"
+                                placeholder="Unggah Slip Gaji"
+                                value={this.state.document4 != null ? this.state.document4.uri.replace(/^.*[\\\/]/, '').substring(this.state.document4.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document4.uri.replace(/^.*[\\\/]/, '').length) : null}
+                                isButton={true}
+                                topIcon={2}
+                                onClickBtn={()=> this.pickupImage('document4')}/>
+                            {this.state.document4 != null ? <AutoHeightImage source={{uri: `data:${this.state.document4.type};base64,${this.state.document4.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
+                        </View>
+                    }
+
+                {!this.state.loading1 && !this.state.loading2 && !this.state.loading3 && !this.state.loading4 ? 
                     <ButtonComponent 
                         type="primary" 
                         text="Lanjutkan" 
                         onClick={()=> this.props.navigation.navigate('CreditComplete')} 
-                        disabled={this.state.arrDcument.length != 3} 
+                        disabled={this.state.arrDcument.length != 4} 
                         isSubmit={false}/> 
                 : null }
                 </View>
@@ -363,6 +415,12 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch({
 				type: 'FILL_DOCUMENT3',
 				document3: e
+			})
+        },
+        updateDoc4: (e) => {
+			dispatch({
+				type: 'FILL_DOCUMENT4',
+				document4: e
 			})
         },
 	}

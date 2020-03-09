@@ -45,6 +45,7 @@ class PinjamanComponent extends React.Component {
                     if(x.group == 3) x.group_code = "ML";
                 });
             }
+            // console.log(res.data)
             this.setState({
                 loading: false,
                 arrList: res.data.detail,
