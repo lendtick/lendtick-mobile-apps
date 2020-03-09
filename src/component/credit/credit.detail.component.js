@@ -44,6 +44,7 @@ class CreditDetailComponent extends React.Component {
             installmentsOrigin: 0,
             term: 0,
             total_loan: 0,
+            total_interest: 0,
             msgEligible: null,
             statusEligible: 0,
             showBtnContinue: true,
@@ -207,6 +208,7 @@ class CreditDetailComponent extends React.Component {
                     installments: 'Rp ' + accounting.formatMoney(res['data'].installments, "", 0, ",", ","),
                     term: res['data'].term,
                     fee: res['data'].fee,
+                    total_interest: 'Rp ' + accounting.formatMoney(res['data'].total_interest, "", 0, ",", ","),
                     total_loan: 'Rp ' + accounting.formatMoney(res['data'].total_loan, "", 0, ",", ",")
                 });
                 this.scrollView.scrollToEnd({ animated: true }); 
@@ -483,7 +485,7 @@ class CreditDetailComponent extends React.Component {
                                     <Text style={Typography.singleText}>Biaya Admin :</Text>
                                 </Col>
                                 <Col>
-                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Biaya Admin']}</Text>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Admin']}</Text>
                                 </Col>
                             </Grid>
 
@@ -496,7 +498,7 @@ class CreditDetailComponent extends React.Component {
                                     <Text style={Typography.singleText}>Biaya Asuransi :</Text>
                                 </Col>
                                 <Col>
-                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Biaya Asuransi']}</Text>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Insurance']}</Text>
                                 </Col>
                             </Grid>
                             <Grid style={{
@@ -508,7 +510,19 @@ class CreditDetailComponent extends React.Component {
                                     <Text style={Typography.singleText}>Biaya Provisi :</Text>
                                 </Col>
                                 <Col>
-                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Biaya Provisi']}</Text>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.fee['Provisi (1%) Pinjaman']}</Text>
+                                </Col>
+                            </Grid>
+                            <Grid style={{
+                                padding:15,
+                                borderBottomWidth: 1,
+                                borderColor: '#efefef',
+                                backgroundColor: '#f8f8ff'}}>
+                                <Col>
+                                    <Text style={Typography.singleText}>Jumlah bunga yang harus dibayar :</Text>
+                                </Col>
+                                <Col>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.total_interest}</Text>
                                 </Col>
                             </Grid>
                             <Grid style={{
