@@ -54,6 +54,9 @@ class InputSallary extends React.Component {
             openPopupGrade: false,
             selectedGrade: null,
             arrGrade: [],
+
+            id_user_company: null,
+            id_user_company_salary: null,
         };
     }
 
@@ -124,15 +127,17 @@ class InputSallary extends React.Component {
         let data = {
             salary_amount: this.state.salary_amount.replace(/\D/g, ""),
             id_grade: this.state.id_grade,
-            salary_photo: `data:image/png;base64,${this.state.salaryPhoto.base64}`
+            id_user_company: this.state.id_user_company,
+            id_user_company_salary: this.state.id_user_company_salary,
+            salary_photo: this.state.salaryPhoto !== null ? `data:image/png;base64,${this.state.salaryPhoto.base64}` : null
         };
 
         let rules = {
             id_grade: 'required',
             salary_amount: 'required|numeric',
-            salary_photo: 'required',
+            // salary_photo: 'required',
         };
-        console.log(data)
+        // console.log(data)
         let validation = new Validator(data, rules);
         if(validation.passes()){
             this.onSubmit(data);
@@ -150,12 +155,13 @@ class InputSallary extends React.Component {
             isSubmit: true,
             isSuccess: false
         });
+        console.log('data ==>', data)
         personalService.postReqSalary(data).then(res =>{
             this.setState({
                 isSubmit: false,
                 isSuccess: true
             });
-            console.log(res)
+            // console.log(res)
         }, err =>{
             this.setState({isSubmit: false});
             Alert.alert(

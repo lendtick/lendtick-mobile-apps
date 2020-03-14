@@ -1,6 +1,7 @@
 import React from 'react';
-import { View,Alert } from 'react-native';
+import { View,Alert, Modal, TouchableHighlight, ScrollView, TouchableOpacity, Text } from 'react-native';
 import * as _ from 'lodash';
+import { AntDesign } from '@expo/vector-icons';
 
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
@@ -21,6 +22,9 @@ class InputBank extends React.Component {
             openPopupBank: false,
             selectedBank: null,
             arrBank: [],
+            modalBank: false,
+            query: '',
+            banks: []
         };
     }
 
@@ -57,7 +61,7 @@ class InputBank extends React.Component {
     // ======================== //
     validationSubmit(){
         let data = {
-            id_bank: this.state.id_bank,
+            id_bank: this.state.id_bank.value,
             account_name_bank: this.state.account_name_bank,
             account_number_bank: this.state.account_number_bank,
             account_branch_bank: this.state.account_branch_bank
@@ -103,17 +107,41 @@ class InputBank extends React.Component {
         });
     }
 
+    findBank(query) {
+        if (query === '') {
+            return [];
+        }
+
+        const { arrBank } = this.state;
+        const regex = new RegExp(`${query.trim()}`, 'i');
+        data = arrBank.filter(bank => bank.label.search(regex) >= 0);
+        // console.log(data);
+        return data;
+    }
+
     render() { 
+        const { query } = this.state;
+        const banks = this.findBank(query);
+        const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
         return(
             <View>
 
-                <InputDropdown 
+                {/* <InputDropdown 
                     label="Pilih Bank"
                     iconName={null}
                     placeholder="Pilih Bank"
                     value={this.state.id_bank}
                     items={this.state.arrBank}
-                    onChange={(id_bank) => this.setState({id_bank})}/> 
+                    onChange={(id_bank) => this.setState({id_bank})}/>  */}
+                <InputComponent 
+                    label="Pilih Bank"
+                    iconName={null}
+                    keyboardType="default"
+                    placeholder="Pilih Bank"
+                    value={this.state.id_bank ? this.state.id_bank.label : null}
+                    isButton={true}
+                    onClickBtn={() => this.setState({modalBank: !this.state.modalBank})}
+                    onChange={() => null}/>
                 <InputComponent 
                     label="Nama Cabang"
                     iconName={null}
@@ -141,6 +169,44 @@ class InputBank extends React.Component {
                 {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update data berhasil"/></View>: null}
 
                 <ButtonComponent type="primary" text="Update data BANK" onClick={()=> this.validationSubmit()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
+
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalBank}
+                    onRequestClose={() => {
+                        this.setState({modalBank: !this.state.modalBank});
+                    }}>
+                    <View style={{marginTop: 22}}>
+                        <View>
+                            <View style={{justifyContent: 'center', alignItems: 'flex-end', padding: 16}}>
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.setState({modalBank: !this.state.modalBank});
+                                    }}>
+                                    {/* <Text>Keluar</Text> */}
+                                    <AntDesign name="close" size={18} />
+                                </TouchableHighlight>
+                            </View>
+                            <View style={{paddingHorizontal: 16}}>
+                                <InputComponent 
+                                    label="Nama Bank"
+                                    iconName={null}
+                                    keyboardType="default"
+                                    placeholder="Masukan Nama Bank"
+                                    value={this.props.value}
+                                    onChange={text => this.setState({ query: text })}/>
+                            </View>
+                            <ScrollView style={{ marginBottom: 220 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
+                                { banks.length === 1 && comp(query, banks[0].name_company) ? [] : _.map(banks, ({value, label}, k) => (
+                                    <TouchableOpacity key={k} style={{ width: '100%', height: 50, borderBottomWidth: .3, borderBottomColor: '#ccc', justifyContent: 'center', paddingHorizontal: 16 }} onPress={() => this.setState({ id_bank: {value, label}, modalBank: !this.state.modalBank })}>
+                                        <Text>{label}</Text>
+                                    </TouchableOpacity>
+                                )) }
+                            </ScrollView>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         )
     }

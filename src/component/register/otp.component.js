@@ -151,7 +151,7 @@ class OtpComponent extends Component {
 
                             <CodeInput
                                 ref="codeInputRef2"
-                                secureTextEntry
+                                secureTextEntry={false}
                                 codeLength={4}
                                 activeColor={Variable.colorTitle}
                                 inactiveColor={Variable.colorContent}
