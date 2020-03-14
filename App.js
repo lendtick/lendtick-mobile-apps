@@ -20,11 +20,12 @@
 
 
 import React from 'react';
+import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from '@services/store';
 import { rooter } from '@services/rooter';
 import { createSwitchNavigator } from 'react-navigation';
-
+YellowBox.ignoreWarnings(['Warning: ...']);
 export default class App extends React.Component {
 	render() {
 		return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform, StyleSheet, TouchableOpacity, Modal as ModalDefault } from 'react-native';
 // import { ImagePicker} from 'expo';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
@@ -43,7 +43,7 @@ class RegisterComponent extends Component {
             nik: null,
             department: null,
             division: null,
-            posiition: null,
+            position: null,
             // identityPhoto: null,
             // companyIdentityPhoto: null,
 
@@ -53,7 +53,8 @@ class RegisterComponent extends Component {
             openPopupCompany: false,
             isFailed: false,
             arrCompany: [],
-            errorInputName: false
+            errorInputName: false,
+            modalCompany: false,
         };
     }
 
@@ -146,8 +147,6 @@ class RegisterComponent extends Component {
                 isFailed: false,
                 isInvalid: false
             });
-
-            console.log('final ==>', this.state.company);
              
             let data = {
                 name: this.state.name,
@@ -162,7 +161,7 @@ class RegisterComponent extends Component {
                 identity_id: this.state.identity_id,
                 department: this.state.department,
                 division: this.state.division,
-                position: this.state.posiition
+                position: this.state.position
             };
     
             let rules = {
@@ -172,9 +171,12 @@ class RegisterComponent extends Component {
                 identity_photo: 'required',
                 company_identity_photo: 'required',
                 personal_photo: 'required',
-                phone_number: 'required|numeric',
-                nik: 'required|numeric',
-                identity_id: 'required|numeric',
+                phone_number: 'required',
+                nik: 'required',
+                identity_id: 'required',
+                // phone_number: 'required|numeric',
+                // nik: 'required|numeric',
+                // identity_id: 'required|numeric',
                 department: 'required',
                 division: 'required',
                 position: 'required'
@@ -182,7 +184,7 @@ class RegisterComponent extends Component {
     
             let validation = new Validator(data, rules);
             let validateName = this.state.name.match(/\d+/);
-            if(validateName){
+            if(validateName !== null){
                 this.setState({errorInputName: true});
             }else{
                 this.setState({errorInputName: false});
@@ -201,7 +203,7 @@ class RegisterComponent extends Component {
     // Submit
     // ======================== //
     onSubmit(data){
-        console.log("ini data mana==> ", data);
+        // console.log("ini data mana==> ", data);
         this.setState({
             isFailed: false,
             isInvalid: false
@@ -317,12 +319,10 @@ class RegisterComponent extends Component {
                                 value={this.state.company}
                                 onChange={(company) => this.setState({company})}
                             /> */}
-                            <View style={{position:'relative'}}>
+                            {/* <View style={{position:'relative'}}>
                                 <View style={[Input.wrapInput,{backgroundColor:this.props.disabled ? '#f8f8ff' : '#ffffff'}]}>
                                     <Text style={[Typography.label, {marginBottom:5}]}>Nama Perusahaan</Text>
-                                        {/* <TouchableHighlight underlayColor="transparent" style={[Input.icon,{top: 10}]}>
-                                            <AntDesign name='user'/>
-                                        </TouchableHighlight> */}
+                                        
                                         <Autocomplete
                                             underlineColorAndroid="transparent"
                                             autoCapitalize="none"
@@ -337,14 +337,24 @@ class RegisterComponent extends Component {
                                             renderItem={({ name_company, id_company }) => (
                                                 <TouchableOpacity onPress={() => this.setState({ query: name_company, company: id_company })}>
                                                     <Text >
-                                                        {/* {title} ({release_date.split('-')[0]}) */}
+                                                        
                                                         {name_company}
                                                     </Text>
                                                 </TouchableOpacity>
                                             )}
                                         />
                                 </View>
-                            </View>
+                            </View> */}
+
+                            <InputComponent 
+                                label="Nama Perusahaan"
+                                iconName={null}
+                                keyboardType="default"
+                                placeholder="Pilih Nama Perusahaan"
+                                value={query}
+                                isButton={true}
+                                onClickBtn={() => this.setState({modalCompany: !this.state.modalCompany, query: ''})}
+                                onChange={() => null}/>
 
                             <InputComponent 
                                 label="Department"
@@ -421,6 +431,44 @@ class RegisterComponent extends Component {
                     }
                 </Modal>
                 {/* ====== Take Camera ====== */}
+
+                <ModalDefault
+                    animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalCompany}
+                    onRequestClose={() => {
+                        this.setState({modalCompany: !this.state.modalCompany});
+                    }}>
+                    <View style={{marginTop: 22}}>
+                        <View>
+                            <View style={{justifyContent: 'center', alignItems: 'flex-end', padding: 16}}>
+                                <TouchableHighlight
+                                    onPress={() => {
+                                        this.setState({modalCompany: !this.state.modalCompany});
+                                    }}>
+                                    {/* <Text>Keluar</Text> */}
+                                    <AntDesign name="close" size={18} />
+                                </TouchableHighlight>
+                            </View>
+                            <View style={{paddingHorizontal: 16}}>
+                                <InputComponent 
+                                    label="Nama Perusahaan"
+                                    iconName={null}
+                                    keyboardType="default"
+                                    placeholder="Masukan Perusahaan"
+                                    value={this.props.value}
+                                    onChange={text => this.setState({ query: text })}/>
+                            </View>
+                            <ScrollView style={{ marginBottom: 220 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
+                                { companies.length === 1 && comp(query, companies[0].name_company) ? [] : _.map(companies, ({name_company, id_company}, k) => (
+                                    <TouchableOpacity key={k} style={{ width: '100%', height: 50, borderBottomWidth: .3, borderBottomColor: '#ccc', justifyContent: 'center', paddingHorizontal: 16 }} onPress={() => this.setState({ query: name_company, company: id_company, modalCompany: !this.state.modalCompany })}>
+                                        <Text>{name_company}</Text>
+                                    </TouchableOpacity>
+                                )) }
+                            </ScrollView>
+                        </View>
+                    </View>
+                </ModalDefault>
             </View>
         )
     }

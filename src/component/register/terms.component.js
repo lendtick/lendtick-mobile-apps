@@ -33,6 +33,7 @@ class TermComponent extends Component {
     onSubmit(){
         this.setState({isSubmit: true});
         registerService.postRegister(this.props.register.data).then(res =>{
+            console.log('res ==>', res)
             if(res.status){
                 this.setState({isSubmit: false});
                 this.props.setRegister(res['data']);

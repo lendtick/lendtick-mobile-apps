@@ -46,19 +46,45 @@ export default registerService = {
     // Post Register
     // ======================= //
     postRegister: (data) =>{
-        const promiseObj = new Promise(function(resolve, reject){
-            fetch(urlPostRegister, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {"Content-type": "application/json"}
-            })
-            .then(response => response.json())
-            .then(json => resolve(json))
-            .catch(err => {
-                reject(err);
-            });
+        // console.log('data ==>', JSON.stringify(data));
+        
+        // const promiseObj = new Promise(function(resolve, reject){
+        //     fetch(urlPostRegister, {
+        //         method: 'POST',
+        //         body: JSON.stringify(data),
+        //         headers: {
+        //             Accept: 'application/json',
+        //             'Content-Type': 'application/json'
+        //         }
+        //     })
+        //     .then(response => {
+        //         console.log('response', response)
+        //         console.log('response json', response.json())
+        //         return response.json()
+        //     })
+        //     .then(json => {
+        //         console.log('json ==>', json);
+        //         resolve(json)
+        //     })
+        //     .catch(err => {
+        //         console.log('err ==>', err);
+        //         reject(err);
+        //     });
+        // });
+        // return promiseObj;
+        return fetch(urlPostRegister, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(json => json)
+        .catch(err => {
+            console.log('err ==>', err);
         });
-        return promiseObj;
     },
 
     // ======================= //
