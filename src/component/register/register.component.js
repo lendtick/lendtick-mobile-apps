@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform, StyleSheet, TouchableOpacity, Modal as ModalDefault } from 'react-native';
+import { ScrollView,View,StatusBar,TouchableHighlight,Text,Dimensions,Platform, StyleSheet, TouchableOpacity, Modal as ModalDefault, BackHandler, Alert } from 'react-native';
 // import { ImagePicker} from 'expo';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
@@ -60,6 +60,35 @@ class RegisterComponent extends Component {
 
     componentDidMount(){
         this.fetchListCompany();
+        this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove()
+    }
+
+    handleBackPress = async () => {
+        let except = ['openCameraProfile', 'openPopupCompany', 'isFailed', 'arrCompany', 'errorInputName', 'modalCompany', 'companies', 'query'];
+        let o = _.omit(this.state, except);
+        let a = await _.findKey(o, val => _.isString(val));
+        if(a !== undefined) {
+            Alert.alert(
+                'Info',
+                'Apakah kamu yakin tidak menyelesaikan pendaftaran?',
+                [
+                  {
+                    text: 'Tidak',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {text: 'Ya', onPress: () => this.props.navigation.pop()},
+                ],
+                {cancelable: false},
+              );
+        } else {
+            this.props.navigation.pop();
+        }
+        return true;
     }
     
     fetchListCompany(){
