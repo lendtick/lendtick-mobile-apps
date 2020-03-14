@@ -124,10 +124,10 @@ class InputEmployee extends React.Component {
                     onChange={(id_company) => this.setState({id_company})}/> 
 
                 <InputComponent 
-                    label="Tanggal Masuk"
+                    label="Tanggal Karyawan Tetap"
                     iconName={null}
                     keyboardType="default"
-                    placeholder="Masukan tanggal masuk"
+                    placeholder="Masukan tanggal karyawan tetap"
                     isDate={true}
                     value={this.state.employee_starting_date}
                     disabled={true}
