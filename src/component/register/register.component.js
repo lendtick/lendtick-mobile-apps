@@ -9,6 +9,7 @@ import { ButtonComponent, BlockLogo, InputComponent, AlertBox, Modal, InputDropd
 import { Main,Variable,Input, Typography } from '@styles';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
 import Autocomplete from 'react-native-autocomplete-input';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -19,12 +20,20 @@ Validator.setMessages('en', en);
 class RegisterComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Register",
-        headerTitleStyle: Variable.headerTitleStyle,
-        headerStyle: {
-            elevation:0,
-            backgroundColor: '#42A9A0',
-            borderBottomWidth: 0,
-        },
+        header: props => <LinearGradient colors={['#25c4fd', '#aad95a']}
+        style={{ height: 100 }}
+        start={[0, 0]}
+        end={[1, 0]}>
+            <View style={{paddingLeft: 16, paddingTop: 16}}>
+                <Text style={Variable.headerTitleStyle}>{props.scenes[1].descriptor.options.title}</Text>
+            </View>
+        </LinearGradient>,
+        // headerTitleStyle: Variable.headerTitleStyle,
+        // headerStyle: {
+        //     elevation:0,
+        //     backgroundColor: '#42A9A0',
+        //     borderBottomWidth: 0,
+        // },
         headerTintColor: '#ffffff',
         headerLeft: null
     });
