@@ -153,7 +153,7 @@ class CreditDocumentComponent extends React.Component {
 
     fetchDocument(){
         creditService.getLoanDocument(this.props.credit.data.id).then(res =>{
-            console.log(res)
+            console.log('document ===>', res['data'])
             this.setState({arrDcument:[]});
             _.map(res['data'], (x)=>{
                 switch(x.id_document_type){
@@ -181,7 +181,7 @@ class CreditDocumentComponent extends React.Component {
                             this.setState({loading1:false});
                         }
                     break;
-                    case "DOC002" :
+                    case "DOC004" :
                         if(x.path){
                             toDataUrl(x.path, (e) => {
                                 let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
@@ -198,37 +198,37 @@ class CreditDocumentComponent extends React.Component {
                                 });
                                 this.props.updateDoc2({
                                     uri: obj.uri,
-                                    type: 'ID CARD'
+                                    type: 'KK'
                                 });
                             });
                         }else{
                             this.setState({loading2:false});
                         }
                     break;
-                    case "DOC003" :
-                        if(x.path){
-                            toDataUrl(x.path, (e) => {
-                                let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
-                                let obj = {
-                                    type: base64MimeType(e),
-                                    base64: imgData,
-                                    uri: x.path
-                                }
-                                this.state.arrDcument.push(1);
-                                this.setState({
-                                    document3:obj,
-                                    loading3:false,
-                                    arrDcument: this.state.arrDcument
-                                });
-                                this.props.updateDoc3({
-                                    uri: obj.uri,
-                                    type: 'NPWP'
-                                });
-                            });
-                        }else{
-                            this.setState({loading3:false});
-                        }
-                    break;
+                    // case "DOC003" :
+                    //     if(x.path){
+                    //         toDataUrl(x.path, (e) => {
+                    //             let imgData = e.replace('data:'+ base64MimeType(e) +';base64,','');
+                    //             let obj = {
+                    //                 type: base64MimeType(e),
+                    //                 base64: imgData,
+                    //                 uri: x.path
+                    //             }
+                    //             this.state.arrDcument.push(1);
+                    //             this.setState({
+                    //                 document3:obj,
+                    //                 loading3:false,
+                    //                 arrDcument: this.state.arrDcument
+                    //             });
+                    //             this.props.updateDoc3({
+                    //                 uri: obj.uri,
+                    //                 type: 'NPWP'
+                    //             });
+                    //         });
+                    //     }else{
+                    //         this.setState({loading3:false});
+                    //     }
+                    // break;
                     case "DOC006" :
                         if(x.path){
                             toDataUrl(x.path, (e) => {
@@ -328,9 +328,9 @@ class CreditDocumentComponent extends React.Component {
                     :
                         <View>
                             <InputComponent 
-                                label="ID CARD"
+                                label="KK"
                                 iconName="upload"
-                                placeholder="Unggah ID CARD"
+                                placeholder="Unggah KK"
                                 value={this.state.document2 != null ? this.state.document2.uri.replace(/^.*[\\\/]/, '').substring(this.state.document2.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document2.uri.replace(/^.*[\\\/]/, '').length) : null}
                                 isButton={true}
                                 topIcon={2}
@@ -339,7 +339,7 @@ class CreditDocumentComponent extends React.Component {
                         </View>
                     }
 
-                    {this.state.loading3 ? 
+                    {/* {this.state.loading3 ? 
                         <View style={{padding:30}}>  
                             <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>
                         </View>
@@ -355,7 +355,7 @@ class CreditDocumentComponent extends React.Component {
                                 onClickBtn={()=> this.pickupImage('document3')}/>
                             {this.state.document3 != null ? <AutoHeightImage source={{uri: `data:${this.state.document3.type};base64,${this.state.document3.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
                         </View>
-                    }
+                    } */}
 
                     {this.state.loading4 ? 
                         <View style={{padding:30}}>  
