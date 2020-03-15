@@ -311,12 +311,14 @@ class CreditDocumentComponent extends React.Component {
                         <View>
                             <InputComponent 
                             label="KTP"
-                            iconName="upload"
+                            showIcon={false}
+                            //iconName="upload"
                             placeholder="Unggah KTP"
                             value={this.state.document1 != null ? this.state.document1.uri.replace(/^.*[\\\/]/, '').substring(this.state.document1.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document1.uri.replace(/^.*[\\\/]/, '').length) : null}
-                            isButton={true}
-                            topIcon={2}
-                            onClickBtn={()=> this.pickupImage('document1')}/>
+                            // isButton={false}
+                            // topIcon={2}
+                            // onClickBtn={()=> this.pickupImage('document1')}
+                            />
                         {this.state.document1 != null ? <AutoHeightImage source={{uri: `data:${this.state.document1.type};base64,${this.state.document1.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
                         </View>
                     }
@@ -329,12 +331,14 @@ class CreditDocumentComponent extends React.Component {
                         <View>
                             <InputComponent 
                                 label="KK"
-                                iconName="upload"
+                                showIcon={false}
+                                // iconName="upload"
                                 placeholder="Unggah KK"
                                 value={this.state.document2 != null ? this.state.document2.uri.replace(/^.*[\\\/]/, '').substring(this.state.document2.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document2.uri.replace(/^.*[\\\/]/, '').length) : null}
-                                isButton={true}
-                                topIcon={2}
-                                onClickBtn={()=> this.pickupImage('document2')}/>
+                                // isButton={false}
+                                // topIcon={2}
+                                // onClickBtn={()=> this.pickupImage('document2')}
+                                />
                             {this.state.document2 != null ? <AutoHeightImage source={{uri: `data:${this.state.document2.type};base64,${this.state.document2.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
                         </View>
                     }
@@ -365,22 +369,40 @@ class CreditDocumentComponent extends React.Component {
                         <View>
                             <InputComponent 
                                 label="Slip Gaji"
-                                iconName="upload"
+                                showIcon={false}
+                                //iconName="upload"
                                 placeholder="Unggah Slip Gaji"
                                 value={this.state.document4 != null ? this.state.document4.uri.replace(/^.*[\\\/]/, '').substring(this.state.document4.uri.replace(/^.*[\\\/]/, '').length - 10, this.state.document4.uri.replace(/^.*[\\\/]/, '').length) : null}
-                                isButton={true}
-                                topIcon={2}
-                                onClickBtn={()=> this.pickupImage('document4')}/>
+                                // isButton={false}
+                                // topIcon={2}
+                                // onClickBtn={()=> this.pickupImage('document4')}
+                                />
                             {this.state.document4 != null ? <AutoHeightImage source={{uri: `data:${this.state.document4.type};base64,${this.state.document4.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
                         </View>
                     }
 
-                {!this.state.loading1 && !this.state.loading2 && !this.state.loading3 && !this.state.loading4 ? 
+                {
+                    !this.state.loading1 && 
+                    !this.state.loading2 && 
+                    // !this.state.loading3 && 
+                    !this.state.loading4 ? 
                     <ButtonComponent 
                         type="primary" 
                         text="Lanjutkan" 
-                        onClick={()=> this.props.navigation.navigate('CreditComplete')} 
-                        disabled={this.state.arrDcument.length != 4} 
+                        onClick={()=> Alert.alert(
+                            'Info',
+                            'Pastikan semua dokumen Anda sudah terupdate',
+                            [
+                              {
+                                text: 'Tidak',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                              },
+                              {text: 'Ya', onPress: () => this.props.navigation.navigate('CreditComplete')},
+                            ],
+                            {cancelable: false},
+                        )} 
+                        disabled={this.state.arrDcument.length != 3} 
                         isSubmit={false}/> 
                 : null }
                 </View>
