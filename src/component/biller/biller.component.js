@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView,View,Dimensions,TouchableHighlight,ActivityIndicator, Text } from 'react-native';
+import { ScrollView,View,Dimensions,TouchableHighlight,ActivityIndicator, AsyncStorage, Text } from 'react-native';
+import { NavigationEvents } from "react-navigation";
 import { Col,Grid, Row } from "react-native-easy-grid";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { HeaderSearch, BannerComponent } from '@directives';
@@ -56,9 +57,17 @@ class BillerComponent extends React.Component {
         });
     }
 
+    onFocus = async () => {
+        let x = await AsyncStorage.getItem('token');
+        if(x === null) {
+            this.props.navigation.navigate("LoginUser")
+        }
+    }
+
     render() { 
         return(
             <View style={styles.wrapper}>
+                <NavigationEvents onWillFocus={() => this.onFocus()} />
                 <ScrollView>
 
                     {/* Start Banner */}

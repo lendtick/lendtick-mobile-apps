@@ -1,6 +1,7 @@
 import React from 'react';
-import { View,Text,TouchableHighlight,ScrollView,ActivityIndicator,Alert } from 'react-native';
+import { View,Text,TouchableHighlight,ScrollView,ActivityIndicator,AsyncStorage, Alert } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { NavigationEvents } from "react-navigation";
 import { Col,Grid } from "react-native-easy-grid";
 import { AlertBox,ButtonComponent } from '@directives';
 import { Variable, Input } from '@styles';
@@ -103,9 +104,17 @@ class CreditComponent extends React.Component {
         });
     }
 
+    onFocus = async () => {
+        let x = await AsyncStorage.getItem('token');
+        if(x === null) {
+            this.props.navigation.navigate("LoginUser")
+        }
+    }
+
     render() { 
         return(
             <ScrollView style={{padding: 15,  backgroundColor: '#f8f8ff'}}>
+                <NavigationEvents onWillFocus={() => this.onFocus()} />
                 {this.state.loading ? 
                     <View style={{padding:30}}>  
                         <ActivityIndicator size="small" color="#333" style={{marginBottom:15}}/>

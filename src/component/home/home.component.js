@@ -167,6 +167,15 @@ class HomeComponent extends React.Component {
         this.setState({notification: notification});
     };
 
+    onFocus = async routeName => {
+        let x = await AsyncStorage.getItem('token');
+        if(x === null) {
+            this.props.navigation.navigate("LoginUser")
+        } else {
+            this.props.navigation.navigate(routeName);
+        }
+    }
+
     render() { 
         return(
             <SafeAreaView>
@@ -194,26 +203,26 @@ class HomeComponent extends React.Component {
                             <Grid>
                                 <Row>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Pulsa')} underlayColor="transparent">
+                                        <TouchableHighlight onPress={()=> this.onFocus('Pulsa')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/pulsa-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Pulsa</Text>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('PaketData')} underlayColor="transparent">
+                                        <TouchableHighlight onPress={()=> this.onFocus('PaketData')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/internet-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Paket</Text>
                                         <Text style={styles.labelItem}>Internet</Text>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Listrik')} underlayColor="transparent">
+                                        <TouchableHighlight onPress={()=> this.onFocus('Listrik')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/listrik-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Listrik</Text>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('ListProduct')} underlayColor="transparent" disabled={true}>
+                                        <TouchableHighlight onPress={()=> this.onFocus('ListProduct')} underlayColor="transparent" disabled={true}>
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/pesawat-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Tiket</Text>
@@ -222,20 +231,20 @@ class HomeComponent extends React.Component {
                                 </Row>
                                 <Row>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Bpjs')} underlayColor="transparent">
+                                        <TouchableHighlight onPress={()=> this.onFocus('Bpjs')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/bpjs-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>BPJS</Text>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Air')}  underlayColor="transparent">
+                                        <TouchableHighlight onPress={()=> this.onFocus('Air')}  underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/air-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Tagihan</Text>
                                         <Text style={styles.labelItem}>Air</Text>
                                     </Col>
                                     <Col style={styles.itemProduct}>
-                                        <TouchableHighlight onPress={()=> this.props.navigation.navigate('Credit')} underlayColor="transparent">
+                                        <TouchableHighlight onPress={()=> this.onFocus('Credit')} underlayColor="transparent">
                                             <AutoHeightImage width={(Dimensions.get('window').width / 6) - 17.5} source={require('@assets/img/icon-service/simpanpinjam-outline.png')} />
                                         </TouchableHighlight>
                                         <Text style={styles.labelItem}>Simpan</Text>
