@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { ButtonComponent, BlockLogo, InputComponent, AlertBox } from '@directives';
 import { Main,Variable,Input } from '@styles';
 import loginService from './login-service';
+import { LinearGradient } from 'expo-linear-gradient';
 import registerNotification from '../../notification/registerNotification';
 
 async function checkAllowNotif() {
@@ -20,12 +21,20 @@ async function checkAllowNotif() {
 class LoginComponent extends Component {
     static navigationOptions = ({navigation}) => ({
         title: "Login",
-        headerTitleStyle: Variable.headerTitleStyle,
-        headerStyle: {
-            elevation:0,
-            backgroundColor: '#42A9A0',
-            borderBottomWidth: 0,
-        },
+        header: props => <LinearGradient colors={['#25c4fd', '#aad95a']}
+        style={{ height: 100 }}
+        start={[0, 0]}
+        end={[1, 0]}>
+            <View style={{paddingLeft: 16, paddingTop: 16}}>
+                <Text style={Variable.headerTitleStyle}>{props.scenes[0].descriptor.options.title}</Text>
+            </View>
+        </LinearGradient>,
+        // headerTitleStyle: Variable.headerTitleStyle,
+        // headerStyle: {
+        //     elevation:0,
+        //     backgroundColor: '#42A9A0',
+        //     borderBottomWidth: 0,
+        // },
         headerTintColor: '#ffffff',
         headerLeft: null
     });

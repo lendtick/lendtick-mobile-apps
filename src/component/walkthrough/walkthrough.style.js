@@ -1,9 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { Variable } from '@styles';
+
+const {width, height} = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: '#ffffff'
+        backgroundColor: '#f8f8f8'
     },
     slide: {
         flex: 1,
@@ -23,9 +25,9 @@ export const styles = StyleSheet.create({
         marginBottom: 15
     },
     imgcontent: {
-        width: 100,
-        height: 100,
-        marginBottom: 35,
+        width: width,
+        height: height,
+        // marginBottom: 35,
     },
     text: {
 		width: '100%',

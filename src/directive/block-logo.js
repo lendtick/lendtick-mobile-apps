@@ -12,7 +12,8 @@ class BlockLogo extends React.Component {
         return(
             <View style={{position:'relative',marginBottom: 70}}>
                 <LinearGradient
-                    colors={Variable.colorGradient}
+                    // colors={Variable.colorGradient}
+                    colors={['#25c4fd', '#aad95a']}
                     style={{ height: 100 }}
                     start={[0, 0]}
                     end={[1, 0]}

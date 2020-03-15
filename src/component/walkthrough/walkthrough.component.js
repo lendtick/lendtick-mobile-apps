@@ -32,6 +32,7 @@ class walkThroughComponent extends Component {
                     <View style={styles.slide}>
                         <Image 
                             style={styles.imgcontent}
+                            resizeMode="contain"
                             source={require('@assets/img/walktrough/walkt4.jpg')} />
                         <Text style={Typography.heading5}>Terpercaya</Text>
                     </View>
