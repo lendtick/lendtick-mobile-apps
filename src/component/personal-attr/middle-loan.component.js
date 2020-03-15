@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,ScrollView,Image,ActivityIndicator,Alert } from 'react-native';
+import { View,Text,ScrollView,Image,ActivityIndicator,Alert, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
@@ -47,9 +47,13 @@ class MiddleLoanComponent extends React.Component {
         let moment = require("moment");
         this.setState({loading: true});
         personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id'),this.props.navigation.getParam('group')).then(res =>{
+            console.log('response ==>', res.data);
             if(res.data.credit){
                 res.data.credit.map((x)=>{
                     x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
+                    x.microloan_number = x.microloan_number;
+                    x.disbursement_date = moment(x.disbursement_date).format('DD MMM YYYY');
+                    x.request_date = moment(x.request_date).format('DD MMM YYYY');
                 });
             }
             this.setState({
@@ -78,7 +82,9 @@ class MiddleLoanComponent extends React.Component {
         });
     }
 
-    render() { 
+    render() {
+        console.log('state ==>', this.state.credit);
+        
         return(
             <View style={{backgroundColor: '#f8f8ff',height:'100%'}}>
                 {this.state.loading ? 
@@ -106,15 +112,21 @@ class MiddleLoanComponent extends React.Component {
                     {this.state.credit ?
                     <View>
                         <Grid style={{padding:15,marginTop:15}}>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>No MikroLoan</Text></Col>
                             <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Cicilan Ke</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Request</Text></Col>
                             <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Bayar</Text></Col>
+                            <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Tanggal Pencairan</Text></Col>
                             <Col><Text style={[Typography.heading6,{textAlign:'center',marginBottom:0}]}>Jumlah</Text></Col>
                         </Grid>
                         <View style={[styles.wrapDetailDescPinjaman,{padding:0,marginTop:0}]}>
                         {this.state.credit.map((x,i)=>(
                             <Grid key={i} style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.microloan_number}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term}</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.request_date}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.term_payment_date}</Text></Col>
+                                <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>{x.disbursement_date}</Text></Col>
                                 <Col><Text style={[Typography.singleText,{textAlign:'center'}]}>Rp {accounting.formatMoney(x.amount, "", 0, ",", ",")}</Text></Col>
                             </Grid>
                         ))}
