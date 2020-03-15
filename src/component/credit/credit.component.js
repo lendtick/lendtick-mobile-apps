@@ -75,8 +75,9 @@ class CreditComponent extends React.Component {
     }
 
     fetchInfoUser(){
-        this.setState({loading: true});
+        this.setState({loading: true, arrError: []});
         creditService.getInfoUserFullfillment(this.props.personal.data.id_user).then(res =>{
+            console.log('data ==>', res.data);
             if(res['data'].validasi.length){
                 let arrVaidation = [];
                 res['data'].validasi.map((x,i)=>{
