@@ -6,6 +6,8 @@ import { AntDesign } from '@expo/vector-icons';
 import DatePicker from 'react-native-datepicker';
 import * as _ from 'lodash';
 import { Typography, Input } from '@styles';
+import moment from 'moment';
+import 'moment/locale/id';
 
 // Dependencies
 import { connect } from 'react-redux';
@@ -63,8 +65,8 @@ class InputComponent extends Component {
                         mode="date"
                         placeholder={this.props.placeholder}
                         format="DD MMM YYYY"
-                        minDate="1990-01-01"
-                        maxDate="2019-01-01"
+                        minDate={moment().subtract(60, 'years').toDate()}
+                        maxDate={moment().subtract(15, 'years').toDate()}
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
