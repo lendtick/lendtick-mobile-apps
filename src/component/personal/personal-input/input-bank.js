@@ -24,7 +24,9 @@ class InputBank extends React.Component {
             arrBank: [],
             modalBank: false,
             query: '',
-            banks: []
+            banks: [],
+            id_bank: null,
+            nama_bank: null
         };
     }
 
@@ -36,6 +38,7 @@ class InputBank extends React.Component {
     // ========================= //
     fetchBankProfile(){
         personalService.getBankProfile().then(res => {
+            console.log('res data ==>', res['data'])
             this.setState(res['data']);
             this.fetchMaster();
         });
@@ -46,6 +49,7 @@ class InputBank extends React.Component {
     fetchMaster(){
         let arrBank = [];
         personalService.getBank().then(res =>{
+            // console.log('res ==>', res['data'])
             _.map(res['data'],(x)=>{
                 let obj = {value: x.id_bank, label: x.name_bank};
                 arrBank.push(obj);
@@ -61,7 +65,8 @@ class InputBank extends React.Component {
     // ======================== //
     validationSubmit(){
         let data = {
-            id_bank: this.state.id_bank.value,
+            // id_bank: this.state.id_bank.value,
+            id_bank: this.state.id_bank,
             account_name_bank: this.state.account_name_bank,
             account_number_bank: this.state.account_number_bank,
             account_branch_bank: this.state.account_branch_bank
@@ -85,6 +90,7 @@ class InputBank extends React.Component {
     // Submit
     // ======================== //
     onSubmit(data){
+        console.log('data ==>', data);
         this.setState({
             isFailed: false,
             isInvalid: false,
@@ -113,9 +119,8 @@ class InputBank extends React.Component {
         }
 
         const { arrBank } = this.state;
-        const regex = new RegExp(`${query.trim()}`, 'i');
+        const regex = new RegExp(`${query}`, 'i');
         data = arrBank.filter(bank => bank.label.search(regex) >= 0);
-        // console.log(data);
         return data;
     }
 
@@ -125,7 +130,6 @@ class InputBank extends React.Component {
         const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
         return(
             <View>
-
                 {/* <InputDropdown 
                     label="Pilih Bank"
                     iconName={null}
@@ -138,7 +142,8 @@ class InputBank extends React.Component {
                     iconName={null}
                     keyboardType="default"
                     placeholder="Pilih Bank"
-                    value={this.state.id_bank ? this.state.id_bank.label : null}
+                    // value={v !== null ? v : null}
+                    value={this.state.nama_bank !== null ? this.state.nama_bank : this.state.name_bank}
                     isButton={true}
                     onClickBtn={() => this.setState({modalBank: !this.state.modalBank})}
                     onChange={() => null}/>
@@ -194,15 +199,22 @@ class InputBank extends React.Component {
                                     iconName={null}
                                     keyboardType="default"
                                     placeholder="Masukan Nama Bank"
-                                    value={this.props.value}
+                                    // value={this.props.value}
                                     onChange={text => this.setState({ query: text })}/>
                             </View>
                             <ScrollView style={{ marginBottom: 220 }} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
-                                { banks.length === 1 && comp(query, banks[0].name_company) ? [] : _.map(banks, ({value, label}, k) => (
-                                    <TouchableOpacity key={k} style={{ width: '100%', height: 50, borderBottomWidth: .3, borderBottomColor: '#ccc', justifyContent: 'center', paddingHorizontal: 16 }} onPress={() => this.setState({ id_bank: {value, label}, modalBank: !this.state.modalBank })}>
+                                { banks.length > 0 ? _.map(banks, ({value, label}, k) => (
+                                    <TouchableOpacity key={k} style={{ width: '100%', height: 50, borderBottomWidth: .3, borderBottomColor: '#ccc', justifyContent: 'center', paddingHorizontal: 16 }} onPress={() => {
+                                        this.setState({ 
+                                            id_bank: value, 
+                                            nama_bank: label, 
+                                            modalBank: !this.state.modalBank,
+                                            query: ''
+                                        })
+                                    }}>
                                         <Text>{label}</Text>
                                     </TouchableOpacity>
-                                )) }
+                                )) : [] }
                             </ScrollView>
                         </View>
                     </View>
