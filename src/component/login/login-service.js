@@ -54,7 +54,7 @@ export default loginService = {
     putForgotPassword: (email) =>{
         const promiseObj = new Promise(function(resolve, reject){
             fetch(urlForgotPass, {
-                method: 'PUT',
+                method: 'POST',
                 body: JSON.stringify({
                     nik: email
                 }),
@@ -74,7 +74,7 @@ export default loginService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlUpdatePassword, {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(body),
                     headers: new Headers({
                         'Content-Type': 'application/json',

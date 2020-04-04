@@ -10,7 +10,7 @@ export default personalService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(API.auth + '/profile/company/update', {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",
@@ -205,7 +205,7 @@ export default personalService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(API.auth + '/profile/document/delete', {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",
@@ -259,7 +259,7 @@ export default personalService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(API.auth + '/profile/bank/update', {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",
@@ -283,7 +283,7 @@ export default personalService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(API.auth + '/profile/update', {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",
@@ -593,7 +593,7 @@ export default personalService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(API.auth + '/profile/update-address-by-user', {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(body),
                     headers: new Headers({
                         'Content-Type': 'application/json',

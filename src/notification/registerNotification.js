@@ -30,7 +30,7 @@ export default async function registerNotification(){
     let token = await Notifications.getExpoPushTokenAsync();
     return AsyncStorage.getItem('token').then((result)=>{
 		fetch(urlPutToken, {
-			method: 'PUT',
+			method: 'POST',
 			body: JSON.stringify({
 				type: Platform.OS,
 				token: token

@@ -121,7 +121,7 @@ export default creditService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlReedemVoucher, {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",

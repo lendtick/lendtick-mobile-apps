@@ -76,7 +76,7 @@ export default personalAttrService = {
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlPutConfrimLoan, {
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",
