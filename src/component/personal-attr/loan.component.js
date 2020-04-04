@@ -131,7 +131,7 @@ class LoanComponent extends React.Component {
                                         <View style={[styles.circleDetail,this.state.status > 2 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>2</Text>
                                         </View>
-                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval</Text>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval HRD</Text>
                                     </View>
                                 </Col>
                                 <Col>
@@ -139,7 +139,7 @@ class LoanComponent extends React.Component {
                                         <View style={[styles.circleDetail,this.state.status > 3 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>3</Text>
                                         </View>
-                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Konfirmasi</Text>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval KAI</Text>
                                     </View>
                                 </Col>
                                 <Col>
