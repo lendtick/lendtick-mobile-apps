@@ -44,6 +44,25 @@ class InputPersonal extends React.Component {
         this.fetchMaster();
     }
 
+    componentWillUnmount() {
+        this.fetchUser();
+    }
+
+    fetchUser(){
+        personalService.getInfoUser().then(res =>{
+            let dataUser = res['data'];
+            this.props.setGetData(dataUser);
+        }, err =>{
+            this.setState({loading: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchUser()}],
+                {cancelable: false},
+            );
+        });
+    }
+    
     // Validation
     // ======================== //
     validationSubmit(){
@@ -305,6 +324,12 @@ const mapDispatchToProps = (dispatch) => {
 		setGetData: (e) => {
 			dispatch({
 				type: 'UPDATE_DATA_PERSONAL',
+				data: e
+			})
+        },
+        setGetData: (e) => {
+			dispatch({
+				type: 'UPDATE_DATA_PERSONAL_HOME',
 				data: e
 			})
         },
