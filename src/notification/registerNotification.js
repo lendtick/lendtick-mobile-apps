@@ -28,6 +28,7 @@ export default async function registerNotification(){
   
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
+    console.log('token ==>', token);
     return AsyncStorage.getItem('token').then((result)=>{
 		fetch(urlPutToken, {
 			method: 'POST',

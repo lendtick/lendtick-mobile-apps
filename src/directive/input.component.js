@@ -97,7 +97,7 @@ class InputComponent extends Component {
                         keyboardType={this.props.keyboardType}
                         isButton={this.props.isButton}
                         secureTextEntry={this.props.secureTextEntry}
-                    />
+                        maxLength={this.props.maxLength} />
                     }
                     {this.props.isButton ? <TouchableHighlight style={Input.highlight} onPress={this.props.onClickBtn} underlayColor="transparent"><Text></Text></TouchableHighlight> : null}
                 </View>

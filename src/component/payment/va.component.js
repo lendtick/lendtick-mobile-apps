@@ -2,7 +2,7 @@ import React from 'react';
 import { View,Text,ScrollView } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux';
-import { AlertBox,ButtonComponent } from '@directives';
+import { AlertBox,ButtonComponent, Panel } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 import * as accounting from 'accounting';
 
@@ -21,7 +21,13 @@ class VAComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            collapse1: false,
+            collapse2: false,
+            collapse3: false,
+            collapse4: false,
+            collapse5: false,
+        };
     }
 
     render() { 
@@ -53,7 +59,65 @@ class VAComponent extends React.Component {
                     {/* ======= End Information ========= */}
 
                     <View style={Main.container}>
-                        <Text style={[Typography.singleTitle,{marginTop:15,marginBottom:15}]}>Tatacara Pembayaran</Text>
+                        <Panel title="Pembayaran Melalui ATM Permata" onClick={() => this.setState(prevState => ({collapse1: !prevState.collapse1}))} collapse={this.state.collapse1}>
+                            <AlertBox type="info" text={[
+                                'Masukkan PIN',
+                                'Pilih menu TRANSAKSI LAINNYA',
+                                'Pilih menu PEMBAYARAN',
+                                'Pilih menu PEMBAYARAN LAINNYA',
+                                'Pilih menu VIRTUAL ACCOUNT',
+                                'Masukkan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
+                                'Pilih rekening yang menjadi sumber dana yang akan didebet, lalu tekan YA untuk konfirmasi transaksi',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui ATM Prima" onClick={() => this.setState(prevState => ({collapse2: !prevState.collapse2}))} collapse={this.state.collapse2}>
+                            <AlertBox type="info" text={[
+                                'Masukkan PIN',
+                                'Pilih menu TRANSAKSI LAINNYA',
+                                'Pilih menu KE REK BANK LAIN',
+                                'Masukkan kode sandi Bank Permata (013) kemudian tekan BENAR',
+                                'Masukkan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
+                                'Masukkan jumlah pembayaran sesuai dengan yang ditagihkan dalam halaman konfirmasi',
+                                'Pilih BENAR untuk menyetujui transaksi tersebut',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui ATM Bersama" onClick={() => this.setState(prevState => ({collapse3: !prevState.collapse3}))} collapse={this.state.collapse3}>
+                            <AlertBox type="info" text={[
+                                'Masukkan PIN',
+                                'Pilih menu TRANSAKSI',
+                                'Pilih menu KE REK BANK LAIN',
+                                'Masukkan kode sandi Bank Permata (013) diikuti dengan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
+                                'Masukkan jumlah pembayaran sesuai dengan yang ditagihkan dalam halaman konfirmasi',
+                                'Pilih BENAR untuk menyetujui transaksi tersebut',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui Permata Mobile" onClick={() => this.setState(prevState => ({collapse4: !prevState.collapse4}))} collapse={this.state.collapse4}>
+                            <AlertBox type="info" text={[
+                                'Buka aplikasi PermataMobile Internet (Android/iPhone)',
+                                'Masukkan User ID & Password',
+                                'Pilih Pembayaran Tagihan',
+                                'Pilih Virtual Account',
+                                'Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi',
+                                'Masukkan nominal pembayaran sesuai dengan yang ditagihkan',
+                                'Muncul Konfirmasi pembayaran',
+                                'Masukkan otentikasi transaksi/token',
+                                'Transaksi selesa',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui Permata Net" onClick={() => this.setState(prevState => ({collapse5: !prevState.collapse5}))} collapse={this.state.collapse5}>
+                            <AlertBox type="info" text={[
+                                'Buka website PermataNet: https://new.permatanet.com',
+                                'Masukkan user ID & Password',
+                                'Pilih Pembayaran Tagihan',
+                                'Pilih Virtual Account',
+                                'Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi',
+                                'Masukkan nominal pembayaran sesuai dengan yang ditagihkan',
+                                'Muncul Konfirmasi pembayaran',
+                                'Masukkan otentikasi transaksi/token',
+                                'Transaksi selesai',
+                            ]}/>
+                        </Panel>
+                        {/* <Text style={[Typography.singleTitle,{marginTop:15,marginBottom:15}]}>Tatacara Pembayaran</Text>
                         <AlertBox type="info" text={[
                             'Masukkan kartu ATM dan PIN',
                             'Pilih menu "Bayar/Beli"',
@@ -62,7 +126,7 @@ class VAComponent extends React.Component {
                             'Masukkan "Nomor Virtual Account" , lalu pilih tombol Benar',
                             'Masukkan Angka "1" untuk memilih tagihan, lalu pilih tombol Ya',
                             'Akan muncul konfirmasi pembayaran, lalu pilih tombol Ya8. Simpan struk sebagai bukti pembayaran Anda'
-                        ]}/>
+                        ]}/> */}
 
                         <View style={{marginTop:15, marginBottom:15}}>
                             <ButtonComponent type="primary" text="Selesai" onClick={()=>{

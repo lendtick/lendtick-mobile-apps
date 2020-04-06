@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "postinstall": "rndebugger-open"
+    "postinstall": "rndebugger-open",
+    "build:android": "expo build:android"
   },
   "dependencies": {
     "@expo/vector-icons": "expo/vector-icons",

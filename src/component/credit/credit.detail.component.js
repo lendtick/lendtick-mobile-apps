@@ -276,7 +276,9 @@ class CreditDetailComponent extends React.Component {
                 loan_offsets: loan_offsets,
                 loan_request: creditService.convertFormatNumber(this.state.jumlah),
             });
-            this.props.navigation.navigate('CreditTerm');
+            if(res.status === 1) {
+                this.props.navigation.navigate('CreditTerm');
+            }
         }, err =>{
             this.setState({isSubmitEligible: false});
             Alert.alert(
@@ -391,13 +393,24 @@ class CreditDetailComponent extends React.Component {
                             value={this.state.jumlah}
                             onChange={(jumlah) => this.setState({jumlah})}/>
 
-                        <InputDropdown 
+                        {/* <InputDropdown 
                             label="Silahkan pilih periode pinjaman"
                             iconName={null}
                             placeholder="Pilih tipe waktu"
                             value={this.state.waktu}
                             items={this.state.arrTerm}
-                            onChange={(waktu) => this.setState({waktu})}/>
+                            onChange={(waktu) => this.setState({waktu})}/> */}
+                        <View>
+                        <InputComponent 
+                            label="Silahkan isi periode pinjaman"
+                            iconName={null}
+                            placeholder="Periode pinjaman"
+                            value={this.state.waktu}
+                            keyboardType="phone-pad"
+                            maxLength={2}
+                            onChange={(waktu) => this.setState({waktu})} />
+                            <Text style={{position: 'absolute', right: 22, bottom: 30}}>Bulan</Text>
+                        </View>
 
                         <InputComponent 
                             label="Offset"
