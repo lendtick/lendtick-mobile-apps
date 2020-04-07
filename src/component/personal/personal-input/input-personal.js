@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 import Validator from 'validatorjs';
 import en from 'validatorjs/src/lang/en';
 Validator.setMessages('en', en);
+import moment from 'moment';
+import 'moment/locale/id'
 
 import { InputComponent,ButtonComponent,AlertBox,InputDropdown } from '@directives';
 import personalService from '../personal.service';
@@ -66,8 +68,6 @@ class InputPersonal extends React.Component {
     // Validation
     // ======================== //
     validationSubmit(){
-        let moment = require("moment");
-        
         let data = {
             id: this.state.id_user,
             name: this.state.name,
@@ -177,6 +177,7 @@ class InputPersonal extends React.Component {
             isSubmit: true,
             isSuccess: false
         });
+        console.log('data ==>', data);
         personalService.putUpdateProfile(data).then(res =>{
             this.setState({
                 isSubmit: false,
@@ -220,7 +221,7 @@ class InputPersonal extends React.Component {
                     placeholder="Masukan tanggal lahir"
                     isDate={true}
                     dateName="birth_date"
-                    value={this.state.birth_date}
+                    value={moment(this.state.birth_date).format('YYYY-MM-DD')}
                     onChange={(birth_date) => this.setState({birth_date})}/>
 
                 <InputComponent 

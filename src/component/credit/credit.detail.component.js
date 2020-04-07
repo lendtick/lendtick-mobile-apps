@@ -49,7 +49,7 @@ class CreditDetailComponent extends React.Component {
             statusEligible: 0,
             showBtnContinue: true,
             arrTerm: [],
-            waktu: null,
+            waktu: "1",
             jumlah: '0'
         };
     }
@@ -408,7 +408,7 @@ class CreditDetailComponent extends React.Component {
                             value={this.state.waktu}
                             keyboardType="phone-pad"
                             maxLength={2}
-                            onChange={(waktu) => this.setState({waktu})} />
+                            onChange={(waktu) => this.setState({waktu: parseInt(waktu) < 1 ? "1" : waktu})} />
                             <Text style={{position: 'absolute', right: 22, bottom: 30}}>Bulan</Text>
                         </View>
 
@@ -448,7 +448,7 @@ class CreditDetailComponent extends React.Component {
                                 type="primary" 
                                 text="Simulasikan Kredit" 
                                 onClick={()=> this.checkSimulation()} 
-                                disabled={this.state.isSubmitSimulation || this.state.jumlah == '0' || this.state.waktu == null} 
+                                disabled={this.state.isSubmitSimulation || this.state.jumlah == '0' || this.state.waktu == ''} 
                                 isSubmit={this.state.isSubmitSimulation}/>
                         </View>
                         {this.state.showSimulation ? 

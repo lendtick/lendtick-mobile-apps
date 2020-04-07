@@ -175,17 +175,17 @@ class LoanComponent extends React.Component {
                                 <Col>
                                     <Text style={[Typography.singleText,{textAlign: 'center'}]}>Tenor</Text>
                                     <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>{this.state.term_total}</Text>
-                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulan</Text>
                                 </Col>
                                 <Col>
                                     <Text style={[Typography.singleText,{textAlign: 'center'}]}>dibayar</Text>
                                     <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>{this.state.term_paid}</Text>
-                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulan</Text>
                                 </Col>
                                 <Col>
                                     <Text style={[Typography.singleText,{textAlign: 'center'}]}>sisa</Text>
                                     <Text style={[Typography.heading4,{textAlign: 'center',marginBottom:10,marginTop:10}]}>{this.state.term_left}</Text>
-                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulanan</Text>
+                                    <Text style={[Typography.singleText,{textAlign: 'center'}]}>Bulan</Text>
                                 </Col>
                             </Grid>
                         </View>
