@@ -85,9 +85,7 @@ export default personalAttrService = {
                 })
                 .then(response => response.json())
                 .then(json => resolve(json))
-                .catch(err => {
-                    reject(err);
-                });
+                .catch(err => reject(err));
             });
         });
         return promiseObj;

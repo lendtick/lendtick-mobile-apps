@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView,View,Text } from 'react-native';
+import { ScrollView,View,Text, Clipboard,TouchableOpacity, Alert } from 'react-native';
 import { Main,Variable,Typography } from '@styles';
+import { AntDesign } from '@expo/vector-icons';
 import * as accounting from 'accounting';
 import { AlertBox } from '@directives';
 import { styles } from './history-order.style';
@@ -40,6 +41,18 @@ class detailHistoryOrderComponent extends Component {
             total: navigation.state.params.total,
         });
     }
+
+    writeToClipboard = async () => {
+        await Clipboard.setString(this.state.payment.number_payment);
+        Alert.alert(
+            'Info',
+            'VA berhasil disalin',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+        );
+    };
 
     render() {
         return (
@@ -95,7 +108,12 @@ class detailHistoryOrderComponent extends Component {
                         {this.state.payment.name_payment_type === 'VA' ? 
                         <View style={{borderTopWidth:1,borderColor:'#efefef',paddingTop:15}}>
                             <Text style={{fontFamily:Variable.fontLight, marginBottom:5}}>VA Number</Text>
-                            <Text style={{fontFamily:Variable.fontMedium, marginBottom:15}}>{this.state.payment.number_payment}</Text>
+                            <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                                <Text style={{fontFamily:Variable.fontMedium, marginBottom:15}}>{this.state.payment.number_payment}</Text>
+                                <TouchableOpacity onPress={() => this.writeToClipboard()}>
+                                    <AntDesign name="copy1" size={18} style={{marginLeft: 10, marginBottom:15}} color={Variable.colorContent} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         : null}
                     </View>

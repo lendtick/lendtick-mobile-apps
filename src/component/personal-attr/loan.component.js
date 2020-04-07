@@ -5,6 +5,8 @@ import { Variable,Typography } from '@styles';
 import { ButtonComponent,AlertBox } from '@directives';
 import { styles } from './balance.style';
 import * as accounting from 'accounting';
+import moment from 'moment';
+import 'moment/locale/id';
 
 import personalAttrService from './personal-attr.service';
 
@@ -34,6 +36,7 @@ class LoanComponent extends React.Component {
             term_left: 0,
             term_paid: 0,
             term_total: 0,
+            isConfirm: false,
             credit: [],
             loading: false,
             isSubmit: false
@@ -45,15 +48,15 @@ class LoanComponent extends React.Component {
     }
 
     fetchDetailLoan(){
-        let moment = require("moment");
         this.setState({loading: true});
+        console.log('this props ==> ', this.props);
         personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id'),this.props.navigation.getParam('group')).then(res =>{
             if(res.data.credit){
                 res.data.credit.map((x)=>{
                     x.term_payment_date = moment(x.term_payment_date).format('DD MMM YYYY');
                 });
             }
-            console.log(res.data)
+            console.log('res data =>', res.data)
             this.setState({
                 disbursement_date: moment(res.data.disbursement_date).format('DD MMM YYYY'),
                 loan_approved: res.data.loan_approved,
@@ -66,6 +69,7 @@ class LoanComponent extends React.Component {
                 term_left: res.data.term_left,
                 term_paid: res.data.term_paid,
                 term_total: res.data.term_total,
+                isConfirm: res.data.is_confirm,
                 credit: res.data.credit,
                 loading: false
             });
@@ -161,7 +165,7 @@ class LoanComponent extends React.Component {
                             <Text style={Typography.singleText}>
                                 jumlah pinjaman yang anda ajukan sebelumnya {accounting.formatMoney(this.state.loan_request, "", 0, ",", ",")}, di approve hanya {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}
                             </Text>
-                            {this.state.status == 3 ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
+                            {this.state.isConfirm ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
                         </View>
                         {/* ====== START DESC ====== */}
 

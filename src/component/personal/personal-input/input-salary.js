@@ -57,6 +57,7 @@ class InputSallary extends React.Component {
 
             id_user_company: null,
             id_user_company_salary: null,
+            message: null,
         };
     }
 
@@ -159,7 +160,9 @@ class InputSallary extends React.Component {
         personalService.postReqSalary(data).then(res =>{
             this.setState({
                 isSubmit: false,
-                isSuccess: true
+                isSuccess: res.status === 1,
+                isFailed: res.status === 0,
+                message: res.message,
             });
             // console.log(res)
         }, err =>{
@@ -212,8 +215,8 @@ class InputSallary extends React.Component {
                 {this.state.salaryPhoto != null ? <AutoHeightImage source={{uri: `data:${this.state.salaryPhoto.type};base64,${this.state.salaryPhoto.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
 
                 {this.state.isInvalid ? <View style={{marginBottom:15}}><AlertBox type="warning" text="Masukan data dengan benar"/></View>: null}
-                {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="alert" text="Update gagal"/></View>: null}
-                {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text="Update berhasil"/></View>: null}
+                {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="danger" text={this.state.message}/></View>: null}
+                {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text={this.state.message}/></View>: null}
                 
                 <ButtonComponent type="primary" text="Update data gaji" onClick={()=> this.validationSubmit()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/>
             </View>

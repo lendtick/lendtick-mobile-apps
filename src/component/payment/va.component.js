@@ -1,10 +1,12 @@
 import React from 'react';
-import { View,Text,ScrollView } from 'react-native';
+import { View,Text,ScrollView, Clipboard,Alert } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
+import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { AlertBox,ButtonComponent, Panel } from '@directives';
 import { Main,Variable,Typography } from '@styles';
 import * as accounting from 'accounting';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class VAComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
@@ -30,6 +32,18 @@ class VAComponent extends React.Component {
         };
     }
 
+    writeToClipboard = async () => {
+        await Clipboard.setString(this.props.cart.vanumber);
+        Alert.alert(
+            'Info',
+            'VA berhasil disalin',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+        );
+    };
+
     render() { 
         return(
             <View style={{height:'100%',backgroundColor:'white'}}>
@@ -41,7 +55,12 @@ class VAComponent extends React.Component {
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1,borderTopWidth:1, borderColor: '#dfdfdf'}]}>
                         <Grid>
                             <Col><Text style={Typography.singleText}>No VA</Text></Col>
-                            <Col><Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>{this.props.cart.vanumber}</Text></Col>
+                            <Col style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                                <Text style={[Typography.heading6,{textAlign:'right',marginBottom:0}]}>{this.props.cart.vanumber}</Text>
+                                <TouchableOpacity onPress={() => this.writeToClipboard()}>
+                                    <AntDesign name="copy1" size={18} style={{marginLeft: 10, marginBottom:0}} color={Variable.colorContent} />
+                                </TouchableOpacity>
+                            </Col>
                         </Grid>
                     </View>
                     <View style={[Main.container,{paddingTop:15,paddingBottom:15,borderBottomWidth:1, borderColor: '#dfdfdf'}]}>
@@ -58,7 +77,7 @@ class VAComponent extends React.Component {
                     </View>
                     {/* ======= End Information ========= */}
 
-                    <View style={Main.container}>
+                    <View style={[Main.container, {paddingHorizontal: 0}]}>
                         <Panel title="Pembayaran Melalui ATM Permata" onClick={() => this.setState(prevState => ({collapse1: !prevState.collapse1}))} collapse={this.state.collapse1}>
                             <AlertBox type="info" text={[
                                 'Masukkan PIN',
