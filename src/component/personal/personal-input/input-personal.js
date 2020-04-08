@@ -221,7 +221,7 @@ class InputPersonal extends React.Component {
                     placeholder="Masukan tanggal lahir"
                     isDate={true}
                     dateName="birth_date"
-                    value={moment(this.state.birth_date).format('YYYY-MM-DD')}
+                    value={moment(this.state.birth_date).format('ll')}
                     onChange={(birth_date) => this.setState({birth_date})}/>
 
                 <InputComponent 
