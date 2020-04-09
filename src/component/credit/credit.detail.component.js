@@ -50,7 +50,8 @@ class CreditDetailComponent extends React.Component {
             showBtnContinue: true,
             arrTerm: [],
             waktu: "1",
-            jumlah: '0'
+            jumlah: '0',
+            totalPinjaman: '0',
         };
     }
 
@@ -176,6 +177,7 @@ class CreditDetailComponent extends React.Component {
             is_offset: this.state.arrSelectedOffset.length != 0,
             loan_offsets: []
         }
+        this.setState(prevState => ({totalPinjaman: prevState.jumlah}))
         _.map(this.state.arrSelectedOffset,(x)=>{
             let objOffset = {
                 id_loan: x.id_loan,
@@ -462,7 +464,7 @@ class CreditDetailComponent extends React.Component {
                                     <Text style={Typography.singleText}>Total Pinjaman :</Text>
                                 </Col>
                                 <Col>
-                                    <Text style={[Typography.label,{textAlign:'right'}]}>{this.state.jumlah}</Text>
+                                    <Text style={[Typography.label,{textAlign:'right'}]}>{this.state.totalPinjaman}</Text>
                                 </Col>
                             </Grid>
                             <Grid style={{
