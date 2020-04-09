@@ -421,7 +421,7 @@ class CreditDetailComponent extends React.Component {
                             onClickBtn={()=>this.setState({openPopup: true})}/>
 
                         {/* ====== START REDEEM VOUCHER ====== */}
-                        {/* <View style={{padding:15,marginBottom:15,borderWidth:2,borderColor:Variable.colorPrimary,borderRadius:Variable.borderRadius}}>
+                        <View style={{padding:15,marginBottom:15,borderWidth:2,borderColor:Variable.colorPrimary,borderRadius:Variable.borderRadius}}>
                              <InputComponent 
                                 label="Kode Voucher"
                                 iconName={null}
@@ -434,7 +434,7 @@ class CreditDetailComponent extends React.Component {
                             {this.state.msgVoucher && this.state.statusVoucher == 1 ? <View style={{marginBottom:15}}><AlertBox  type="success" title={null} text={this.state.msgVoucher}/></View> : null }
                             
                             <ButtonComponent type="primary" text="Reedem Voucher" onClick={()=> this.submitVoucher()} disabled={this.state.isSubmitVoucher} isSubmit={this.state.isSubmitVoucher} />
-                        </View> */}
+                        </View>
                         {/* ====== END REDEEM VOUCHER ====== */}
 
                         <View style={{

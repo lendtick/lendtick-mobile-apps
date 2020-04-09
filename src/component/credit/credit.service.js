@@ -3,7 +3,8 @@ import { API } from '@services/API';
 
 var urlGetProfileFullfillment = API.auth + '/profile/fullfillment',
     urlGetMasterLoanType = API.hostLoan + '/master/loan/type/',
-    urlGetOffset = API.hostLoan + '/loan/unpaid',
+    // urlGetOffset = API.hostLoan + '/loan/unpaid',
+    urlGetOffset = API.hostLoan + '/loan/open',
     urlGetLoanTerm = API.hostLoan + '/master/loan/term/grade',
     urlGetLoanDocument = API.hostLoan + '/loan/document/',
     urlPostDocument = API.auth + '/profile/document/add',
@@ -274,6 +275,7 @@ export default creditService = {
     getValidateVoucher: (voucher,loan_type) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
+                console.log('url ', urlVoucherValidate + '?code='+ voucher +'&loan_type=' + loan_type);
                 fetch(urlVoucherValidate + '?code='+ voucher +'&loan_type=' + loan_type,{
                     method: 'GET',
                     headers: new Headers({
@@ -283,6 +285,7 @@ export default creditService = {
                 })
                 .then(response => response.json())
                 .then(json => {
+                    console.log('response vchour ==>', json);
                     if(json.data){
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);
@@ -293,7 +296,10 @@ export default creditService = {
                         }
                     }
                 })
-                .catch(err => reject(err));
+                .catch(err => {
+                    console.log('erro voucher ==>', err)
+                    return reject(err)
+                });
             });
         });
         return promiseObj;
