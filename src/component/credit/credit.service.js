@@ -217,6 +217,7 @@ export default creditService = {
     // Check Eligibility
     // ======================= //
     postEligibility: (data) =>{
+        console.log('request ==>', data);
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlPostEligibility, {
@@ -275,7 +276,6 @@ export default creditService = {
     getValidateVoucher: (voucher,loan_type) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                console.log('url ', urlVoucherValidate + '?code='+ voucher +'&loan_type=' + loan_type);
                 fetch(urlVoucherValidate + '?code='+ voucher +'&loan_type=' + loan_type,{
                     method: 'GET',
                     headers: new Headers({
@@ -285,7 +285,6 @@ export default creditService = {
                 })
                 .then(response => response.json())
                 .then(json => {
-                    console.log('response vchour ==>', json);
                     if(json.data){
                         if(json.data.token){
                             AsyncStorage.setItem('token', json.data.token);

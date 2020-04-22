@@ -45,7 +45,6 @@ class CreditCompleteComponent extends Component {
             request_date: moment().format("YYYY-MM-DD"),
             loan_offsets: this.props.credit.data.loan_offsets,
         };
-
         this.setState({
             isSubmit: true,
             message: null
@@ -53,7 +52,19 @@ class CreditCompleteComponent extends Component {
 
         creditService.postReqLoan(obj).then(res =>{
             this.setState({isSubmit: false});
-            this.props.navigation.navigate('CreditFinish');
+            console.log('res request loan ==>', res)
+            if(res.status === 1) {
+                this.props.navigation.navigate('CreditFinish');
+            } else {
+                Alert.alert(
+                    'Info',
+                    res.message,
+                    [
+                      {text: 'Kembali', onPress: () => this.props.navigation.popToTop()},
+                    ],
+                    {cancelable: false},
+                )
+            }
         }, err =>{
             this.setState({isSubmit: false});
             Alert.alert(
