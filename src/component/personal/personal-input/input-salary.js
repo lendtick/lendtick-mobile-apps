@@ -58,11 +58,14 @@ class InputSallary extends React.Component {
             id_user_company: null,
             id_user_company_salary: null,
             message: null,
+
+            slipGaji: {}
         };
     }
 
     componentDidMount(){
         this.fetchProfileSalary();
+        this.fetchProfileDocument();
     }
 
     // Fetch Profile Salary
@@ -82,6 +85,18 @@ class InputSallary extends React.Component {
                 this.setState({salaryPhoto:obj});
             });
             console.log(res)
+        });
+    }
+
+    fetchProfileDocument(){
+        personalService.getProfileDocument().then(res =>{
+            console.log('profile document ==<>', res['data']);
+            let f = _.filter(res['data'], v => v.id_document_type === "DOC006");
+            if(f.length > 0) {
+                this.setState({
+                    slipGaji: f[0]
+                })
+            }
         });
     }
 
@@ -177,6 +192,7 @@ class InputSallary extends React.Component {
     }
 
     render() { 
+        const {slipGaji} = this.state;
         return(
             <View>
 
@@ -208,12 +224,11 @@ class InputSallary extends React.Component {
                     label="Foto Slip Gaji"
                     iconName="upload"
                     placeholder="Unggah slip gaji"
-                    value={this.state.salaryPhoto != null ? this.state.salaryPhoto.uri.replace(/^.*[\\\/]/, '') : null}
+                    value={this.state.salaryPhoto != null ? this.state.salaryPhoto.uri.replace(/^.*[\\\/]/, '') : (slipGaji.path !== undefined ? slipGaji.path : null)}
                     isButton={true}
                     topIcon={2}
                     onClickBtn={()=> this.pickupImage()}/>
-                {this.state.salaryPhoto != null ? <AutoHeightImage source={{uri: `data:${this.state.salaryPhoto.type};base64,${this.state.salaryPhoto.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null}
-
+                {this.state.salaryPhoto != null ? <AutoHeightImage source={{uri: `data:${this.state.salaryPhoto.type};base64,${this.state.salaryPhoto.base64}`}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : (slipGaji.path !== undefined ? <AutoHeightImage source={{uri: slipGaji.path}} width={Dimensions.get('window').width - 30} style={{marginBottom:15}}/> : null)}
                 {this.state.isInvalid ? <View style={{marginBottom:15}}><AlertBox type="warning" text="Masukan data dengan benar"/></View>: null}
                 {this.state.isFailed ? <View style={{marginBottom:15}}><AlertBox type="danger" text={this.state.message}/></View>: null}
                 {this.state.isSuccess ? <View style={{marginBottom:15}}><AlertBox type="success" text={this.state.message}/></View>: null}

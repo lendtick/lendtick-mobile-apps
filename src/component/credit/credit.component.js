@@ -46,8 +46,15 @@ class CreditComponent extends React.Component {
 
     componentDidMount(){
         try{
-            this.fetchInfoUser();
+            const { navigation } = this.props;
+            this.focusListener = navigation.addListener('didFocus', () => {
+                this.fetchInfoUser();
+            });
         }catch(err){}
+    }
+
+    componentWillUnmount() {
+        this.focusListener.remove();
     }
 
     fetchMasterLoan(){

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView,View,Image,TouchableHighlight,Text } from 'react-native';
+import { ScrollView,View,Image,TouchableHighlight,Text, Linking } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { ButtonComponent, InputCheckbox, AlertBox } from '@directives';
 import { Main,Variable,Input,Typography } from '@styles';
 import { styles } from './credit.style';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class CreditTermComponent extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -22,10 +23,37 @@ class CreditTermComponent extends Component {
         super(props);
         this.state = { 
             checked: false,
+            tnc: {}
         };
     }
 
+    componentDidMount() {
+        this.fetchTermAndCondition();
+    }
+    
+
+    fetchTermAndCondition = () => {
+        this.setState({
+            tnc:  {
+                'title': 'Syarat & Ketentuan',
+                'body': 'Suku bunga dapat berubah sesuai dengan kebijaksanaan penguru KAI dan akan berlaku untuk penempatan yang dilakukan mulain tanggal efektif perubahan suku bunga tersebut. ',
+                'link': 'http://www.koperasi-astra.com/product/simpanan'
+            }
+        })
+    }
+
+    hyperlink = async url => {
+        const supported = await Linking.canOpenURL(url);
+
+        if (supported) {
+          await Linking.openURL(url);
+        } else {
+          Alert.alert(`Tidak dapat membuka link: ${url}`);
+        }
+    }
+
     render() {
+        const {tnc} = this.state;
         return (
             <View style={{height:'100%',backgroundColor:'white'}}>
                 <ScrollView>
@@ -72,16 +100,15 @@ class CreditTermComponent extends Component {
                     <Image style={{width:'100%',height:10}} source={require('@assets/img/bg/line.png')} />
                 
                     <View style={[Main.container,{marginTop: 15,paddingTop:5,paddingBottom: 30}]}>
-                        <Text style={Typography.heading5}>Syarat & Ketentuan</Text>
+                            <Text style={Typography.heading5}>{tnc.title !== undefined ? tnc.title : null}</Text>
                         <Text style={[Typography.singleText,{marginBottom:15}]}>
-                            Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex. Nec id tritani iuvaret, commodo qualisque iudicabit ei nam. Ea pericula intellegat usu, in erat tritani qui.
+                            {tnc.body !== undefined ? tnc.body : null}
                         </Text>
-                        <Text style={[Typography.singleText,{marginBottom:15}]}>
-                            Id congue minimum accusamus mea, eu nec putant moderatius repudiandae. Sit cu doctus epicuri, et clita mucius mel, at est audiam aliquip mandamus. In sed sonet vulputate appellantur, dicit utroque deserunt eu cum. In voluptua inciderint scribentur vim. Has dicat tempor neglegentur no.
-                        </Text>
-                        <Text style={[Typography.singleText,{marginBottom:15}]}>
-                            Tation scripserit duo ex, pri probo eleifend in, at eripuit civibus his. Eam semper maluisset disputationi ne. Recusabo salutandi ei mea, ex esse probatus mnesarchum eos, ea semper fierent voluptaria ius. Prima harum omittantur.
-                        </Text>
+                        <TouchableOpacity onPress={() => this.hyperlink(tnc.link !== undefined ? tnc.link : null)}>
+                            <Text style={[Typography.singleText,{marginBottom:15}]}>
+                                Sumber: {tnc.link !== undefined ? tnc.link : null}
+                            </Text>
+                        </TouchableOpacity>
 
                         <Grid>
                             <Col style={{width:35}}>
