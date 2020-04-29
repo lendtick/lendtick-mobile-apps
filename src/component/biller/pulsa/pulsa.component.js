@@ -62,10 +62,22 @@ class PulsaComponent extends React.Component {
         }catch(err){}
     }
 
-    checkPhone(phone){
+    checkPhone(phone, d){
         phone = phone.replace('+62',0);
         phone = phone.replace(/-/g,'');
         phone = phone.replace(/ /g,'');
+        if(d === 'default') {
+            billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
+                if(res.data.length){
+                    this.setState({
+                        providerName: res.data[0].provider_phone_name,
+                        providerImage: res.data[0].provider_phone_image,
+                        billersIdPulsa: res.data[0].billers_id_pulsa
+                    });
+                    this.fetchBiller(res.data[0].billers_id_pulsa);
+                }
+            });
+        }
         if(phone.length === 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 if(res.data.length){
@@ -87,7 +99,7 @@ class PulsaComponent extends React.Component {
 
     setMyNumber(){
         this.setState({phoneNumber: this.props.personal.data.phone_number});
-        this.checkPhone(this.props.personal.data.phone_number);
+        this.checkPhone(this.props.personal.data.phone_number, 'default');
     }
 
     selectContact(e){

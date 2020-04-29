@@ -44,12 +44,17 @@ class CreditComponent extends React.Component {
         }));
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         try{
             const { navigation } = this.props;
-            this.focusListener = navigation.addListener('didFocus', () => {
-                this.fetchInfoUser();
-            });
+            let x = await AsyncStorage.getItem('token');
+            if(x === null) {
+                this.props.navigation.navigate("LoginUser")
+            } else {
+                this.focusListener = navigation.addListener('didFocus', () => {
+                    this.fetchInfoUser();
+                });
+            }
         }catch(err){}
     }
 

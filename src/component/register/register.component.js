@@ -180,7 +180,7 @@ class RegisterComponent extends Component {
     // Validation
     // ======================== //
     validationSubmit(){
-        if(!_.isNil(this.state.identityPhoto) && !_.isNil(this.state.personalPhoto) ){
+        if(!_.isNil(this.state.identityPhoto) && !_.isNil(this.state.personalPhoto) && !_.isNil(this.state.companyIdentityPhoto) ){
             this.setState({
                 isFailed: false,
                 isInvalid: false
