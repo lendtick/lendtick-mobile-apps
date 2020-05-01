@@ -3,7 +3,8 @@ import { API } from '@services/API';
 
 var urlGetLoanProfile = API.hostLoan + '/loan/profile',
     urlGetDetailLoan = API.hostLoan + '/loan/profile/detail',
-    urlPutConfrimLoan = API.hostLoan + '/loan/confirm';
+    urlPutConfrimLoan = API.hostLoan + '/loan/confirm',
+    urlPutRejectLoan = API.hostLoan + '/loan/reject';
 
 // Reservation Service
 export default personalAttrService = {
@@ -77,6 +78,25 @@ export default personalAttrService = {
             AsyncStorage.getItem('token').then((token)=>{
                 fetch(urlPutConfrimLoan, {
                     method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                .then(response => response.json())
+                .then(json => resolve(json))
+                .catch(err => reject(err));
+            });
+        });
+        return promiseObj;
+    },
+
+    rejectLoan: (data) =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(urlPutRejectLoan, {
+                    method: 'PUT',
                     body: JSON.stringify(data),
                     headers: {
                         "Content-type": "application/json",

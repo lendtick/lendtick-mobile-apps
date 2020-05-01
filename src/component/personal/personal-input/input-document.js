@@ -209,7 +209,7 @@ class InputDocument extends React.Component {
                 <InputDropdown 
                     label="Tipe Dokumen"
                     iconName={null}
-                    placeholder="Pilih tipe dokume"
+                    placeholder="Pilih tipe dokumen"
                     value={this.state.id_document_type}
                     items={this.state.arrDocumentType}
                     onChange={(id_document_type) => this.setState({id_document_type})}/> 

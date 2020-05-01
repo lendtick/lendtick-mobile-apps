@@ -205,7 +205,7 @@ class InputSallary extends React.Component {
 
                     onChange={(salary_amount) => this.setState({salary_amount})}/>  */}
                 <InputMask 
-                    label="Nilai Gaji"
+                    label="Nilai Gaji Pokok"
                     iconName={null}
                     keyboardType="numeric"
                     placeholder="Masukan nilai gaji"

@@ -95,7 +95,7 @@ class DataPersonalComponent extends React.Component {
                         <Panel title="Data Pegawai" onClick={() => this.setState({collapse5: !this.state.collapse5})} collapse={this.state.collapse5}>
                             <InputEmployee />
                         </Panel>
-                        <Panel title="Data Gaji" onClick={() => this.setState({collapse3: !this.state.collapse3})} collapse={this.state.collapse3}>
+                        <Panel title="Data Gaji Pokok" onClick={() => this.setState({collapse3: !this.state.collapse3})} collapse={this.state.collapse3}>
                             {/* Start Data Sallary */}
                             <InputSallary />
                             {/* End Data Sallary */}

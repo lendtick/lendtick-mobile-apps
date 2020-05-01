@@ -31,7 +31,13 @@ class PinjamanComponent extends React.Component {
     }
 
     componentDidMount(){
-        this.fetchLoanProfile();
+        this.focusListener = this.props.navigation.addListener('didFocus', () => {
+            this.fetchLoanProfile();
+        });
+    }
+
+    componentWillUnmount() {
+        this.focusListener.remove();
     }
 
     fetchLoanProfile(){
@@ -40,12 +46,12 @@ class PinjamanComponent extends React.Component {
             if(res.data.detail){
                 res.data.detail.map((x)=>{
                     if(x.loan_type == "Pinjaman Microloan") x.page = "MiddleLoan";
-                    if(x.loan_type == "Multiguna") x.page = "Loan";
+                    if(x.loan_type == "Multiguna (8,5%)") x.page = "Loan";
                     if(x.group == 1) x.group_code = "LC";
                     if(x.group == 3) x.group_code = "ML";
                 });
             }
-            // console.log(res.data)
+            console.log(res.data)
             this.setState({
                 loading: false,
                 arrList: res.data.detail,

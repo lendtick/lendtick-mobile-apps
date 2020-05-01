@@ -545,7 +545,7 @@ class CreditDetailComponent extends React.Component {
                                 borderColor: '#efefef',
                                 backgroundColor: '#f8f8ff'}}>
                                 <Col>
-                                    <Text style={Typography.singleText}>Jumlah yang harus dibayar :</Text>
+                                    <Text style={Typography.singleText}>Total dana yang diterima :</Text>
                                 </Col>
                                 <Col>
                                     <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.total_loan}</Text>
@@ -610,7 +610,7 @@ class CreditDetailComponent extends React.Component {
                                     iconName={null}
                                     keyboardType="default"
                                     placeholder=""
-                                    value={x.loan_type}
+                                    value={x.name_loan_type}
                                     onChange={(val2) => this.setState({val2})}/>   
 
                                 <InputComponent 

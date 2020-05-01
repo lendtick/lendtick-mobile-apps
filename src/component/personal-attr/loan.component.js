@@ -1,8 +1,8 @@
 import React from 'react';
-import { View,Text,ScrollView,ActivityIndicator,Alert } from 'react-native';
+import { View,Text,ScrollView,ActivityIndicator,Alert, Dimensions } from 'react-native';
 import { Col,Grid } from "react-native-easy-grid";
 import { Variable,Typography } from '@styles';
-import { ButtonComponent,AlertBox } from '@directives';
+import { ButtonComponent,AlertBox, Modal, InputComponent } from '@directives';
 import { styles } from './balance.style';
 import * as accounting from 'accounting';
 import moment from 'moment';
@@ -39,7 +39,10 @@ class LoanComponent extends React.Component {
             isConfirm: false,
             credit: [],
             loading: false,
-            isSubmit: false
+            isSubmit: false,
+            isSubmitReject: false,
+            openPopup: false,
+            notes: null
         };
     }
 
@@ -49,7 +52,6 @@ class LoanComponent extends React.Component {
 
     fetchDetailLoan(){
         this.setState({loading: true});
-        console.log('this props ==> ', this.props);
         personalAttrService.getLoanProfileDetail(this.props.navigation.getParam('id'),this.props.navigation.getParam('group')).then(res =>{
             if(res.data.credit){
                 res.data.credit.map((x)=>{
@@ -94,6 +96,26 @@ class LoanComponent extends React.Component {
             this.fetchDetailLoan();
         }, err =>{
             this.setState({isSubmit: false});
+            Alert.alert(
+                'Error',
+                'Pastikan koneksi tersambung, silakan coba lagi',
+                [{text: 'OK', onPress: () => this.fetchDetailLoan()}],
+                {cancelable: false},
+            );
+        })
+    }
+
+    rejectLoan() {
+        this.setState({isSubmitReject: true});
+        let obj = {
+            id_loan: this.props.navigation.getParam('id'),
+            notes: this.state.notes
+        };
+        personalAttrService.rejectLoan(obj).then(res =>{
+            this.setState({isSubmitReject: false});
+            this.props.navigation.goBack()
+        }, err =>{
+            this.setState({isSubmitReject: false});
             Alert.alert(
                 'Error',
                 'Pastikan koneksi tersambung, silakan coba lagi',
@@ -165,7 +187,8 @@ class LoanComponent extends React.Component {
                             <Text style={Typography.singleText}>
                                 jumlah pinjaman yang anda ajukan sebelumnya {accounting.formatMoney(this.state.loan_request, "", 0, ",", ",")}, di approve hanya {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}
                             </Text>
-                            {this.state.isConfirm ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Konfirmasi" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
+                            {this.state.isConfirm ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Terima" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
+                            {this.state.isConfirm ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Tolak" onClick={()=> this.setState(prevState => ({openPopup: !prevState.openPopup}))} disabled={this.state.isSubmitReject} isSubmit={this.state.isSubmitReject}/></View> : null} 
                         </View>
                         {/* ====== START DESC ====== */}
 
@@ -233,6 +256,31 @@ class LoanComponent extends React.Component {
                         : null }
                         {/* ====== END CREDIT ====== */}
                     </ScrollView>
+
+                    <Modal 
+                        isOpen={this.state.openPopup}
+                        title="Alasan"
+                        textRight="Submit"
+                        rightClick={()=> {
+                            this.setState({openPopup: false})
+                            this.rejectLoan()
+                        }}
+                        height={Dimensions.get('window').height - 360}
+                        width={Dimensions.get('window').width - 30}
+                        textLeft={null}>
+                        <View style={{padding:15,borderBottomWidth:1,borderColor:'#dfdfdf'}}>
+                            <View style={{position:'relative'}}>
+                                <View style={{position:'absolute',left:0,top:0,backgroundColor:'#fff',width:'100%',height: '100%', opacity:0.1}} />
+                                <InputComponent 
+                                    label="Catatan"
+                                    iconName={null}
+                                    keyboardType="default"
+                                    placeholder=""
+                                    value={this.state.notes}
+                                    onChange={v => this.setState({notes: v})}/>
+                            </View>               
+                        </View>
+                    </Modal>
                 </View>
                 }
             </View>

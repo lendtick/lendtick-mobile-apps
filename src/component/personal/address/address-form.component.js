@@ -176,10 +176,10 @@ class AddressFormComponent extends React.Component {
                         value={this.state.receiver_name}
                         onChange={(receiver_name) => this.setState({receiver_name})}/>
                     <InputComponent 
-                        label="No. Hanphone penerima"
+                        label="No. Handphone penerima"
                         iconName={null}
                         keyboardType="phone-pad"
-                        placeholder="Masukan nomor hanphone penerima"
+                        placeholder="Masukan nomor handphone penerima"
                         value={this.state.receiver_phone}
                         onChange={(receiver_phone) => this.setState({receiver_phone})}/>
                     <InputComponent 

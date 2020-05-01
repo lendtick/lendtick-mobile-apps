@@ -76,7 +76,7 @@ class CreditCompleteComponent extends Component {
         });
     }
 
-    render() {
+    render() {        
         return (
             <View style={{height:'100%',backgroundColor:'white'}}>
                 <ScrollView>

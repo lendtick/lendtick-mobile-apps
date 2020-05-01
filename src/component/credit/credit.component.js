@@ -44,22 +44,28 @@ class CreditComponent extends React.Component {
         }));
     }
 
-    async componentDidMount(){
-        try{
-            const { navigation } = this.props;
-            let x = await AsyncStorage.getItem('token');
-            if(x === null) {
-                this.props.navigation.navigate("LoginUser")
-            } else {
-                this.focusListener = navigation.addListener('didFocus', () => {
-                    this.fetchInfoUser();
-                });
-            }
-        }catch(err){}
+    componentDidMount(){
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            // this.fetchInfoUser();
+            this.fetchInit();
+        });
+        // this.fetchInit();
     }
 
     componentWillUnmount() {
         this.focusListener.remove();
+    }
+
+    async fetchInit() {
+        try{
+            let x = await AsyncStorage.getItem('token');
+            if(x === null) {
+                this.props.navigation.navigate("LoginUser")
+            } else {
+                this.fetchInfoUser();
+            }
+        }catch(err){}
     }
 
     fetchMasterLoan(){
@@ -151,7 +157,7 @@ class CreditComponent extends React.Component {
                     <View>
                         <Col style={{paddingRight:7.5, marginBottom: 10}}>
                             <View style={styles.itemBalance}>
-                                <Text style={styles.textHeaderLoanBalance}>Saldo</Text>
+                                <Text style={styles.textHeaderLoanBalance}>Kemampuan Angsur</Text>
                                 <Text style={styles.textLoanBalance}>Rp {accounting.formatMoney(this.state.loanBalance, "", 0, ",", ",")}</Text>
                             </View>
                             <TouchableHighlight onPress={() => this.RBSheet.open()} underlayColor="transparent">
