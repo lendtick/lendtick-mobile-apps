@@ -98,7 +98,7 @@ class CreditDetailComponent extends React.Component {
     // ====================== //
     fetchGetOffset(){
         this.setState({loading: true});
-        creditService.getOffset().then(res =>{
+        creditService.getOffset(this.props.navigation.getParam('id')).then(res =>{
             _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;

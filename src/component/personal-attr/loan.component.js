@@ -60,7 +60,7 @@ class LoanComponent extends React.Component {
             }
             console.log('res data =>', res.data)
             this.setState({
-                disbursement_date: moment(res.data.disbursement_date).format('DD MMM YYYY'),
+                disbursement_date: res.data.disbursement_date !== "-" ? moment(res.data.disbursement_date).format('DD MMM YYYY') : '-',
                 loan_approved: res.data.loan_approved,
                 loan_number: res.data.loan_number,
                 loan_request: res.data.loan_request,
@@ -173,7 +173,7 @@ class LoanComponent extends React.Component {
                                         <View style={[styles.circleDetail,this.state.status > 4 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>4</Text>
                                         </View>
-                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Uang diterima</Text>
+                                        <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Konfirmasi</Text>
                                     </View>
                                 </Col>
                             </Grid>

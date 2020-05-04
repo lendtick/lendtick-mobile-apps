@@ -394,10 +394,10 @@ export default creditService = {
     // ======================= //
     // Get Offset
     // ======================= //
-    getOffset: () =>{
+    getOffset: (id_loan_type) =>{
         const promiseObj = new Promise(function(resolve, reject){
             AsyncStorage.getItem('token').then((token)=>{
-                fetch(urlGetOffset,{
+                fetch(urlGetOffset+'?id_loan_type='+id_loan_type,{
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json',

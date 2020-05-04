@@ -103,10 +103,10 @@ class AddressDetailComponent extends React.Component {
 
                    <View style={[Main.wrapInfo,{paddingBottom:5}]}>
                         <Grid>
-                            <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingTop:5,paddingBottom:15}}>
+                            <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingBottom:15}}>
                                 <Col>
-                                    <Text style={[Typography.singleText,{marginBottom:5}]}>Nama Alamat</Text>
-                                    <Text style={Typography.label}>{this.state.address_name}</Text>
+                                    <Text style={[Typography.singleText,{marginBottom:5}]}>Kota</Text>
+                                    <Text style={Typography.label}>{this.state.city_or_district}</Text>
                                 </Col>
                             </Row>
                             <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingBottom:15}}>
@@ -121,24 +121,26 @@ class AddressDetailComponent extends React.Component {
                                     <Text style={Typography.label}>{this.state.receiver_phone}</Text>
                                 </Col>
                             </Row>
-                            <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingBottom:15}}>
-                                <Col>
-                                    <Text style={[Typography.singleText,{marginBottom:5}]}>Kode POS</Text>
-                                    <Text style={Typography.label}>{this.state.postal_code}</Text>
-                                </Col>
-                            </Row>
-                            <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingBottom:15}}>
-                                <Col>
-                                    <Text style={[Typography.singleText,{marginBottom:5}]}>Kota</Text>
-                                    <Text style={Typography.label}>{this.state.city_or_district}</Text>
-                                </Col>
-                            </Row>
                             <Row style={{marginBottom:15}}>
                                 <Col>
                                     <Text style={[Typography.singleText,{marginBottom:5}]}>Alamat Lengkap</Text>
                                     <Text style={Typography.label}>{this.state.address_latlong_text}</Text>
                                 </Col>
                             </Row>
+                            <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingTop:5,paddingBottom:15}}>
+                                <Col>
+                                    <Text style={[Typography.singleText,{marginBottom:5}]}>Nama Alamat</Text>
+                                    <Text style={Typography.label}>{this.state.address_name}</Text>
+                                </Col>
+                            </Row>
+                            <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingBottom:15}}>
+                                <Col>
+                                    <Text style={[Typography.singleText,{marginBottom:5}]}>Kode POS</Text>
+                                    <Text style={Typography.label}>{this.state.postal_code}</Text>
+                                </Col>
+                            </Row>
+                            
+                            
                             {this.state.is_main_address !== '1' ? 
                             <Row>
                                 <Col style={{width:35}}>

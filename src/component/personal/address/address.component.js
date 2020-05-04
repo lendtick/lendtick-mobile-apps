@@ -115,12 +115,12 @@ class AddressComponent extends React.Component {
                                                 </Row>
                                                 <Row style={{marginBottom:15}}>
                                                     <Col>
-                                                        <Text style={styles.titleAddress}>POS Kode</Text>
-                                                        <Text style={styles.descAddress}>{x.postal_code}</Text>
-                                                    </Col>
-                                                    <Col style={{width:'40%'}}>
                                                         <Text style={styles.titleAddress}>Kota</Text>
                                                         <Text style={styles.descAddress}>{x.city_or_district}</Text>
+                                                    </Col>
+                                                    <Col style={{width:'40%'}}>
+                                                        <Text style={styles.titleAddress}>Kode Pos</Text>
+                                                        <Text style={styles.descAddress}>{x.postal_code}</Text>
                                                     </Col>
                                                 </Row>
                                                 <Row>
