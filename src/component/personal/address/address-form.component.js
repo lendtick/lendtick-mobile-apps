@@ -169,9 +169,9 @@ class AddressFormComponent extends React.Component {
                         value={this.state.city_or_district}
                         onChange={(city_or_district) => this.setState({city_or_district})}/>
                     <InputComponent 
-                        label="Nama penerima"
+                        label="Nama Penerima"
                         iconName={null}
-                        placeholder="Masukan nama penerima"
+                        placeholder="Masukan Nama Penerima"
                         value={this.state.receiver_name}
                         onChange={(receiver_name) => this.setState({receiver_name})}/>
                     <InputComponent 
@@ -188,15 +188,15 @@ class AddressFormComponent extends React.Component {
                         value={this.state.address_text}
                         onChange={(address_text) => this.setState({address_text})}/>
                     <InputComponent 
-                        label="Nama Identitas Alamat"
+                        label="Patokan/Gedung"
                         iconName={null}
-                        placeholder="Contoh: Rumah , Rumah Orang Tua"
+                        placeholder="Contoh: Patokan / Gedung"
                         value={this.state.address_name}
                         onChange={(address_name) => this.setState({address_name})}/>
                     <InputComponent 
-                        label="Kode POS"
+                        label="Kode Pos"
                         iconName={null}
-                        placeholder="Masukan Kode POS"
+                        placeholder="Masukan Kode Pos"
                         value={this.state.postal_code}
                         onChange={(postal_code) => this.setState({postal_code})}/>
                     <Row>

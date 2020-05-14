@@ -109,14 +109,14 @@ class AddressComponent extends React.Component {
                                                         <Text style={styles.descAddress}>{x.city_or_district}</Text>
                                                     </Col>
 
-                                                    <Col>
+                                                    <Col style={{width:'40%'}}>
                                                         <Text style={styles.titleAddress}>Nama Penerima</Text>
                                                         <Text style={styles.descAddress}>{x.receiver_name}</Text>
                                                     </Col>
                                                     
                                                 </Row>
                                                 <Row style={{marginBottom:15}}>
-                                                    <Col style={{width:'40%'}}>
+                                                    <Col>
                                                         <Text style={styles.titleAddress}>No.HP Penerima</Text>
                                                         <Text style={styles.descAddress}>{x.receiver_phone}</Text>
                                                     </Col>
