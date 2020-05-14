@@ -105,28 +105,24 @@ class AddressComponent extends React.Component {
                                             <Grid>
                                                 <Row style={{marginBottom:15}}>
                                                     <Col>
+                                                        <Text style={styles.titleAddress}>Kota</Text>
+                                                        <Text style={styles.descAddress}>{x.city_or_district}</Text>
+                                                    </Col>
+
+                                                    <Col>
                                                         <Text style={styles.titleAddress}>Nama Penerima</Text>
                                                         <Text style={styles.descAddress}>{x.receiver_name}</Text>
                                                     </Col>
-                                                    <Col style={{width:'40%'}}>
-                                                        <Text style={styles.titleAddress}>Handphone</Text>
-                                                        <Text style={styles.descAddress}>{x.receiver_phone}</Text>
-                                                    </Col>
+                                                    
                                                 </Row>
                                                 <Row style={{marginBottom:15}}>
-                                                    <Col>
-                                                        <Text style={styles.titleAddress}>Kota</Text>
-                                                        <Text style={styles.descAddress}>{x.city_or_district}</Text>
+                                                    <Col style={{width:'40%'}}>
+                                                        <Text style={styles.titleAddress}>No.HP Penerima</Text>
+                                                        <Text style={styles.descAddress}>{x.receiver_phone}</Text>
                                                     </Col>
                                                     <Col style={{width:'40%'}}>
                                                         <Text style={styles.titleAddress}>Kode Pos</Text>
                                                         <Text style={styles.descAddress}>{x.postal_code}</Text>
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col>
-                                                        <Text style={styles.titleAddress}>Alamat Lengkap</Text>
-                                                        <Text style={styles.descAddress}>{x.address_latlong_text}</Text>
                                                     </Col>
                                                 </Row>
                                             </Grid>

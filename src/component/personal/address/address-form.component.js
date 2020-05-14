@@ -80,7 +80,7 @@ class AddressFormComponent extends React.Component {
             postal_code: this.state.postal_code,
             receiver_phone: this.state.receiver_phone,
             address_longitude: 'address_longitude',
-            address_latlong_text: this.state.address_latlong_text,
+            address_latlong_text: 'address_latlong_text',
             address_latitude: 'address_latitude'
         };
 
@@ -92,7 +92,6 @@ class AddressFormComponent extends React.Component {
             postal_code: 'required',
             receiver_phone: 'required',
             address_longitude: 'required',
-            address_latlong_text: 'required',
             address_latitude: 'required',
         };
 
@@ -164,9 +163,9 @@ class AddressFormComponent extends React.Component {
                 <View style={{padding:15}}>
                     {/* ==================== START FORM ==================== */ }
                     <InputComponent 
-                        label="Nama kota atau kecamatan"
+                        label="Kota"
                         iconName={null}
-                        placeholder="Masukan kota atau kecamatan"
+                        placeholder="Kota"
                         value={this.state.city_or_district}
                         onChange={(city_or_district) => this.setState({city_or_district})}/>
                     <InputComponent 
@@ -176,34 +175,28 @@ class AddressFormComponent extends React.Component {
                         value={this.state.receiver_name}
                         onChange={(receiver_name) => this.setState({receiver_name})}/>
                     <InputComponent 
-                        label="No. Handphone penerima"
+                        label="No.HP Penerima"
                         iconName={null}
                         keyboardType="phone-pad"
                         placeholder="Masukan nomor handphone penerima"
                         value={this.state.receiver_phone}
-                        onChange={(receiver_phone) => this.setState({receiver_phone})}/>
+                        onChange={(receiver_phone) => this.setState({receiver_phone})}/> 
                     <InputComponent 
-                        label="Alamat"
+                        label="Alamat Lengkap"
                         iconName={null}
-                        placeholder="Masukan alamat"
-                        value={this.state.address_latlong_text}
-                        onChange={(address_latlong_text) => this.setState({address_latlong_text})}/>
-                    <InputComponent 
-                        label="Nama alamat"
-                        iconName={null}
-                        placeholder="Masukan nama alamat"
-                        value={this.state.address_name}
-                        onChange={(address_name) => this.setState({address_name})}/>
-                    <InputComponent 
-                        label="Alamat spesifik"
-                        iconName={null}
-                        placeholder="Masukan spesifik alamat"
+                        placeholder="Masukan Alamat Lengkap"
                         value={this.state.address_text}
                         onChange={(address_text) => this.setState({address_text})}/>
                     <InputComponent 
+                        label="Nama Identitas Alamat"
+                        iconName={null}
+                        placeholder="Contoh: Rumah , Rumah Orang Tua"
+                        value={this.state.address_name}
+                        onChange={(address_name) => this.setState({address_name})}/>
+                    <InputComponent 
                         label="Kode POS"
                         iconName={null}
-                        placeholder="Masukan kode POS"
+                        placeholder="Masukan Kode POS"
                         value={this.state.postal_code}
                         onChange={(postal_code) => this.setState({postal_code})}/>
                     <Row>

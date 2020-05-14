@@ -102,6 +102,8 @@ class CreditDetailComponent extends React.Component {
             _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;
+                x.sisa_saldo_pinjaman = x.loan_approved - x.installments;
+                x.sisa_saldo_pinjaman_formated = "Rp " + accounting.formatMoney(x.sisa_saldo_pinjaman, "", 0, ",", ",");
                 x.installments = "Rp " + accounting.formatMoney(x.installments, "", 0, ",", ",");
                 x.loan_approved = "Rp " + accounting.formatMoney(x.loan_approved, "", 0, ",", ","); 
                 x.paid_installment = "Rp " + accounting.formatMoney(x.paid_installment, "", 0, ",", ","); 
@@ -196,7 +198,7 @@ class CreditDetailComponent extends React.Component {
             if(res['data'] === null) {
                 this.setState({isSubmitSimulation: false});
                 Alert.alert(
-                    'Error',
+                    'Warning',
                     res['message'],
                     [{text: 'OK'}],
                     {cancelable: false},
@@ -210,6 +212,9 @@ class CreditDetailComponent extends React.Component {
                     installments: 'Rp ' + accounting.formatMoney(res['data'].installments, "", 0, ",", ","),
                     term: res['data'].term,
                     fee: res['data'].fee,
+                    received:'Rp ' + accounting.formatMoney(res['data'].received, "", 0, ",", ","),
+                    // total offfset untuk munculin wording, apabila dna yang didapat dipotong oleh offset
+                    total_offset:res['data'].total_offset,
                     total_interest: 'Rp ' + accounting.formatMoney(res['data'].total_interest, "", 0, ",", ","),
                     total_loan: 'Rp ' + accounting.formatMoney(res['data'].total_loan, "", 0, ",", ",")
                 });
@@ -237,9 +242,12 @@ class CreditDetailComponent extends React.Component {
 
         let obj ={
             installment: this.state.installmentsOrigin,
-            voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : null,
+            voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : '',
             loan_offsets: []
         };
+
+        console.log(obj);
+
         _.map(this.state.arrSelectedOffset,(x)=>{
             let objOffset = {
                 id_loan: x.id_loan,
@@ -247,6 +255,9 @@ class CreditDetailComponent extends React.Component {
                 group: x.group
             };
             obj.loan_offsets.push(objOffset);
+            
+            console.log(objOffset);
+
         });
         creditService.postEligibility(obj).then(res =>{
             this.setState({
@@ -272,11 +283,14 @@ class CreditDetailComponent extends React.Component {
                 installments: this.state.installments,
                 installmentsOrigin: this.state.installmentsOrigin,
                 loanType: this.state.loanType,
-                voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : null,
+                voucher_code: this.state.statusVoucher == 1 ? this.state.voucher : '',
                 is_offset: this.state.arrSelectedOffset.length ? true : false,
                 loan_offsets: loan_offsets,
                 loan_request: creditService.convertFormatNumber(this.state.jumlah),
             });
+
+            console.log(res);
+
             if(res.status === 1) {
                 this.props.navigation.navigate('CreditTerm');
             }
@@ -546,9 +560,12 @@ class CreditDetailComponent extends React.Component {
                                 backgroundColor: '#f8f8ff'}}>
                                 <Col>
                                     <Text style={Typography.singleText}>Total dana yang diterima :</Text>
+                                    {this.state.total_offset != 0 ?
+                                        <Text style={Typography.singleText}>(setelah dikurangi offset pinjaman)</Text>
+                                    : null }
                                 </Col>
                                 <Col>
-                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.total_loan}</Text>
+                                    <Text style={[Typography.singleText,{color:Variable.colorPrimary,textAlign:'right'}]}>{this.state.received}</Text>
                                 </Col>
                             </Grid>
 
@@ -559,7 +576,7 @@ class CreditDetailComponent extends React.Component {
                                 borderBottomRightRadius:Variable.borderRadius,
                                 backgroundColor: '#f8f8ff'}}>
                                 <Col><Text style={Typography.singleText}>Total :</Text></Col>
-                                <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>{this.state.total_loan}</Text></Col>
+                                <Col><Text style={[Typography.heading6,{marginBottom:0, textAlign:'right'}]}>{this.state.received}</Text></Col>
                             </Grid>
                             : null}
 
@@ -623,8 +640,8 @@ class CreditDetailComponent extends React.Component {
 
                                 <Grid style={{padding:15,borderWidth:1, borderRadius:4, borderColor: '#dfdfdf', borderStyle: 'dashed'}}>
                                     <Col>
-                                        <Text style={Typography.singleText}>Angsuran per bulan</Text>
-                                        <Text style={[Typography.heading6,{marginBottom:0}]}>{x.loan_approved}</Text>
+                                        <Text style={Typography.singleText}>Sisa saldo pinjaman</Text>
+                                        <Text style={[Typography.heading6,{marginBottom:0}]}>{x.sisa_saldo_pinjaman_formated}</Text>
                                     </Col>
                                     <Col>
                                         <Text style={[Typography.singleText,{textAlign:'right'}]}>Sisa Angsuran</Text>

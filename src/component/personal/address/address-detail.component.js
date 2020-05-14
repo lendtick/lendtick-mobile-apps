@@ -124,7 +124,7 @@ class AddressDetailComponent extends React.Component {
                             <Row style={{marginBottom:15}}>
                                 <Col>
                                     <Text style={[Typography.singleText,{marginBottom:5}]}>Alamat Lengkap</Text>
-                                    <Text style={Typography.label}>{this.state.address_latlong_text}</Text>
+                                    <Text style={Typography.label}>{this.state.address_text}</Text>
                                 </Col>
                             </Row>
                             <Row style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15,paddingTop:5,paddingBottom:15}}>
