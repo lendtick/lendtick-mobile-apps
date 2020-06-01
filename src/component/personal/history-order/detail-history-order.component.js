@@ -3,7 +3,7 @@ import { ScrollView,View,Text, Clipboard,TouchableOpacity, Alert } from 'react-n
 import { Main,Variable,Typography } from '@styles';
 import { AntDesign } from '@expo/vector-icons';
 import * as accounting from 'accounting';
-import { AlertBox } from '@directives';
+import { AlertBox,ButtonComponent, Panel } from '@directives';
 import { styles } from './history-order.style';
 
 class detailHistoryOrderComponent extends Component {
@@ -53,6 +53,10 @@ class detailHistoryOrderComponent extends Component {
             {cancelable: false},
         );
     };
+
+    renderVA(){
+
+    }
 
     render() {
         return (
@@ -104,6 +108,7 @@ class detailHistoryOrderComponent extends Component {
                         <View>
                             <Text style={{fontFamily:Variable.fontLight, marginBottom:5}}>Metode Pembayaran</Text>
                             <Text style={{fontFamily:Variable.fontMedium, marginBottom:15}}>{this.state.payment.name_payment_type}</Text>
+                            {console.log(this.state.payment)}
                         </View>
                         {this.state.payment.name_payment_type === 'VA' ? 
                         <View style={{borderTopWidth:1,borderColor:'#efefef',paddingTop:15}}>
@@ -117,6 +122,75 @@ class detailHistoryOrderComponent extends Component {
                         </View>
                         : null}
                     </View>
+
+                    {this.state.payment.id_payment_type == 'PAY003' ?
+                    <View style={Main.container}>
+                        <Text style={[Typography.singleTitle,{marginTop:15}]}>Tata Cara Pembayaran</Text>
+                    </View>
+                    : null }
+
+                    {this.state.payment.id_payment_type == 'PAY003' ?
+                    <View style={[Main.container, {paddingHorizontal: 0}]}>
+                        <Panel title="Pembayaran Melalui ATM Permata" onClick={() => this.setState(prevState => ({collapse1: !prevState.collapse1}))} collapse={this.state.collapse1}>
+                            <AlertBox type="info" text={[
+                                'Masukkan PIN',
+                                'Pilih menu TRANSAKSI LAINNYA',
+                                'Pilih menu PEMBAYARAN',
+                                'Pilih menu PEMBAYARAN LAINNYA',
+                                'Pilih menu VIRTUAL ACCOUNT',
+                                'Masukkan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
+                                'Pilih rekening yang menjadi sumber dana yang akan didebet, lalu tekan YA untuk konfirmasi transaksi',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui ATM Prima" onClick={() => this.setState(prevState => ({collapse2: !prevState.collapse2}))} collapse={this.state.collapse2}>
+                            <AlertBox type="info" text={[
+                                'Masukkan PIN',
+                                'Pilih menu TRANSAKSI LAINNYA',
+                                'Pilih menu KE REK BANK LAIN',
+                                'Masukkan kode sandi Bank Permata (013) kemudian tekan BENAR',
+                                'Masukkan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
+                                'Masukkan jumlah pembayaran sesuai dengan yang ditagihkan dalam halaman konfirmasi',
+                                'Pilih BENAR untuk menyetujui transaksi tersebut',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui ATM Bersama" onClick={() => this.setState(prevState => ({collapse3: !prevState.collapse3}))} collapse={this.state.collapse3}>
+                            <AlertBox type="info" text={[
+                                'Masukkan PIN',
+                                'Pilih menu TRANSAKSI',
+                                'Pilih menu KE REK BANK LAIN',
+                                'Masukkan kode sandi Bank Permata (013) diikuti dengan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
+                                'Masukkan jumlah pembayaran sesuai dengan yang ditagihkan dalam halaman konfirmasi',
+                                'Pilih BENAR untuk menyetujui transaksi tersebut',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui Permata Mobile" onClick={() => this.setState(prevState => ({collapse4: !prevState.collapse4}))} collapse={this.state.collapse4}>
+                            <AlertBox type="info" text={[
+                                'Buka aplikasi PermataMobile Internet (Android/iPhone)',
+                                'Masukkan User ID & Password',
+                                'Pilih Pembayaran Tagihan',
+                                'Pilih Virtual Account',
+                                'Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi',
+                                'Masukkan nominal pembayaran sesuai dengan yang ditagihkan',
+                                'Muncul Konfirmasi pembayaran',
+                                'Masukkan otentikasi transaksi/token',
+                                'Transaksi selesai',
+                            ]}/>
+                        </Panel>
+                        <Panel title="Pembayaran Melalui Permata Net" onClick={() => this.setState(prevState => ({collapse5: !prevState.collapse5}))} collapse={this.state.collapse5}>
+                            <AlertBox type="info" text={[
+                                'Buka website PermataNet: https://new.permatanet.com',
+                                'Masukkan user ID & Password',
+                                'Pilih Pembayaran Tagihan',
+                                'Pilih Virtual Account',
+                                'Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi',
+                                'Masukkan nominal pembayaran sesuai dengan yang ditagihkan',
+                                'Muncul Konfirmasi pembayaran',
+                                'Masukkan otentikasi transaksi/token',
+                                'Transaksi selesai',
+                            ]}/>
+                        </Panel>
+
+                    </View> : null }
                     {/* ====== END INFORMASI ====== */}
                 
                 </ScrollView>
