@@ -76,6 +76,9 @@ class VAComponent extends React.Component {
                         </Grid>
                     </View>
                     {/* ======= End Information ========= */}
+                    <View style={Main.container}>
+                        <Text style={[Typography.singleTitle,{marginTop:15}]}>Tata Cara Pembayaran</Text>
+                    </View>
 
                     <View style={[Main.container, {paddingHorizontal: 0}]}>
                         <Panel title="Pembayaran Melalui ATM Permata" onClick={() => this.setState(prevState => ({collapse1: !prevState.collapse1}))} collapse={this.state.collapse1}>
