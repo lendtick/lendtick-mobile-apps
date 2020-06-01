@@ -183,7 +183,7 @@ class CreditDetailComponent extends React.Component {
         _.map(this.state.arrSelectedOffset,(x)=>{
             let objOffset = {
                 id_loan: x.id_loan,
-                unpaid_installment: x.origin_unpaid_installment,
+                unpaid_installment: x.sisa_saldo_pinjaman,
                 group: x.group
             };
             obj.loan_offsets.push(objOffset);
@@ -251,7 +251,7 @@ class CreditDetailComponent extends React.Component {
         _.map(this.state.arrSelectedOffset,(x)=>{
             let objOffset = {
                 id_loan: x.id_loan,
-                unpaid_installment: x.origin_unpaid_installment,
+                unpaid_installment: x.sisa_saldo_pinjaman,
                 group: x.group
             };
             obj.loan_offsets.push(objOffset);
@@ -271,7 +271,7 @@ class CreditDetailComponent extends React.Component {
             _.map(this.state.arrSelectedOffset,(x)=>{
                 let objOffset = {
                     id_loan: x.id_loan,
-                    unpaid_installment: x.origin_unpaid_installment,
+                    unpaid_installment: x.sisa_saldo_pinjaman,
                     group: x.group
                 };
                 loan_offsets.push(objOffset);
@@ -322,7 +322,7 @@ class CreditDetailComponent extends React.Component {
         _.map(this.state.arrSelectedOffset,(x)=>{
             let objOffset = {
                 id_loan: x.id_loan,
-                unpaid_installment: x.origin_unpaid_installment,
+                unpaid_installment: x.sisa_saldo_pinjaman,
                 group: x.group
             };
             obj.loan_offsets.push(objOffset);
