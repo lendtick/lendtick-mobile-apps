@@ -67,6 +67,7 @@ class PulsaComponent extends React.Component {
         phone = phone.replace(/-/g,'');
         phone = phone.replace(/ /g,'');
         if(d === 'default') {
+            // .substring(0,4) || phone.substring(0,11) || phone.substring(0,12)
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 if(res.data.length){
                     this.setState({
@@ -78,6 +79,7 @@ class PulsaComponent extends React.Component {
                 }
             });
         }
+
         if(phone.length === 4){
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 if(res.data.length){
@@ -200,7 +202,7 @@ class PulsaComponent extends React.Component {
         clearTimeout(this.state.timeout);
         this.state.timeout = setTimeout(() => {
             this.checkPhone(e);
-        }, 500);
+        }, 100);
     }
 
     componentWillUnmount() {
@@ -227,6 +229,7 @@ class PulsaComponent extends React.Component {
                                     this.chaneNumber(this.state.phoneNumber);
                                 }}
                                 value={this.state.phoneNumber}
+                                returnKeyType="done"
                             />
                         </View>
 
@@ -347,28 +350,28 @@ class PulsaComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return {
+    return {
         personal: state.personal
-	}
+    }
 }
 const mapDispatchToProps = (dispatch) => {
-	return {
+    return {
         updateDataPulsa: (e) =>{
             dispatch({
-				type: 'UPDATE_DATA_PULSA',
-				data: e
-			})
+                type: 'UPDATE_DATA_PULSA',
+                data: e
+            })
         },
         updatePhonePulsa: (e) =>{
             dispatch({
-				type: 'UPDATE_PHONE_PULSA',
-				phoneNumber: e
-			})
+                type: 'UPDATE_PHONE_PULSA',
+                phoneNumber: e
+            })
         }
-	}
+    }
 }
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(PulsaComponent)
