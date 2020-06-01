@@ -12,7 +12,7 @@ import personalAttrService from './personal-attr.service';
 
 class LoanComponent extends React.Component {
     static navigationOptions = ({navigation}) => ({
-        title: "Loan",
+        title: "Pinjaman Saya",
         headerTitleStyle: Variable.headerTitleStyle,
         headerStyle: {
             elevation:0,
@@ -142,11 +142,12 @@ class LoanComponent extends React.Component {
 
                     <ScrollView>
                         {/* ====== START STEP ====== */}
-                        <View style={{padding:15,paddingTop:30,paddingBottom:30}}>
+
+                        <View style={{padding:15,paddingTop:30,paddingBottom:30,backgroundColor: '#f8f8ff'}}>
                             <Grid>
                                 <Col>
                                     <View>
-                                        <View style={[styles.circleDetail,this.state.status > 1 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                        <View style={[styles.circleDetail,this.state.status == 1 ? {borderColor: '#1d92bd', opacity:1,borderStyle: 'solid'} : this.state.status > 1 ? {borderColor: Variable.colorPrimary, opacity:1,borderStyle: 'solid'} : {opacity:1,borderStyle: 'dotted'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>1</Text>
                                         </View>
                                         <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Pengajuan</Text>
@@ -154,7 +155,7 @@ class LoanComponent extends React.Component {
                                 </Col>
                                 <Col>
                                     <View>
-                                        <View style={[styles.circleDetail,this.state.status > 2 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                        <View style={[styles.circleDetail,this.state.status === 2 ? {borderColor: '#1d92bd', opacity:1,borderStyle: 'solid'} : this.state.status > 2 ? {borderColor: Variable.colorPrimary, opacity:1,borderStyle: 'solid'} : {opacity:1,borderStyle: 'dotted'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>2</Text>
                                         </View>
                                         <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval HRD</Text>
@@ -162,7 +163,7 @@ class LoanComponent extends React.Component {
                                 </Col>
                                 <Col>
                                     <View>
-                                        <View style={[styles.circleDetail,this.state.status > 3 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                        <View style={[styles.circleDetail,this.state.status === 3 ? {borderColor: '#1d92bd', opacity:1,borderStyle: 'solid'} : this.state.status > 3 ? {borderColor: Variable.colorPrimary, opacity:1,borderStyle: 'solid'} : {opacity:1,borderStyle: 'dotted'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>3</Text>
                                         </View>
                                         <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Approval KAI</Text>
@@ -170,7 +171,7 @@ class LoanComponent extends React.Component {
                                 </Col>
                                 <Col>
                                     <View>
-                                        <View style={[styles.circleDetail,this.state.status > 4 ? {opacity:1,borderStyle: 'solid'} : {borderColor: Variable.colorPrimary,opacity:1,borderStyle: 'solid'}]}>
+                                        <View style={[styles.circleDetail,this.state.status === 4 ? {borderColor: '#1d92bd', opacity:1,borderStyle: 'solid'} : this.state.status > 3 ? {borderColor: Variable.colorPrimary, opacity:1,borderStyle: 'solid'} : {opacity:1,borderStyle: 'dotted'}]}>
                                             <Text style={[styles.circleDetailText,Typography.singleText]}>4</Text>
                                         </View>
                                         <Text style={[Typography.singleText,{textAlign:'center',fontSize:10}]}>Konfirmasi</Text>
@@ -185,7 +186,7 @@ class LoanComponent extends React.Component {
                             <Text style={Typography.heading6}>Konfirmasi jumlah pinjaman</Text>
 
                             <Text style={Typography.singleText}>
-                                jumlah pinjaman yang anda ajukan sebelumnya {accounting.formatMoney(this.state.loan_request, "", 0, ",", ",")}, di approve hanya {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}
+                                Jumlah pinjaman yang anda ajukan sebelumnya {accounting.formatMoney(this.state.loan_request, "", 0, ",", ",")}, di approve hanya {accounting.formatMoney(this.state.loan_approved, "", 0, ",", ",")}
                             </Text>
                             {this.state.isConfirm ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Terima" onClick={()=> this.confrimLoan()} disabled={this.state.isSubmit} isSubmit={this.state.isSubmit}/></View> : null} 
                             {this.state.isConfirm ? <View style={{marginTop:15}}><ButtonComponent type="primary" text="Tolak" onClick={()=> this.setState(prevState => ({openPopup: !prevState.openPopup}))} disabled={this.state.isSubmitReject} isSubmit={this.state.isSubmitReject}/></View> : null} 
