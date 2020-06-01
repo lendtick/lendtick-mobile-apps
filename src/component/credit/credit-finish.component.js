@@ -43,7 +43,7 @@ class CreditFinishComponent extends Component {
                         <View style={{padding: 30, marginBottom: 50, backgroundColor: Variable.backgroundGray}}>
                             <Text style={Typography.heading5}>Berhasil Pengajuan pinjaman</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex.
+                                Pinjaman kamu berhasil diajukan.
                             </Text>
                         </View>
                         
