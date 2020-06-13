@@ -54,11 +54,7 @@ class detailHistoryOrderComponent extends Component {
         );
     };
 
-    renderVA(){
-
-    }
-
-    render() {
+    render() { 
         return (
             <View style={[styles.wrapper]}>
                 <ScrollView>
@@ -108,7 +104,6 @@ class detailHistoryOrderComponent extends Component {
                         <View>
                             <Text style={{fontFamily:Variable.fontLight, marginBottom:5}}>Metode Pembayaran</Text>
                             <Text style={{fontFamily:Variable.fontMedium, marginBottom:15}}>{this.state.payment.name_payment_type}</Text>
-                            {console.log(this.state.payment)}
                         </View>
                         {this.state.payment.name_payment_type === 'VA' ? 
                         <View style={{borderTopWidth:1,borderColor:'#efefef',paddingTop:15}}>
@@ -122,7 +117,6 @@ class detailHistoryOrderComponent extends Component {
                         </View>
                         : null}
                     </View>
-
                     {this.state.payment.id_payment_type == 'PAY003' ?
                     <View style={Main.container}>
                         <Text style={[Typography.singleTitle,{marginTop:15}]}>Tata Cara Pembayaran</Text>
@@ -141,7 +135,7 @@ class detailHistoryOrderComponent extends Component {
                                 'Masukkan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
                                 'Pilih rekening yang menjadi sumber dana yang akan didebet, lalu tekan YA untuk konfirmasi transaksi',
                             ]}/>
-                        </Panel>
+                        </Panel> 
                         <Panel title="Pembayaran Melalui ATM Prima" onClick={() => this.setState(prevState => ({collapse2: !prevState.collapse2}))} collapse={this.state.collapse2}>
                             <AlertBox type="info" text={[
                                 'Masukkan PIN',

@@ -71,15 +71,17 @@ class listHistoryOrderComponent extends Component {
                     data: res['data'].sort(compareValues('billing_date', 'desc')),
                     loading: false
                 });
-                // console.log(this.state.data)
+                console.log(this.state.data)
             }
             
         }, err =>{
+            // console.log('kesini');
             this.setState({loading: false});
             Alert.alert(
-                'Error',
-                'Pastikan koneksi tersambung, silakan coba lagi',
-                [{text: 'OK', onPress: () => this.fetchHistoryOrder()}],
+                'Peringatan',
+                'Data tidak ditemukan. pastikan koneksi anda tersambung, silakan coba lagi',
+                // , onPress: () => this.fetchHistoryOrder()
+                [{text: 'OK'}],
                 {cancelable: false},
             );
         });
@@ -151,6 +153,7 @@ class listHistoryOrderComponent extends Component {
                                         onClick={()=> this.props.navigation.navigate('DetailHistoryOrder',{
                                             detail:x.order_detail[0],
                                             date: x.date,
+                                            billing_date: x.billing_date,
                                             payment: x.order_payment[0],
                                             total: x.total_billing,
                                             status: {

@@ -16,6 +16,7 @@ import MiddleLoanComponent from '../component/personal-attr/middle-loan.componen
 import InitComponent from '../component/init/init.component';
 import walkThroughComponent from '../component/walkthrough/walkthrough.component';
 import AbotComponent from '../component/other/about.component';
+import AboutAppsComponent from '../component/other/aboutapp.component';
 import FAQComponent from '../component/other/faq.component';
 import QRCodeComponent from '../component/other/qrcode.component';
 import ContactComponent from '../component/other/contact.component';
@@ -98,6 +99,7 @@ const PersonalUser = createStackNavigator({
     PersonalUser: personalComponent,
     FAQ: FAQComponent,
     About: AbotComponent,
+    AboutApp: AboutAppsComponent,
     Contact: ContactComponent,
     QRCode: QRCodeComponent,
     GantiPassUser: GantiPassUserComponent,

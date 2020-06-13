@@ -42,13 +42,13 @@ class RegisterSuccessComponent extends Component {
                         <StatusBar barStyle="dark-content" />
                         
                         <View style={{padding: 30, marginBottom: 50, backgroundColor: Variable.backgroundGray}}>
-                            <Text style={Typography.heading5}>Terimakasih</Text>
+                            <Text style={Typography.heading5}>Sukses mendaftar</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex.
+                                Selamat kamu berhasil mendaftar, silahkan lakukan transfer melalui VA Permata yang dikirim melalui sms.
                             </Text>
                         </View>
                         
-                        <ButtonComponent type="primary" text="Kembali Login" onClick={()=> this.onSubmit()} disabled={false} isSubmit={false}/>
+                        <ButtonComponent type="primary" text="Login" onClick={()=> this.onSubmit()} disabled={false} isSubmit={false}/>
                     </View>
                 
                 </ScrollView>

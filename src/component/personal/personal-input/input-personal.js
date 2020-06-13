@@ -213,7 +213,6 @@ class InputPersonal extends React.Component {
                     placeholder="Masukan nama lengkap"
                     value={this.state.name}
                     onChange={(name) => this.setState({name})}/>
-
                 <InputComponent 
                     label="Tanggal Lahir"
                     iconName={null}
@@ -221,7 +220,7 @@ class InputPersonal extends React.Component {
                     placeholder="Masukan tanggal lahir"
                     isDate={true}
                     dateName="birth_date"
-                    value={moment(this.state.birth_date).format('ll')}
+                    value={this.state.birth_date}
                     onChange={(birth_date) => this.setState({birth_date})}/>
 
                 <InputComponent 

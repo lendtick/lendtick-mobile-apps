@@ -216,13 +216,29 @@ class personalComponent extends React.Component {
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>
                                     <View style={{flex: 1, flexDirection: 'row'}}>
-                                        <AntDesign name="profile" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
+                                        <AntDesign name="infocirlceo" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
                                         <Text style={Typography.singleText}>Tentang Koperasi Astra</Text>
                                     </View>
                                 </Col>
                                 <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
                             </Grid>
                         </TouchableHighlight>
+                        
+
+
+                        <TouchableHighlight onPress={()=>{this.props.navigation.navigate('AboutApp');}} underlayColor="transparent">
+                            <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
+                                <Col>
+                                    <View style={{flex: 1, flexDirection: 'row'}}>
+                                        <AntDesign name="mobile1" size={14} style={{marginRight: 10, top:2}} color={Variable.colorContent} />
+                                        <Text style={Typography.singleText}>Tentang Aplikasi </Text>
+                                    </View>
+                                </Col>
+                                <Col><AntDesign name="right" size={18} style={{textAlign:'right',top:-2}} color={Variable.colorContent} /></Col>
+                            </Grid>
+                        </TouchableHighlight>
+
+
                         <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Contact');}} underlayColor="transparent">
                             <Grid style={{padding:15, backgroundColor:'white',borderWidth:1,borderBottomWidth:0,borderColor:'#efefef'}}>
                                 <Col>

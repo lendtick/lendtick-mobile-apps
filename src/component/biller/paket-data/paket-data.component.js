@@ -1,9 +1,9 @@
 import React from 'react';
 import { View,Text,TouchableHighlight,ScrollView,TextInput,Image,Dimensions,ActivityIndicator } from 'react-native';
 import { Col, Grid } from "react-native-easy-grid";
-import { Contacts } from 'expo';
-import { LinearGradient } from 'expo-linear-gradient';
 import * as Permissions from 'expo-permissions';
+import * as Contacts from 'expo-contacts';
+import { LinearGradient } from 'expo-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image';
 import * as _ from 'lodash';
 import * as accounting from 'accounting';

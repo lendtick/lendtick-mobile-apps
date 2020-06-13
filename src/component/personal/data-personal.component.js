@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,ScrollView,Image,StyleSheet,ActivityIndicator,KeyboardAvoidingView } from 'react-native';
+import { Text,TouchableOpacity, View,ScrollView,Image,StyleSheet,ActivityIndicator,KeyboardAvoidingView } from 'react-native';
 import { Constants } from 'expo';
 import { LinearGradient } from 'expo-linear-gradient';
 import { connect } from 'react-redux';
@@ -84,7 +84,9 @@ class DataPersonalComponent extends React.Component {
                                 end={[1, 0]}
                             />
                             <View style={styles.wrapUser}></View>
-                            {this.state.imageProfile ? <Image style={styles.imgUser} source={{uri: this.state.imageProfile}} /> : <View style={[styles.imgUser,{borderWidth:1, borderColor:'#dfdfdf'}]}><ActivityIndicator size="small" color="#333" style={{top:38}}/></View>}
+                            {this.state.imageProfile ? <View><TouchableOpacity onPress={()=>console.log('Ubah Foto Profil')}><Image style={styles.imgUser} source={{uri: this.state.imageProfile}} /><Text></Text></TouchableOpacity></View> : <View style={[styles.imgUser,{borderWidth:1, borderColor:'#dfdfdf'}]}><ActivityIndicator size="small" color="#333" style={{top:38}}/></View>}
+
+                            
                         </View>
 
                         <Panel title="Personal Data" onClick={() => this.setState({collapse1: !this.state.collapse1})} collapse={this.state.collapse1}>

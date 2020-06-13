@@ -32,6 +32,7 @@ class TermComponent extends Component {
 
     onSubmit(){
         this.setState({isSubmit: true});
+        console.log(this.props.register.data);
         registerService.postRegister(this.props.register.data).then(res =>{
             console.log('res ==>', res)
             if(res.status){
@@ -69,7 +70,7 @@ class TermComponent extends Component {
                         <View style={{padding: 30, backgroundColor: Variable.backgroundGray}}>
                             <Text style={Typography.heading5}>Syarat & Ketentuan</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Dengan mencentang ini, Anda Setuju untuk memberikan data anda kepada Koperasi Astra International untuk digunakan sebagai syarat administrasi pendafataran anggota baru Koperasi Astra Internation. 
+                                Dengan mencentang ini, Anda Setuju untuk memberikan data anda kepada Koperasi Astra International untuk digunakan sebagai syarat administrasi pendafataran anggota baru Koperasi Astra International. 
                             </Text>
                             <Grid>
                                 <Col style={{width:35}}>

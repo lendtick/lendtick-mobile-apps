@@ -76,6 +76,7 @@ class OtpComponent extends Component {
             otp_number: this.state.otpNumber
         };
         registerService.postOtvValidate(data).then(res =>{
+            console.log(res);
             if(res.status){
                 this.setState({isSubmit: false});
                 this.props.navigation.navigate('RegisterSuccess');
@@ -137,7 +138,7 @@ class OtpComponent extends Component {
                             <View style={{padding: 30, backgroundColor: Variable.backgroundGray}}>
                                 <Text style={Typography.heading5}>Masukan kode OTP</Text>
                                 <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                    Lorem ipsum dolor sit amet, ad per quando oblique sensibus, ne nam antiopam elaboraret, ea integre docendi pertinax vel. Alterum reformidans mei ex.
+                                    Harap jangan beritahu kode OTP kepada orang lain.
                                 </Text>
                                 <View style={{flex: 1, flexDirection: 'row'}}>
                                     <Text style={[Typography.singleText]}>
@@ -158,6 +159,7 @@ class OtpComponent extends Component {
                                 autoFocus={false}
                                 ignoreCase={true}
                                 inputPosition='center'
+                                keyboardType="numeric"
                                 size={60}
                                 onFulfill={(isValid) => this._onFinishCheckingCode(isValid)}
                                 containerStyle={{ marginTop: 30 }}

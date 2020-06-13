@@ -102,7 +102,7 @@ class CreditDetailComponent extends React.Component {
             _.map(res['data'],(x)=>{
                 x.checked = false;
                 x.origin_unpaid_installment = x.unpaid_installment;
-                x.sisa_saldo_pinjaman = x.loan_approved - x.installments;
+                x.sisa_saldo_pinjaman = x.unpaid_installment;
                 x.sisa_saldo_pinjaman_formated = "Rp " + accounting.formatMoney(x.sisa_saldo_pinjaman, "", 0, ",", ",");
                 x.installments = "Rp " + accounting.formatMoney(x.installments, "", 0, ",", ",");
                 x.loan_approved = "Rp " + accounting.formatMoney(x.loan_approved, "", 0, ",", ","); 

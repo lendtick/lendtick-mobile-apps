@@ -675,4 +675,28 @@ export default personalService = {
         return promiseObj;
     },
 
+    // ======================= //
+    // Update profile
+    // ======================= //
+    putChangePassword: (data) =>{
+        const promiseObj = new Promise(function(resolve, reject){
+            AsyncStorage.getItem('token').then((token)=>{
+                fetch(API.auth + '/profile/change-password', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                .then(response => response.json())
+                .then(json => resolve(json))
+                .catch(err => {
+                    reject(err);
+                });
+            });
+        });
+        return promiseObj;
+    },
+
 };

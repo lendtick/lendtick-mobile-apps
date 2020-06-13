@@ -25,6 +25,7 @@ import { Provider } from 'react-redux';
 import { store } from '@services/store';
 import { rooter } from '@services/rooter';
 import { createSwitchNavigator } from 'react-navigation';
+// import * as Sentry from 'sentry-expo';
 YellowBox.ignoreWarnings(['Warning: ...']);
 
 // global.XMLHttpRequest = global.originalXMLHttpRequest
@@ -39,6 +40,13 @@ YellowBox.ignoreWarnings(['Warning: ...']);
 // if (window.__FETCH_SUPPORT__) {
 // 	window.__FETCH_SUPPORT__.blob = false
 // }
+
+// Sentry.init({
+//   dsn: 'https://0e1b57b2048e42f4b3fe74c41c03dc6a@o281169.ingest.sentry.io/5260568', 
+//   enableInExpoDevelopment: true,
+//   debug: true,
+// });
+
 export default class App extends React.Component {
 	render() {
 		return (

@@ -8,6 +8,7 @@ import { FooterButton,Modal,ButtonComponent,InputComponent,AlertBox } from '@dir
 import { Main,Typography,Variable } from '@styles';
 import { styles } from './bpjs.style';
 import { LinearGradient } from 'expo-linear-gradient';
+import { CheckBox } from 'react-native-elements'; 
 
 import billerService from '../biller.service';
 
@@ -146,6 +147,7 @@ class BpjsComponent extends React.Component {
     render() {
         return (
             <View style={styles.wrapper}>
+
                 <View style={{padding:15}} removeClippedSubviews={false}>
                     <InputComponent 
                         label={'Nomor BPJS Kesehatan'}
@@ -154,11 +156,13 @@ class BpjsComponent extends React.Component {
                         placeholder="Masukan nomor BPJS"
                         value={this.state.bpjsNumber}
                         onChange={(bpjsNumber) => this.setState({bpjsNumber})}/>
+  
                     <InputComponent 
                         label={'Bayar Untuk Bulan Berjalan'}
                         iconName={null}
                         value={this.state.bpjsMonthFullString}/>
                     <ButtonComponent type="primary" text={'Cek Tagihan'} onClick={()=> this.fetchBiller()} disabled={this.state.isSubmitToken || this.state.token == ''} isSubmit={this.state.isSubmitToken} />
+                    
                 </View>
                 <Image style={styles.line} source={require('@assets/img/bg/line.png')} />
                 <ScrollView style={{backgroundColor: Variable.backgroundGray}}>

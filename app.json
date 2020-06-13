@@ -3,7 +3,6 @@
     "name": "koperasiastra",
     "slug": "koperasiastra",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android"
