@@ -34,7 +34,7 @@ class PaketDataConfirmation extends React.Component {
             biller_id: this.props.paketData.data.billersIdPaketData,
             bill_id: this.props.paketData.data.bill_id,
             billertrx:1,
-            biller_name: this.props.paketData.data.title,
+            biller_name: this.props.paketData.data.title.split('-')[0].trim() || '',
             bill_details: this.props.paketData.data.descriptions,
             quantity: 1,
             sell_price: this.props.paketData.data.total,
@@ -62,17 +62,14 @@ class PaketDataConfirmation extends React.Component {
             <View style={[styles.wrapper,{backgroundColor: Variable.backgroundGray}]}>
                 <ScrollView>
                     {/* ====== START INFORMASI ====== */}
+                    {console.log(this.props.paketData.data)}
                     <View style={[Main.container]}>
                         <Text style={[Typography.singleTitle,{marginTop:15}]}>Informasi</Text>
                     </View>
                     <View style={[Main.wrapInfo,{paddingBottom:5,marginTop:0}]}>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.data.title}</Text>
-                        </View>
-                        {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
-                            <Text style={[Typography.singleText,{marginBottom:5}]}>Deskripsi</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.data.descriptions}</Text>
-                        </View> */}
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.data.title.split('-')[0].trim() || ''}</Text>
+                        </View> 
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={[Typography.singleText,{marginBottom:5}]}>Phone Number</Text>
                             <Text style={[Typography.label,{marginBottom:15}]}>{this.props.paketData.phoneNumber}</Text>

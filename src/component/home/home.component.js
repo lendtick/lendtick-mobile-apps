@@ -122,6 +122,7 @@ class HomeComponent extends React.Component {
 
     fetchBalance(){
         homeService.getBalance().then(res =>{
+            console.log(res.data);
             this.setState({
                 saldo: res.data.balance,
             });

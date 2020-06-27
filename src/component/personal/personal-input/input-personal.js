@@ -53,6 +53,7 @@ class InputPersonal extends React.Component {
     fetchUser(){
         personalService.getInfoUser().then(res =>{
             let dataUser = res['data'];
+
             this.props.setGetData(dataUser);
         }, err =>{
             this.setState({loading: false});
@@ -177,7 +178,7 @@ class InputPersonal extends React.Component {
             isSubmit: true,
             isSuccess: false
         });
-        console.log('data ==>', data);
+        // console.log('data ==>', data);
         personalService.putUpdateProfile(data).then(res =>{
             this.setState({
                 isSubmit: false,
@@ -194,7 +195,7 @@ class InputPersonal extends React.Component {
         })
     }
 
-    render() { 
+    render() {
         return(
             <View>
                 <InputComponent 
@@ -220,7 +221,7 @@ class InputPersonal extends React.Component {
                     placeholder="Masukan tanggal lahir"
                     isDate={true}
                     dateName="birth_date"
-                    value={this.state.birth_date}
+                    value={moment(this.state.birth_date).format('ll')}
                     onChange={(birth_date) => this.setState({birth_date})}/>
 
                 <InputComponent 

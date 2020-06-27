@@ -190,7 +190,7 @@ class ListrikComponent extends React.Component {
                                     ))
                                 :
                                     <View>
-                                        <AlertBox type={'warning'} title={'Pemberitahuan!'} text={this.state.resMsg}/>
+                                        {/* <AlertBox type={'warning'} title={'Pemberitahuanwwww!'} text={this.state.resMsg}/> */}
                                         <Grid>
                                             {this.state.billersdetailtemp.map((row, k)=>(
                                                 <Row key={k}>

@@ -195,15 +195,16 @@ class GantiPassComponent extends Component {
                             label="Password lama"
                             iconName={this.state.hidePassword ? "eye" : "eye"}
                             placeholder="Masukan password lama"
-                            secureTextEntry={true}
+                            secureTextEntry={this.state.hidePassword}
                             value={this.state.oldPassword}
                             onClickIcon={() => this.clickIconPassword()}
                             onChange={(oldPassword) => this.setState({oldPassword})}/>
+                                
                         <InputComponent 
                             label="Password Baru"
                             iconName={this.state.hideNewPassword ? "eye" : "eye"}
                             placeholder="Masukan password baru"
-                            secureTextEntry={true}
+                            secureTextEntry={this.state.hideNewPassword}
                             value={this.state.Password}
                             onClickIcon={() => this.clickIconNewPassword()}
                             onChange={(e) => this.setPassword(e)}/>
@@ -212,7 +213,7 @@ class GantiPassComponent extends Component {
                             label="Konfirmasi Password"
                             iconName={this.state.hideConfirmNewPassword ? "eye" : "eye"}
                             placeholder="Masukan konfirmasi password"
-                            secureTextEntry={true}
+                            secureTextEntry={this.state.hideConfirmNewPassword}
                             value={this.state.Repassword}
                             onClickIcon={() => this.clickIconConfirmNewPassword()}
                             onChange={(e) => this.setConfirmPassword(e)}/>

@@ -44,7 +44,8 @@ class RegisterSuccessComponent extends Component {
                         <View style={{padding: 30, marginBottom: 50, backgroundColor: Variable.backgroundGray}}>
                             <Text style={Typography.heading5}>Sukses mendaftar</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Selamat kamu berhasil mendaftar, silahkan lakukan transfer melalui VA Permata yang dikirim melalui sms.
+                            Selamat kamu berhasil mendaftar. mohon untuk menunggu approval dari hrd & admin keanggotaan kai
+                            untuk mendapatkan Nomor VA Permata yang akan dikirim melalui sms. Dan silahkan lakukan transfer melalui VA Permata yang telah terkirim
                             </Text>
                         </View>
                         

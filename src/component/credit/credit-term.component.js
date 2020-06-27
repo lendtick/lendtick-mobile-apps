@@ -36,7 +36,7 @@ class CreditTermComponent extends Component {
         this.setState({
             tnc:  {
                 'title': 'Syarat & Ketentuan',
-                'body': 'Suku bunga dapat berubah sesuai dengan kebijaksanaan penguru KAI dan akan berlaku untuk penempatan yang dilakukan mulain tanggal efektif perubahan suku bunga tersebut. ',
+                'body': 'Suku bunga dapat berubah sesuai dengan kebijaksanaan pengurus KAI dan akan berlaku untuk penempatan yang dilakukan mulai tanggal efektif perubahan suku bunga tersebut. ',
                 'link': 'http://www.koperasi-astra.com/product/simpanan'
             }
         })

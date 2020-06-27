@@ -26,9 +26,9 @@ class AboutAppsComponent extends React.Component {
                 <ScrollView>
                     <View style={[Main.container,{marginTop: 15,paddingBottom: 15}]}>                        
                         <View style={{padding: 30, backgroundColor: Variable.backgroundGray}}>
-                            <Text style={Typography.heading5}>Tentang Aplikasi Astra</Text>
+                            <Text style={Typography.heading5}>Versi Aplkasi</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                v1.12.6-20
+                                v1.18.6-20
                             </Text>
                         </View>                    
                     </View>

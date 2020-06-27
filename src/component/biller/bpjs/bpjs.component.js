@@ -111,7 +111,17 @@ class BpjsComponent extends React.Component {
                         });
                     }
                     this.selectBiller(billdetails[0]);
+                } else if (res.data.response.responsecode == '5560') {
+                    
+                    this.setState({
+                        resMsg: 'Nomor BPJS yang anda masukkan salah/tidak terdaftar',
+                        alertMsg: 'Nomor BPJS yang anda masukkan salah/tidak terdaftar',
+                        isSubmitToken: false,
+                        alertCondition:true
+                    });
+                    
                 } else {
+                    
                     this.setState({
                         resMsg: res.data.response.responsemsg,
                         alertMsg: res.data.system_message,

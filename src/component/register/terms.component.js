@@ -70,7 +70,7 @@ class TermComponent extends Component {
                         <View style={{padding: 30, backgroundColor: Variable.backgroundGray}}>
                             <Text style={Typography.heading5}>Syarat & Ketentuan</Text>
                             <Text style={[Typography.singleText,{marginBottom:15}]}>
-                                Dengan mencentang ini, Anda Setuju untuk memberikan data anda kepada Koperasi Astra International untuk digunakan sebagai syarat administrasi pendafataran anggota baru Koperasi Astra International. 
+                                Dengan mencentang ini, Anda Setuju untuk memberikan data anda kepada Koperasi Astra International untuk digunakan sebagai syarat administrasi pendaftaran anggota baru Koperasi Astra International. 
                             </Text>
                             <Grid>
                                 <Col style={{width:35}}>

@@ -99,7 +99,7 @@ class PinjamanComponent extends React.Component {
                                 payment: this.state.payment
                             })} underlayColor="transparent">
                                 <Grid style={styles.itemPinjaman}>
-                                    <Col style={{width:40,borderRightWidth:1,borderColor:'#f0f0f0'}}>
+                                    <Col style={{width:60,borderRightWidth:1,borderColor:'#f0f0f0'}}>
                                         <Text style={[Typography.heading6,{padding:15,textAlign:'center'}]}>{i + 1}</Text>
                                     </Col>
                                     <Col>

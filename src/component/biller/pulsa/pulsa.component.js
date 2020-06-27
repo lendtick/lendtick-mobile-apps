@@ -67,7 +67,7 @@ class PulsaComponent extends React.Component {
         phone = phone.replace('+62',0);
         phone = phone.replace(/-/g,'');
         phone = phone.replace(/ /g,'');
-        if(d === 'default') {
+        if(d === 'default' ||  phone.length > 3) {
             // .substring(0,4) || phone.substring(0,11) || phone.substring(0,12)
             billerService.getInfoPhone(phone.substring(0,4)).then(res =>{
                 if(res.data.length){

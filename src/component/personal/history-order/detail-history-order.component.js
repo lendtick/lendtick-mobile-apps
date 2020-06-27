@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import * as accounting from 'accounting';
 import { AlertBox,ButtonComponent, Panel } from '@directives';
 import { styles } from './history-order.style';
+import Moment from 'moment';
 
 class detailHistoryOrderComponent extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -23,12 +24,13 @@ class detailHistoryOrderComponent extends Component {
         this.state = {
             detail: null,
             date: null,
+            billing_date : null ,
             payment: null,
             total: null,
             status: null,
             billDetails:[]
         };
-    }
+    } 
 
     componentWillMount() {
         const { navigation } = this.props;
@@ -36,6 +38,7 @@ class detailHistoryOrderComponent extends Component {
             billDetails:JSON.parse(navigation.state.params.detail.bill_details),
             detail: navigation.state.params.detail,
             date: navigation.state.params.date,
+            billing_date : Moment(navigation.state.params.billing_date).format("DD MMM YYYY, hh:mm:ss"),
             payment: navigation.state.params.payment,
             status: navigation.state.params.status,
             total: navigation.state.params.total,
@@ -59,9 +62,11 @@ class detailHistoryOrderComponent extends Component {
             <View style={[styles.wrapper]}>
                 <ScrollView>
                     {/* ====== START INFORMASI ====== */}
+                    {console.log(this.state)}
                     <View style={[Main.wrapInfo,{paddingBottom:5,marginTop:5,marginBottom:10}]}>
                         <Text style={{fontFamily:Variable.fontLight}}>Status</Text>
                         <Text style={this.state.status.id_workflow_status == "ODSTS01" ? styles.singleStatusWarning : styles.singleStatusSuccess}>{this.state.status.workflow_status_name}</Text>
+                        
                     </View>
                     <View style={[Main.wrapInfo,{paddingBottom:5,marginTop:0,marginBottom:10}]}>
                         {/* <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
@@ -69,7 +74,7 @@ class detailHistoryOrderComponent extends Component {
                         </View> */}
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={{fontFamily:Variable.fontLight}}>Tanggal Transaksi</Text>
-                            <Text style={[Typography.label,{marginBottom:15}]}>{this.state.date}</Text>
+                            <Text style={[Typography.label,{marginBottom:15}]}>{this.state.billing_date}</Text>
                         </View>
                         <View style={{borderBottomWidth:1,borderColor:'#efefef', marginBottom:15}}>
                             <Text style={{fontFamily:Variable.fontLight}}>Jenis Transaksi</Text>
@@ -125,7 +130,7 @@ class detailHistoryOrderComponent extends Component {
 
                     {this.state.payment.id_payment_type == 'PAY003' ?
                     <View style={[Main.container, {paddingHorizontal: 0}]}>
-                        <Panel title="Pembayaran Melalui ATM Permata" onClick={() => this.setState(prevState => ({collapse1: !prevState.collapse1}))} collapse={this.state.collapse1}>
+                        <Panel title="ATM Permata" onClick={() => this.setState(prevState => ({collapse1: !prevState.collapse1}))} collapse={this.state.collapse1}>
                             <AlertBox type="info" text={[
                                 'Masukkan PIN',
                                 'Pilih menu TRANSAKSI LAINNYA',
@@ -136,51 +141,33 @@ class detailHistoryOrderComponent extends Component {
                                 'Pilih rekening yang menjadi sumber dana yang akan didebet, lalu tekan YA untuk konfirmasi transaksi',
                             ]}/>
                         </Panel> 
-                        <Panel title="Pembayaran Melalui ATM Prima" onClick={() => this.setState(prevState => ({collapse2: !prevState.collapse2}))} collapse={this.state.collapse2}>
+                        <Panel title="Mobile Internet" onClick={() => this.setState(prevState => ({collapse2: !prevState.collapse2}))} collapse={this.state.collapse2}>
                             <AlertBox type="info" text={[
-                                'Masukkan PIN',
-                                'Pilih menu TRANSAKSI LAINNYA',
-                                'Pilih menu KE REK BANK LAIN',
-                                'Masukkan kode sandi Bank Permata (013) kemudian tekan BENAR',
-                                'Masukkan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
-                                'Masukkan jumlah pembayaran sesuai dengan yang ditagihkan dalam halaman konfirmasi',
-                                'Pilih BENAR untuk menyetujui transaksi tersebut',
+                                'Masukan User ID & Password',
+                                'Pilih Pembayaran Tagihan',
+                                'Pilih virtual account',
+                                'Input nomor virtual account ',
+                                'Input nominal pembayaran ',
+                                'Apabila data sudah sesuai masukan otentikasi transaksi/Token'
                             ]}/>
                         </Panel>
-                        <Panel title="Pembayaran Melalui ATM Bersama" onClick={() => this.setState(prevState => ({collapse3: !prevState.collapse3}))} collapse={this.state.collapse3}>
+                        <Panel title="Permata Net / Manual Payment :" onClick={() => this.setState(prevState => ({collapse3: !prevState.collapse3}))} collapse={this.state.collapse3}>
                             <AlertBox type="info" text={[
-                                'Masukkan PIN',
-                                'Pilih menu TRANSAKSI',
-                                'Pilih menu KE REK BANK LAIN',
-                                'Masukkan kode sandi Bank Permata (013) diikuti dengan nomor VIRTUAL ACCOUNT yang tertera pada halaman konfirmasi, dan tekan BENAR',
-                                'Masukkan jumlah pembayaran sesuai dengan yang ditagihkan dalam halaman konfirmasi',
-                                'Pilih BENAR untuk menyetujui transaksi tersebut',
-                            ]}/>
-                        </Panel>
-                        <Panel title="Pembayaran Melalui Permata Mobile" onClick={() => this.setState(prevState => ({collapse4: !prevState.collapse4}))} collapse={this.state.collapse4}>
-                            <AlertBox type="info" text={[
-                                'Buka aplikasi PermataMobile Internet (Android/iPhone)',
-                                'Masukkan User ID & Password',
+                                'Masukan User ID & Password',
                                 'Pilih Pembayaran Tagihan',
                                 'Pilih Virtual Account',
-                                'Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi',
-                                'Masukkan nominal pembayaran sesuai dengan yang ditagihkan',
-                                'Muncul Konfirmasi pembayaran',
-                                'Masukkan otentikasi transaksi/token',
-                                'Transaksi selesai',
+                                'Input nomor virtual account ',
+                                'Input nominal pembayaran',
+                                'Apabila data sudah sesuai masukan Otentikasi transaksi/Token'
                             ]}/>
                         </Panel>
-                        <Panel title="Pembayaran Melalui Permata Net" onClick={() => this.setState(prevState => ({collapse5: !prevState.collapse5}))} collapse={this.state.collapse5}>
+                        <Panel title="ATM bersama, Prima dan ALTO :" onClick={() => this.setState(prevState => ({collapse4: !prevState.collapse4}))} collapse={this.state.collapse4}>
                             <AlertBox type="info" text={[
-                                'Buka website PermataNet: https://new.permatanet.com',
-                                'Masukkan user ID & Password',
-                                'Pilih Pembayaran Tagihan',
-                                'Pilih Virtual Account',
-                                'Masukkan 16 digit nomor Virtual Account yang tertera pada halaman konfirmasi',
-                                'Masukkan nominal pembayaran sesuai dengan yang ditagihkan',
-                                'Muncul Konfirmasi pembayaran',
-                                'Masukkan otentikasi transaksi/token',
-                                'Transaksi selesai',
+                                'Pilih menu Transfer',
+                                'Pilih Transfer ke Bank Lain ',
+                                'Jika melalui ATM Bersama & Alto Input kode PermataBank (013)+kode Prefix (8641)  +12 digit kode bayar Jika melalui ATM Prima :Masukan kode PermataBank(013)tekan BENAR, dilanjutkan dengan kode Prefix (8641) +12 digit kode bayar',
+                                'Input nominal pembayaran ',
+                                'Pada layar akan tampil konfirmasi Nama & Nominal Pembayaran',
                             ]}/>
                         </Panel>
 

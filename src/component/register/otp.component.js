@@ -145,7 +145,7 @@ class OtpComponent extends Component {
                                         Kode expired dalam
                                     </Text>
                                     <Text style={[Typography.singleText,{marginLeft: 5, color: Variable.colorPrimary, fontWeight: 'bold'}]}>
-                                        {this.state.countdown}
+                                        {(this.state.countdown <= 0 ? '0' :  this.state.countdown )}
                                     </Text>
                                 </View>
                             </View>

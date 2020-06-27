@@ -98,6 +98,8 @@ class MicroloanPayment extends React.Component {
         };
 
         this.setState({isSubmit: true});
+
+        console.log(obj);
         paymentService.postOrder(obj).then(res =>{
             console.log(res.data);
             if (!res.status || res.status == 0) {
