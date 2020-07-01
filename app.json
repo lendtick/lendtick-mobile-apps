@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "koperasiastra",
-    "slug": "koperasiastra",
+    "name": "koperasiastrastaging",
+    "slug": "koperasiastrastaging",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -21,10 +21,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.koperasiAstra.koperasiastra"
+      "bundleIdentifier": "com.koperasiAstra.koperasiastrastaging"
     },
     "android": {
-      "package": "com.koperasiAstra.koperasiastra",
+      "package": "com.koperasiAstra.koperasiastrastaging",
       "versionCode": 9
     },
     "notification": {
@@ -37,6 +37,6 @@
     },
     "entryPoint": "node_modules/expo/AppEntry.js"
   },
-  "displayName": "koperasiastra",
-  "name": "koperasiastra"
+  "displayName": "koperasiastrastaging",
+  "name": "koperasiastrastaging"
 }
