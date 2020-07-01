@@ -7,11 +7,11 @@
 // };
 
 var API = {
-    auth: "https://commerce-kai-user.azurewebsites.net",    
-    notif: "https://commerce-kai-notification.azurewebsites.net",
-    hostLoan: "https://commerce-kai-loan.azurewebsites.net",
-    finance: "http://13.67.41.162",
-    content: "https://commerce-kai-content.azurewebsites.net",
+    auth: "https://commerce-kai-user-staging.azurewebsites.net",    
+    notif: "https://commerce-kai-notification-staging.azurewebsites.net",
+    hostLoan: "https://commerce-kai-loan-staging.azurewebsites.net",
+    finance: "http://13.76.229.194",
+    content: "https://commerce-kai-content-staging.azurewebsites.net",
 };
 
 export {API};
